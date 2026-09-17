@@ -1,0 +1,27 @@
+﻿DELIVERY CONFIRMATION RECORD
+============================
+
+Carrier:            Northwind Freight
+Consignment:        NW-742-DEL
+Purchase order:     #742
+Supplier:           Supplier Atlas
+Buyer:              Meridian Instruments
+Milestone:          DELIVERY CONFIRMED
+Delivered on:       2026-09-14
+Signed for by:      R. Okonkwo, Receiving
+Condition:          intact, no exceptions noted
+Line items:         4 of 4 received in full
+Quantity check:     matched against purchase order exactly
+Damage report:      none
+Temperature log:    within specified range for the whole transit
+Return request:     none
+Dispute raised:     none
+
+Notes
+-----
+All four pallets were received on the dock at 09:42 local time and checked
+against the purchase order line by line. The seal numbers on every pallet
+matched those recorded at dispatch. No shortages and no overages were found.
+
+This record is the evidence snapshot referenced by purchase order #742.
+It is static: the content does not change after the milestone is recorded.

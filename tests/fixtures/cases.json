@@ -1,0 +1,97 @@
+{
+  "about": "The settlement corpus. Nine cases must be refused and four must be released. The release cases are what stop a guard that simply refuses everything from passing.",
+  "generatedBy": "authored; metrics for these cases are produced by `npm run proof`",
+  "cases": [
+    {
+      "id": "valid-finalization",
+      "title": "A committed escrow, a decision readable in final state, an approving verdict",
+      "invariant": "A settlement that satisfies every guard is released",
+      "expected": "SETTLE",
+      "expectedCode": null
+    },
+    {
+      "id": "valid-second-action",
+      "title": "A second, unrelated action to the same beneficiary with its own nonce",
+      "invariant": "One action settling does not settle another",
+      "expected": "SETTLE",
+      "expectedCode": null
+    },
+    {
+      "id": "valid-after-appeal-window",
+      "title": "An action funded while the decision was still provisional, settled after it became final",
+      "invariant": "Waiting is possible: the same escrow settles once finality arrives",
+      "expected": "SETTLE",
+      "expectedCode": null
+    },
+    {
+      "id": "accepted-not-final",
+      "title": "The decision is readable in provisional state only; the appeal window is open",
+      "invariant": "No value moves while the judgement can still be overturned",
+      "expected": "REFUSE",
+      "expectedCode": "DECISION_NOT_FINAL"
+    },
+    {
+      "id": "appeal-overturned",
+      "title": "The provisional scope reports APPROVE; the final scope reports REJECT",
+      "invariant": "The authority is the final record, not the provisional one",
+      "expected": "REFUSE",
+      "expectedCode": "VERDICT_NOT_APPROVE"
+    },
+    {
+      "id": "wrong-recipient",
+      "title": "The caller names a different beneficiary than the recorded commitment",
+      "invariant": "An identifier is not an authority: the terms must match",
+      "expected": "REFUSE",
+      "expectedCode": "COMMITMENT_MISMATCH"
+    },
+    {
+      "id": "wrong-amount",
+      "title": "The caller names a different amount than the recorded commitment",
+      "invariant": "The amount is part of the commitment",
+      "expected": "REFUSE",
+      "expectedCode": "COMMITMENT_MISMATCH"
+    },
+    {
+      "id": "wrong-policy",
+      "title": "The caller names a different policy hash than the recorded commitment",
+      "invariant": "The policy a decision was made against cannot be substituted",
+      "expected": "REFUSE",
+      "expectedCode": "COMMITMENT_MISMATCH"
+    },
+    {
+      "id": "wrong-evidence",
+      "title": "The caller names a different evidence digest than the recorded commitment",
+      "invariant": "The evidence the judgement rests on cannot be substituted",
+      "expected": "REFUSE",
+      "expectedCode": "COMMITMENT_MISMATCH"
+    },
+    {
+      "id": "replay",
+      "title": "A settled escrow presented a second time",
+      "invariant": "A commitment is spent at most once",
+      "expected": "REFUSE",
+      "expectedCode": "ALREADY_SETTLED"
+    },
+    {
+      "id": "duplicate-message",
+      "title": "The same settlement instruction delivered twice before the escrow state is updated",
+      "invariant": "The nonce, not the message count, decides",
+      "expected": "REFUSE",
+      "expectedCode": "REPLAY_BLOCKED"
+    },
+    {
+      "id": "expiry",
+      "title": "A funded escrow presented after its deadline",
+      "invariant": "An authorization has a lifetime",
+      "expected": "REFUSE",
+      "expectedCode": "EXPIRED"
+    },
+    {
+      "id": "rejected-decision",
+      "title": "A final decision whose verdict is REJECT",
+      "invariant": "Finality plus acceptance is the authority; either alone is not enough",
+      "expected": "REFUSE",
+      "expectedCode": "VERDICT_NOT_APPROVE"
+    }
+  ]
+}

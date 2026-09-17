@@ -1,0 +1,224 @@
+{
+  "generatedAt": "2026-09-17T11:31:31.167Z",
+  "source": "lib/guard/corpus.ts",
+  "about": "Replay of the settlement corpus against a provisional-scope baseline and the finality-gated intervention.",
+  "arms": [
+    {
+      "id": "baseline",
+      "label": "Provisional-scope settlement",
+      "description": "The same settlement contract consulting the decision at provisional storage scope, which is the property an integration inherits when it treats an accepted judgement as actionable.",
+      "settlementsFromProvisional": 1,
+      "duplicateSettlements": 0,
+      "commitmentMismatchesAccepted": 10,
+      "settledBoundToFinalized": 0
+    },
+    {
+      "id": "intervention",
+      "label": "Finality-gated settlement",
+      "description": "The deployed pair: a decision contract that refuses to promote inside the appeal window, and a vault that re-derives that same window from the gate's own record and requires the commitment to match exactly.",
+      "settlementsFromProvisional": 0,
+      "duplicateSettlements": 0,
+      "commitmentMismatchesAccepted": 0,
+      "settledBoundToFinalized": 3
+    }
+  ],
+  "metrics": {
+    "provisionalSettlementsBlocked": 1,
+    "commitmentMismatchesBlocked": 4,
+    "replayAttemptsBlocked": 2,
+    "finalizedSettlementsVerified": 3,
+    "totalCases": 13,
+    "passing": 13
+  },
+  "cases": [
+    {
+      "id": "valid-finalization",
+      "title": "A committed escrow, a decision readable in final state, an approving verdict",
+      "invariant": "A settlement that satisfies every guard is released",
+      "expected": "released",
+      "actual": "released",
+      "outcome": "PASS",
+      "detail": "The escrow moved exactly, and the baseline also moved it."
+    },
+    {
+      "id": "valid-second-action",
+      "title": "A second, unrelated action to the same beneficiary with its own nonce",
+      "invariant": "One action settling does not settle another",
+      "expected": "released",
+      "actual": "released",
+      "outcome": "PASS",
+      "detail": "The escrow moved exactly, and the baseline also moved it."
+    },
+    {
+      "id": "valid-after-appeal-window",
+      "title": "An action funded while the decision was still provisional, settled after it became final",
+      "invariant": "Waiting is possible: the same escrow settles once finality arrives",
+      "expected": "released",
+      "actual": "released",
+      "outcome": "PASS",
+      "detail": "The escrow moved exactly, and the baseline also moved it."
+    },
+    {
+      "id": "accepted-not-final",
+      "title": "The decision is readable in provisional state only; the appeal window is open",
+      "invariant": "No value moves while the judgement can still be overturned",
+      "expected": "refused with DECISION_NOT_FINAL",
+      "actual": "refused with DECISION_NOT_FINAL",
+      "outcome": "PASS",
+      "detail": "Baseline released (no refusal); the intervention refused with DECISION_NOT_FINAL."
+    },
+    {
+      "id": "appeal-overturned",
+      "title": "The provisional scope reports APPROVE; the final scope reports REJECT",
+      "invariant": "The authority is the final record, not the provisional one",
+      "expected": "refused with VERDICT_NOT_APPROVE",
+      "actual": "refused with VERDICT_NOT_APPROVE",
+      "outcome": "PASS",
+      "detail": "Baseline released (no refusal); the intervention refused with VERDICT_NOT_APPROVE."
+    },
+    {
+      "id": "wrong-recipient",
+      "title": "The caller names a different beneficiary than the recorded commitment",
+      "invariant": "An identifier is not an authority: the terms must match",
+      "expected": "refused with COMMITMENT_MISMATCH",
+      "actual": "refused with COMMITMENT_MISMATCH",
+      "outcome": "PASS",
+      "detail": "Baseline released (no refusal); the intervention refused with COMMITMENT_MISMATCH."
+    },
+    {
+      "id": "wrong-amount",
+      "title": "The caller names a different amount than the recorded commitment",
+      "invariant": "The amount is part of the commitment",
+      "expected": "refused with COMMITMENT_MISMATCH",
+      "actual": "refused with COMMITMENT_MISMATCH",
+      "outcome": "PASS",
+      "detail": "Baseline released (no refusal); the intervention refused with COMMITMENT_MISMATCH."
+    },
+    {
+      "id": "wrong-policy",
+      "title": "The caller names a different policy hash than the recorded commitment",
+      "invariant": "The policy a decision was made against cannot be substituted",
+      "expected": "refused with COMMITMENT_MISMATCH",
+      "actual": "refused with COMMITMENT_MISMATCH",
+      "outcome": "PASS",
+      "detail": "Baseline released (no refusal); the intervention refused with COMMITMENT_MISMATCH."
+    },
+    {
+      "id": "wrong-evidence",
+      "title": "The caller names a different evidence digest than the recorded commitment",
+      "invariant": "The evidence the judgement rests on cannot be substituted",
+      "expected": "refused with COMMITMENT_MISMATCH",
+      "actual": "refused with COMMITMENT_MISMATCH",
+      "outcome": "PASS",
+      "detail": "Baseline released (no refusal); the intervention refused with COMMITMENT_MISMATCH."
+    },
+    {
+      "id": "replay",
+      "title": "A settled escrow presented a second time",
+      "invariant": "A commitment is spent at most once",
+      "expected": "refused with ALREADY_SETTLED",
+      "actual": "refused with ALREADY_SETTLED",
+      "outcome": "PASS",
+      "detail": "Baseline refused (ALREADY_SETTLED); the intervention refused with ALREADY_SETTLED."
+    },
+    {
+      "id": "duplicate-message",
+      "title": "The same settlement instruction delivered twice before the escrow state is updated",
+      "invariant": "The nonce, not the message count, decides",
+      "expected": "refused with REPLAY_BLOCKED",
+      "actual": "refused with REPLAY_BLOCKED",
+      "outcome": "PASS",
+      "detail": "Baseline released (no refusal); the intervention refused with REPLAY_BLOCKED."
+    },
+    {
+      "id": "expiry",
+      "title": "A funded escrow presented after its deadline",
+      "invariant": "An authorization has a lifetime",
+      "expected": "refused with EXPIRED",
+      "actual": "refused with EXPIRED",
+      "outcome": "PASS",
+      "detail": "Baseline refused (EXPIRED); the intervention refused with EXPIRED."
+    },
+    {
+      "id": "rejected-decision",
+      "title": "A final decision whose verdict is REJECT",
+      "invariant": "Finality plus acceptance is the authority; either alone is not enough",
+      "expected": "refused with VERDICT_NOT_APPROVE",
+      "actual": "refused with VERDICT_NOT_APPROVE",
+      "outcome": "PASS",
+      "detail": "Baseline refused (VERDICT_NOT_APPROVE); the intervention refused with VERDICT_NOT_APPROVE."
+    }
+  ],
+  "control": {
+    "description": "Negative control on the corpus: the release cases must actually be released by the intervention. A guard that refuses everything would otherwise score identically on the refusal cases.",
+    "outcome": "PASS",
+    "detail": "3 of 3 release cases were released by the intervention; the baseline released 7 of 10 refusal cases."
+  },
+  "baseline": [
+    {
+      "id": "valid-finalization",
+      "released": true,
+      "code": null
+    },
+    {
+      "id": "valid-second-action",
+      "released": true,
+      "code": null
+    },
+    {
+      "id": "valid-after-appeal-window",
+      "released": true,
+      "code": null
+    },
+    {
+      "id": "accepted-not-final",
+      "released": true,
+      "code": null
+    },
+    {
+      "id": "appeal-overturned",
+      "released": true,
+      "code": null
+    },
+    {
+      "id": "wrong-recipient",
+      "released": true,
+      "code": null
+    },
+    {
+      "id": "wrong-amount",
+      "released": true,
+      "code": null
+    },
+    {
+      "id": "wrong-policy",
+      "released": true,
+      "code": null
+    },
+    {
+      "id": "wrong-evidence",
+      "released": true,
+      "code": null
+    },
+    {
+      "id": "replay",
+      "released": false,
+      "code": "ALREADY_SETTLED"
+    },
+    {
+      "id": "duplicate-message",
+      "released": true,
+      "code": null
+    },
+    {
+      "id": "expiry",
+      "released": false,
+      "code": "EXPIRED"
+    },
+    {
+      "id": "rejected-decision",
+      "released": false,
+      "code": "VERDICT_NOT_APPROVE"
+    }
+  ]
+}

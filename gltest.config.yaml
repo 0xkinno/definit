@@ -1,0 +1,53 @@
+# ---------------------------------------------------------------------------
+# GenLayer test-runner configuration
+# ---------------------------------------------------------------------------
+#
+# Direct-mode suites (tests/direct, tests/attacks) run entirely in-process and
+# use none of the network settings below.
+#
+# Network tiers:
+#
+#   localnet   `glsim`, the official local GenLayer network. Full lifecycle,
+#              cross-contract messaging and value transfer, deterministically,
+#              with no funds. This is what tests/lifecycle runs against.
+#
+#   studionet  GenLayer Studio Next, chain 61997. The deployment target. Use it
+#              for tests/integration and for the recorded live evidence:
+#
+#                  python -m pytest tests/integration --network studionet -s
+#
+# The private key is never written here. It is read from the environment
+# variable that .env.local defines, which is gitignored.
+
+networks:
+  default: localnet
+
+  localnet:
+    id: 61127
+    url: http://127.0.0.1:4000/api
+    chain_type: localnet
+    leader_only: false
+    default_wait_interval: 1000
+    default_wait_retries: 120
+
+  studionet:
+    id: 61997
+    url: https://studio-dev.genlayer.com/api
+    accounts:
+      - ${GENLAYER_PRIVATE_KEY}
+    from: ${GENLAYER_PRIVATE_KEY}
+    chain_type: studionet
+    leader_only: false
+    default_wait_interval: 4000
+    default_wait_retries: 90
+
+# The test runner clears its artifacts directory on every run. It must not
+# point at `artifacts/`, which holds the deployment record: a `pytest` run
+# would then delete the addresses and transaction hashes the submission
+# depends on. Compiler scratch output therefore lives under the local
+# toolchain directory, which is gitignored.
+paths:
+  contracts: contracts
+  artifacts: .gltest-home/gltest-artifacts
+
+environment: .env.local

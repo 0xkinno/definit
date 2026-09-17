@@ -1,0 +1,34 @@
+﻿POLICY: MILESTONE PAYMENT -- DELIVERY CONFIRMED
+Policy id:      delivery-milestone-v3
+Version:        3.0.0
+
+Scope
+-----
+This policy governs milestone payments to a supplier for a physical delivery.
+It is evaluated against a delivery confirmation record published by the buyer
+or the carrier.
+
+Requirements
+------------
+R1. The evidence must name the purchase order that the payment refers to.
+R2. The evidence must state an explicit delivery milestone outcome.
+R3. The evidence must show that every line item on the order was received.
+R4. The evidence must state that no dispute, shortage or damage claim is open.
+R5. The milestone date must not be in the future relative to the record.
+
+Prohibitions
+------------
+P1. A partial delivery does not satisfy this policy.
+P2. An open dispute or return request does not satisfy this policy.
+P3. A delivery marked damaged does not satisfy this policy.
+P4. Evidence that does not name the purchase order does not satisfy this policy.
+
+Interpretation
+--------------
+If the record states that the goods were received in full, with matching
+quantities, no damage, no dispute and no return, the milestone is satisfied.
+If any required fact is absent, the milestone is not satisfied: absence of
+evidence is never treated as evidence of delivery.
+
+This policy text is content-addressed. Its hash is what the decision commits to,
+so it cannot be revised after a decision has been made against it.

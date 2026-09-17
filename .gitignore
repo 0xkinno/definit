@@ -1,0 +1,70 @@
+# ---------------------------------------------------------------
+# DEFINIT -- repository ignore rules
+# ---------------------------------------------------------------
+
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+.yarn/cache
+.yarn/install-state.gz
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+.swc/
+
+# production
+/build
+/dist
+*.tsbuildinfo
+
+# testing
+/coverage
+# pytest scratch directories created by the python test runners
+pytest-cache-files-*/
+.pytest_cache/
+
+/playwright-report/
+/test-results/
+/blob-report/
+/playwright/.cache/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+
+# env -- NEVER commit secrets
+.env
+.env*.local
+!.env.example
+
+# deployment artifacts (local, contains live addresses only)
+/artifacts/local/
+/artifacts/secrets/
+
+# editor / os
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# ---------------------------------------------------------------
+# RESEARCH ISOLATION
+# ---------------------------------------------------------------
+# The entire research/ directory is a private working notebook.
+research/
+
+# captured reference pages / HTML snapshots
+/docs-snapshots/
+
+
+# ---------------------------------------------------------------
+# local toolchain state
+# ---------------------------------------------------------------
+# glsim / genvm runner cache -- large, machine-local, reproducible.
+.gltest-home/

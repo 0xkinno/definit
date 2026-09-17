@@ -1,0 +1,62 @@
+{
+  "name": "definit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DEFINIT -- finality-gated autonomous execution on GenLayer",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test:direct": "node scripts/run-python.mjs tests/direct",
+    "test:attacks": "node scripts/run-python.mjs tests/attacks",
+    "test:lifecycle": "node scripts/run-python.mjs tests/lifecycle",
+    "test:integration": "node scripts/run-python.mjs tests/integration --integration",
+    "test:unit": "vitest run tests/unit",
+    "test:e2e": "playwright test",
+    "test": "npm run test:unit && npm run test:direct && npm run test:attacks && npm run test:lifecycle",
+    "proof": "npm run test:attacks && node scripts/proof.mjs",
+    "evidence": "node scripts/evidence.mjs",
+    "contracts:check": "node scripts/validate-contracts.mjs",
+    "lint:contracts": "genvm-lint check contracts",
+    "audit:isolation": "node scripts/audit-isolation.mjs",
+    "docs:check": "node scripts/docs-check.mjs",
+    "verify:submission": "node scripts/verify-submission.mjs",
+    "research:matrix": "node scripts/research-matrix.mjs",
+    "test:commitments": "vitest run tests/unit/commitment.test.ts",
+    "deploy": "node scripts/deploy.mjs",
+    "deploy:dry": "node scripts/deploy.mjs --dry-run",
+    "lifecycle": "node scripts/lifecycle.mjs",
+    "seed": "node scripts/seed.mjs",
+    "verify": "node scripts/verify.mjs",
+    "fee-template": "node scripts/fee-template.mjs",
+    "shots": "node scripts/shots.mjs",
+    "diagram": "node scripts/diagram.mjs"
+  },
+  "dependencies": {
+    "framer-motion": "^12.0.0",
+    "genlayer-js": "^2.0.0-rc.1",
+    "next": "^15.5.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "viem": "^2.30.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.0",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.8"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "about": "The output of `npm run verify:submission`: every step that can fail, the command that runs it, and whether it passed. Written by the gate itself.",
+  "generatedAt": "2026-09-17T11:31:39.249Z",
+  "steps": [
+    {
+      "label": "TypeScript type check",
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "ok": true
+    },
+    {
+      "label": "Contracts compile against the live GenVM",
+      "command": "npm run contracts:check",
+      "exitCode": 0,
+      "ok": true
+    },
+    {
+      "label": "Settlement corpus",
+      "command": "npm run proof",
+      "exitCode": 0,
+      "ok": true
+    },
+    {
+      "label": "Generated evidence",
+      "command": "npm run evidence",
+      "exitCode": 0,
+      "ok": true
+    },
+    {
+      "label": "Shipped-tree isolation audit",
+      "command": "npm run audit:isolation",
+      "exitCode": 0,
+      "ok": true
+    },
+    {
+      "label": "Documentation completeness",
+      "command": "npm run docs:check",
+      "exitCode": 0,
+      "ok": true
+    }
+  ],
+  "requiredArtifacts": [
+    {
+      "path": "artifacts/deployment.json",
+      "present": true
+    },
+    {
+      "path": "docs/evidence/proof-report.json",
+      "present": true
+    },
+    {
+      "path": "docs/CLAIMS.json",
+      "present": true
+    },
+    {
+      "path": "docs/evidence/isolation-audit.json",
+      "present": true
+    }
+  ],
+  "blockingTask": "T-P9-002 (frontend hosting) -- the production build passes; publication needs a hosting account this environment does not hold.",
+  "ok": true
+}

@@ -1,0 +1,449 @@
+{
+  "generatedAt": "2026-09-17T11:31:33.559Z",
+  "deployment": {
+    "network": "GenLayer Studio Next",
+    "chainId": 61997,
+    "rpc": "https://studio-dev.genlayer.com/api",
+    "explorer": "https://explorer-studio-dev.genlayer.com",
+    "deployer": "0xe98ACBD5d8F02A92A5492b5830BA83ffBB684E7f",
+    "runner": "py-genlayer:5jycge4q8k23462jtb0b9fyey1s9qz928sz2nbrd9mg4sxqg2qng",
+    "deployedAt": "2026-09-17T08:04:02.577Z",
+    "addresses": {
+      "scenarioRegistry": "0x6Fd7166897700335dF5134B078510336f59A1e41",
+      "finalityVault": "0xf53291532749A568ecb5D0fC4F007cE29DFE2422",
+      "decisionGate": "0xC709FA0b51BDE4A6c2931E7dB7B3171Fa9f6F6B2"
+    },
+    "transactions": {
+      "scenarioRegistry": "0x5399a877031d6c08a2ec1883409287974e8b268a97d537ebd3e5dffa05693bc3",
+      "finalityVault": "0xd7aa38282dd2ddf8d0393afc4a21259119c56067624b42a6fdc58a2c2ef30cff",
+      "decisionGate": "0x02f0d4b1c0958a687ed10a1533d619dcfc55c9ba0bf94d330ea8a2ca3442fb39",
+      "setGate": "0x9cffc03463dbb3a1302a48f2afbae1f2efbcddfc079b277433798d7dbad91fdf",
+      "publishDemoPolicy": "0xc905eea33e609904e27efe36c0ca974aeba42838ab4f19cd22fedde2d8e8ae4c"
+    },
+    "demoPolicy": {
+      "id": "delivery-milestone-v3",
+      "version": "3.0.0",
+      "hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac"
+    },
+    "links": {
+      "scenarioRegistry": "https://explorer-studio-dev.genlayer.com/address/0x6Fd7166897700335dF5134B078510336f59A1e41",
+      "finalityVault": "https://explorer-studio-dev.genlayer.com/address/0xf53291532749A568ecb5D0fC4F007cE29DFE2422",
+      "decisionGate": "https://explorer-studio-dev.genlayer.com/address/0xC709FA0b51BDE4A6c2931E7dB7B3171Fa9f6F6B2",
+      "decisionGateDeployTx": "https://explorer-studio-dev.genlayer.com/tx/0x02f0d4b1c0958a687ed10a1533d619dcfc55c9ba0bf94d330ea8a2ca3442fb39"
+    }
+  },
+  "proof": {
+    "generatedAt": "2026-09-17T11:31:31.167Z",
+    "source": "lib/guard/corpus.ts",
+    "about": "Replay of the settlement corpus against a provisional-scope baseline and the finality-gated intervention.",
+    "arms": [
+      {
+        "id": "baseline",
+        "label": "Provisional-scope settlement",
+        "description": "The same settlement contract consulting the decision at provisional storage scope, which is the property an integration inherits when it treats an accepted judgement as actionable.",
+        "settlementsFromProvisional": 1,
+        "duplicateSettlements": 0,
+        "commitmentMismatchesAccepted": 10,
+        "settledBoundToFinalized": 0
+      },
+      {
+        "id": "intervention",
+        "label": "Finality-gated settlement",
+        "description": "The deployed pair: a decision contract that refuses to promote inside the appeal window, and a vault that re-derives that same window from the gate's own record and requires the commitment to match exactly.",
+        "settlementsFromProvisional": 0,
+        "duplicateSettlements": 0,
+        "commitmentMismatchesAccepted": 0,
+        "settledBoundToFinalized": 3
+      }
+    ],
+    "metrics": {
+      "provisionalSettlementsBlocked": 1,
+      "commitmentMismatchesBlocked": 4,
+      "replayAttemptsBlocked": 2,
+      "finalizedSettlementsVerified": 3,
+      "totalCases": 13,
+      "passing": 13
+    },
+    "cases": [
+      {
+        "id": "valid-finalization",
+        "title": "A committed escrow, a decision readable in final state, an approving verdict",
+        "invariant": "A settlement that satisfies every guard is released",
+        "expected": "released",
+        "actual": "released",
+        "outcome": "PASS",
+        "detail": "The escrow moved exactly, and the baseline also moved it."
+      },
+      {
+        "id": "valid-second-action",
+        "title": "A second, unrelated action to the same beneficiary with its own nonce",
+        "invariant": "One action settling does not settle another",
+        "expected": "released",
+        "actual": "released",
+        "outcome": "PASS",
+        "detail": "The escrow moved exactly, and the baseline also moved it."
+      },
+      {
+        "id": "valid-after-appeal-window",
+        "title": "An action funded while the decision was still provisional, settled after it became final",
+        "invariant": "Waiting is possible: the same escrow settles once finality arrives",
+        "expected": "released",
+        "actual": "released",
+        "outcome": "PASS",
+        "detail": "The escrow moved exactly, and the baseline also moved it."
+      },
+      {
+        "id": "accepted-not-final",
+        "title": "The decision is readable in provisional state only; the appeal window is open",
+        "invariant": "No value moves while the judgement can still be overturned",
+        "expected": "refused with DECISION_NOT_FINAL",
+        "actual": "refused with DECISION_NOT_FINAL",
+        "outcome": "PASS",
+        "detail": "Baseline released (no refusal); the intervention refused with DECISION_NOT_FINAL."
+      },
+      {
+        "id": "appeal-overturned",
+        "title": "The provisional scope reports APPROVE; the final scope reports REJECT",
+        "invariant": "The authority is the final record, not the provisional one",
+        "expected": "refused with VERDICT_NOT_APPROVE",
+        "actual": "refused with VERDICT_NOT_APPROVE",
+        "outcome": "PASS",
+        "detail": "Baseline released (no refusal); the intervention refused with VERDICT_NOT_APPROVE."
+      },
+      {
+        "id": "wrong-recipient",
+        "title": "The caller names a different beneficiary than the recorded commitment",
+        "invariant": "An identifier is not an authority: the terms must match",
+        "expected": "refused with COMMITMENT_MISMATCH",
+        "actual": "refused with COMMITMENT_MISMATCH",
+        "outcome": "PASS",
+        "detail": "Baseline released (no refusal); the intervention refused with COMMITMENT_MISMATCH."
+      },
+      {
+        "id": "wrong-amount",
+        "title": "The caller names a different amount than the recorded commitment",
+        "invariant": "The amount is part of the commitment",
+        "expected": "refused with COMMITMENT_MISMATCH",
+        "actual": "refused with COMMITMENT_MISMATCH",
+        "outcome": "PASS",
+        "detail": "Baseline released (no refusal); the intervention refused with COMMITMENT_MISMATCH."
+      },
+      {
+        "id": "wrong-policy",
+        "title": "The caller names a different policy hash than the recorded commitment",
+        "invariant": "The policy a decision was made against cannot be substituted",
+        "expected": "refused with COMMITMENT_MISMATCH",
+        "actual": "refused with COMMITMENT_MISMATCH",
+        "outcome": "PASS",
+        "detail": "Baseline released (no refusal); the intervention refused with COMMITMENT_MISMATCH."
+      },
+      {
+        "id": "wrong-evidence",
+        "title": "The caller names a different evidence digest than the recorded commitment",
+        "invariant": "The evidence the judgement rests on cannot be substituted",
+        "expected": "refused with COMMITMENT_MISMATCH",
+        "actual": "refused with COMMITMENT_MISMATCH",
+        "outcome": "PASS",
+        "detail": "Baseline released (no refusal); the intervention refused with COMMITMENT_MISMATCH."
+      },
+      {
+        "id": "replay",
+        "title": "A settled escrow presented a second time",
+        "invariant": "A commitment is spent at most once",
+        "expected": "refused with ALREADY_SETTLED",
+        "actual": "refused with ALREADY_SETTLED",
+        "outcome": "PASS",
+        "detail": "Baseline refused (ALREADY_SETTLED); the intervention refused with ALREADY_SETTLED."
+      },
+      {
+        "id": "duplicate-message",
+        "title": "The same settlement instruction delivered twice before the escrow state is updated",
+        "invariant": "The nonce, not the message count, decides",
+        "expected": "refused with REPLAY_BLOCKED",
+        "actual": "refused with REPLAY_BLOCKED",
+        "outcome": "PASS",
+        "detail": "Baseline released (no refusal); the intervention refused with REPLAY_BLOCKED."
+      },
+      {
+        "id": "expiry",
+        "title": "A funded escrow presented after its deadline",
+        "invariant": "An authorization has a lifetime",
+        "expected": "refused with EXPIRED",
+        "actual": "refused with EXPIRED",
+        "outcome": "PASS",
+        "detail": "Baseline refused (EXPIRED); the intervention refused with EXPIRED."
+      },
+      {
+        "id": "rejected-decision",
+        "title": "A final decision whose verdict is REJECT",
+        "invariant": "Finality plus acceptance is the authority; either alone is not enough",
+        "expected": "refused with VERDICT_NOT_APPROVE",
+        "actual": "refused with VERDICT_NOT_APPROVE",
+        "outcome": "PASS",
+        "detail": "Baseline refused (VERDICT_NOT_APPROVE); the intervention refused with VERDICT_NOT_APPROVE."
+      }
+    ],
+    "control": {
+      "description": "Negative control on the corpus: the release cases must actually be released by the intervention. A guard that refuses everything would otherwise score identically on the refusal cases.",
+      "outcome": "PASS",
+      "detail": "3 of 3 release cases were released by the intervention; the baseline released 7 of 10 refusal cases."
+    },
+    "baseline": [
+      {
+        "id": "valid-finalization",
+        "released": true,
+        "code": null
+      },
+      {
+        "id": "valid-second-action",
+        "released": true,
+        "code": null
+      },
+      {
+        "id": "valid-after-appeal-window",
+        "released": true,
+        "code": null
+      },
+      {
+        "id": "accepted-not-final",
+        "released": true,
+        "code": null
+      },
+      {
+        "id": "appeal-overturned",
+        "released": true,
+        "code": null
+      },
+      {
+        "id": "wrong-recipient",
+        "released": true,
+        "code": null
+      },
+      {
+        "id": "wrong-amount",
+        "released": true,
+        "code": null
+      },
+      {
+        "id": "wrong-policy",
+        "released": true,
+        "code": null
+      },
+      {
+        "id": "wrong-evidence",
+        "released": true,
+        "code": null
+      },
+      {
+        "id": "replay",
+        "released": false,
+        "code": "ALREADY_SETTLED"
+      },
+      {
+        "id": "duplicate-message",
+        "released": true,
+        "code": null
+      },
+      {
+        "id": "expiry",
+        "released": false,
+        "code": "EXPIRED"
+      },
+      {
+        "id": "rejected-decision",
+        "released": false,
+        "code": "VERDICT_NOT_APPROVE"
+      }
+    ]
+  },
+  "lifecycle": {
+    "product": "DEFINIT",
+    "generatedAt": "2026-09-17T09:02:55.055Z",
+    "network": {
+      "name": "GenLayer Studio Devnet",
+      "chainId": 61997,
+      "rpc": "https://studio-dev.genlayer.com/api",
+      "explorer": "https://explorer-studio-dev.genlayer.com"
+    },
+    "operator": "0xe98ACBD5d8F02A92A5492b5830BA83ffBB684E7f",
+    "contracts": {
+      "decisionGate": "0xC709FA0b51BDE4A6c2931E7dB7B3171Fa9f6F6B2",
+      "finalityVault": "0xf53291532749A568ecb5D0fC4F007cE29DFE2422",
+      "scenarioRegistry": "0x6Fd7166897700335dF5134B078510336f59A1e41"
+    },
+    "steps": [
+      {
+        "name": "create_action",
+        "at": "2026-09-17T09:03:07.391Z",
+        "transaction": "0x6d09acef787127eaaf7f605d87e3f7f152f4d549564588adba530e301f6fcbc5",
+        "explorer": "https://explorer-studio-dev.genlayer.com/tx/0x6d09acef787127eaaf7f605d87e3f7f152f4d549564588adba530e301f6fcbc5",
+        "execStatus": "return",
+        "actionId": "0x686e268900f23720e6fd9e0cbff0e0f3c3399ada1363087eb051066b0482fc6d",
+        "nonce": 1789635776,
+        "deadlineUnix": 1790240576,
+        "amountWei": "10000000000000000",
+        "policyId": "delivery-milestone-v3",
+        "evidenceUrl": "https://paste.rs/RaB2x"
+      },
+      {
+        "name": "request_adjudication",
+        "at": "2026-09-17T09:03:57.023Z",
+        "transaction": "0xe31fcf12fd3d84bca4797c8523c3f9bbf9370b7c4f9f88f2648b5aa5feb2df67",
+        "explorer": "https://explorer-studio-dev.genlayer.com/tx/0xe31fcf12fd3d84bca4797c8523c3f9bbf9370b7c4f9f88f2648b5aa5feb2df67",
+        "execStatus": "return",
+        "refusalCode": null,
+        "actionState": "ACCEPTED",
+        "decisionId": "0xc93e7a2a720983b58255d54671ec07682cb753a9c81b1c56a6ae31ca25d1f675",
+        "verdict": "APPROVE"
+      },
+      {
+        "name": "early_promotion_attempt",
+        "at": "2026-09-17T09:04:17.269Z",
+        "attempted": true,
+        "refused": true,
+        "reasonCode": "APPEAL_WINDOW_OPEN",
+        "transaction": "0x6f45b9366d57d6d4756052dbce2335b2c44701ed1dc947ce6bc640aeb63beb13",
+        "explorer": "https://explorer-studio-dev.genlayer.com/tx/0x6f45b9366d57d6d4756052dbce2335b2c44701ed1dc947ce6bc640aeb63beb13",
+        "execStatus": "rollback",
+        "detail": "APPEAL_WINDOW_OPEN",
+        "method": "signed-write",
+        "gasSpent": "paid"
+      },
+      {
+        "name": "capability_read_boundary",
+        "at": "2026-09-17T09:04:20.290Z",
+        "decisionId": "0xc93e7a2a720983b58255d54671ec07682cb753a9c81b1c56a6ae31ca25d1f675",
+        "disagreement": true,
+        "samples": 1
+      },
+      {
+        "name": "open_escrow",
+        "at": "2026-09-17T09:04:27.825Z",
+        "transaction": "0xd37c0d043b11aafe799f2bd5e94c825e8277519d03ae7a56976d744cadb96549",
+        "explorer": "https://explorer-studio-dev.genlayer.com/tx/0xd37c0d043b11aafe799f2bd5e94c825e8277519d03ae7a56976d744cadb96549",
+        "execStatus": "return",
+        "amountWei": "10000000000000000"
+      },
+      {
+        "name": "finalize_decision",
+        "at": "2026-09-17T09:06:33.463Z",
+        "transaction": "0x5c62a7c35e1b62b0d55a37935f70865e9a6ba948a321d3ef480ae81c97b6fdad",
+        "explorer": "https://explorer-studio-dev.genlayer.com/tx/0x5c62a7c35e1b62b0d55a37935f70865e9a6ba948a321d3ef480ae81c97b6fdad",
+        "execStatus": "return",
+        "refusalCode": null,
+        "settlementMessageStage": "finalized"
+      },
+      {
+        "name": "capability_after_promotion",
+        "at": "2026-09-17T09:06:34.301Z",
+        "state": "FINALIZED",
+        "finalizedAt": "2026-09-17T09:06:27.940267Z"
+      },
+      {
+        "name": "settle",
+        "at": "2026-09-17T09:06:57.026Z",
+        "attempted": true,
+        "executed": true,
+        "reason": null,
+        "transaction": "0x7d2ebf7161beb0fc28dde44b90df129409788ed26b25a678eeadfcb2444b8d83",
+        "explorer": "https://explorer-studio-dev.genlayer.com/tx/0x7d2ebf7161beb0fc28dde44b90df129409788ed26b25a678eeadfcb2444b8d83",
+        "execStatus": "return",
+        "refusalCode": null
+      },
+      {
+        "name": "settled",
+        "at": "2026-09-17T09:06:58.870Z",
+        "attempted": true,
+        "executed": true,
+        "reason": null,
+        "transaction": "0x7d2ebf7161beb0fc28dde44b90df129409788ed26b25a678eeadfcb2444b8d83",
+        "explorer": "https://explorer-studio-dev.genlayer.com/tx/0x7d2ebf7161beb0fc28dde44b90df129409788ed26b25a678eeadfcb2444b8d83",
+        "execStatus": "return",
+        "refusalCode": null,
+        "actionId": "0x686e268900f23720e6fd9e0cbff0e0f3c3399ada1363087eb051066b0482fc6d",
+        "decisionId": "0xc93e7a2a720983b58255d54671ec07682cb753a9c81b1c56a6ae31ca25d1f675",
+        "status": "SETTLED",
+        "actionState": "FINALIZED",
+        "decisionReadScope": "FINALIZED_CAPABILITY",
+        "finalityProof": "gate promoted the decision after its appeal window closed; this contract re-derived the window and matched the commitment",
+        "amountWei": "10000000000000000",
+        "recipient": "0x1111111111111111111111111111111111111111",
+        "nonce": "1789635776",
+        "settledAt": "2026-09-17T09:06:51.549615Z",
+        "receiptExplorer": "https://explorer-studio-dev.genlayer.com/address/0xf53291532749A568ecb5D0fC4F007cE29DFE2422"
+      }
+    ],
+    "boundary": {
+      "earlyPromotion": {
+        "attempted": true,
+        "refused": true,
+        "reasonCode": "APPEAL_WINDOW_OPEN",
+        "transaction": "0x6f45b9366d57d6d4756052dbce2335b2c44701ed1dc947ce6bc640aeb63beb13",
+        "explorer": "https://explorer-studio-dev.genlayer.com/tx/0x6f45b9366d57d6d4756052dbce2335b2c44701ed1dc947ce6bc640aeb63beb13",
+        "execStatus": "rollback",
+        "detail": "APPEAL_WINDOW_OPEN",
+        "method": "signed-write",
+        "gasSpent": "paid"
+      },
+      "decisionId": "0xc93e7a2a720983b58255d54671ec07682cb753a9c81b1c56a6ae31ca25d1f675",
+      "actionStateAtAdjudication": "ACCEPTED",
+      "adjudicatedAt": "2026-09-17T09:03:40.861154Z",
+      "adjudicatedAtUnix": 1789635820,
+      "appealWindowSeconds": 120,
+      "samples": [
+        {
+          "at": "2026-09-17T09:04:19.346Z",
+          "transactionStatus": "ACCEPTED",
+          "provisionalScope": "latest-nonfinal",
+          "provisionalExists": true,
+          "finalScope": "latest-final",
+          "finalExists": false
+        }
+      ],
+      "disagreement": true,
+      "observableOnThisNetwork": true,
+      "windowWaitedSeconds": 103,
+      "windowMarginSeconds": 30,
+      "promoted": {
+        "state": "FINALIZED",
+        "finalizedAt": "2026-09-17T09:06:27.940267Z"
+      }
+    },
+    "settlement": {
+      "attempted": true,
+      "executed": true,
+      "reason": null,
+      "transaction": "0x7d2ebf7161beb0fc28dde44b90df129409788ed26b25a678eeadfcb2444b8d83",
+      "explorer": "https://explorer-studio-dev.genlayer.com/tx/0x7d2ebf7161beb0fc28dde44b90df129409788ed26b25a678eeadfcb2444b8d83",
+      "execStatus": "return",
+      "refusalCode": null,
+      "actionId": "0x686e268900f23720e6fd9e0cbff0e0f3c3399ada1363087eb051066b0482fc6d",
+      "decisionId": "0xc93e7a2a720983b58255d54671ec07682cb753a9c81b1c56a6ae31ca25d1f675",
+      "status": "SETTLED",
+      "actionState": "FINALIZED",
+      "decisionReadScope": "FINALIZED_CAPABILITY",
+      "finalityProof": "gate promoted the decision after its appeal window closed; this contract re-derived the window and matched the commitment",
+      "amountWei": "10000000000000000",
+      "recipient": "0x1111111111111111111111111111111111111111",
+      "nonce": "1789635776",
+      "settledAt": "2026-09-17T09:06:51.549615Z",
+      "receiptExplorer": "https://explorer-studio-dev.genlayer.com/address/0xf53291532749A568ecb5D0fC4F007cE29DFE2422"
+    },
+    "outcome": "complete",
+    "blockedAt": null,
+    "blockedReason": null,
+    "ok": true,
+    "balanceBefore": "9573032568499888410",
+    "actionId": "0x686e268900f23720e6fd9e0cbff0e0f3c3399ada1363087eb051066b0482fc6d",
+    "decisionId": "0xc93e7a2a720983b58255d54671ec07682cb753a9c81b1c56a6ae31ca25d1f675",
+    "completedAt": "2026-09-17T09:06:58.870Z"
+  },
+  "isolation": {
+    "generatedAt": "2026-09-17T11:27:58.493Z",
+    "root": ".",
+    "filesScanned": 121,
+    "termsChecked": 18,
+    "findings": [],
+    "clean": true
+  }
+}

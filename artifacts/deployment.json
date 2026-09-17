@@ -1,0 +1,32 @@
+{
+  "network": "GenLayer Studio Next",
+  "chainId": 61997,
+  "rpc": "https://studio-dev.genlayer.com/api",
+  "explorer": "https://explorer-studio-dev.genlayer.com",
+  "deployer": "0xe98ACBD5d8F02A92A5492b5830BA83ffBB684E7f",
+  "runner": "py-genlayer:5jycge4q8k23462jtb0b9fyey1s9qz928sz2nbrd9mg4sxqg2qng",
+  "deployedAt": "2026-09-17T08:04:02.577Z",
+  "addresses": {
+    "scenarioRegistry": "0x6Fd7166897700335dF5134B078510336f59A1e41",
+    "finalityVault": "0xf53291532749A568ecb5D0fC4F007cE29DFE2422",
+    "decisionGate": "0xC709FA0b51BDE4A6c2931E7dB7B3171Fa9f6F6B2"
+  },
+  "transactions": {
+    "scenarioRegistry": "0x5399a877031d6c08a2ec1883409287974e8b268a97d537ebd3e5dffa05693bc3",
+    "finalityVault": "0xd7aa38282dd2ddf8d0393afc4a21259119c56067624b42a6fdc58a2c2ef30cff",
+    "decisionGate": "0x02f0d4b1c0958a687ed10a1533d619dcfc55c9ba0bf94d330ea8a2ca3442fb39",
+    "setGate": "0x9cffc03463dbb3a1302a48f2afbae1f2efbcddfc079b277433798d7dbad91fdf",
+    "publishDemoPolicy": "0xc905eea33e609904e27efe36c0ca974aeba42838ab4f19cd22fedde2d8e8ae4c"
+  },
+  "demoPolicy": {
+    "id": "delivery-milestone-v3",
+    "version": "3.0.0",
+    "hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac"
+  },
+  "links": {
+    "scenarioRegistry": "https://explorer-studio-dev.genlayer.com/address/0x6Fd7166897700335dF5134B078510336f59A1e41",
+    "finalityVault": "https://explorer-studio-dev.genlayer.com/address/0xf53291532749A568ecb5D0fC4F007cE29DFE2422",
+    "decisionGate": "https://explorer-studio-dev.genlayer.com/address/0xC709FA0b51BDE4A6c2931E7dB7B3171Fa9f6F6B2",
+    "decisionGateDeployTx": "https://explorer-studio-dev.genlayer.com/tx/0x02f0d4b1c0958a687ed10a1533d619dcfc55c9ba0bf94d330ea8a2ca3442fb39"
+  }
+}

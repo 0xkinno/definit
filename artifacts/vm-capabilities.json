@@ -1,0 +1,38 @@
+{
+  "about": "Isolation run against the GenVM surface DEFINIT depends on. Each entry is one primitive exercised on its own against a throwaway probe contract, so the result of one cannot be attributed to another.",
+  "recordedAt": "2026-09-17T08:00:00.000Z",
+  "network": {
+    "name": "GenLayer Studio Next",
+    "chainId": 61997,
+    "rpc": "https://studio-dev.genlayer.com/api"
+  },
+  "provenance": "Structured restatement of an isolation run performed on 2026-09-17. The raw node stderr transcript was not retained; the observations below are the ones recorded at the time and they are the basis of the corresponding entry in docs/LIMITATIONS.md.",
+  "probeContract": "0xbdE1273128236AEa1faFb7b198060073EF279027",
+  "results": [
+    {
+      "primitive": "cross-contract read, provisional scope",
+      "call": "gl.contract.get_at(gate).view().get_capability(decision_id)",
+      "outcome": "answered",
+      "detail": "The plain cross-contract read returns the full capability payload. This is the baseline that makes the next entry meaningful."
+    },
+    {
+      "primitive": "cross-contract read, final scope",
+      "call": "gl.contract.get_at(gate).view(state=gl.contract.StorageView.LATEST_FINALIZED).get_capability(decision_id)",
+      "outcome": "never answered",
+      "detail": "The call does not return a refusal. It stops returning, and the leader is killed with `Leader execution exceeded 600.000s`. This is the primitive the design wants and cannot have."
+    },
+    {
+      "primitive": "message emitted on the finalized stage",
+      "call": "gl.contract.get_at(gate).emit(value=u256(0), on='finalized').mark_settled(action_id)",
+      "outcome": "answered",
+      "detail": "A deferred message pinned to the finalized stage is accepted and delivered. This is what the deployed pair uses instead of the final-scoped read."
+    },
+    {
+      "primitive": "value transfer emitted on the finalized stage",
+      "call": "gl.chain.Account(recipient).emit_transfer(value)",
+      "outcome": "answered",
+      "detail": "The transfer is accepted on the same stage. The first probe run reported `SystemError: 7: insufficient_balance`, which is a funding error in the probe, not a rejection of the primitive."
+    }
+  ],
+  "consequence": "Both shipped contracts drop every use of StorageView.LATEST_FINALIZED. The execution boundary is instead two on-chain facts: the gate refuses to promote a decision until its appeal window has closed, and the vault re-derives that same window from the gate's own adjudication stamp before releasing. See docs/LIMITATIONS.md for what that boundary does and does not cover."
+}
