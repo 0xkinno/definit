@@ -68,3 +68,5 @@ research/
 # ---------------------------------------------------------------
 # glsim / genvm runner cache -- large, machine-local, reproducible.
 .gltest-home/
+
+.vercel

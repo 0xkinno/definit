@@ -5,9 +5,9 @@
 ![finality](https://img.shields.io/badge/boundary-finalized-b08a3e)
 ![licence](https://img.shields.io/badge/licence-MIT-6b7280)
 
-> **DEFINIT prevents autonomous agents from executing irreversible effects against provisional GenLayer judgments by making finalized consensus the execution boundary.**
+![DEFINIT landing page](public/shots/landing.png)
 
-<!-- Hero banner: public/brand/definit-banner.png (see docs/DISCOVERY.md section 4) -->
+> **DEFINIT prevents autonomous agents from executing irreversible effects against provisional GenLayer judgments by making finalized consensus the execution boundary.**
 
 DEFINIT is a finality firewall for autonomous agents. An agent proposes an action.
 GenLayer adjudicates it. The action reaches `ACCEPTED`. Every other system in this
@@ -29,16 +29,19 @@ an irreversible transfer requires.
 Redeploy at any time with `npm run deploy`. Nothing in the product is hardcoded to
 the addresses above; they are read from `.env.local`.
 
-## Screenshots
+## Product screenshots
 
-<!-- public/shots/ is produced by `npm run shots`. The four surfaces are:
-     1. landing hero, 2. live action console, 3. accepted -> finalized lifecycle,
-     4. finality receipt / proof lab. -->
+<!-- public/shots/ is produced by `npm run shots`, which writes the hero banner
+     above and the four product surfaces below. Every capture is landscape and
+     viewport-sized: it shows the top of a page rather than the whole scroll. -->
 
-| | |
+| Drive the lifecycle | Sign it with a wallet |
 | --- | --- |
-| ![landing](public/shots/landing.png) | ![console](public/shots/console.png) |
-| ![lifecycle](public/shots/lifecycle.png) | ![receipt](public/shots/receipt.png) |
+| ![Protection console](public/shots/console.png) | ![Lifecycle demo](public/shots/demo.png) |
+
+| Follow one action | Read the settlement receipt |
+| --- | --- |
+| ![Accepted to finalized](public/shots/lifecycle.png) | ![Finality receipt](public/shots/receipt.png) |
 
 ## The Problem
 

@@ -18,6 +18,12 @@ const nextConfig = {
    * bundled into a deployment.
    */
   outputFileTracingRoot: here,
+  /**
+   * The development indicator is a floating badge that renders in a portal on
+   * top of the page. It is noise in a screenshot and noise on a product, so it
+   * is switched off explicitly rather than left on a default.
+   */
+  devIndicators: false,
 };
 
 export default nextConfig;
