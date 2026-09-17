@@ -294,11 +294,12 @@ Phases:
 ### T-P9-002 -- Frontend deployment
 - **Goal:** public frontend build passing and deployed.
 - **Acceptance:** production build succeeds; public URL recorded.
-- **Verification:** `npm run build`
-- **Evidence:** `docs/EVIDENCE.md`
-- **Status:** BLOCKED -- the production build succeeds, but publishing it needs a
-  hosting account this environment does not hold. The contracts and the
-  lifecycle do not depend on it.
+- **Verification:** `npm run build`, then a browser check against the live URL
+- **Evidence:** `docs/EVIDENCE.md` (Frontend deployment, Wallet connection)
+- **Status:** DONE -- https://definit-snowy.vercel.app
+  built from https://github.com/0xkinno/definit with nine non-sensitive
+  environment variables and no private key. Wallet connection verified in a
+  real browser against the live URL.
 
 ---
 
@@ -327,7 +328,7 @@ than quietly removed, because a test that has never run is not evidence.
 
 | Task | Blocker |
 | --- | --- |
-| T-P9-002 | Needs a frontend hosting account. The production build passes; only publication is outstanding. |
+| -- | No task is currently blocked. T-P9-002 was unblocked by the hosting account and is now done. |
 
 Every blocked task lists exactly which environment variable unblocks it in
 `.env.local`.

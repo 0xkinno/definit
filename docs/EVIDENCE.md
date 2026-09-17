@@ -115,6 +115,53 @@ guard that refuses everything scores identically to a correct one. So each case
 is run against both arms and the report carries the four release cases that
 must *succeed* alongside the refusal cases that must not.
 
+## Frontend deployment
+
+| Surface | Value |
+| --- | --- |
+| Production URL | https://definit-snowy.vercel.app |
+| Hosting project | `kinnoskis-projects/definit` |
+| Source | https://github.com/0xkinno/definit |
+| Build | `next build`, Next.js 15.5.25, 24 routes |
+
+The hosting project holds nine environment variables, all added as
+**non-sensitive**. Every one of them is public by design: the `NEXT_PUBLIC_*`
+chain and address configuration, the public evidence snapshot URL, and the flag
+that keeps the server signer switched off. **No private key is deployed.** In
+the deployed application, signing happens in the visitor's own browser wallet
+and nowhere else.
+
+## Wallet connection
+
+The deployed application connects any EIP-1193 wallet, offers chain `61997` with
+the standard add-then-switch pair, and signs every state-changing step with the
+connected account. Verified against the production URL in a real browser:
+
+| Check | Result |
+| --- | --- |
+| A wallet is detected and its account is read | pass |
+| The account is resumed silently on a return visit | pass |
+| The account balance is read from the chain | pass |
+| The lifecycle page replaces the operator fallback with "Ready to sign" | pass |
+| A visitor with no wallet is told so, and is offered the recorded run | pass |
+| The landing page renders the lifecycle drawing, not an ASCII block | pass |
+
+`runWrite` in `lib/writes/run.ts` is the only thing that chooses a signing
+pathway, and it refuses to fall back to the operator key when a wallet is
+connected but declines: a declined popup is reported, never quietly signed by
+somebody else.
+
+Every transaction a visitor signs through the deployed application is an
+ordinary transaction on chain 61997 and resolves under
+`https://explorer-studio-dev.genlayer.com/tx/<hash>`. There is no mock provider,
+no simulated hash and no fabricated receipt anywhere in the write path. The
+adjudication, the promotion and the release are contract calls; the balance that
+appears beside the account is read from the chain with `eth_getBalance`.
+
+With no wallet at all, the lifecycle page still works: it replays the run
+recorded in `docs/evidence/live-lifecycle.json`, linking each of those hashes to
+the explorer, and says plainly that the replay cannot produce a new transaction.
+
 ## Reproducing
 
 ```

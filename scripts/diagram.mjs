@@ -302,7 +302,7 @@ const DESC =
 
 function buildSvg({ inline }) {
   const head = inline
-    ? `<svg viewBox="0 0 ${W} ${H}" width="100%" height="auto" role="img" aria-labelledby="definit-lifecycle-title definit-lifecycle-desc" preserveAspectRatio="xMidYMid meet">`
+    ? `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-labelledby="definit-lifecycle-title definit-lifecycle-desc" preserveAspectRatio="xMidYMid meet">`
     : `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-labelledby="definit-lifecycle-title definit-lifecycle-desc">`;
   const texts = TEXTS.map(textEl).join("\n  ");
   return [
