@@ -59,6 +59,12 @@ yarn-error.log*
 # The entire research/ directory is a private working notebook.
 research/
 
+# film production work -- masters, subtitles, thumbnails and capture scripts.
+# The film lives in research/film/ and is delivered as files, not committed.
+definit_product_film*
+definit_thumbnail.png
+video_work/
+
 # captured reference pages / HTML snapshots
 /docs-snapshots/
 

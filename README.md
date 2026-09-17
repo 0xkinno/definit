@@ -20,7 +20,7 @@ an irreversible transfer requires.
 | Surface | Link |
 | --- | --- |
 | **Live application** | **https://definit-snowy.vercel.app** |
-| **Demo Video** | https://youtube.com/watch?v=(placeholder) |
+| **Demo Video** | https://youtu.be/c_4t392dwzI?si=vDlVmxLEX6vfyBj6 |
 | Source | https://github.com/0xkinno/definit |
 | Decision contract (`DecisionGate`) | `0xC709FA0b51BDE4A6c2931E7dB7B3171Fa9f6F6B2` |
 | Custody contract (`FinalityVault`) | `0xf53291532749A568ecb5D0fC4F007cE29DFE2422` |
