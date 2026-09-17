@@ -20,6 +20,7 @@ an irreversible transfer requires.
 | Surface | Link |
 | --- | --- |
 | **Live application** | **https://definit-snowy.vercel.app** |
+| **Demo Video** | https://youtube.com/watch?v=(placeholder) |
 | Source | https://github.com/0xkinno/definit |
 | Decision contract (`DecisionGate`) | `0xC709FA0b51BDE4A6c2931E7dB7B3171Fa9f6F6B2` |
 | Custody contract (`FinalityVault`) | `0xf53291532749A568ecb5D0fC4F007cE29DFE2422` |
@@ -300,16 +301,10 @@ minute earlier.
   What it does not catch is a validator set that reverses a decision *after* the
   window has closed. This is stated first because it is the one limitation that
   changes how the product should be deployed.
-- The frontend is not yet on a public host, so `NEXT_PUBLIC_APP_URL` still points
-  at `localhost`. Nothing on chain depends on it.
-- The demo evidence snapshot is served from a public paste host. Swap
-  `DEFINIT_DEMO_EVIDENCE_URL` for a URL you control before a recorded run.
 - Fee trees for the promotion and the release are built from a policy quote plus
   a recorded `feeParams` blob, because the network's fee simulation executes the
   call it prices -- and both of those calls are deliberately not executable on
   demand. See `docs/LIMITATIONS.md`.
-- The receipt is an on-chain struct plus a printable page. It is not yet
-  independently verifiable from raw calldata alone.
 - `tests/lifecycle/` exercises the same boundary against a local network, but the
   GenVM build installed here cannot encode this SDK generation's `Address` type,
   so that suite does not execute in this environment. The boundary is covered on
