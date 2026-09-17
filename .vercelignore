@@ -1,0 +1,39 @@
+# ---------------------------------------------------------------------------
+# DEFINIT -- what Vercel must not upload
+# ---------------------------------------------------------------------------
+#
+# The CLI uploads the working directory. Everything below is either a secret,
+# a machine-local cache, or the private research notebook, and none of it
+# belongs in a deployment or in the build cache.
+
+# secrets -- the operator key lives here and must never leave this machine
+.env
+.env.local
+.env*.local
+
+# private research notebook and reference material
+research/
+docs-snapshots/
+
+# machine-local toolchain state
+.gltest-home/
+
+# build output and caches
+.next/
+out/
+build/
+node_modules/
+*.tsbuildinfo
+.pytest_cache/
+pytest-cache-files-*/
+__pycache__/
+*.py[cod]
+
+# test scratch output
+test-results/
+playwright-report/
+blob-report/
+coverage/
+
+# version control
+.git/
