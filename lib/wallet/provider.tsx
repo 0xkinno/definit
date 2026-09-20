@@ -113,12 +113,20 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
   const [notice, setNotice] = useState<string | null>(null);
   const providerRef = useRef<Eip1193Provider | null>(null);
   const [provider, setProvider] = useState<Eip1193Provider | null>(null);
+  /** The last wrong network the wallet was offered, so it is offered once. */
+  const offeredFor = useRef<string | null>(null);
 
   const applyChain = useCallback(async (outcome: ChainOutcome) => {
     if (outcome.ok) {
       setChainId(outcome.chainId);
       setPhase("connected");
-      if (outcome.switched) setNotice(`Switched to ${CHAIN_NAME}.`);
+      if (outcome.switched) {
+        setNotice(
+          outcome.added
+            ? `Added ${CHAIN_NAME} to the wallet and switched to it.`
+            : `Switched to ${CHAIN_NAME}.`,
+        );
+      }
       return true;
     }
     setChainId(outcome.chainId);
@@ -195,19 +203,34 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
     const offChain = subscribe(wallet, "chainChanged", ((next: unknown) => {
       const value = typeof next === "string" ? next.toLowerCase() : null;
       setChainId(value);
-      setPhase(value === EXPECTED_CHAIN_ID ? "connected" : "wrong-network");
-      setNotice(
-        value === EXPECTED_CHAIN_ID
-          ? null
-          : `The wallet moved to ${describeChain(value)}. Transactions will not be sent until it is back on ${CHAIN_NAME}.`,
-      );
+
+      if (value === EXPECTED_CHAIN_ID) {
+        offeredFor.current = null;
+        setPhase("connected");
+        setNotice(null);
+        return;
+      }
+
+      setPhase("wrong-network");
+      setNotice(`The wallet moved to ${describeChain(value)}. Offering ${CHAIN_NAME}...`);
+
+      // Offer the network once per destination. The wallet is asked to switch,
+      // and then to add the chain if it has never seen it, so the user is never
+      // left on the wrong network with a value to go and type in themselves.
+      if (offeredFor.current === value) return;
+      offeredFor.current = value;
+      void (async () => {
+        const outcome = await alignChain(wallet);
+        await applyChain(outcome);
+        if (address) await loadBalance(wallet, address);
+      })();
     }) as never);
 
     return () => {
       offAccounts();
       offChain();
     };
-  }, [provider, loadBalance]);
+  }, [provider, address, applyChain, loadBalance]);
 
   const connect = useCallback(async () => {
     const wallet = providerRef.current ?? injectedProvider();
@@ -258,7 +281,13 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
   const switchNetwork = useCallback(async () => {
     const wallet = providerRef.current;
     if (!wallet) {
-      return { ok: false, chainId: null, reason: NO_WALLET_DETECTED } as ChainOutcome;
+      const noWallet: ChainOutcome = {
+        ok: false,
+        chainId: null,
+        declined: false,
+        reason: NO_WALLET_DETECTED,
+      };
+      return noWallet;
     }
     setNotice(null);
     const outcome = await alignChain(wallet);

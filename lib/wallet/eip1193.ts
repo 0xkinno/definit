@@ -30,14 +30,42 @@ export interface Eip1193Provider {
 export const WALLET_ERROR = {
   userRejected: 4001,
   chainNotAdded: 4902,
+  /** The wallet already has a request open. Nothing may be asked until it is answered. */
   alreadyPending: -32002,
+  /** The wallet does not implement the method at all. */
+  unsupportedMethod: -32601,
   disconnected: 4900,
+  chainDisconnected: 4901,
 } as const;
 
+function numeric(value: unknown): number | null {
+  return typeof value === "number" ? value : null;
+}
+
+/**
+ * Read a wallet error code.
+ *
+ * Wallets disagree about where the code lives. MetaMask and several others
+ * report the useful code on the top-level error, some wrap it in `data`, and
+ * some nest it again under `data.originalError`. All three shapes are read so
+ * that a refusal is never mistaken for an unknown chain, and an unknown chain
+ * is never mistaken for a refusal.
+ */
 export function walletErrorCode(error: unknown): number | null {
-  if (error && typeof error === "object" && "code" in error) {
-    const code = (error as { code?: unknown }).code;
-    return typeof code === "number" ? code : null;
+  if (!error || typeof error !== "object") return null;
+  const record = error as { code?: unknown; data?: unknown };
+  const direct = numeric(record.code);
+  if (direct !== null) return direct;
+
+  const data = record.data;
+  if (data && typeof data === "object") {
+    const nested = numeric((data as { code?: unknown }).code);
+    if (nested !== null) return nested;
+    const original = (data as { originalError?: unknown }).originalError;
+    if (original && typeof original === "object") {
+      const deep = numeric((original as { code?: unknown }).code);
+      if (deep !== null) return deep;
+    }
   }
   return null;
 }

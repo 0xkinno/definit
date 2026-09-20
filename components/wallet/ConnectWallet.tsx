@@ -123,6 +123,13 @@ export function ConnectWallet({ compact = false }: { compact?: boolean }) {
             </p>
           ) : null}
 
+          {needsNetwork ? (
+            <p className="mt-3 text-[11px] leading-relaxed text-ink-500">
+              If this wallet has never seen {CHAIN_NAME}, it is offered the full network
+              configuration and added in the same step. Nothing has to be typed in by hand.
+            </p>
+          ) : null}
+
           <div className="mt-4 flex flex-wrap gap-2">
             {needsNetwork ? (
               <button type="button" className="btn btn-accent px-3 text-[12px]" onClick={() => void wallet.switchNetwork()}>
@@ -161,7 +168,7 @@ export function WalletBanner() {
       <p className="rounded-md border border-signal-amber/40 bg-signal-ambersoft px-4 py-3 text-[13px] leading-relaxed text-ink-700">
         {wallet.notice ?? "The wallet is on the wrong network."}{" "}
         <button type="button" className="link" onClick={() => void wallet.switchNetwork()}>
-          Switch network
+          Switch to {CHAIN_NAME}
         </button>
       </p>
     );
