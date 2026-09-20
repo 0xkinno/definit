@@ -78,6 +78,7 @@ export default async function ReceiptPage({ params }: { params: Promise<{ id: st
         {document ? (
           <Panel className="mt-6">
             <SectionHeading
+              level={1}
               eyebrow="Settlement receipt"
               title={`${document.amount} ${document.asset} released to the named beneficiary`}
               lead="Read from the vault's stored settlement record. The scope field names the property that was checked before any value moved."

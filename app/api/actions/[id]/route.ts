@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 import { RUNTIME_MODE } from "@/lib/config";
 import { contracts, readClient } from "@/lib/genlayer/contracts";
@@ -49,8 +49,17 @@ export async function GET(
       escrow,
       receipt,
       /**
-       * The two reads below answer the same question against different storage
-       * scopes. The difference between them is the product.
+       * Two diagnostic reads of the same question at two storage scopes.
+       *
+       * They are not the product and they are not the boundary. A scoped read
+       * narrows which transaction's storage is consulted; it does not narrow
+       * which decisions are still appealable, because the appeal window opens
+       * after the adjudication transaction is already final. What bounds the
+       * effect is the elapsed window that DecisionGate and FinalityVault each
+       * re-derive for themselves.
+       *
+       * They are exposed because the difference between them is worth reading,
+       * not because either one authorises anything.
        */
       capability: {
         provisionalScope: provisional,

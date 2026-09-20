@@ -1,5 +1,5 @@
 {
-  "about": "The settlement corpus. Nine cases must be refused and four must be released. The release cases are what stop a guard that simply refuses everything from passing.",
+  "about": "The settlement corpus. Most cases must be refused and a minority must be released; the release cases are what stop a guard that simply refuses everything from passing. The count is not written down here on purpose: `npm run proof` derives every headline figure from the cases in this file, so the numbers cannot drift away from the definitions.",
   "generatedBy": "authored; metrics for these cases are produced by `npm run proof`",
   "cases": [
     {

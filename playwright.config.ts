@@ -23,9 +23,25 @@ export default defineConfig({
         timeout: 120_000,
       },
   projects: [
-    { name: "phone", use: { ...devices["Desktop Chrome"], viewport: { width: 390, height: 844 } } },
-    { name: "phone-small", use: { ...devices["Desktop Chrome"], viewport: { width: 320, height: 640 } } },
-    { name: "tablet", use: { ...devices["Desktop Chrome"], viewport: { width: 768, height: 1024 } } },
-    { name: "desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } } },
+    {
+      name: "phone",
+      testIgnore: /production\.spec\.ts/,
+      use: { ...devices["Desktop Chrome"], viewport: { width: 390, height: 844 } },
+    },
+    {
+      name: "phone-small",
+      testIgnore: /production\.spec\.ts/,
+      use: { ...devices["Desktop Chrome"], viewport: { width: 320, height: 640 } },
+    },
+    {
+      name: "tablet",
+      testIgnore: /production\.spec\.ts/,
+      use: { ...devices["Desktop Chrome"], viewport: { width: 768, height: 1024 } },
+    },
+    {
+      // The production audit carries its own viewport matrix, so it runs once.
+      name: "desktop",
+      use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } },
+    },
   ],
 });

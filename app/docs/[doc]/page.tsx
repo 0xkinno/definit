@@ -76,7 +76,7 @@ export default async function DocumentPage({
           {blocks.map((block, index) => {
             if (block.kind === "heading") {
               if (block.level === 1) {
-                return <SectionHeading key={index} eyebrow={name} title={block.text} />;
+                return <SectionHeading key={index} level={1} eyebrow={name} title={block.text} />;
               }
               const sizes: Record<number, string> = {
                 2: "mt-10 text-[20px]",

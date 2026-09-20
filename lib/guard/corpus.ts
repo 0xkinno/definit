@@ -12,8 +12,10 @@
  * intervention but released by the baseline has a cause, and that cause is the
  * single property that differs between them.
  *
- * Four cases must be *released*. Without them, "everything was refused" would
- * look like a result.
+ * Not every case must be refused. The release cases are what stop "everything
+ * was refused" from looking like a result. How many there are is a property of
+ * `tests/fixtures/cases.json`, and the report counts them from there rather
+ * than from a number written into this comment.
  */
 
 import { unsafeRelease } from "./baseline.ts";

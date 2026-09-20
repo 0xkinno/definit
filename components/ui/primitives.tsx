@@ -1,4 +1,4 @@
-﻿import type { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { lifecycleOf, type DefinitLifecycle } from "@/lib/lifecycle/state";
 import { classNames, middleTruncate } from "@/lib/format";
@@ -20,18 +20,29 @@ export function SectionHeading({
   title,
   lead,
   id,
+  level = 2,
 }: {
   eyebrow?: string;
   title: string;
   lead?: string;
   id?: string;
+  /**
+   * Heading level for the page's primary title.
+   *
+   * The rendered style is identical at every level; only the document outline
+   * changes. A page whose top title rendered as a level-two heading had no
+   * level-one heading at all, and the outline is what a screen reader and a
+   * search engine navigate by.
+   */
+  level?: 1 | 2 | 3;
 }) {
+  const Heading = `h${level}` as "h1" | "h2" | "h3";
   return (
     <div className="max-w-prose">
       {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
-      <h2 id={id} className="mt-2 text-2xl font-semibold text-balance sm:text-[28px]">
+      <Heading id={id} className="mt-2 text-2xl font-semibold text-balance sm:text-[28px]">
         {title}
-      </h2>
+      </Heading>
       {lead ? <p className="mt-3 text-[15px] leading-relaxed text-ink-600 text-pretty">{lead}</p> : null}
     </div>
   );

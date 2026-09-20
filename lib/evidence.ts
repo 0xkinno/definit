@@ -22,6 +22,15 @@ export interface ProofCase {
 export interface ProofReport {
   generatedAt: string;
   source: string;
+  /**
+   * Counts computed by `npm run proof` from the case definitions. A page reads
+   * these; it never counts the cases itself, so two pages cannot disagree.
+   */
+  caseCounts: {
+    total: number;
+    releaseExpected: number;
+    refusalExpected: number;
+  };
   arms: Array<{
     id: string;
     label: string;

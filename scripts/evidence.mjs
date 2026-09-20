@@ -31,15 +31,27 @@ const deployment = readJson(path.join(ARTIFACTS, "deployment.json"));
 const proof = readJson(path.join(EVIDENCE, "proof-report.json"));
 const lifecycle = readJson(path.join(ARTIFACTS, "live-lifecycle.json"));
 const isolation = readJson(path.join(EVIDENCE, "isolation-audit.json"));
+const finalScope = readJson(path.join(EVIDENCE, "final-scope-probe.json"));
 
 mkdirSync(EVIDENCE, { recursive: true });
 
+/**
+ * The counts, lifted from the proof report.
+ *
+ * `npm run proof` derives them from the case definitions and refuses to write a
+ * report whose counts disagree with the corpus. This script only carries them,
+ * so a summary can never be the place a case count goes stale.
+ */
+const caseCounts = proof?.caseCounts ?? null;
+
 const report = {
   generatedAt: new Date().toISOString(),
+  caseCounts,
   deployment,
   proof,
   lifecycle,
   isolation,
+  finalScope,
 };
 
 writeFileSync(
@@ -111,6 +123,34 @@ const claims = [
     supported: Boolean(isolation),
     value: isolation ?? null,
   },
+  {
+    id: "C8",
+    claim:
+      "The corpus counts are derived from the case definitions rather than written down, and the proof run fails if the two disagree.",
+    supportedBy: ["docs/evidence/proof-report.json", "tests/fixtures/cases.json"],
+    supported: Boolean(caseCounts),
+    value: caseCounts,
+  },
+  {
+    id: "C9",
+    claim:
+      "The final-scope read was probed fresh: the client variant executes and still sees a decision inside its appeal window, while the in-contract variant never returns. The shipped boundary is the elapsed appeal window.",
+    supportedBy: ["docs/evidence/final-scope-probe.json", "artifacts/vm-capabilities.json"],
+    supported: Boolean(finalScope?.verdict),
+    value: finalScope?.verdict ?? null,
+  },
+  {
+    id: "C10",
+    claim:
+      "This deployment is wallet-first: it holds no signing key, so a session with no wallet cannot click a live action and is offered the recorded run instead.",
+    supportedBy: ["app/api/capabilities/route.ts", "lib/runtime/capabilities.ts"],
+    supported: true,
+    value: {
+      browserWalletSigning: true,
+      operatorSigning: process.env.DEFINIT_ALLOW_SERVER_SIGNING === "true",
+      recordedReplay: Boolean(lifecycle),
+    },
+  },
 ];
 
 writeFileSync(
@@ -135,6 +175,7 @@ for (const claim of claims) {
 }
 log.ok("docs/CLAIMS.json");
 log.ok("docs/evidence/summary.json");
+if (caseCounts) log.info(`case counts: ${JSON.stringify(caseCounts)}`);
 
 const missing = claims.filter((claim) => !claim.supported);
 if (missing.length) {

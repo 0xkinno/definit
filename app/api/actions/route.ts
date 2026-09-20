@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
 
-import { RUNTIME_MODE } from "@/lib/config";
 import { MILESTONE_AMOUNT_WEI, SCENARIO } from "@/lib/demo/scenario";
 import { deadlineUnixFromNow } from "@/lib/demo/scenario";
 import { commitmentPayload, intentHashOf } from "@/lib/commitments/commitment";
 import { contracts, readClient } from "@/lib/genlayer/contracts";
 import { createAction, publishPolicyIfMissing } from "@/lib/server/runner";
-import { signerStatus } from "@/lib/server/signer";
+import { writeGuard } from "@/lib/server/write-guard";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -55,20 +54,8 @@ export async function POST(request: Request) {
     );
   }
 
-  const signer = signerStatus();
-  if (RUNTIME_MODE !== "live" || !signer.enabled) {
-    return NextResponse.json(
-      {
-        error: "EXECUTION_UNAVAILABLE",
-        detail:
-          RUNTIME_MODE !== "live"
-            ? "Contract addresses are not configured, so no transaction can be built."
-            : signer.reason,
-        hint: "This endpoint constructs real transactions. In rehearsal the console drives the same state machine locally instead.",
-      },
-      { status: 503 },
-    );
-  }
+  const refused = writeGuard();
+  if (refused) return refused;
 
   try {
     const policy = await publishPolicyIfMissing({

@@ -14,24 +14,46 @@ Responsibilities
    non-deterministic leader/validator block. The consensus surface is small:
    verdict, reason code and evidence digest.
 3. Record the decision. An approving decision is recorded as ACCEPTED.
-4. Expose a *finality capability* whose visibility depends on the storage state
-   a reader scopes its read to.
+4. Expose a *finality capability* for a decision, and refuse to promote that
+   decision until its appeal window has elapsed.
 
 What this contract never does
 -----------------------------
-It never performs an irreversible economic effect on the provisional stage.
-Every settlement instruction it emits is emitted with on='finalized', and the
-consumer independently re-reads this contract's final storage state before
-moving funds.
+It never performs an irreversible economic effect on the provisional stage, and
+it never claims a decision is final. `finalize_decision` is the only path to
+FINALIZED and it is refused with `APPEAL_WINDOW_OPEN` until
+`adjudicated_at + APPEAL_WINDOW_SECONDS` has passed on the checking
+transaction's own clock.
 
-The two independent finality boundaries used here
--------------------------------------------------
-A. Timing. `emit(on='finalized')` defers the outbound message until the
-   emitting transaction is final.
-B. Visibility. A cross-contract read scoped to final storage state cannot
-   observe a decision that has only reached the provisional stage.
+The two independent finality facts used here
+--------------------------------------------
+A. Timing. `emit(on='finalized')` defers an outbound settlement instruction
+   until the emitting transaction is final.
+B. Elapsed window. A decision cannot be promoted, and therefore cannot authorise
+   a release, until a recorded appeal window has closed. The vault re-derives
+   the same window from `adjudicated_at` before it moves anything.
 
-Either boundary alone would be a weaker claim. Both together are the product.
+Note on a construction that was tried and rejected
+--------------------------------------------------
+An earlier revision exposed the capability *only* to a read scoped to final
+storage state, on the theory that such a read cannot observe a decision that is
+still appealable.
+
+That theory does not hold on this network, for two separate reasons, and both
+were measured:
+
+  * A cross-contract read scoped to ``StorageView.LATEST_FINALIZED`` never
+    returns inside the VM; the leader is killed with
+    ``Leader execution exceeded 600.000s``. See
+    ``artifacts/vm-capabilities.json``.
+  * The client-side equivalent (``transactionHashVariant: "latest-final"``)
+    does execute, but it resolves against *transaction* finality, and the
+    adjudication transaction is final the moment consensus accepts it. The
+    appeal window opens after that, so a final-scoped read also sees a decision
+    that is still appealable. See ``docs/evidence/final-scope-probe.json``.
+
+The read is therefore a diagnostic, not a boundary. The boundary is the elapsed
+window described above.
 """
 
 import json
@@ -454,14 +476,17 @@ class DecisionGate(gl.contract.Contract):
 	def get_capability(self, decision_id: str) -> dict:
 		"""The finality capability.
 
-		This is the object a consumer must obtain before an irreversible effect
-		is permitted. It is a plain read of stored state, which is the point:
-		the same call made against provisional storage state and against final
-		storage state returns different answers.
+		This is the object a consumer obtains before an irreversible effect is
+		permitted. It is a plain read of stored state, and it is deliberately not
+		the boundary.
 
-		Read it unscoped and you may see a decision that is still appealable.
-		Read it scoped to final state and you can only see a decision that has
-		already settled into consensus.
+		Reading it at any scope can return a decision that is still appealable,
+		because the appeal window is a time fact that begins after the
+		adjudication transaction is already final. A scoped read narrows which
+		transaction's storage is consulted; it does not narrow which decisions
+		are appealable. What bounds the effect is `finalized_at`, and the
+		`APPEAL_WINDOW_OPEN` refusal in `finalize_decision` that has to be
+		cleared before it is set.
 		"""
 		if decision_id not in self.decisions:
 			return {
@@ -665,15 +690,14 @@ class DecisionGate(gl.contract.Contract):
 		runtime does not do that, so the call never returns -- it is a
 		re-entrancy deadlock, not a guard.
 
-		The authoritative finality read therefore lives in the vault, which is
-		also where value moves. This call records the agent's decision to move
-		on and schedules the settlement message on the finalized stage. The
-		vault then re-reads this contract's FINAL storage state on its own. If
-		the decision is still appealable that read does not see it, and the
-		release is refused with DECISION_NOT_FINAL.
+		This call records the agent's decision to move on, stamps `finalized_at`,
+		and schedules the settlement message on the finalized stage. The vault
+		does not take that on trust: it re-reads this contract's record on its
+		own, re-derives the appeal window from `adjudicated_at`, and refuses the
+		release with DECISION_NOT_FINAL if the window has not closed.
 
 		That is the product: the effect waits for finality because the contract
-		holding the value says so, not because a caller promised to wait.
+		holding the value re-derives it, not because a caller promised to wait.
 		"""
 		if decision_id not in self.decisions:
 			gl.vm.UserError.immediate(ERR_DECISION_UNKNOWN)
@@ -801,8 +825,8 @@ class DecisionGate(gl.contract.Contract):
 			# Acceptance is provisional, and no settlement instruction is issued
 			# here on purpose. At this moment the decision is still appealable,
 			# so an instruction issued now would be refused by the vault anyway.
-			# The instruction is issued by `finalize_decision`, which is called
-			# once the decision is readable in final storage state.
+			# The instruction is issued by `finalize_decision`, which refuses to
+			# run until the appeal window has closed.
 			action.state = STATE_ACCEPTED
 		else:
 			action.state = STATE_REJECTED

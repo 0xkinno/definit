@@ -4,6 +4,13 @@ import path from "node:path";
 import { Shell } from "@/components/Shell";
 import { Notice, Panel, SectionHeading } from "@/components/ui/primitives";
 import { runCorpus, type CorpusInput, type CorpusReport } from "@/lib/guard/corpus";
+import {
+  caseCountsFrom,
+  countsAgree,
+  describeCounts,
+  describeScore,
+  observedCounts,
+} from "@/lib/guard/counts";
 
 export const dynamic = "force-dynamic";
 
@@ -28,11 +35,15 @@ export default function LabPage() {
   let report: CorpusReport | null = null;
   let about = "";
   let failure: string | null = null;
+  let declared = null as ReturnType<typeof caseCountsFrom> | null;
+  let observed = null as ReturnType<typeof caseCountsFrom> | null;
 
   try {
     const { inputs, about: summary } = loadCases();
     about = summary;
     report = runCorpus(inputs);
+    declared = caseCountsFrom(inputs);
+    observed = observedCounts(report.entries, (entry) => entry.intervention.released);
   } catch (error) {
     failure = error instanceof Error ? error.message : String(error);
   }
@@ -41,12 +52,25 @@ export default function LabPage() {
     <Shell>
       <div className="mx-auto max-w-[1240px] px-4 py-10 sm:px-6">
         <SectionHeading
+          level={1}
           eyebrow="Proof lab"
           title="Attack the invariant, and watch it hold"
           lead="Every case is replayed against two implementations of the same settlement decision: one that consults the decision without requiring finality, and one that requires it and compares the commitment exactly. The refusals are only meaningful because the releases are here too."
         />
 
         {about ? <p className="mt-4 max-w-prose text-[13px] leading-relaxed text-ink-600">{about}</p> : null}
+
+        {report && declared && observed ? (
+          <p className="mt-3 text-[13px] font-medium text-ink-800" data-case-counts={declared.total}>
+            {describeCounts(declared)} &middot;{" "}
+            {describeScore(report.metrics.passing, report.metrics.totalCases)}
+            {countsAgree(declared, observed) ? null : (
+              <span className="ml-2 text-signal-rust">
+                the run observed {describeCounts(observed)}
+              </span>
+            )}
+          </p>
+        ) : null}
 
         {failure ? (
           <div className="mt-6">

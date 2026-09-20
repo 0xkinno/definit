@@ -56,7 +56,7 @@ Phases:
 ### T-P1-001 -- Encode the finality boundary in contract form
 - **Goal:** Build the smallest possible pair of contracts that proves: accepted does not settle, finalized does settle.
 - **Files:** `contracts/decision_gate.py`, `contracts/finality_vault.py`
-- **Acceptance:** gate records a bounded decision; gate emits an IC-to-IC message with the finality stage; vault re-reads the gate's final storage state before releasing.
+- **Acceptance:** gate records a bounded decision; gate refuses to promote it until the appeal window has elapsed; gate emits an IC-to-IC message with the finality stage; vault re-derives that same window from the gate's own record and checks the commitment before releasing.
 - **Verification:** `npm run lifecycle` (proves it on chain)
 - **Evidence:** `docs/evidence/live-lifecycle.json`, `tests/lifecycle/test_finality_boundary.py`
 - **Status:** DONE -- proven on chain. The local-network suite that would have
@@ -94,7 +94,7 @@ Phases:
 - **Files:** `contracts/finality_vault.py`
 - **Acceptance:** every guard independently rejects; fail-closed.
 - **Verification:** `npm run test:attacks`
-- **Evidence:** `tests/attacks/test_guards.py` -- 13 cases
+- **Evidence:** `tests/attacks/test_guards.py` -- one test per corpus case
 - **Status:** DONE for every guard that decides from its own storage. The
   finality guard requires a cross-contract read, which the direct runner does
   not implement, so it is driven on chain by `npm run lifecycle` instead.
@@ -162,8 +162,8 @@ Phases:
 - **Files:** `tests/fixtures/cases.json`, `tests/attacks/`
 - **Acceptance:** every case has expected outcome and machine-checked actual outcome.
 - **Verification:** `npm run proof`
-- **Evidence:** `docs/evidence/proof-report.json` -- 13/13 cases as expected,
-  control PASS
+- **Evidence:** `docs/evidence/proof-report.json` -- every case as expected,
+  control PASS; the counts are generated into `caseCounts`
 - **Status:** DONE
 
 ### T-P4-002 -- Baseline, intervention and control arms

@@ -64,7 +64,7 @@ const MECHANISM = [
   {
     step: "04",
     title: "Cross the boundary",
-    body: "Only a final-scope read can see the decision. The settlement instruction was emitted on the finalized stage and cannot run earlier.",
+    body: "The appeal window has closed and the gate has promoted the decision. The settlement instruction was emitted on the finalized stage and cannot run earlier.",
   },
   {
     step: "05",
@@ -80,7 +80,7 @@ export default async function LandingPage() {
     <Shell>
       {/* ------------------------------------------------------------ hero */}
       <section className="relative overflow-hidden border-b border-paper-300">
-        <div className="mx-auto grid max-w-[1240px] gap-12 px-4 py-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:items-center lg:py-20">
+        <div className="mx-auto grid max-w-[1240px] grid-cols-1 gap-12 px-4 py-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:items-center lg:py-20">
           <div>
             <div className="flex flex-wrap items-center gap-3">
               <span className="chip">GenLayer Agent Tank 2026</span>
@@ -227,7 +227,7 @@ export default async function LandingPage() {
                 ],
                 [
                   "The window closes",
-                  "The appeal window passes without the outcome changing. The decision becomes readable in final storage state.",
+                  "The appeal window passes without the outcome changing. The decision can now be promoted, and only then does the vault's release guard clear.",
                 ],
                 [
                   "The release runs",

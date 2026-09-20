@@ -95,8 +95,17 @@ was final at the moment it acted.
 
 ## New capability
 
-**Finality-scoped execution.** An irreversible effect whose authorisation is a
-storage read that is syntactically incapable of returning provisional data.
+**A finality boundary the effect cannot step around.** An irreversible effect
+that no caller, and no read, can trigger while the judgment behind it is still
+contestable.
+
+The intended mechanism was a storage read that is syntactically incapable of
+returning provisional data. That read does not execute in the VM on this
+network, and its client-side namesake executes without discriminating between
+an appealable and a settled decision. What ships instead is an elapsed-window
+boundary that both contracts re-derive independently, which produces the same
+guarantee by a different route. The measurements are in
+`artifacts/vm-capabilities.json` and `docs/evidence/final-scope-probe.json`.
 
 ## Invariant
 
@@ -105,8 +114,10 @@ storage read that is syntactically incapable of returning provisional data.
 > exactly, the nonce is unused, and the deadline has not passed.
 
 The primitive this was meant to be built on — a cross-contract read scoped to
-`LATEST_FINALIZED` — does not execute on this network, so the deployed boundary
-is the appeal window rather than the read scope. See `docs/LIMITATIONS.md`.
+`LATEST_FINALIZED` — does not execute on this network, and the client-side
+variant that does execute cannot tell an appealable decision from a settled one.
+The deployed boundary is therefore the appeal window, re-derived by each
+contract, rather than the read scope. See `docs/LIMITATIONS.md`.
 
 ## Break case
 

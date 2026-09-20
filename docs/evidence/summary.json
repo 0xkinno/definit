@@ -1,5 +1,10 @@
 {
-  "generatedAt": "2026-09-17T11:31:33.559Z",
+  "generatedAt": "2026-09-20T16:08:19.061Z",
+  "caseCounts": {
+    "total": 13,
+    "releaseExpected": 3,
+    "refusalExpected": 10
+  },
   "deployment": {
     "network": "GenLayer Studio Next",
     "chainId": 61997,
@@ -33,9 +38,14 @@
     }
   },
   "proof": {
-    "generatedAt": "2026-09-17T11:31:31.167Z",
+    "generatedAt": "2026-09-20T16:08:16.310Z",
     "source": "lib/guard/corpus.ts",
     "about": "Replay of the settlement corpus against a provisional-scope baseline and the finality-gated intervention.",
+    "caseCounts": {
+      "total": 13,
+      "releaseExpected": 3,
+      "refusalExpected": 10
+    },
     "arms": [
       {
         "id": "baseline",
@@ -439,11 +449,293 @@
     "completedAt": "2026-09-17T09:06:58.870Z"
   },
   "isolation": {
-    "generatedAt": "2026-09-17T11:27:58.493Z",
+    "generatedAt": "2026-09-20T15:31:34.090Z",
     "root": ".",
-    "filesScanned": 121,
+    "filesScanned": 147,
     "termsChecked": 18,
     "findings": [],
     "clean": true
+  },
+  "finalScope": {
+    "generatedAt": "2026-09-20T15:18:13.224Z",
+    "source": "scripts/probe-final-scope.mjs",
+    "about": "A fresh probe of the GenLayer client final-scope read against the deployed contracts. It measures which read variants execute on this network and records the exact error when one does not.",
+    "network": {
+      "name": "GenLayer Studio Devnet",
+      "chainId": 61997,
+      "rpc": "https://studio-dev.genlayer.com/api"
+    },
+    "contracts": {
+      "decisionGate": "0xC709FA0b51BDE4A6c2931E7dB7B3171Fa9f6F6B2",
+      "finalityVault": "0xf53291532749A568ecb5D0fC4F007cE29DFE2422"
+    },
+    "timeoutMs": 180000,
+    "probes": [
+      {
+        "decisionId": "0xc93e7a2a720983b58255d54671ec07682cb753a9c81b1c56a6ae31ca25d1f675",
+        "note": "the recorded live run",
+        "ordinary": {
+          "read": "ordinary",
+          "ok": true,
+          "elapsedMs": 1131,
+          "value": {
+            "action_id": "0x686e268900f23720e6fd9e0cbff0e0f3c3399ada1363087eb051066b0482fc6d",
+            "adjudicated_at": "2026-09-17T09:03:40.861154Z",
+            "agent": "0xe98acbd5d8f02a92a5492b5830ba83ffbb684e7f",
+            "amount": "10000000000000000",
+            "asset": "GEN",
+            "confidence": 98,
+            "deadline_unix": 1790240576,
+            "decision_id": "0xc93e7a2a720983b58255d54671ec07682cb753a9c81b1c56a6ae31ca25d1f675",
+            "evidence_digest": "0xb27adf7a6be9c0118c0faad2b83f90f5cfc34d559f5f3fa2685f90e8704041c4",
+            "exists": true,
+            "finalized_at": "2026-09-17T09:06:27.940267Z",
+            "intent_hash": "0x93e36383b730fec16b499bb83c5afba380b7d025bdf88297f7826ce7d89f2474",
+            "nonce": 1789635776,
+            "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+            "read_scope": "finalized-capability",
+            "reason_code": "EVIDENCE_SATISFIES_POLICY",
+            "recipient": "0x1111111111111111111111111111111111111111",
+            "state": "FINALIZED",
+            "verdict": "APPROVE"
+          },
+          "error": null
+        },
+        "nonfinal": {
+          "read": "latest-nonfinal",
+          "ok": true,
+          "elapsedMs": 1871,
+          "value": {
+            "action_id": "0x686e268900f23720e6fd9e0cbff0e0f3c3399ada1363087eb051066b0482fc6d",
+            "adjudicated_at": "2026-09-17T09:03:40.861154Z",
+            "agent": "0xe98acbd5d8f02a92a5492b5830ba83ffbb684e7f",
+            "amount": "10000000000000000",
+            "asset": "GEN",
+            "confidence": 98,
+            "deadline_unix": 1790240576,
+            "decision_id": "0xc93e7a2a720983b58255d54671ec07682cb753a9c81b1c56a6ae31ca25d1f675",
+            "evidence_digest": "0xb27adf7a6be9c0118c0faad2b83f90f5cfc34d559f5f3fa2685f90e8704041c4",
+            "exists": true,
+            "finalized_at": "2026-09-17T09:06:27.940267Z",
+            "intent_hash": "0x93e36383b730fec16b499bb83c5afba380b7d025bdf88297f7826ce7d89f2474",
+            "nonce": 1789635776,
+            "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+            "read_scope": "finalized-capability",
+            "reason_code": "EVIDENCE_SATISFIES_POLICY",
+            "recipient": "0x1111111111111111111111111111111111111111",
+            "state": "FINALIZED",
+            "verdict": "APPROVE"
+          },
+          "error": null
+        },
+        "final": {
+          "read": "latest-final",
+          "ok": true,
+          "elapsedMs": 837,
+          "value": {
+            "action_id": "0x686e268900f23720e6fd9e0cbff0e0f3c3399ada1363087eb051066b0482fc6d",
+            "adjudicated_at": "2026-09-17T09:03:40.861154Z",
+            "agent": "0xe98acbd5d8f02a92a5492b5830ba83ffbb684e7f",
+            "amount": "10000000000000000",
+            "asset": "GEN",
+            "confidence": 98,
+            "deadline_unix": 1790240576,
+            "decision_id": "0xc93e7a2a720983b58255d54671ec07682cb753a9c81b1c56a6ae31ca25d1f675",
+            "evidence_digest": "0xb27adf7a6be9c0118c0faad2b83f90f5cfc34d559f5f3fa2685f90e8704041c4",
+            "exists": true,
+            "finalized_at": "2026-09-17T09:06:27.940267Z",
+            "intent_hash": "0x93e36383b730fec16b499bb83c5afba380b7d025bdf88297f7826ce7d89f2474",
+            "nonce": 1789635776,
+            "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+            "read_scope": "finalized-capability",
+            "reason_code": "EVIDENCE_SATISFIES_POLICY",
+            "recipient": "0x1111111111111111111111111111111111111111",
+            "state": "FINALIZED",
+            "verdict": "APPROVE"
+          },
+          "error": null
+        }
+      },
+      {
+        "decisionId": "0x572c6faa31debd71018ca5c6256606177674a74cd996e880f4624f3cbcb8fb78",
+        "note": "live action 0xc2fd19bec98c in state ACCEPTED",
+        "ordinary": {
+          "read": "ordinary",
+          "ok": true,
+          "elapsedMs": 1277,
+          "value": {
+            "action_id": "0xc2fd19bec98cd245a93d99ad7cd336f49d1685d4d4b821a4f98a19aeeb9b6152",
+            "adjudicated_at": "2026-09-17T08:10:03.213604Z",
+            "agent": "0xe98acbd5d8f02a92a5492b5830ba83ffbb684e7f",
+            "amount": "10000000000000000",
+            "asset": "GEN",
+            "confidence": 97,
+            "deadline_unix": 1790237373,
+            "decision_id": "0x572c6faa31debd71018ca5c6256606177674a74cd996e880f4624f3cbcb8fb78",
+            "evidence_digest": "0xb27adf7a6be9c0118c0faad2b83f90f5cfc34d559f5f3fa2685f90e8704041c4",
+            "exists": true,
+            "finalized_at": "",
+            "intent_hash": "0x394993cf1b001689ae91d4b4a9583d253eff5610278a3b91c0a1bf427c5b679c",
+            "nonce": 1789632573,
+            "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+            "read_scope": "finalized-capability",
+            "reason_code": "EVIDENCE_SATISFIES_POLICY",
+            "recipient": "0x1111111111111111111111111111111111111111",
+            "state": "ACCEPTED",
+            "verdict": "APPROVE"
+          },
+          "error": null
+        },
+        "nonfinal": {
+          "read": "latest-nonfinal",
+          "ok": true,
+          "elapsedMs": 1029,
+          "value": {
+            "action_id": "0xc2fd19bec98cd245a93d99ad7cd336f49d1685d4d4b821a4f98a19aeeb9b6152",
+            "adjudicated_at": "2026-09-17T08:10:03.213604Z",
+            "agent": "0xe98acbd5d8f02a92a5492b5830ba83ffbb684e7f",
+            "amount": "10000000000000000",
+            "asset": "GEN",
+            "confidence": 97,
+            "deadline_unix": 1790237373,
+            "decision_id": "0x572c6faa31debd71018ca5c6256606177674a74cd996e880f4624f3cbcb8fb78",
+            "evidence_digest": "0xb27adf7a6be9c0118c0faad2b83f90f5cfc34d559f5f3fa2685f90e8704041c4",
+            "exists": true,
+            "finalized_at": "",
+            "intent_hash": "0x394993cf1b001689ae91d4b4a9583d253eff5610278a3b91c0a1bf427c5b679c",
+            "nonce": 1789632573,
+            "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+            "read_scope": "finalized-capability",
+            "reason_code": "EVIDENCE_SATISFIES_POLICY",
+            "recipient": "0x1111111111111111111111111111111111111111",
+            "state": "ACCEPTED",
+            "verdict": "APPROVE"
+          },
+          "error": null
+        },
+        "final": {
+          "read": "latest-final",
+          "ok": true,
+          "elapsedMs": 977,
+          "value": {
+            "action_id": "0xc2fd19bec98cd245a93d99ad7cd336f49d1685d4d4b821a4f98a19aeeb9b6152",
+            "adjudicated_at": "2026-09-17T08:10:03.213604Z",
+            "agent": "0xe98acbd5d8f02a92a5492b5830ba83ffbb684e7f",
+            "amount": "10000000000000000",
+            "asset": "GEN",
+            "confidence": 97,
+            "deadline_unix": 1790237373,
+            "decision_id": "0x572c6faa31debd71018ca5c6256606177674a74cd996e880f4624f3cbcb8fb78",
+            "evidence_digest": "0xb27adf7a6be9c0118c0faad2b83f90f5cfc34d559f5f3fa2685f90e8704041c4",
+            "exists": true,
+            "finalized_at": "",
+            "intent_hash": "0x394993cf1b001689ae91d4b4a9583d253eff5610278a3b91c0a1bf427c5b679c",
+            "nonce": 1789632573,
+            "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+            "read_scope": "finalized-capability",
+            "reason_code": "EVIDENCE_SATISFIES_POLICY",
+            "recipient": "0x1111111111111111111111111111111111111111",
+            "state": "ACCEPTED",
+            "verdict": "APPROVE"
+          },
+          "error": null
+        }
+      },
+      {
+        "decisionId": "0x698e425e321227ba3c56d5817889891e77e158aaf882c9ce5dd394ea045bba1b",
+        "note": "live action 0xebf5fe0a52af in state FINALIZED",
+        "ordinary": {
+          "read": "ordinary",
+          "ok": true,
+          "elapsedMs": 1257,
+          "value": {
+            "action_id": "0xebf5fe0a52afd9bf50b76a0f50075b832a5c3c9515b33dea104c92570c724985",
+            "adjudicated_at": "2026-09-17T08:16:00.727662Z",
+            "agent": "0xe98acbd5d8f02a92a5492b5830ba83ffbb684e7f",
+            "amount": "10000000000000000",
+            "asset": "GEN",
+            "confidence": 100,
+            "deadline_unix": 1790237739,
+            "decision_id": "0x698e425e321227ba3c56d5817889891e77e158aaf882c9ce5dd394ea045bba1b",
+            "evidence_digest": "0xb27adf7a6be9c0118c0faad2b83f90f5cfc34d559f5f3fa2685f90e8704041c4",
+            "exists": true,
+            "finalized_at": "2026-09-17T08:50:57.650724Z",
+            "intent_hash": "0x062038efbbb4a5fad5da654fab8d0620f3e97023c0a8c3068cf1a6c3dc3618ce",
+            "nonce": 1789632939,
+            "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+            "read_scope": "finalized-capability",
+            "reason_code": "EVIDENCE_SATISFIES_POLICY",
+            "recipient": "0x1111111111111111111111111111111111111111",
+            "state": "FINALIZED",
+            "verdict": "APPROVE"
+          },
+          "error": null
+        },
+        "nonfinal": {
+          "read": "latest-nonfinal",
+          "ok": true,
+          "elapsedMs": 863,
+          "value": {
+            "action_id": "0xebf5fe0a52afd9bf50b76a0f50075b832a5c3c9515b33dea104c92570c724985",
+            "adjudicated_at": "2026-09-17T08:16:00.727662Z",
+            "agent": "0xe98acbd5d8f02a92a5492b5830ba83ffbb684e7f",
+            "amount": "10000000000000000",
+            "asset": "GEN",
+            "confidence": 100,
+            "deadline_unix": 1790237739,
+            "decision_id": "0x698e425e321227ba3c56d5817889891e77e158aaf882c9ce5dd394ea045bba1b",
+            "evidence_digest": "0xb27adf7a6be9c0118c0faad2b83f90f5cfc34d559f5f3fa2685f90e8704041c4",
+            "exists": true,
+            "finalized_at": "2026-09-17T08:50:57.650724Z",
+            "intent_hash": "0x062038efbbb4a5fad5da654fab8d0620f3e97023c0a8c3068cf1a6c3dc3618ce",
+            "nonce": 1789632939,
+            "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+            "read_scope": "finalized-capability",
+            "reason_code": "EVIDENCE_SATISFIES_POLICY",
+            "recipient": "0x1111111111111111111111111111111111111111",
+            "state": "FINALIZED",
+            "verdict": "APPROVE"
+          },
+          "error": null
+        },
+        "final": {
+          "read": "latest-final",
+          "ok": true,
+          "elapsedMs": 1570,
+          "value": {
+            "action_id": "0xebf5fe0a52afd9bf50b76a0f50075b832a5c3c9515b33dea104c92570c724985",
+            "adjudicated_at": "2026-09-17T08:16:00.727662Z",
+            "agent": "0xe98acbd5d8f02a92a5492b5830ba83ffbb684e7f",
+            "amount": "10000000000000000",
+            "asset": "GEN",
+            "confidence": 100,
+            "deadline_unix": 1790237739,
+            "decision_id": "0x698e425e321227ba3c56d5817889891e77e158aaf882c9ce5dd394ea045bba1b",
+            "evidence_digest": "0xb27adf7a6be9c0118c0faad2b83f90f5cfc34d559f5f3fa2685f90e8704041c4",
+            "exists": true,
+            "finalized_at": "2026-09-17T08:50:57.650724Z",
+            "intent_hash": "0x062038efbbb4a5fad5da654fab8d0620f3e97023c0a8c3068cf1a6c3dc3618ce",
+            "nonce": 1789632939,
+            "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+            "read_scope": "finalized-capability",
+            "reason_code": "EVIDENCE_SATISFIES_POLICY",
+            "recipient": "0x1111111111111111111111111111111111111111",
+            "state": "FINALIZED",
+            "verdict": "APPROVE"
+          },
+          "error": null
+        }
+      }
+    ],
+    "verdict": {
+      "sdkOrdinaryRead": true,
+      "sdkNonfinalRead": true,
+      "sdkFinalRead": true
+    },
+    "scope": "client SDK read path only",
+    "contractScope": {
+      "note": "The shipped contracts do not perform a cross-contract read of DecisionGate scoped to final storage. The vault derives the appeal boundary from the gate's own adjudication stamp instead.",
+      "usesLatestFinalizedStorageView": false
+    }
   }
 }

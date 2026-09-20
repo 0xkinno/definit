@@ -103,6 +103,15 @@ returning, and the leader is killed with `Leader execution exceeded 600.000s`.
 It is therefore not the mechanism that ships. See `docs/LIMITATIONS.md` and
 `artifacts/vm-capabilities.json` for the isolation run that establishes this.
 
+The same name exists on the client side of the SDK, as
+`transactionHashVariant: "latest-final"`, and it behaves differently: it
+executes. It is still not the boundary, because it resolves against *transaction*
+finality while the appeal window opens after the adjudication transaction is
+already final. `npm run probe:final-scope` measures both scopes against a live
+decision and writes `docs/evidence/final-scope-probe.json`. Do not collapse the
+two: one never returns, and the other returns something that looks like
+authority and is not.
+
 The boundary that does ship is enforced by two on-chain facts, both of which the
 vault re-checks itself rather than trusting the caller:
 

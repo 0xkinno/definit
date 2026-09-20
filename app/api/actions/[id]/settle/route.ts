@@ -1,25 +1,13 @@
 import { NextResponse } from "next/server";
 
 import { RUNTIME_MODE } from "@/lib/config";
-import { signerStatus } from "@/lib/server/signer";
+import { writeGuard } from "@/lib/server/write-guard";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 function unavailable() {
-  const signer = signerStatus();
-  if (RUNTIME_MODE === "live" && signer.enabled) return null;
-  return NextResponse.json(
-    {
-      error: "EXECUTION_UNAVAILABLE",
-      detail:
-        RUNTIME_MODE !== "live"
-          ? "Contract addresses are not configured, so no transaction can be built."
-          : signer.reason,
-      hint: "This endpoint constructs real transactions and never decides anything. In rehearsal the console drives the same state machine locally instead.",
-    },
-    { status: 503 },
-  );
+  return writeGuard();
 }
 
 function failed(code: string, error: unknown) {

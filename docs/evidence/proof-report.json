@@ -1,7 +1,12 @@
 {
-  "generatedAt": "2026-09-17T11:31:31.167Z",
+  "generatedAt": "2026-09-20T16:08:16.310Z",
   "source": "lib/guard/corpus.ts",
   "about": "Replay of the settlement corpus against a provisional-scope baseline and the finality-gated intervention.",
+  "caseCounts": {
+    "total": 13,
+    "releaseExpected": 3,
+    "refusalExpected": 10
+  },
   "arms": [
     {
       "id": "baseline",

@@ -3,6 +3,13 @@ import Link from "next/link";
 import { Shell } from "@/components/Shell";
 import { Notice, Panel, SectionHeading } from "@/components/ui/primitives";
 import { NOT_MEASURED_COPY, loadProofReport } from "@/lib/evidence";
+import {
+  describeCounts,
+  describeScore,
+  observedCounts,
+  reportRowReleased,
+  type CaseCounts,
+} from "@/lib/guard/counts";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +22,18 @@ export const metadata = { title: "Evidence -- DEFINIT" };
  * report is absent the page says so, because the one thing a page like this must
  * never do is produce a number nobody measured.
  */
+/**
+ * Counts come from the generated report. If a report predates the `caseCounts`
+ * field, they are recounted from its own case rows rather than typed in, so the
+ * page still cannot disagree with what it is showing.
+ */
+function countsOf(report: { caseCounts?: CaseCounts; cases: Array<{ actual: string; expected: string }> }): CaseCounts {
+  return (
+    report.caseCounts ??
+    observedCounts(report.cases, reportRowReleased)
+  );
+}
+
 export default async function ProofPage() {
   const { report, available } = await loadProofReport();
 
@@ -22,6 +41,7 @@ export default async function ProofPage() {
     <Shell>
       <div className="mx-auto max-w-[1240px] px-4 py-10 sm:px-6">
         <SectionHeading
+          level={1}
           eyebrow="Evidence"
           title="Headline numbers, generated rather than typed"
           lead="Every figure below was produced by `npm run proof` and written to a machine-readable report. If that report is missing from this checkout, this page shows nothing at all rather than a comforting number."
@@ -43,9 +63,13 @@ export default async function ProofPage() {
               ))}
             </div>
 
-            <p className="mt-4 text-[12px] text-ink-500">
-              {report.metrics.passing} of {report.metrics.totalCases} cases passing. Generated{" "}
-              {report.generatedAt} by {report.source}.
+            <p className="mt-4 text-[13px] font-medium text-ink-800">
+              {describeCounts(countsOf(report))} &middot;{" "}
+              {describeScore(report.metrics.passing, report.metrics.totalCases)}
+            </p>
+            <p className="mt-1 text-[12px] text-ink-500">
+              Counted from the case definitions in <span className="hash">tests/fixtures/cases.json</span>{" "}
+              by <span className="hash">{report.source}</span>. Generated {report.generatedAt}.
             </p>
 
             <Panel className="mt-8">

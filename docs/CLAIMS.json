@@ -1,6 +1,6 @@
 {
   "about": "Every claim this submission makes, with the artifact that supports it. Regenerate with `npm run evidence`.",
-  "generatedAt": "2026-09-17T11:31:33.559Z",
+  "generatedAt": "2026-09-20T16:08:19.061Z",
   "claims": [
     {
       "id": "C1",
@@ -74,12 +74,54 @@
       ],
       "supported": true,
       "value": {
-        "generatedAt": "2026-09-17T11:27:58.493Z",
+        "generatedAt": "2026-09-20T15:31:34.090Z",
         "root": ".",
-        "filesScanned": 121,
+        "filesScanned": 147,
         "termsChecked": 18,
         "findings": [],
         "clean": true
+      }
+    },
+    {
+      "id": "C8",
+      "claim": "The corpus counts are derived from the case definitions rather than written down, and the proof run fails if the two disagree.",
+      "supportedBy": [
+        "docs/evidence/proof-report.json",
+        "tests/fixtures/cases.json"
+      ],
+      "supported": true,
+      "value": {
+        "total": 13,
+        "releaseExpected": 3,
+        "refusalExpected": 10
+      }
+    },
+    {
+      "id": "C9",
+      "claim": "The final-scope read was probed fresh: the client variant executes and still sees a decision inside its appeal window, while the in-contract variant never returns. The shipped boundary is the elapsed appeal window.",
+      "supportedBy": [
+        "docs/evidence/final-scope-probe.json",
+        "artifacts/vm-capabilities.json"
+      ],
+      "supported": true,
+      "value": {
+        "sdkOrdinaryRead": true,
+        "sdkNonfinalRead": true,
+        "sdkFinalRead": true
+      }
+    },
+    {
+      "id": "C10",
+      "claim": "This deployment is wallet-first: it holds no signing key, so a session with no wallet cannot click a live action and is offered the recorded run instead.",
+      "supportedBy": [
+        "app/api/capabilities/route.ts",
+        "lib/runtime/capabilities.ts"
+      ],
+      "supported": true,
+      "value": {
+        "browserWalletSigning": true,
+        "operatorSigning": false,
+        "recordedReplay": true
       }
     }
   ]

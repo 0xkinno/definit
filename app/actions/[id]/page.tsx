@@ -328,6 +328,7 @@ export default async function LifecyclePage({
     <Shell>
       <div className="mx-auto max-w-[1240px] px-4 py-10 sm:px-6">
         <SectionHeading
+          level={1}
           eyebrow="Lifecycle"
           title="Watch one action cross the finality boundary"
           lead="Registration, adjudication, a refusal, funding, promotion and release -- every stage written down with the transaction that produced it. Where no live record exists, the walkthrough falls back to a local replay and says so on the page."

@@ -11,6 +11,8 @@ of them.
 | `artifacts/live-lifecycle.json` | `npm run lifecycle` | `docs/evidence/live-lifecycle.json` |
 | `docs/evidence/proof-report.json` | `npm run proof` | `lib/evidence.ts`, the evidence page |
 | `docs/evidence/isolation-audit.json` | `npm run audit:isolation` | `npm run verify:submission` |
+| `docs/evidence/final-scope-probe.json` | `npm run probe:final-scope` | this document, `docs/LIMITATIONS.md` |
+| `docs/evidence/submission-check.json` | `npm run verify:submission` | the final completion check |
 
 ## Deployment
 
@@ -64,17 +66,51 @@ Seven transactions, in order:
 Two observations in that record are the whole product, and both are read off
 the network rather than asserted by the script:
 
-**The boundary is observable.** One second after adjudication, the same method
-on the same contract answered differently depending on the storage scope it was
-asked about:
+**The boundary is observable, and so is the limit of that observation.** The
+recorded run sampled the same method on the same contract at two storage scopes
+while the adjudication transaction was itself still `ACCEPTED`:
 
 ```
 sample 1: tx=ACCEPTED  provisional=true  finalized=false
 ```
 
-The decision existed. It was readable. And the final-scope read could not see
-it, because it had not settled into final state yet. `boundary.observableOnThisNetwork`
-is `true` in the record.
+That is a real measurement, and it is narrower than it first appears.
+`latest-final` resolves against *transaction* finality. At that instant the
+adjudication transaction had not been finalised, so the final-scoped view did
+not yet contain the decision.
+
+A fresh probe of the same reads, recorded in
+`docs/evidence/final-scope-probe.json` on 2026-09-20, establishes the limit of
+the distinction. It was run against a decision whose adjudication transaction
+had long since finalised while its action was still in state `ACCEPTED`:
+
+```
+decision 0x572c6faa...   action state ACCEPTED
+  ordinary         ok=true  exists=true  1277 ms
+  latest-nonfinal  ok=true  exists=true  1029 ms
+  latest-final     ok=true  exists=true   977 ms
+```
+
+The final-scope read executes, and it also sees a decision that is still
+appealable, because the appeal window is a contract-stamped *time* fact that
+begins after the adjudication transaction is already final. A final-scope read
+is therefore a diagnostic, not the execution boundary.
+
+Two separate things were being conflated in earlier versions of this document:
+
+- the **client SDK read** (`transactionHashVariant: "latest-final"`), which
+  executes on this network, and
+- the **in-contract cross-contract read**
+  (`gl.contract.get_at(gate).view(state=gl.contract.StorageView.LATEST_FINALIZED)`),
+  which never returns: the leader is killed with
+  `Leader execution exceeded 600.000s` (recorded in
+  `artifacts/vm-capabilities.json`).
+
+Neither is what enforces the boundary. The elapsed appeal window is, and it is
+enforced in two places: `DecisionGate.finalize_decision` refuses to promote a
+decision before `adjudicated_at + APPEAL_WINDOW_SECONDS`, and
+`FinalityVault.settle` re-derives the same window from the gate's own
+adjudication stamp before it releases.
 
 **The boundary is enforced, not described.** The lifecycle does not politely
 wait for the window before trying to promote. It tries *first*, deliberately,
@@ -100,20 +136,34 @@ finality_proof               gate promoted the decision after its appeal window
                              matched the commitment
 ```
 
+`decision_read_scope: FINALIZED_CAPABILITY` is the decision contract's own name
+for the capability it issues once a decision has been promoted. It is not a
+statement that the release was authorised by a final-scoped storage read: the
+vault performs no such read. `finality_proof` is the field that says what the
+vault actually checked, and it names the window, not a scope.
+
 `FinalityVault.describe()` reports `settlement_count: 1` after the run.
 
 ## Proof corpus
 
-`npm run proof` replays an offline corpus of thirteen cases against two
-implementations of the same settlement decision: a baseline that consults the
-decision without requiring finality, and the intervention that mirrors
-`contracts/finality_vault.py`. It writes `docs/evidence/proof-report.json`, and
-the report is written even when cases fail, so a failing corpus cannot hide.
+`npm run proof` replays the offline corpus in `tests/fixtures/cases.json`
+against two implementations of the same settlement decision: a baseline that
+consults the decision without requiring finality, and the intervention that
+mirrors `contracts/finality_vault.py`. It writes
+`docs/evidence/proof-report.json`, and the report is written even when cases
+fail, so a failing corpus cannot hide.
 
 The corpus exists for attribution. A refusal on its own proves nothing -- a
 guard that refuses everything scores identically to a correct one. So each case
-is run against both arms and the report carries the four release cases that
-must *succeed* alongside the refusal cases that must not.
+is run against both arms, and the report carries the release cases that must
+*succeed* alongside the refusal cases that must not.
+
+The counts are not written down in this document. They are generated into
+`caseCounts` in the report by `npm run proof`, which fails if the generated
+counts disagree with the case definitions, if the report's case count differs
+from the source corpus, or if any case's observed outcome differs from its
+expected outcome. Read them from the report, or from the evidence page, which
+renders that field.
 
 ## Frontend deployment
 
@@ -124,12 +174,29 @@ must *succeed* alongside the refusal cases that must not.
 | Source | https://github.com/0xkinno/definit |
 | Build | `next build`, Next.js 15.5.25, 24 routes |
 
-The hosting project holds nine environment variables, all added as
-**non-sensitive**. Every one of them is public by design: the `NEXT_PUBLIC_*`
-chain and address configuration, the public evidence snapshot URL, and the flag
-that keeps the server signer switched off. **No private key is deployed.** In
-the deployed application, signing happens in the visitor's own browser wallet
-and nowhere else.
+The hosting project holds public configuration, added as **non-sensitive**.
+Every value is public by design: the `NEXT_PUBLIC_*` chain and address
+configuration, the public evidence snapshot URL, and the flag that keeps the
+server signer switched off. **No private key is deployed**, and
+`DEFINIT_ALLOW_SERVER_SIGNING` is `false`, so the hosted operator cannot sign on
+a visitor's behalf even if a key were ever added by accident.
+
+That decision has a visible consequence, and the UI is required to be honest
+about it. With server signing off, a session with no wallet has no signing
+pathway at all, so every live write control is disabled and says so. The
+`/api/capabilities` route publishes exactly that:
+
+```
+liveContracts        true
+browserWalletSigning true
+operatorSigning      false
+recordedReplay       true
+```
+
+A disabled button on this deployment is disabled because the route behind it
+would refuse, not because the page is being cautious. The recorded run stays
+available in both sessions, and it is labelled as a record rather than a new
+transaction.
 
 ## Wallet connection
 
@@ -142,7 +209,7 @@ connected account. Verified against the production URL in a real browser:
 | A wallet is detected and its account is read | pass |
 | The account is resumed silently on a return visit | pass |
 | The account balance is read from the chain | pass |
-| The lifecycle page replaces the operator fallback with "Ready to sign" | pass |
+| The lifecycle page says "Ready to sign" once the wallet is connected | pass |
 | A visitor with no wallet is told so, and is offered the recorded run | pass |
 | The landing page renders the lifecycle drawing, not an ASCII block | pass |
 

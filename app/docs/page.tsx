@@ -28,6 +28,7 @@ export default function DocsIndexPage() {
     <Shell>
       <div className="mx-auto max-w-[1240px] px-4 py-10 sm:px-6">
         <SectionHeading
+          level={1}
           eyebrow="Documents"
           title="Everything claimed, in writing"
           lead="These are the repository's own Markdown files, rendered unedited. Where a document is silent, that silence is visible here too."

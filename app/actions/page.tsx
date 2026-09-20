@@ -56,6 +56,7 @@ export default async function ActionsPage() {
     <Shell>
       <div className="mx-auto max-w-[1240px] px-4 py-10 sm:px-6">
         <SectionHeading
+          level={1}
           eyebrow="Actions"
           title="Every action this operator has registered"
           lead="The index is the decision contract's own record, read live. Nothing here is cached, and nothing here is authoritative: the contracts are."

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion, useReducedMotion } from "framer-motion";
 
@@ -17,6 +17,12 @@ export type SealState = "accepted" | "finalized";
  *   finalized  the gate is seated. The bar is aligned. The instrument is sealed.
  *
  * The animation is the argument: nothing moves until the boundary is crossed.
+ *
+ * The root clips its own overflow on purpose. The instrument is a square element
+ * rotated in Z, and a rotated square reports a bounding box roughly 21% wider
+ * than itself even though everything it paints -- a disc, a bar, a seated gate --
+ * stays inside that box. Without the clip the decoration alone produced a
+ * horizontal scrollbar on a phone.
  */
 export function DecisionSeal({
   state,
@@ -36,7 +42,7 @@ export function DecisionSeal({
 
   return (
     <div
-      className={classNames("relative select-none", className)}
+      className={classNames("relative select-none overflow-hidden", className)}
       style={{ width: size, height: size, maxWidth: "100%" }}
       aria-hidden="true"
     >

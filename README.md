@@ -63,25 +63,42 @@ is that the agent treated a provisional judgment as authority.
 Reading the GenVM specification and the Python SDK source rather than the
 marketing pages produces one load-bearing fact:
 
-**finality is not a status you observe, it is a storage scope you read.**
+**finality looked like a storage scope you read, and it is not.**
 
-A cross-contract read can be scoped to final storage state
-(`gl.contract.StorageView.LATEST_FINALIZED`) or to decided-but-not-final state
-(`LATEST_DECIDED`). The same call, made twice, returns different answers. A
-decision that is currently `ACCEPTED` is *not there* when you scope your read to
-final state.
+GenVM exposes a scoped cross-contract read, and the name suggests the boundary
+we wanted: `gl.contract.StorageView.LATEST_FINALIZED`. Read the same method at
+`LATEST_DECIDED` and you see everything; read it at `LATEST_FINALIZED` and a
+still-appealable decision should be invisible. That was the design.
 
-That is the primitive, and it is the right one. It is also the one thing that
-cannot be built here: a read scoped to `LATEST_FINALIZED` never returns on this
-network. It is not refused -- the leader is killed with
-`Leader execution exceeded 600.000s` -- so there is nothing to fall back to.
-`docs/LIMITATIONS.md` records the isolation run that establishes this.
+Two measurements killed it, and both are recorded rather than asserted.
 
-The deployed pair therefore enforces the same boundary with two on-chain facts
+**The in-contract read never returns.** A cross-contract read scoped to
+`StorageView.LATEST_FINALIZED` does not answer. It is not refused -- the leader
+is killed with `Leader execution exceeded 600.000s`. The isolation run in
+`artifacts/vm-capabilities.json` shows a plain cross-contract read of the same
+method answering in full while the final-scoped read of it never does, so the
+result is attributable to the scope and not to the call.
+
+**The client-side read returns, and is not a boundary.** The SDK exposes
+`transactionHashVariant: "latest-final"`, and it does execute: a fresh probe
+(`npm run probe:final-scope`, recorded in
+`docs/evidence/final-scope-probe.json`) measured 837-1570 ms across three
+decisions. But it resolves against *transaction* finality. The adjudication
+transaction is final the moment consensus accepts it, while the appeal window
+opens *after* that. So `latest-final` also sees a decision that is still
+appealable, which is exactly what the probe caught. It is a useful diagnostic
+and a useless guard.
+
+`docs/DISCOVERY.md` carries the source citations; `docs/LIMITATIONS.md` states
+what this costs us.
+
+The deployed pair therefore enforces the boundary with two on-chain facts
 instead of one read scope: the gate refuses to promote a decision until its
 appeal window has closed, and the vault re-derives that same window from the
-gate's own adjudication stamp before it releases anything. See
-`docs/DISCOVERY.md` for the source citations.
+gate's own `adjudicated_at` stamp before it releases anything. Most systems stop
+there. The difference here is that neither contract takes the other's word for
+it -- the promotion is refused *by the gate*, and the release is re-derived *by
+the vault* against its own transaction clock.
 
 ## The Solution
 
@@ -190,6 +207,7 @@ lib/
   lifecycle/              the status machine and its display mapping
   genlayer/               thin typed adapters over the SDK
   receipts/               the receipt schema
+  runtime/                what this deployment can actually do, resolved once
   server/                 the only place a private key is ever touched
 
 app/                      Next.js surfaces: landing, console, actions, receipts, lab, proof, docs
@@ -240,26 +258,42 @@ corpus in `npm run proof`.
 
 ## Proof / Attack Campaign
 
-`npm run proof` runs the same corpus against three arms:
+`npm run proof` runs the corpus against two arms of the same settlement
+decision:
 
-| Arm | Contract | Read scope | Message stage | Replay | Expected |
-| --- | --- | --- | --- | --- | --- |
-| A | `UnsafeRelease` | decided | `accepted` | none | loses funds |
-| B | `FinalityVault` | finalized | `finalized` | nonce | holds |
-| C | control | finalized | `finalized` | nonce | blocks on commitment mismatch |
+| Arm | Implementation | What it requires | Expected |
+| --- | --- | --- | --- |
+| Baseline | `contracts/control/unsafe_release.py` | a readable provisional decision | releases against an appealable judgment |
+| Intervention | `contracts/finality_vault.py` | promotion **and** an elapsed appeal window **and** an exact commitment match | holds |
 
-Arm C exists so that "arm B succeeded" cannot be explained by the transaction
-having simply failed for an unrelated reason.
+The two arms differ in one property -- whether the decision has to stop being
+appealable before value moves -- which is what makes the difference in outcome
+attributable to that property rather than to something else.
+
+A separate control runs on the corpus itself: the release cases must actually be
+released by the intervention. Without it, a guard that refuses everything would
+score identically on the refusal cases. The control reports both halves -- how
+many release cases were released, and how many refusal cases the baseline let
+through -- so the baseline cannot be mistaken for a straw man.
+
+How many cases are in the corpus is generated, never written down. `npm run
+proof` counts them from `tests/fixtures/cases.json` into `caseCounts` in
+`docs/evidence/proof-report.json`, and fails if the report's counts, the
+corpus's counts and the observed outcomes disagree. The evidence page and the
+proof lab both render that field.
 
 ## Demo Evidence
 
 Every headline number in the documentation is generated. `npm run evidence`
-rewrites `docs/CLAIMS.json` and `docs/evidence/proof-report.json`; nothing in
-those files is typed by hand.
+folds the records below into `docs/CLAIMS.json` and `docs/evidence/summary.json`;
+`npm run proof` writes `docs/evidence/proof-report.json`, and nothing in any of
+them is typed by hand.
 
 - `docs/evidence/live-lifecycle.json` -- one complete run on chain 61997
-- `docs/evidence/proof-report.json` -- the three-arm comparison
+- `docs/evidence/proof-report.json` -- the two-arm comparison and its control
+- `docs/evidence/final-scope-probe.json` -- which read scopes execute, and what they see
 - `docs/evidence/isolation-audit.json` -- the shipped tree contains no research material
+- `docs/evidence/submission-check.json` -- the final completion check, re-runnable
 
 ## Sponsor Integration
 
@@ -296,22 +330,73 @@ minute earlier.
 
 - **The boundary is an elapsed-time boundary, not a state-visibility boundary.**
   The construction that would have made it the latter -- a cross-contract read
-  scoped to final storage state -- does not execute on this network. What ships
-  is still a real boundary: no value moves while the judgement is contestable.
-  What it does not catch is a validator set that reverses a decision *after* the
-  window has closed. This is stated first because it is the one limitation that
-  changes how the product should be deployed.
+  scoped to final storage state -- does not execute on this network, and the
+  client-side `latest-final` variant, which does execute, resolves against
+  transaction finality and therefore also sees an appealable decision. What
+  ships is still a real boundary: no value moves while the judgement is
+  contestable. What it does not catch is a validator set that reverses a
+  decision *after* the window has closed. This is stated first because it is the
+  one limitation that changes how the product should be deployed, and
+  `docs/evidence/final-scope-probe.json` is the measurement behind it.
 - Fee trees for the promotion and the release are built from a policy quote plus
   a recorded `feeParams` blob, because the network's fee simulation executes the
   call it prices -- and both of those calls are deliberately not executable on
   demand. See `docs/LIMITATIONS.md`.
 - `tests/lifecycle/` exercises the same boundary against a local network, but the
   GenVM build installed here cannot encode this SDK generation's `Address` type,
-  so that suite does not execute in this environment. The boundary is covered on
+  so that suite does not execute in this environment. That suite is left
+  reporting blocked rather than being turned green. The boundary is covered on
   chain instead.
+- **The public site holds no signing key.** It is wallet-first on purpose: a
+  visitor without a wallet can read everything and replay the recorded run, but
+  a live write needs a signature this deployment deliberately cannot provide.
+  See "How To Try It" below.
 
 See `docs/LIMITATIONS.md` for the full list, including what would falsify each
 headline claim.
+
+## How To Try It
+
+There are two sessions, and the difference between them is a signature.
+
+**No wallet.** Every page is readable and every number on it is generated from a
+chain read or a recorded run. The lifecycle page tells you plainly that live
+actions need a wallet, every write control is disabled rather than letting you
+click into a refusal, and the recorded on-chain run is available and labelled as
+a record rather than as a new transaction. Nothing is mocked to fill the gap.
+
+**With a wallet.** Connect an EIP-1193 wallet from the header, switch it to
+GenLayer Studio Next (chain `61997` -- the app offers the add-then-switch pair if
+the chain is missing), and the same page becomes live:
+
+1. **Register the action** -- commits recipient, amount, policy and deadline.
+   The evidence digest is deliberately empty; it cannot exist yet.
+2. **Adjudicate the evidence** -- validators score the snapshot against the
+   published policy. An approving verdict lands as `ACCEPTED`.
+3. **Open the escrow** -- funds the commitment. Value is now at rest inside the
+   vault.
+4. **Promote to final** -- try this while the appeal window is open. The gate
+   refuses it with `APPEAL_WINDOW_OPEN`. That refusal is the product.
+5. **Release** -- after the window closes, promote again and settle. The vault
+   re-derives the window, matches the commitment field by field, and moves value
+   once. A receipt is written.
+
+Every step raises a wallet popup, and every hash it returns is an ordinary
+transaction on chain `61997` that resolves under
+`https://explorer-studio-dev.genlayer.com/tx/<hash>`. There is no mock provider,
+no simulated hash and no fabricated receipt anywhere in the write path.
+
+You can check the deployment's own claim about what it can do at
+`/api/capabilities`, which publishes booleans only:
+
+```json
+{
+  "liveContracts": true,
+  "browserWalletSigning": true,
+  "operatorSigning": false,
+  "recordedReplay": true
+}
+```
 
 ## Local Setup
 
@@ -324,6 +409,13 @@ npm run lifecycle
 ```
 
 ## Deployment
+
+The application is deployed to Vercel at
+**https://definit-snowy.vercel.app**. The hosting project holds public
+configuration only, added as non-sensitive: the `NEXT_PUBLIC_*` chain and
+address values, the public evidence URL, and `DEFINIT_ALLOW_SERVER_SIGNING=false`.
+No private key is deployed, and none is needed -- signing happens in the
+visitor's browser.
 
 ```bash
 npm run deploy            # deploy, wire, seed, verify by read-back

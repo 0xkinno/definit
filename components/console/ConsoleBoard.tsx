@@ -7,6 +7,7 @@ import { explorerTxUrl } from "@/lib/config";
 import type { DefinitLifecycle } from "@/lib/lifecycle/state";
 import { formatGen, middleTruncate } from "@/lib/format";
 import { useWallet } from "@/lib/wallet/provider";
+import { signingState } from "@/lib/runtime/signing";
 import { runWrite, type WriteStep } from "@/lib/writes/run";
 
 interface Capability {
@@ -52,7 +53,12 @@ const LIFECYCLE_BY_CONTRACT_STATE: Record<string, DefinitLifecycle> = {
   SETTLED: "settled",
 };
 
-export function ConsoleBoard() {
+export function ConsoleBoard({
+  operatorSigning,
+}: {
+  /** Resolved on the server. False means no live write pathway exists here. */
+  operatorSigning: boolean;
+}) {
   const [state, setState] = useState<ActionPayload | null>(null);
   const [actionId, setActionId] = useState<string>("");
   const [busy, setBusy] = useState<string | null>(null);
@@ -94,6 +100,10 @@ export function ConsoleBoard() {
     setBusy(label ?? step);
     setMessage(null);
     try {
+      if (!signing.liveActionsEnabled) {
+        setMessage({ tone: "warn", text: signing.detail });
+        return null;
+      }
       const result = await runWrite(
         step,
         { actionId, decisionId: state?.action?.decision_id },
@@ -128,22 +138,35 @@ export function ConsoleBoard() {
 
   const contractState = state?.action?.state ?? "";
   const lifecycle: DefinitLifecycle = LIFECYCLE_BY_CONTRACT_STATE[contractState] ?? "draft";
+  const signing = signingState({ walletReady: wallet.ready, operatorSigning });
+  const writesDisabled = busy !== null || !signing.liveActionsEnabled;
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5" data-signing-state={signing.key}>
+      <Notice
+        tone={signing.key === "wallet" ? "final" : signing.key === "operator" ? "neutral" : "warn"}
+        title={signing.title}
+      >
+        <p>{signing.detail}</p>
+      </Notice>
+
       <Panel>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-lg font-semibold">1 &middot; Register the action</h2>
           <button
             type="button"
             className="btn btn-primary"
-            disabled={busy !== null}
+            disabled={writesDisabled}
             onClick={async () => {
               setStarted(true);
               await post("create");
             }}
           >
-            {busy === "create" ? "Waiting for signature..." : "Register the demo action"}
+            {busy === "create"
+              ? "Waiting for signature..."
+              : signing.liveActionsEnabled
+                ? "Register the demo action"
+                : "Connect wallet to register"}
           </button>
         </div>
         <p className="mt-2 max-w-prose text-[13px] leading-relaxed text-ink-600">
@@ -159,18 +182,26 @@ export function ConsoleBoard() {
             <button
               type="button"
               className="btn"
-              disabled={!actionId || busy !== null}
+              disabled={!actionId || writesDisabled}
               onClick={() => post("adjudicate")}
             >
-              {busy === "adjudicate" ? "Waiting for signature..." : "Adjudicate the evidence"}
+              {busy === "adjudicate"
+                ? "Waiting for signature..."
+                : signing.liveActionsEnabled
+                  ? "Adjudicate the evidence"
+                  : "Wallet required"}
             </button>
             <button
               type="button"
               className="btn"
-              disabled={!actionId || busy !== null}
+              disabled={!actionId || writesDisabled}
               onClick={() => post("finalize")}
             >
-              {busy === "finalize" ? "Waiting for signature..." : "Promote to final"}
+              {busy === "finalize"
+                ? "Waiting for signature..."
+                : signing.liveActionsEnabled
+                  ? "Promote to final"
+                  : "Wallet required"}
             </button>
           </div>
         </div>
@@ -187,10 +218,14 @@ export function ConsoleBoard() {
           <button
             type="button"
             className="btn"
-            disabled={!actionId || busy !== null}
+            disabled={!actionId || writesDisabled}
             onClick={() => post("escrow")}
           >
-            {busy === "escrow" ? "Waiting for signature..." : "Open the escrow"}
+            {busy === "escrow"
+              ? "Waiting for signature..."
+              : signing.liveActionsEnabled
+                ? "Open the escrow"
+                : "Wallet required"}
           </button>
         </div>
         <p className="mt-2 max-w-prose text-[13px] leading-relaxed text-ink-600">
@@ -219,6 +254,17 @@ export function ConsoleBoard() {
           ) : null}
           <p className="mt-1 text-[12px] text-ink-500">
             Pathway: {message.pathway === "wallet" ? "signed by your wallet" : "signed by the operator key"}.
+          </p>
+        </Notice>
+      ) : null}
+
+      {!signing.liveActionsEnabled ? (
+        <Notice tone="warn" title="Live writes are unavailable here">
+          <p>
+            Every control above is disabled because neither signing pathway exists in this session.
+            Connect a Studio Next wallet from the header, and they enable themselves. Nothing on
+            this page is mocked: a disabled button is disabled because the route behind it would
+            refuse.
           </p>
         </Notice>
       ) : null}
@@ -262,7 +308,7 @@ export function ConsoleBoard() {
                   ? `${state.capability.provisionalScope.verdict ?? "readable"}`
                   : "not readable"
               }
-              hint="Unscoped read. This is what a naive integration sees."
+              hint="The default read. This is what an integration sees when it treats a decided judgment as actionable."
             />
             <FieldRow
               label="Final scope"
@@ -271,7 +317,7 @@ export function ConsoleBoard() {
                   ? `${state.capability.finalScope.verdict ?? "readable"}`
                   : "not readable"
               }
-              hint="Scoped to final state. This is the only authority the vault accepts."
+              hint="Scoped to the latest finalized transaction. It executes here, and it also answers for a decision that is still appealable, so it is a diagnostic rather than a boundary. The vault re-derives the appeal window instead."
             />
             <FieldRow
               label="Escrow"

@@ -32,26 +32,34 @@ administrative override.
 
 Note on how (7) and (9) are enforced
 ------------------------------------
-An earlier revision of this contract read the gate through
-``gl.contract.StorageView.LATEST_FINALIZED``, and that is the construction the
-whole design wanted: a cross-contract read scoped to final storage state cannot
-observe a decision that is still appealable, so the boundary would have been a
-property of the read itself.
+This contract reads the gate at plain scope -- ``gl.contract.get_at(self.gate)``
+with no ``StorageView`` -- and then re-derives the timing itself. It does not
+use a final-scoped read, and it must not be described as though it did.
 
-On this network the leader cannot execute that read. The call does not return a
-refusal, it stops returning at all, and the transaction is killed with
-``Leader execution exceeded 600.000s``. The isolation run recorded in
-``docs/evidence/probe/vm-capabilities.json`` shows a plain cross-contract read
-answering in full while the final-scoped read of the same method on the same
-contract never answers.
+An earlier revision tried the other construction, on the theory that a read
+scoped to final storage state cannot observe a decision that is still
+appealable, which would have made the boundary a property of the read. Two
+measurements retired that theory:
 
-So the boundary is enforced the other way round: the gate refuses to promote a
-decision until its appeal window has closed (``APPEAL_WINDOW_OPEN``), and this
-contract re-derives the window from the gate's own ``adjudicated_at`` and
-refuses to release before it has elapsed. The effect still waits for the
-decision to stop being appealable, and no value moves on a caller's promise.
-What is lost is the guarantee that the *read itself* cannot see provisional
-state. That loss is stated plainly in ``docs/LIMITATIONS.md``.
+  * A cross-contract read scoped to ``StorageView.LATEST_FINALIZED`` never
+    returns inside the VM. It is not refused; the leader is killed with
+    ``Leader execution exceeded 600.000s``. The isolation run in
+    ``artifacts/vm-capabilities.json`` shows a plain cross-contract read of the
+    same method answering in full while the final-scoped read never answers.
+  * The client-side equivalent (``transactionHashVariant: "latest-final"``)
+    does execute, but it resolves against *transaction* finality. The
+    adjudication transaction is final the moment consensus accepts it, and the
+    appeal window opens after that, so the scoped read also sees an appealable
+    decision. Measured in ``docs/evidence/final-scope-probe.json``.
+
+So the boundary is enforced by elapsed time instead: the gate refuses to
+promote a decision until its appeal window has closed (``APPEAL_WINDOW_OPEN``),
+and this contract re-derives the same window from the gate's own
+``adjudicated_at`` and refuses to release before it has elapsed, measured
+against this transaction's clock. The effect still waits for the decision to
+stop being appealable, and no value moves on a caller's promise. What is lost is
+any guarantee carried by the *read itself*. That loss is stated plainly in
+``docs/LIMITATIONS.md``.
 """
 
 import datetime

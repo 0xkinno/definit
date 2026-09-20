@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Offline rehearsal.
  *
  * When no contract addresses are configured, the console still has to be
@@ -237,7 +237,7 @@ export function attemptProvisionalRelease(action: RehearsalAction): RehearsalAtt
     outcome: provisional ? "BLOCKED" : "PASS",
     invariant: "finality boundary",
     detail: provisional
-      ? "The decision is visible in provisional state only. A final-scope read cannot see it, so no release is possible."
+      ? "The decision is provisional and still inside its appeal window. A scoped read changes which transaction's storage is consulted, not whether the decision is appealable, so the release is refused on the window instead."
       : "The decision is not in the provisional state.",
   };
 }

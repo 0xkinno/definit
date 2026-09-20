@@ -12,12 +12,14 @@ import {
   deadlineUnixFromNow,
 } from "@/lib/demo/scenario";
 import { commitmentPayload, evidenceDigestOf, policyHashOf } from "@/lib/commitments/commitment";
+import { runtimeCapabilities } from "@/lib/runtime/capabilities";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = { title: "Register an action -- DEFINIT" };
 
-export default function NewActionPage() {
+export default async function NewActionPage() {
+  const capabilities = await runtimeCapabilities();
   const preview = commitmentPayload({
     agent: "0x0000000000000000000000000000000000000000",
     recipient: SCENARIO.recipient,
@@ -34,6 +36,7 @@ export default function NewActionPage() {
       <div className="mx-auto max-w-[1240px] px-4 py-10 sm:px-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <SectionHeading
+            level={1}
             eyebrow="New action"
             title="Commit an intent before anyone judges it"
             lead="The beneficiary, the amount, the policy and the deadline are fixed at registration. The evidence digest is not: it cannot exist until the evidence has been read and scored."
@@ -42,7 +45,7 @@ export default function NewActionPage() {
         </div>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
-          <NewActionForm />
+          <NewActionForm operatorSigning={capabilities.operatorSigning} />
 
           <aside className="space-y-5">
             <Notice tone="neutral" title="Runtime">

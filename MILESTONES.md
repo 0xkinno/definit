@@ -8,9 +8,9 @@ environment the evidence was produced in.
 | M0 | Repository and isolation rules | Shipped tree cannot contain research material | `npm run audit:isolation` -- 119 files, 18 terms, clean | REACHED |
 | M1 | Discovery | Contradiction recorded with source-level evidence | `docs/DISCOVERY.md` | REACHED |
 | M2 | Mechanism spike | A decision is held until the appeal window closes | `docs/evidence/live-lifecycle.json` -- the in-window promotion is refused on chain | REACHED |
-| M3 | Contract invariant | Every guard that decides from its own storage independently rejects | `tests/attacks/test_guards.py` -- 13 cases | REACHED |
+| M3 | Contract invariant | Every guard that decides from its own storage independently rejects | `tests/attacks/test_guards.py` -- one test per corpus case | REACHED |
 | M4 | Direct suite | Registry, commitment, replay and malformed-input suites pass | `npm run test:direct` -- 7 tests | REACHED |
-| M5 | Proof campaign | Baseline loses funds, product holds, control blocks on commitment mismatch | `npm run proof` -- 13/13 cases, control PASS | REACHED |
+| M5 | Proof campaign | Baseline releases against an appealable judgment, the product holds, the control confirms the release cases | `npm run proof` -- every case as expected, control PASS | REACHED |
 | M6 | Product flow | One human journey end to end in the browser | `npm run test:e2e` -- 102 assertions across four viewports | REACHED |
 | M7 | Premium UI | Landing, console, receipt and proof surfaces complete | `public/shots/` -- 12 captures | REACHED |
 | M8 | Live network | Contracts deployed, real lifecycle recorded | `docs/evidence/live-lifecycle.json` -- `outcome: complete` | REACHED |

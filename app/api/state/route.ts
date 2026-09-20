@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 import {
   CHAIN_ID,
@@ -9,7 +9,7 @@ import {
   RPC_URL,
   SCENARIO_REGISTRY_ADDRESS,
 } from "@/lib/config";
-import { signerStatus } from "@/lib/server/signer";
+import { publicCapabilities } from "@/lib/runtime/capabilities";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -24,7 +24,7 @@ export async function GET() {
       finalityVault: FINALITY_VAULT_ADDRESS || null,
       scenarioRegistry: SCENARIO_REGISTRY_ADDRESS || null,
     },
-    operatorSigner: signerStatus(),
+    operatorSigner: (await publicCapabilities()).operatorSigning,
     note: "This API constructs transactions and reads state. It owns no truth: the contracts do.",
   });
 }

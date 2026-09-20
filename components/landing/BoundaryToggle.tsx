@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
@@ -11,8 +11,8 @@ const COPY: Record<SealState, { heading: string; body: string; bullets: string[]
     heading: "Accepted",
     body: "Consensus currently agrees. The outcome can still be appealed, and an appeal can change it. Anything you do now has already happened by the time the answer changes.",
     bullets: [
-      "the judgment is visible to anyone reading current state",
-      "the judgment is invisible to anyone reading final state",
+      "the judgment is readable, and so are the terms of its appeal",
+      "the appeal window is open, so the vault treats it as no authority at all",
       "no value may leave the vault",
     ],
   },
@@ -20,9 +20,9 @@ const COPY: Record<SealState, { heading: string; body: string; bullets: string[]
     heading: "Finalized",
     body: "The appeal window has closed. The decision is now a capability: it can authorise exactly one effect, for exactly one commitment.",
     bullets: [
-      "the judgment is visible to a final-scope read",
+      "the appeal window has closed, and no read can reopen it",
       "the settlement instruction it emits was deferred until this moment",
-      "the vault re-checks the commitment before releasing",
+      "the vault re-derives the window and re-checks the commitment before releasing",
     ],
   },
 };
@@ -33,7 +33,14 @@ export function BoundaryToggle() {
   const copy = COPY[state];
 
   return (
-    <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
+    /*
+     * `grid-cols-1` is not cosmetic. It expands to
+     * `repeat(1, minmax(0, 1fr))`, and the zero minimum is what lets the track
+     * shrink below the seal's intrinsic width. With an implicit `auto` track the
+     * grid sized itself to the seal's 380px and pushed a horizontal scrollbar
+     * onto every narrow viewport.
+     */
+    <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
       <div>
         <div
           role="group"
@@ -91,7 +98,7 @@ export function BoundaryToggle() {
         </AnimatePresence>
       </div>
 
-      <div className="flex justify-center lg:justify-end">
+      <div className="flex min-w-0 justify-center overflow-hidden lg:justify-end">
         <DecisionSeal state={state} size={380} />
       </div>
     </div>

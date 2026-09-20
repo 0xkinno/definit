@@ -22,6 +22,7 @@ import { MILESTONE_AMOUNT_GEN, SCENARIO } from "@/lib/demo/scenario";
 import type { LiveLifecycleRecord } from "@/lib/evidence";
 import { classNames, middleTruncate } from "@/lib/format";
 import { useWallet } from "@/lib/wallet/provider";
+import { signingState } from "@/lib/runtime/signing";
 import { runWrite, type WriteStep } from "@/lib/writes/run";
 
 interface LedgerEntry {
@@ -71,7 +72,14 @@ const STEP_ORDER: Array<{ step: WriteStep; title: string; body: string; needsDec
   },
 ];
 
-export function LifecycleDemo({ recorded }: { recorded: LiveLifecycleRecord | null }) {
+export function LifecycleDemo({
+  recorded,
+  operatorSigning,
+}: {
+  recorded: LiveLifecycleRecord | null;
+  /** Resolved on the server. False means no live write pathway exists here. */
+  operatorSigning: boolean;
+}) {
   const wallet = useWallet();
   const [actionId, setActionId] = useState("");
   const [decisionId, setDecisionId] = useState("");
@@ -136,15 +144,19 @@ export function LifecycleDemo({ recorded }: { recorded: LiveLifecycleRecord | nu
 
   const state = snapshot?.state ?? "not registered";
   const busyAny = busy !== null;
-  const gate = !wallet.ready;
+
+  const signing = signingState({ walletReady: wallet.ready, operatorSigning });
 
   const pathwayNote = wallet.ready
     ? `Every step below will raise a ${wallet.walletName} popup and be signed by ${middleTruncate(wallet.address ?? "", 6, 4)}. The hash that comes back is the transaction hash on ${CHAIN_NAME}.`
-    : "No wallet is connected, so the buttons below will fall back to the operator-signed demo path. Connect a wallet to sign every step yourself.";
+    : signing.detail;
 
   return (
-    <div className="space-y-5">
-      <Notice tone={wallet.ready ? "final" : "neutral"} title={wallet.ready ? "Ready to sign" : "Operator fallback active"}>
+    <div className="space-y-5" data-signing-state={signing.key}>
+      <Notice
+        tone={signing.key === "wallet" ? "final" : signing.key === "operator" ? "neutral" : "warn"}
+        title={signing.title}
+      >
         <p>{pathwayNote}</p>
       </Notice>
 
@@ -152,7 +164,11 @@ export function LifecycleDemo({ recorded }: { recorded: LiveLifecycleRecord | nu
         <div className="space-y-4">
           {STEP_ORDER.map((entry) => {
             const blocked = entry.needsDecision && !decisionId;
-            const disabled = busyAny || blocked || (entry.step !== "create" && !actionId);
+            const disabled =
+              busyAny ||
+              blocked ||
+              (entry.step !== "create" && !actionId) ||
+              !signing.liveActionsEnabled;
             return (
               <Panel key={entry.step}>
                 <div className="flex flex-wrap items-start justify-between gap-3">
@@ -166,7 +182,11 @@ export function LifecycleDemo({ recorded }: { recorded: LiveLifecycleRecord | nu
                     disabled={disabled}
                     onClick={() => void run(entry.step)}
                   >
-                    {busy === entry.step ? "Waiting for the wallet..." : "Run"}
+                    {busy === entry.step
+                      ? "Waiting for the wallet..."
+                      : signing.liveActionsEnabled
+                        ? "Run"
+                        : signing.disabledLabel}
                   </button>
                 </div>
                 {blocked ? (
@@ -251,9 +271,11 @@ export function LifecycleDemo({ recorded }: { recorded: LiveLifecycleRecord | nu
           </Panel>
 
           <Panel>
-            <p className="eyebrow">No wallet?</p>
+            <p className="eyebrow">{signing.liveActionsEnabled ? "No wallet?" : "No signing key here"}</p>
             <p className="mt-2 text-[13px] leading-relaxed text-ink-600">
-              A wallet is only needed to sign. Everything already on chain is readable without one.
+              {signing.liveActionsEnabled
+                ? "A wallet is only needed to sign. Everything already on chain is readable without one."
+                : "Live writes need a signature, and this host does not hold a key. Everything already on chain is still readable, and the recorded run below needs no wallet at all."}
             </p>
             <button
               type="button"
