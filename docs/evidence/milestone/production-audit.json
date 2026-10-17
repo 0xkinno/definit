@@ -1,0 +1,203 @@
+{
+  "baseUrl": "https://definit-snowy.vercel.app",
+  "stats": {
+    "startTime": "2026-10-17T19:36:55.272Z",
+    "duration": 58848.171,
+    "expected": 38,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "tests": [
+    {
+      "project": "phone",
+      "title": "the milestone page renders the proof line, three clocks and the live contracts",
+      "status": "expected"
+    },
+    {
+      "project": "phone",
+      "title": "each finality clock keeps its nodes in time order inside the figure",
+      "status": "expected"
+    },
+    {
+      "project": "phone",
+      "title": "the refusal breakdown on the milestone page sums to its total",
+      "status": "expected"
+    },
+    {
+      "project": "phone",
+      "title": "the landing hero states the pain and carries the generated proof line",
+      "status": "expected"
+    },
+    {
+      "project": "phone",
+      "title": "the proof page shows live addresses and a refusal breakdown with no wallet",
+      "status": "expected"
+    },
+    {
+      "project": "phone",
+      "title": "a connected wallet that approves is asked to sign a transaction addressed to a contract",
+      "status": "expected"
+    },
+    {
+      "project": "phone-small",
+      "title": "the milestone page renders the proof line, three clocks and the live contracts",
+      "status": "expected"
+    },
+    {
+      "project": "phone-small",
+      "title": "each finality clock keeps its nodes in time order inside the figure",
+      "status": "expected"
+    },
+    {
+      "project": "phone-small",
+      "title": "the refusal breakdown on the milestone page sums to its total",
+      "status": "expected"
+    },
+    {
+      "project": "phone-small",
+      "title": "the landing hero states the pain and carries the generated proof line",
+      "status": "expected"
+    },
+    {
+      "project": "phone-small",
+      "title": "the proof page shows live addresses and a refusal breakdown with no wallet",
+      "status": "expected"
+    },
+    {
+      "project": "phone-small",
+      "title": "a connected wallet that approves is asked to sign a transaction addressed to a contract",
+      "status": "expected"
+    },
+    {
+      "project": "tablet",
+      "title": "the milestone page renders the proof line, three clocks and the live contracts",
+      "status": "expected"
+    },
+    {
+      "project": "tablet",
+      "title": "each finality clock keeps its nodes in time order inside the figure",
+      "status": "expected"
+    },
+    {
+      "project": "tablet",
+      "title": "the refusal breakdown on the milestone page sums to its total",
+      "status": "expected"
+    },
+    {
+      "project": "tablet",
+      "title": "the landing hero states the pain and carries the generated proof line",
+      "status": "expected"
+    },
+    {
+      "project": "tablet",
+      "title": "the proof page shows live addresses and a refusal breakdown with no wallet",
+      "status": "expected"
+    },
+    {
+      "project": "tablet",
+      "title": "a connected wallet that approves is asked to sign a transaction addressed to a contract",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "the milestone page renders the proof line, three clocks and the live contracts",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "each finality clock keeps its nodes in time order inside the figure",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "the refusal breakdown on the milestone page sums to its total",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "the landing hero states the pain and carries the generated proof line",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "the proof page shows live addresses and a refusal breakdown with no wallet",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "a connected wallet that approves is asked to sign a transaction addressed to a contract",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "the deployment publishes truthful capabilities",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "the landing page loads, names the chain and shows no ASCII diagram",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "the lifecycle demo offers no live action without a wallet, and still replays",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "the console refuses to register without a wallet",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "the new-action form cannot post into a disabled server path",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "the evidence page renders the generated counts",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "the proof lab agrees with the evidence page",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "the documentation index resolves every link",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "desktop-1920: no overflow and no console errors",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "desktop-1440: no overflow and no console errors",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "tablet-1024: no overflow and no console errors",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "mobile-390: no overflow and no console errors",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "mobile-375: no overflow and no console errors",
+      "status": "expected"
+    },
+    {
+      "project": "desktop",
+      "title": "a connected wallet is offered the wallet pathway, even though it signs nothing",
+      "status": "expected"
+    }
+  ]
+}
