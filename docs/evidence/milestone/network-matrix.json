@@ -1,0 +1,102 @@
+{
+  "generatedAt": "2026-10-17T12:01:46.509Z",
+  "probeAccount": "0x14b959B6DF21F95F7dFc76c980d93aFbDB7a66d6",
+  "networks": {
+    "studio-dev": {
+      "network": "GenLayer Studio Next (Studio-dev)",
+      "rpc": "https://studio-dev.genlayer.com/api",
+      "reachable": true,
+      "chainId": 61997,
+      "lifecycleMethodAnswers": true,
+      "fundingMethod": "sim_fundAccount (simulator funding, test GEN)",
+      "probeAccountBalanceGen": 999,
+      "feeSurface": {
+        "answers": true,
+        "gasless": false,
+        "feeValueWei": "100000000000010352",
+        "basis": "estimateTransactionFees result"
+      },
+      "runnerTried": "py-genlayer:5jycge4q8k23462jtb0b9fyey1s9qz928sz2nbrd9mg4sxqg2qng",
+      "probeDeploy": {
+        "hash": "0x3c393c01f2e92adb3455f709280433ab6871a4395bebd871046f429dfc452425",
+        "status": "ACCEPTED",
+        "consensusResult": "MAJORITY_AGREE",
+        "execution": "FINISHED_WITH_RETURN"
+      },
+      "runnerAccepted": true,
+      "executesContracts": true,
+      "finalizedMessageDelivery": {
+        "delivered": 3,
+        "of": 3,
+        "childCreatedSecondsAfterAppealDeadline": 0
+      },
+      "appealWindowSeconds": 30,
+      "medianAcceptedToFinalizedSecondsSampled": 34.734,
+      "finalizesWithoutExplicitCall": "yes: every recorded run reached Finalized with no finalize call from this account"
+    },
+    "studionet": {
+      "network": "Studionet",
+      "rpc": "https://studio.genlayer.com/api",
+      "reachable": true,
+      "chainId": 61999,
+      "lifecycleMethodAnswers": false,
+      "fundingMethod": "sim_fundAccount (simulator funding, test GEN)",
+      "probeAccountBalanceGen": 3000,
+      "feeSurface": {
+        "answers": false,
+        "gasless": true,
+        "basis": "estimateTransactionFees unavailable: Method not found: sim_getFeeConfig"
+      },
+      "runnerTried": "py-genlayer:5jycge4q8k23462jtb0b9fyey1s9qz928sz2nbrd9mg4sxqg2qng",
+      "probeDeploy": {
+        "hash": "0x2a338d197dea45dc822b44175aba6123df554fa34649e3e43569bfdaf5c43616",
+        "status": "FINALIZED",
+        "consensusResult": "NO_MAJORITY",
+        "execution": "not reported by this network"
+      },
+      "runnerAccepted": false,
+      "executesContracts": false,
+      "finalizedMessageDelivery": "not measured: network did not execute the probe contract (NO_MAJORITY)",
+      "appealWindowSeconds": "not measured: network did not execute the probe contract (NO_MAJORITY)",
+      "finalizesWithoutExplicitCall": "not measured: network did not execute the probe contract (NO_MAJORITY)"
+    },
+    "bradbury": {
+      "network": "Testnet Bradbury",
+      "rpc": "https://rpc-bradbury.genlayer.com",
+      "reachable": true,
+      "chainId": 4221,
+      "lifecycleMethodAnswers": false,
+      "fundingMethod": "sim_fundAccount not available: an external faucet is the only way to fund an account",
+      "probeAccountBalanceGen": 0,
+      "feeSurface": {
+        "answers": false,
+        "gasless": "not determined: estimateTransactionFees failed with \"execution reverted\", which does not show whether fees are charged",
+        "basis": "estimateTransactionFees unavailable: execution reverted"
+      },
+      "runnerAccepted": "not measured: probe account holds 0 GEN and the network cannot fund it; a faucet is an external action the operator must take",
+      "executesContracts": "not measured: probe account holds 0 GEN and the network cannot fund it; a faucet is an external action the operator must take",
+      "finalizedMessageDelivery": "not measured: probe account holds 0 GEN and the network cannot fund it; a faucet is an external action the operator must take",
+      "appealWindowSeconds": "not measured: probe account holds 0 GEN and the network cannot fund it; a faucet is an external action the operator must take",
+      "finalizesWithoutExplicitCall": "not measured: probe account holds 0 GEN and the network cannot fund it; a faucet is an external action the operator must take"
+    },
+    "asimov": {
+      "network": "Testnet Asimov",
+      "rpc": "https://rpc-asimov.genlayer.com",
+      "reachable": true,
+      "chainId": 4221,
+      "lifecycleMethodAnswers": false,
+      "fundingMethod": "sim_fundAccount not available: an external faucet is the only way to fund an account",
+      "probeAccountBalanceGen": 0,
+      "feeSurface": {
+        "answers": false,
+        "gasless": "not determined: estimateTransactionFees failed with \"execution reverted\", which does not show whether fees are charged",
+        "basis": "estimateTransactionFees unavailable: execution reverted"
+      },
+      "runnerAccepted": "not measured: probe account holds 0 GEN and the network cannot fund it; a faucet is an external action the operator must take",
+      "executesContracts": "not measured: probe account holds 0 GEN and the network cannot fund it; a faucet is an external action the operator must take",
+      "finalizedMessageDelivery": "not measured: probe account holds 0 GEN and the network cannot fund it; a faucet is an external action the operator must take",
+      "appealWindowSeconds": "not measured: probe account holds 0 GEN and the network cannot fund it; a faucet is an external action the operator must take",
+      "finalizesWithoutExplicitCall": "not measured: probe account holds 0 GEN and the network cannot fund it; a faucet is an external action the operator must take"
+    }
+  }
+}

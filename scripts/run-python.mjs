@@ -41,9 +41,19 @@ if (!suite) {
 const SANDBOX_HOME = path.join(REPO_ROOT, ".gltest-home");
 mkdirSync(SANDBOX_HOME, { recursive: true });
 
+/**
+ * The network executes contracts under the runner pinned in each contract's
+ * header, and that header stays exactly as the network accepts it. The local
+ * direct-mode runner resolves a different build of the same SDK, so the tests
+ * point their copy of the contract at the build the toolchain ships. Override
+ * with DEFINIT_LOCAL_RUNNER_HASH.
+ */
+const DEFAULT_LOCAL_RUNNER_HASH = "babwp9t37jw9g4j2bccgn14g6x7x9s1f7dsmh7emvz735pz4zxa0";
+
 function childEnv(extra = {}) {
   const env = readEnv();
   return {
+    DEFINIT_LOCAL_RUNNER_HASH: DEFAULT_LOCAL_RUNNER_HASH,
     ...process.env,
     ...env,
     USERPROFILE: SANDBOX_HOME,
@@ -59,7 +69,9 @@ function childEnv(extra = {}) {
 }
 
 function python() {
-  const candidates = ["python", "python3", "py"];
+  // DEFINIT_PYTHON names the interpreter that has the pinned toolchain (requirements.txt).
+  const pinned = process.env.DEFINIT_PYTHON ?? (existsSync("C:/glvenv/Scripts/python.exe") ? "C:/glvenv/Scripts/python.exe" : null);
+  const candidates = [...(pinned ? [pinned] : []), "python", "python3", "py"];
   for (const candidate of candidates) {
     const probe = spawnSync(candidate, ["-c", "print(1)"], { encoding: "utf8", env: childEnv() });
     if (probe.status === 0 && String(probe.stdout).trim() === "1") return candidate;

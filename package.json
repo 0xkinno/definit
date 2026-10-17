@@ -38,11 +38,16 @@
     "verify": "node scripts/verify.mjs",
     "fee-template": "node scripts/fee-template.mjs",
     "shots": "node scripts/shots.mjs",
-    "diagram": "node scripts/diagram.mjs"
+    "diagram": "node scripts/diagram.mjs",
+    "spike": "node scripts/spike-all.mjs",
+    "baseline": "node scripts/baseline.mjs",
+    "spike:cli": "node scripts/spike.mjs",
+    "spike:e6": "node scripts/spike-e6.mjs",
+    "probe:network": "node scripts/probe-network.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.0.0",
-    "genlayer-js": "^2.0.0-rc.1",
+    "genlayer-js": "2.0.0-rc.1",
     "next": "^15.5.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
