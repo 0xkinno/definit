@@ -42,6 +42,8 @@ for (const route of ROUTES) {
         if (style.display === "none" || style.visibility === "hidden") continue;
         const box = element.getBoundingClientRect();
         if (box.width === 0 || box.height === 0) continue;
+        // The skip link is visually hidden until it takes focus.
+        if (element.classList.contains("sr-only")) continue;
         // Inline links inside prose are exempt: they are read, not tapped as
         // primary controls, and forcing them to 44px would break the text.
         const inline = element.tagName === "A" && style.display.startsWith("inline");

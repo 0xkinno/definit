@@ -1,0 +1,561 @@
+{
+  "generatedAt": "2026-10-17T16:10:29.027Z",
+  "network": {
+    "name": "GenLayer Studio Next (Studio-dev)",
+    "chainId": 61997,
+    "explorer": "https://explorer-studio-dev.genlayer.com"
+  },
+  "deployment": {
+    "deployedAt": "2026-10-17T13:13:58.919Z",
+    "addresses": {
+      "scenarioRegistry": "0x8DC63918F88dcc719397a39730C1b31A1cF895DF",
+      "finalityVault": "0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5",
+      "decisionGate": "0xA03C1884F2dFf591388B85840F264c93EE4bF889"
+    },
+    "links": {
+      "scenarioRegistry": "https://explorer-studio-dev.genlayer.com/address/0x8DC63918F88dcc719397a39730C1b31A1cF895DF",
+      "finalityVault": "https://explorer-studio-dev.genlayer.com/address/0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5",
+      "decisionGate": "https://explorer-studio-dev.genlayer.com/address/0xA03C1884F2dFf591388B85840F264c93EE4bF889"
+    },
+    "describe": {
+      "vault": {
+        "clock": "return-to-funder-only",
+        "contract": "FinalityVault",
+        "finality_rule": "protocol-finalized-delivery",
+        "gate": "0xa03c1884f2dff591388b85840f264c93ee4bf889",
+        "noop_count": 0,
+        "owner": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+        "product": "DEFINIT",
+        "release_count": 0,
+        "release_message_stage": "finalized",
+        "version": "v2"
+      },
+      "gate": {
+        "clock": "none",
+        "commitment_domain": "DEFINIT-COMMITMENT-v1",
+        "contract": "DecisionGate",
+        "decision_domain": "DEFINIT-DECISION-v2",
+        "finality_rule": "protocol-finalized-delivery",
+        "owner": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+        "product": "DEFINIT",
+        "registry": "0x8dc63918f88dcc719397a39730c1b31a1cf895df",
+        "settlement_message_stage": "finalized",
+        "total_actions": 0,
+        "vault": "0x61c1cfa242521936214ebf5510b6e3aa6e9eadf5",
+        "version": "v2"
+      }
+    },
+    "policy": {
+      "id": "delivery-milestone-v3",
+      "version": "3.0.0",
+      "hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac"
+    }
+  },
+  "runs": [
+    {
+      "id": "R1",
+      "kind": "approve",
+      "verdict": "APPROVE",
+      "reasonCode": "EVIDENCE_SATISFIES_POLICY",
+      "actionId": "0xb6ab63722090a9bf0a2d478985eb6270eb4e552045c0b89cd59a7f62116f1811",
+      "submittedAtS": 1792248381,
+      "acceptedAtS": 1792248396,
+      "finalAppealDeadlineS": 1792248426,
+      "deliveryCreatedS": 1792248426,
+      "deliveryMethod": "authorize_release",
+      "escrow": [
+        "OPEN",
+        "SETTLED"
+      ],
+      "appeal": null,
+      "links": {
+        "createAction": "https://explorer-studio-dev.genlayer.com/tx/0xbbcc412515528511beb4c82b1b63f319b5fe8789b3d0ee1f177fd345e6f2aea8",
+        "openEscrow": "https://explorer-studio-dev.genlayer.com/tx/0x1f93f51bbc065598b028c96e9fca58fea1653d8c471a90c38511f7a9d7448759",
+        "adjudication": "https://explorer-studio-dev.genlayer.com/tx/0x97de9274e8b549e5940e44d24eae347971b073c22e033cc7140a79eba42bf3a4",
+        "delivery": "https://explorer-studio-dev.genlayer.com/tx/0x88935bfa38c3b996cadb46b2d20fca517944a8580177319757ff2af95575e494",
+        "withdraw": null
+      },
+      "receipt": {
+        "finalitySource": "protocol-delivery",
+        "deliveredBy": "0xa03c1884f2dff591388b85840f264c93ee4bf889",
+        "status": "SETTLED"
+      }
+    },
+    {
+      "id": "R2",
+      "kind": "reject",
+      "verdict": "REJECT",
+      "reasonCode": "POLICY_VIOLATION",
+      "actionId": "0x7c614f5d493250081e4edf15ea9e421420440c8ba0065cec3986241bf0ef927a",
+      "submittedAtS": 1792248502,
+      "acceptedAtS": 1792248514,
+      "finalAppealDeadlineS": 1792248544,
+      "deliveryCreatedS": 1792248545,
+      "deliveryMethod": "close_refused",
+      "escrow": [
+        "OPEN",
+        "REFUNDABLE",
+        "WITHDRAWN"
+      ],
+      "appeal": null,
+      "links": {
+        "createAction": "https://explorer-studio-dev.genlayer.com/tx/0xf72af78f95010e94b0f2fd49024798ec7acbac60a4d6daa09970d9be021cce03",
+        "openEscrow": "https://explorer-studio-dev.genlayer.com/tx/0xdea9126568dd417f7c8a2a6dd5507de12868afaac94259c68c5c0395f77ff284",
+        "adjudication": "https://explorer-studio-dev.genlayer.com/tx/0x5fb1e07e04667263d949af3c445440e38fb9f29bd0c7ac311546a4b2d800f21d",
+        "delivery": "https://explorer-studio-dev.genlayer.com/tx/0x3f9c9bc70f78d8b665616f1ddd33528909d82b91447aa4e9ba9032b34e1300ec",
+        "withdraw": "https://explorer-studio-dev.genlayer.com/tx/0xb06865ae6ff48a1eaaa899625353483eb986c0adaebd4f09b3051c56c37d8e50"
+      },
+      "receipt": null
+    },
+    {
+      "id": "R3",
+      "kind": "appeal",
+      "verdict": "APPROVE",
+      "reasonCode": "EVIDENCE_SATISFIES_POLICY",
+      "actionId": "0xddfb86464b6dc6d3cb4b0bab964c9f353c60c09ee656ab9f12d27fdd61049fbc",
+      "submittedAtS": 1792248701,
+      "acceptedAtS": 1792248729,
+      "finalAppealDeadlineS": 1792248744,
+      "deliveryCreatedS": 1792248745,
+      "deliveryMethod": "authorize_release",
+      "escrow": [
+        "OPEN",
+        "SETTLED"
+      ],
+      "appeal": {
+        "chargeWei": "50005000000008794"
+      },
+      "links": {
+        "createAction": "https://explorer-studio-dev.genlayer.com/tx/0xfc4c8c4c45504f308f6d72d044f9f6ed3808d7966360749cefeb21f60dfab6ad",
+        "openEscrow": "https://explorer-studio-dev.genlayer.com/tx/0xc4b6c34188431ef882482bb662427f1ee1a02a1aa225712e4d08aafea2f9bb3c",
+        "adjudication": "https://explorer-studio-dev.genlayer.com/tx/0x49d5869ee469a175836b0f59408d8173aae22e4bd1ed711ed2afb199d074dbd8",
+        "delivery": "https://explorer-studio-dev.genlayer.com/tx/0xaf8289efc5951a7bd0712003efa559104cc5bac97209250e27fabe9c727d1651",
+        "withdraw": null
+      },
+      "receipt": {
+        "finalitySource": "protocol-delivery",
+        "deliveredBy": "0xa03c1884f2dff591388b85840f264c93ee4bf889",
+        "status": "SETTLED"
+      }
+    }
+  ],
+  "corpus": {
+    "headline": {
+      "cases": 41,
+      "passed": 41,
+      "steps": 82,
+      "refusals": 27,
+      "recordedNoops": 9
+    },
+    "byInvariant": [
+      {
+        "invariant": "I1",
+        "cases": 7,
+        "passed": 7,
+        "attackedBy": "direct-mode corpus"
+      },
+      {
+        "invariant": "I2",
+        "cases": 0,
+        "passed": 0,
+        "attackedBy": "scripts/check_no_clock.py (npm run check:no-clock), re-derived by verify-offline V3"
+      },
+      {
+        "invariant": "I3",
+        "cases": 6,
+        "passed": 6,
+        "attackedBy": "direct-mode corpus"
+      },
+      {
+        "invariant": "I4",
+        "cases": 2,
+        "passed": 2,
+        "attackedBy": "direct-mode corpus"
+      },
+      {
+        "invariant": "I5",
+        "cases": 3,
+        "passed": 3,
+        "attackedBy": "direct-mode corpus"
+      },
+      {
+        "invariant": "I6",
+        "cases": 8,
+        "passed": 8,
+        "attackedBy": "direct-mode corpus"
+      },
+      {
+        "invariant": "I7",
+        "cases": 3,
+        "passed": 3,
+        "attackedBy": "direct-mode corpus"
+      },
+      {
+        "invariant": "I8",
+        "cases": 0,
+        "passed": 0,
+        "attackedBy": "live lifecycle records (v2-run-R*.json) and the spike runs, re-derived by verify-offline V4 and V7"
+      },
+      {
+        "invariant": "I9",
+        "cases": 7,
+        "passed": 7,
+        "attackedBy": "direct-mode corpus"
+      },
+      {
+        "invariant": "I10",
+        "cases": 2,
+        "passed": 2,
+        "attackedBy": "direct-mode corpus"
+      },
+      {
+        "invariant": "I11",
+        "cases": 3,
+        "passed": 3,
+        "attackedBy": "direct-mode corpus"
+      }
+    ],
+    "refusalsByCode": {
+      "BAD_STATE": 4,
+      "COMMITMENT_MISMATCH": 6,
+      "DEADLINE_NOT_PASSED": 2,
+      "NOT_FUNDER": 9,
+      "UNAUTHORIZED_SENDER": 6
+    },
+    "reconciliation": [
+      "cases by invariant sum to the headline: ok",
+      "passed by invariant sum to the headline: ok",
+      "refusals by code sum to the headline: ok",
+      "refusals by invariant sum to the headline: ok",
+      "outcome classes partition every step: ok"
+    ]
+  },
+  "property": {
+    "seeds": 3,
+    "lifecycles": 3000,
+    "events": 13388,
+    "perSeed": [
+      {
+        "seed": "1",
+        "lifecycles": 1000
+      },
+      {
+        "seed": "2",
+        "lifecycles": 1000
+      },
+      {
+        "seed": "3",
+        "lifecycles": 1000
+      }
+    ]
+  },
+  "counterfactual": {
+    "medianWindowSeconds": 30,
+    "arms": {
+      "baseline": {
+        "unsafe": 13,
+        "of": 13,
+        "refusedLegitimate": 0,
+        "medianSecondsFromFinalToPayment": -30
+      },
+      "control": {
+        "unsafe": 0,
+        "of": 13,
+        "refusedLegitimate": 0,
+        "medianSecondsFromFinalToPayment": 0
+      },
+      "v1": {
+        "unsafe": 0,
+        "of": 13,
+        "refusedLegitimate": 0,
+        "medianSecondsFromFinalToPayment": 90
+      },
+      "v2": {
+        "unsafe": 0,
+        "of": 13,
+        "refusedLegitimate": 0,
+        "medianSecondsFromFinalToPayment": 0
+      }
+    },
+    "v1FunderPath": {
+      "unsafe": 3,
+      "of": 3
+    },
+    "timelines": 13,
+    "caveats": [
+      "The timelines are real but few; this is a count over them, not a statistic over all timelines.",
+      "An appeal's outcome is whatever the committee returned. No overturn was engineered or observed, and none is claimed.",
+      "v1's 120 second constant exceeds the measured window here, so its timer arm is safe on these timelines; its funder path is the measured gap."
+    ]
+  },
+  "differential": {
+    "promotionLifecycle": {
+      "projectedStatus": "Accepted",
+      "resolutionAction": "NoOp"
+    },
+    "promotionAppealDeadline": 1792238362,
+    "settleDecidedAt": 1792238350,
+    "settleExecution": "FINISHED_WITH_RETURN",
+    "vaultStatus": "SETTLED",
+    "link": "https://explorer-studio-dev.genlayer.com/tx/0x76bd84866b426fa634fc22468d60a9e890e63329a99b0d74fb60cccdd48baadb"
+  },
+  "spike": {
+    "reproductions": 2,
+    "decisions": 6,
+    "appealWindowSeconds": 30,
+    "childCreatedSecondsAfterDeadline": 0
+  },
+  "faults": [
+    {
+      "id": "F1",
+      "fault": "Forged sender: an EOA calls authorize_release with a perfect payload",
+      "expected": "UNAUTHORIZED_SENDER",
+      "invariant": "I1",
+      "where": "direct",
+      "status": "pass",
+      "note": null
+    },
+    {
+      "id": "F2",
+      "fault": "Funder bypass: the funder calls the release path",
+      "expected": "UNAUTHORIZED_SENDER, and no public release method exists",
+      "invariant": "I1",
+      "where": "direct",
+      "status": "pass",
+      "note": null
+    },
+    {
+      "id": "F3",
+      "fault": "Replay: the same finalized delivery twice",
+      "expected": "second is a recorded no-op, one transfer",
+      "invariant": "I4",
+      "where": "direct",
+      "status": "pass",
+      "note": null
+    },
+    {
+      "id": "F4",
+      "fault": "Commitment tamper: one delivered field altered",
+      "expected": "COMMITMENT_MISMATCH",
+      "invariant": "I3",
+      "where": "direct",
+      "status": "pass",
+      "note": null
+    },
+    {
+      "id": "F5",
+      "fault": "Accepted storm: alternating provisional notices",
+      "expected": "marker changes, balance and state unchanged",
+      "invariant": "I5",
+      "where": "direct",
+      "status": "pass",
+      "note": "Not producible on chain: emit(on='accepted') raised an execution error under the pinned runner (spike observation O5)."
+    },
+    {
+      "id": "F6",
+      "fault": "Appeal mid-window",
+      "expected": "release held until the decision finalizes",
+      "invariant": "I8",
+      "where": "live run R3",
+      "status": "pass",
+      "note": "The appeal was submitted and the run re-verified. The committee did not change the verdict and the window was not extended in this run."
+    },
+    {
+      "id": "F7",
+      "fault": "Finalized child fails or is never delivered",
+      "expected": "no release; the funder reclaims after the deadline",
+      "invariant": "I9",
+      "where": "spike E4b and direct",
+      "status": "pass",
+      "note": null
+    },
+    {
+      "id": "F8",
+      "fault": "Deadline race between release and reclaim",
+      "expected": "exactly one wins, the other is a no-op",
+      "invariant": "I11",
+      "where": "direct",
+      "status": "pass",
+      "note": null
+    },
+    {
+      "id": "F9",
+      "fault": "Evidence source unavailable",
+      "expected": "REJECT with SOURCE_UNAVAILABLE, close_refused, refund",
+      "invariant": "I6",
+      "where": "direct (gate suite)",
+      "status": "pass",
+      "note": "Run in the gate suite; not run live."
+    },
+    {
+      "id": "F10",
+      "fault": "Stale fee-policy quote",
+      "expected": "Transaction Kit blocks signing on mismatch",
+      "invariant": "liveness",
+      "where": "not run",
+      "status": "not-run",
+      "note": "The Transaction Kit is pinned but not integrated into the app in this milestone."
+    },
+    {
+      "id": "F11",
+      "fault": "Adjudication ends UNDETERMINED or NOT_VOTED",
+      "expected": "no finalized message exists; reclaim after the deadline",
+      "invariant": "I9",
+      "where": "not observed",
+      "status": "not-observed",
+      "note": "No adjudication ended without a decision in the recorded runs; the reclaim path that would cover it is tested."
+    },
+    {
+      "id": "F12",
+      "fault": "An appealed gate becomes unreadable",
+      "expected": "the vault is unaffected: its release path never reads the gate",
+      "invariant": "I9",
+      "where": "structural and direct",
+      "status": "pass",
+      "note": "Not observed live. The vault reads the gate once, at funding; release and reclaim read nothing."
+    }
+  ],
+  "verification": {
+    "pass": 8,
+    "fail": 0,
+    "notEvidenced": 0,
+    "checks": [
+      {
+        "id": "V1",
+        "title": "The gate's emitted message equals an independent TypeScript recomputation of every hash",
+        "status": "pass",
+        "invariants": [
+          "I3"
+        ]
+      },
+      {
+        "id": "V2",
+        "title": "Every corpus case ran and its recorded outcome equals what the case declared",
+        "status": "pass",
+        "invariants": [
+          "I1",
+          "I3",
+          "I4",
+          "I5",
+          "I6",
+          "I7",
+          "I9",
+          "I10",
+          "I11"
+        ]
+      },
+      {
+        "id": "V3",
+        "title": "No wall-clock comparison authorizes a release",
+        "status": "pass",
+        "invariants": [
+          "I2"
+        ]
+      },
+      {
+        "id": "V4",
+        "title": "A finalized-stage message is a child of the deciding transaction, created at or after its appeal deadline, sent by the emitting contract",
+        "status": "pass",
+        "invariants": [
+          "I1",
+          "I8"
+        ]
+      },
+      {
+        "id": "V5",
+        "title": "A direct call shows the caller's own address as sender, distinct from a delivered message's",
+        "status": "pass",
+        "invariants": [
+          "I1"
+        ]
+      },
+      {
+        "id": "V6",
+        "title": "v1's vault accepted a funder release while the promotion was only Accepted and still appealable",
+        "status": "pass",
+        "invariants": [
+          "C2"
+        ]
+      },
+      {
+        "id": "V7",
+        "title": "Each live v2 run: hashes recompute, the delivery is the gate's child, and nothing moved before the decision finalized",
+        "status": "pass",
+        "invariants": [
+          "I1",
+          "I3",
+          "I6",
+          "I8"
+        ]
+      },
+      {
+        "id": "V8",
+        "title": "The counterfactual totals re-derive from the recorded timelines",
+        "status": "pass",
+        "invariants": [
+          "I8"
+        ]
+      }
+    ]
+  },
+  "noClock": {
+    "comparisons": 5,
+    "pass": true
+  },
+  "sizes": {
+    "scenario_registry": {
+      "readableBytes": 3359,
+      "minifiedBytes": 2707
+    },
+    "finality_vault": {
+      "readableBytes": 18380,
+      "minifiedBytes": 14571
+    },
+    "decision_gate": {
+      "readableBytes": 21932,
+      "minifiedBytes": 16938
+    }
+  },
+  "networks": [
+    {
+      "network": "GenLayer Studio Next (Studio-dev)",
+      "chainId": 61997,
+      "lifecycleMethod": true,
+      "executesContracts": true,
+      "funding": "sim_fundAccount (simulator funding, test GEN)"
+    },
+    {
+      "network": "Studionet",
+      "chainId": 61999,
+      "lifecycleMethod": false,
+      "executesContracts": false,
+      "funding": "sim_fundAccount (simulator funding, test GEN)"
+    },
+    {
+      "network": "Testnet Bradbury",
+      "chainId": 4221,
+      "lifecycleMethod": false,
+      "executesContracts": "not measured",
+      "funding": "sim_fundAccount not available: an external faucet is the only way to fund an account"
+    },
+    {
+      "network": "Testnet Asimov",
+      "chainId": 4221,
+      "lifecycleMethod": false,
+      "executesContracts": "not measured",
+      "funding": "sim_fundAccount not available: an external faucet is the only way to fund an account"
+    }
+  ],
+  "evidenceFiles": [
+    {
+      "file": "delivery-742.txt",
+      "url": "https://definit-snowy.vercel.app/demo/delivery-742.txt",
+      "digest": "0x51d31db4745b0ee26db52ab3fd03488ff3bf0652c9f71145899ad60adab83085"
+    },
+    {
+      "file": "delivery-742-partial.txt",
+      "url": "https://definit-snowy.vercel.app/demo/delivery-742-partial.txt",
+      "digest": "0x309124fc5566ff2ee8ae6a96d7a3122b66d9eb08d4c42ff0e3b06a26827c3a99"
+    }
+  ]
+}

@@ -27,6 +27,7 @@ const EXCLUDED_DIRS = new Set([
   ".next",
   ".gltest-home",
   "research",
+  "reference",
   "__pycache__",
   ".pytest_cache",
   "out",

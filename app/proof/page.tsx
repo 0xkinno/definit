@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Shell } from "@/components/Shell";
 import { Notice, Panel, SectionHeading } from "@/components/ui/primitives";
 import { NOT_MEASURED_COPY, loadProofReport } from "@/lib/evidence";
+import { milestone as ms } from "@/lib/milestone/data";
 import {
   describeCounts,
   describeScore,
@@ -46,6 +47,20 @@ export default async function ProofPage() {
           title="Headline numbers, generated rather than typed"
           lead="Every figure below was produced by `npm run proof` and written to a machine-readable report. If that report is missing from this checkout, this page shows nothing at all rather than a comforting number."
         />
+
+        <Panel className="mt-8">
+          <p className="eyebrow">Milestone 2, live contracts</p>
+          <h2 className="mt-1 text-[18px] font-semibold">Addresses and explorer links, with no wallet needed</h2>
+          <ul className="mt-3 grid gap-2 text-[13px]" data-testid="live-contracts">
+            <li><span className="label">Network</span> {ms.network.name}, chain {ms.network.chainId}</li>
+            <li><span className="label">DecisionGate v2</span> <a className="link hash break-all" href={ms.deployment.links.decisionGate} target="_blank" rel="noreferrer">{ms.deployment.addresses.decisionGate}</a></li>
+            <li><span className="label">FinalityVault v2</span> <a className="link hash break-all" href={ms.deployment.links.finalityVault} target="_blank" rel="noreferrer">{ms.deployment.addresses.finalityVault}</a></li>
+            <li><span className="label">ScenarioRegistry v2</span> <a className="link hash break-all" href={ms.deployment.links.scenarioRegistry} target="_blank" rel="noreferrer">{ms.deployment.addresses.scenarioRegistry}</a></li>
+          </ul>
+          <p className="mt-4 text-[13px]" data-testid="refusal-breakdown">
+            The v2 corpus refused {ms.corpus.headline.refusals} attempts: {Object.entries(ms.corpus.refusalsByCode).map(([k, v]) => `${v} ${k}`).join(", ")}. The breakdown sums to the total, and the full v2 evidence is on the <Link className="link" href="/milestone">Milestone 2 page</Link>. The numbers below are the v1 baseline report.
+          </p>
+        </Panel>
 
         {available && report ? (
           <>

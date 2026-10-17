@@ -6,6 +6,7 @@ import { classNames } from "@/lib/format";
 
 const NAV = [
   { href: "/", label: "Overview" },
+  { href: "/milestone", label: "Milestone 2" },
   { href: "/console", label: "Console" },
   { href: "/demo", label: "Lifecycle demo" },
   { href: "/actions", label: "Actions" },
@@ -44,7 +45,7 @@ export function SiteHeader() {
   return (
     <header className="no-print sticky top-0 z-40 border-b border-paper-300 bg-paper-50/85 backdrop-blur">
       <div className="mx-auto flex max-w-[1240px] flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3 sm:px-6">
-        <Link href="/" className="flex items-baseline gap-2">
+        <Link href="/" className="flex min-h-[44px] items-center gap-2">
           <span className="font-display text-[19px] font-semibold tracking-tight">DEFINIT</span>
           <span className="hidden text-[11px] font-medium uppercase tracking-[0.18em] text-ink-500 sm:inline">
             finality engine

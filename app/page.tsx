@@ -8,6 +8,7 @@ import { Notice, Panel, SectionHeading } from "@/components/ui/primitives";
 import { CHAIN_ID, CHAIN_NAME, RUNTIME_MODE } from "@/lib/config";
 import { SCENARIO } from "@/lib/demo/scenario";
 import { NOT_MEASURED_COPY, loadProofReport } from "@/lib/evidence";
+import { proofLine } from "@/lib/milestone/data";
 
 export const dynamic = "force-static";
 
@@ -59,17 +60,17 @@ const MECHANISM = [
   {
     step: "03",
     title: "Hold the effect",
-    body: "On acceptance nothing is released. The provisional record exists in one storage scope and is invisible in the other.",
+    body: "On acceptance nothing is released. The verdict itself schedules the payment on the finalized stage, and a finalized-stage message does not exist yet.",
   },
   {
     step: "04",
     title: "Cross the boundary",
-    body: "The appeal window has closed and the gate has promoted the decision. The settlement instruction was emitted on the finalized stage and cannot run earlier.",
+    body: "The deciding transaction survives its appeal window and the protocol delivers the message. No contract holds a timer and no one has to promote anything.",
   },
   {
     step: "05",
     title: "Release exactly once",
-    body: "The vault re-checks the commitment, the nonce and the final capability before value moves. A second delivery is refused.",
+    body: "The vault accepts the message only from the bound gate and recomputes the commitment itself. A second delivery is a recorded no-op.",
   },
 ];
 
@@ -88,23 +89,27 @@ export default async function LandingPage() {
             </div>
 
             <h1 className="mt-6 text-[34px] font-semibold leading-[1.08] tracking-tightest text-balance sm:text-[46px] lg:text-[54px]">
-              The agent can be right.
+              Your agent paid on an AI verdict.
               <br />
-              <span className="text-ink-600">It can still be too early to act.</span>
+              <span className="text-ink-600">The verdict was appealed. The money is gone.</span>
             </h1>
 
             <p className="mt-6 max-w-prose text-[16px] leading-relaxed text-ink-600 text-pretty">
-              DEFINIT is a finality firewall for autonomous payments. GenLayer can accept a
-              judgment long before that judgment becomes final. DEFINIT makes irreversible
-              effects wait for the one boundary that actually matters.
+              DEFINIT makes the verdict itself release the payment, and only after GenLayer
+              finalizes it. There is no timer and no status check: the payment is a message the
+              protocol will not deliver until the appeal window has passed.
+            </p>
+
+            <p data-testid="hero-proof" className="mt-5 max-w-prose border-l-2 border-ink-900 pl-4 text-[13px] leading-relaxed text-ink-700">
+              {proofLine()}
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link className="btn-primary" href="/console">
-                Run the live protection demo
+              <Link className="btn-primary" href="/milestone">
+                See the finality clock and the proof
               </Link>
-              <Link className="btn-quiet" href="/lab">
-                Inspect the finality path
+              <Link className="btn-quiet" href="/console">
+                Run the protection demo
               </Link>
             </div>
 
