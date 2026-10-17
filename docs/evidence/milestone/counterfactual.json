@@ -1,0 +1,164 @@
+{
+  "generatedAt": "2026-10-17T16:09:13.714Z",
+  "about": "Four payment rules replayed over the same recorded protocol timelines. Unsafe means paid before the deciding decision's appeal deadline.",
+  "medianWindowSeconds": 30,
+  "timelines": [
+    {
+      "id": "repro-1/e1d1",
+      "source": "docs/evidence/milestone/spike/repro-1/run-e1d1.json",
+      "acceptedAt": 1792238588,
+      "finalAt": 1792238618,
+      "deliveryAt": 1792238618,
+      "appealed": false
+    },
+    {
+      "id": "repro-1/e1d2",
+      "source": "docs/evidence/milestone/spike/repro-1/run-e1d2.json",
+      "acceptedAt": 1792238693,
+      "finalAt": 1792238723,
+      "deliveryAt": 1792238723,
+      "appealed": false
+    },
+    {
+      "id": "repro-1/e1d3",
+      "source": "docs/evidence/milestone/spike/repro-1/run-e1d3.json",
+      "acceptedAt": 1792238814,
+      "finalAt": 1792238844,
+      "deliveryAt": 1792238844,
+      "appealed": false
+    },
+    {
+      "id": "repro-2/e1d1",
+      "source": "docs/evidence/milestone/spike/repro-2/run-e1d1.json",
+      "acceptedAt": 1792239305,
+      "finalAt": 1792239335,
+      "deliveryAt": 1792239335,
+      "appealed": false
+    },
+    {
+      "id": "repro-2/e1d2",
+      "source": "docs/evidence/milestone/spike/repro-2/run-e1d2.json",
+      "acceptedAt": 1792239415,
+      "finalAt": 1792239445,
+      "deliveryAt": 1792239445,
+      "appealed": false
+    },
+    {
+      "id": "repro-2/e1d3",
+      "source": "docs/evidence/milestone/spike/repro-2/run-e1d3.json",
+      "acceptedAt": 1792239527,
+      "finalAt": 1792239557,
+      "deliveryAt": 1792239558,
+      "appealed": false
+    },
+    {
+      "id": "e1d1",
+      "source": "docs/evidence/milestone/spike/run-e1d1.json",
+      "acceptedAt": 1792236504,
+      "finalAt": 1792236534,
+      "deliveryAt": 1792236535,
+      "appealed": false
+    },
+    {
+      "id": "e1d2",
+      "source": "docs/evidence/milestone/spike/run-e1d2.json",
+      "acceptedAt": 1792236618,
+      "finalAt": 1792236648,
+      "deliveryAt": 1792236648,
+      "appealed": false
+    },
+    {
+      "id": "e1d3",
+      "source": "docs/evidence/milestone/spike/run-e1d3.json",
+      "acceptedAt": 1792236751,
+      "finalAt": 1792236781,
+      "deliveryAt": 1792236781,
+      "appealed": false
+    },
+    {
+      "id": "e2a",
+      "source": "docs/evidence/milestone/spike/run-e2a.json",
+      "acceptedAt": 1792236909,
+      "finalAt": 1792236937,
+      "deliveryAt": 1792236939,
+      "appealed": true
+    },
+    {
+      "id": "R1",
+      "source": "docs/evidence/milestone/v2-run-R1.json",
+      "acceptedAt": 1792248396,
+      "finalAt": 1792248426,
+      "deliveryAt": 1792248426,
+      "appealed": false
+    },
+    {
+      "id": "R3",
+      "source": "docs/evidence/milestone/v2-run-R3.json",
+      "acceptedAt": 1792248716,
+      "finalAt": 1792248744,
+      "deliveryAt": 1792248745,
+      "appealed": true
+    },
+    {
+      "id": "T1",
+      "source": "docs/evidence/milestone/v2-run-T1.json",
+      "acceptedAt": 1792251971,
+      "finalAt": 1792252001,
+      "deliveryAt": 1792252001,
+      "appealed": false
+    }
+  ],
+  "arms": {
+    "baseline": {
+      "unsafe": 13,
+      "of": 13,
+      "refusedLegitimate": 0,
+      "medianSecondsFromFinalToPayment": -30
+    },
+    "control": {
+      "unsafe": 0,
+      "of": 13,
+      "refusedLegitimate": 0,
+      "medianSecondsFromFinalToPayment": 0
+    },
+    "v1": {
+      "unsafe": 0,
+      "of": 13,
+      "refusedLegitimate": 0,
+      "medianSecondsFromFinalToPayment": 90
+    },
+    "v2": {
+      "unsafe": 0,
+      "of": 13,
+      "refusedLegitimate": 0,
+      "medianSecondsFromFinalToPayment": 0
+    }
+  },
+  "v1FunderPath": {
+    "unsafe": 3,
+    "of": 3,
+    "timelines": [
+      {
+        "source": "docs/evidence/milestone/spike/e6-h1-v1-run2.json",
+        "settleDecidedAt": 1792238350,
+        "promotionFinalAt": 1792238362
+      },
+      {
+        "source": "docs/evidence/milestone/spike/repro-1/e6-h1-v1-run1.json",
+        "settleDecidedAt": 1792239188,
+        "promotionFinalAt": 1792239205
+      },
+      {
+        "source": "docs/evidence/milestone/spike/repro-2/e6-h1-v1-run1.json",
+        "settleDecidedAt": 1792239886,
+        "promotionFinalAt": 1792239903
+      }
+    ],
+    "note": "v1's vault lets the funder trigger settle once the promotion is Accepted (spike E6)."
+  },
+  "caveats": [
+    "The timelines are real but few; this is a count over them, not a statistic over all timelines.",
+    "An appeal's outcome is whatever the committee returned. No overturn was engineered or observed, and none is claimed.",
+    "v1's 120 second constant exceeds the measured window here, so its timer arm is safe on these timelines; its funder path is the measured gap."
+  ]
+}

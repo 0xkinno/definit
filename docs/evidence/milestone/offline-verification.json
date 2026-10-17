@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-17T16:05:59.648Z",
+  "generatedAt": "2026-10-17T16:10:27.100Z",
   "requireLive": false,
   "counts": {
-    "pass": 7,
+    "pass": 8,
     "fail": 0,
-    "not-evidenced": 1
+    "not-evidenced": 0
   },
   "checks": [
     {
@@ -136,12 +136,14 @@
       "invariants": [
         "I8"
       ],
-      "title": "The four-arm counterfactual totals re-derive from the recorded timelines",
-      "status": "not-evidenced",
-      "uses": [],
+      "title": "The counterfactual totals re-derive from the recorded timelines",
+      "status": "pass",
+      "uses": [
+        "docs/evidence/milestone/counterfactual.json"
+      ],
       "problems": [],
       "notes": [
-        "counterfactual.json has not been recorded (Phase 4)"
+        "13 timelines re-derived; v2 unsafe 0/13"
       ]
     }
   ]

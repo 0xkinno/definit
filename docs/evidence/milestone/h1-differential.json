@@ -1,0 +1,27 @@
+{
+  "about": "v1 against v2 under the same attempt: a funder triggering a release while the deciding transaction is not yet final.",
+  "v1": {
+    "source": "docs/evidence/milestone/spike/e6-h1-v1-run2.json",
+    "promotionLifecycle": {
+      "projectedStatus": "Accepted",
+      "resolutionAction": "NoOp"
+    },
+    "promotionAppealDeadline": 1792238362,
+    "settleDecidedAt": 1792238350,
+    "settleExecution": "FINISHED_WITH_RETURN",
+    "vaultStatus": "SETTLED",
+    "link": "https://explorer-studio-dev.genlayer.com/tx/0x76bd84866b426fa634fc22468d60a9e890e63329a99b0d74fb60cccdd48baadb",
+    "outcome": "the vault accepted the funder's settle and recorded SETTLED before the promotion's appeal deadline"
+  },
+  "v2": {
+    "outcome": "not constructible: the v2 vault has no public method that releases on a caller's request",
+    "tests": [
+      "tests/v2/direct/test_vault_release.py::test_nobody_but_the_gate_can_release",
+      "tests/v2/direct/test_vault_release.py::test_there_is_no_public_method_that_releases_on_a_callers_request"
+    ],
+    "corpus": [
+      "i1-release-by-funder"
+    ]
+  },
+  "doesNotShow": "An appeal overturning a decision. None was engineered or observed."
+}

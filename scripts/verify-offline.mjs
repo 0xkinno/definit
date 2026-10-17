@@ -22,6 +22,7 @@ import path from "node:path";
 import { REPO_ROOT } from "./_shared.mjs";
 import { actionIdOf, decisionIdOfV2, evidenceDigestOf, intentHashOf } from "../lib/commitments/commitment.ts";
 import { checkRun } from "./lib/run-checks.mjs";
+import { replay, replayFunderPath } from "./counterfactual.mjs";
 
 const EV = path.join(REPO_ROOT, "docs", "evidence", "milestone");
 const SPIKE = path.join(EV, "spike");
@@ -208,13 +209,19 @@ check("V7", ["I1", "I3", "I6", "I8"], "Each live v2 run: hashes recompute, the d
 });
 
 // ------------------------------------------------------------------ V8: the counterfactual, re-derived from raw timelines
-check("V8", ["I8"], "The four-arm counterfactual totals re-derive from the recorded timelines", (c) => {
+check("V8", ["I8"], "The counterfactual totals re-derive from the recorded timelines", (c) => {
   const file = path.join(EV, "counterfactual.json");
-  if (!existsSync(file)) return c.notEvidenced("counterfactual.json has not been recorded (Phase 4)");
+  if (!existsSync(file)) return c.notEvidenced("counterfactual.json has not been recorded; run npm run counterfactual");
   c.use(file);
-  // The arms and their replay rules live in scripts/counterfactual.mjs; this check imports the same
-  // pure function and compares totals, so a hand-edited total cannot pass.
-  c.notEvidenced("counterfactual re-derivation is wired in Phase 4 together with counterfactual.mjs");
+  const cf = rd(file);
+  const again = replay(cf.timelines, cf.medianWindowSeconds);
+  for (const [arm, v] of Object.entries(again)) {
+    for (const k of ["unsafe", "of", "refusedLegitimate"]) if (cf.arms[arm]?.[k] !== v[k]) c.fail(`${arm}.${k}: recorded ${cf.arms[arm]?.[k]}, re-derived ${v[k]}`);
+  }
+  const f = replayFunderPath(cf.v1FunderPath.timelines);
+  if (f.unsafe !== cf.v1FunderPath.unsafe || f.of !== cf.v1FunderPath.of) c.fail("v1 funder path totals differ from the re-derivation");
+  if (cf.arms.v2.unsafe !== 0) c.fail(`v2 executed ${cf.arms.v2.unsafe} payment(s) before the decision was final`);
+  c.note(`${cf.timelines.length} timelines re-derived; v2 unsafe ${again.v2.unsafe}/${again.v2.of}`);
 });
 
 // ------------------------------------------------------------------ report

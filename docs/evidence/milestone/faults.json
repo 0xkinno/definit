@@ -1,0 +1,214 @@
+{
+  "generatedAt": "2026-10-17T16:10:22.496Z",
+  "rows": [
+    {
+      "id": "F1",
+      "fault": "Forged sender: an EOA calls authorize_release with a perfect payload",
+      "expected": "UNAUTHORIZED_SENDER",
+      "invariant": "I1",
+      "where": "direct",
+      "evidence": [
+        {
+          "id": "i1-release-by-stranger",
+          "passed": true
+        },
+        {
+          "id": "i1-release-by-owner",
+          "passed": true
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "F2",
+      "fault": "Funder bypass: the funder calls the release path",
+      "expected": "UNAUTHORIZED_SENDER, and no public release method exists",
+      "invariant": "I1",
+      "where": "direct",
+      "evidence": [
+        {
+          "id": "i1-release-by-funder",
+          "passed": true
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "F3",
+      "fault": "Replay: the same finalized delivery twice",
+      "expected": "second is a recorded no-op, one transfer",
+      "invariant": "I4",
+      "where": "direct",
+      "evidence": [
+        {
+          "id": "i4-duplicate-delivery",
+          "passed": true
+        },
+        {
+          "id": "i4-five-duplicates",
+          "passed": true
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "F4",
+      "fault": "Commitment tamper: one delivered field altered",
+      "expected": "COMMITMENT_MISMATCH",
+      "invariant": "I3",
+      "where": "direct",
+      "evidence": [
+        {
+          "id": "i3-altered-recipient",
+          "passed": true
+        },
+        {
+          "id": "i3-altered-amount",
+          "passed": true
+        },
+        {
+          "id": "i3-altered-policy_hash",
+          "passed": true
+        },
+        {
+          "id": "i3-altered-nonce",
+          "passed": true
+        },
+        {
+          "id": "i3-forged-intent-hash",
+          "passed": true
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "F5",
+      "fault": "Accepted storm: alternating provisional notices",
+      "expected": "marker changes, balance and state unchanged",
+      "invariant": "I5",
+      "where": "direct",
+      "evidence": [
+        {
+          "id": "i5-alternating-notices",
+          "passed": true
+        },
+        {
+          "id": "i5-notice-cannot-release",
+          "passed": true
+        }
+      ],
+      "note": "Not producible on chain: emit(on='accepted') raised an execution error under the pinned runner (spike observation O5).",
+      "status": "pass"
+    },
+    {
+      "id": "F6",
+      "fault": "Appeal mid-window",
+      "expected": "release held until the decision finalizes",
+      "invariant": "I8",
+      "where": "live run R3",
+      "evidence": [
+        {
+          "id": "R3",
+          "passed": true
+        }
+      ],
+      "note": "The appeal was submitted and the run re-verified. The committee did not change the verdict and the window was not extended in this run.",
+      "status": "pass"
+    },
+    {
+      "id": "F7",
+      "fault": "Finalized child fails or is never delivered",
+      "expected": "no release; the funder reclaims after the deadline",
+      "invariant": "I9",
+      "where": "spike E4b and direct",
+      "evidence": [
+        {
+          "id": "E4b",
+          "passed": true
+        },
+        {
+          "id": "i9-no-delivery-reclaim",
+          "passed": true
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "F8",
+      "fault": "Deadline race between release and reclaim",
+      "expected": "exactly one wins, the other is a no-op",
+      "invariant": "I11",
+      "where": "direct",
+      "evidence": [
+        {
+          "id": "i11-reclaim-then-release",
+          "passed": true
+        },
+        {
+          "id": "i11-release-then-reclaim",
+          "passed": true
+        },
+        {
+          "id": "i11-late-release-then-reclaim",
+          "passed": true
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "F9",
+      "fault": "Evidence source unavailable",
+      "expected": "REJECT with SOURCE_UNAVAILABLE, close_refused, refund",
+      "invariant": "I6",
+      "where": "direct (gate suite)",
+      "evidence": [
+        {
+          "id": "tests/v2/direct/test_gate.py::test_an_unreachable_source_is_a_rejection_with_its_own_reason",
+          "passed": true
+        }
+      ],
+      "note": "Run in the gate suite; not run live.",
+      "status": "pass"
+    },
+    {
+      "id": "F10",
+      "fault": "Stale fee-policy quote",
+      "expected": "Transaction Kit blocks signing on mismatch",
+      "invariant": "liveness",
+      "where": "not run",
+      "evidence": [],
+      "note": "The Transaction Kit is pinned but not integrated into the app in this milestone.",
+      "status": "not-run"
+    },
+    {
+      "id": "F11",
+      "fault": "Adjudication ends UNDETERMINED or NOT_VOTED",
+      "expected": "no finalized message exists; reclaim after the deadline",
+      "invariant": "I9",
+      "where": "not observed",
+      "evidence": [
+        {
+          "id": "i9-no-delivery-reclaim",
+          "passed": true
+        }
+      ],
+      "note": "No adjudication ended without a decision in the recorded runs; the reclaim path that would cover it is tested.",
+      "status": "not-observed"
+    },
+    {
+      "id": "F12",
+      "fault": "An appealed gate becomes unreadable",
+      "expected": "the vault is unaffected: its release path never reads the gate",
+      "invariant": "I9",
+      "where": "structural and direct",
+      "evidence": [
+        {
+          "id": "i9-no-delivery-reclaim",
+          "passed": true
+        }
+      ],
+      "note": "Not observed live. The vault reads the gate once, at funding; release and reclaim read nothing.",
+      "status": "pass"
+    }
+  ]
+}
