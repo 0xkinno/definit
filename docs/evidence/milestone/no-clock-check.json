@@ -1,0 +1,97 @@
+{
+  "invariant": "I2: no wall-clock comparison authorizes a release",
+  "files": [
+    "decision_gate.py",
+    "finality_vault.py",
+    "scenario_registry.py"
+  ],
+  "comparisons": [
+    {
+      "file": "decision_gate.py",
+      "function": "create_action",
+      "line": 471,
+      "operator": "LtE",
+      "clock_on": "right",
+      "denies": true,
+      "emits_transfer_in_branch": false,
+      "sets_settled_in_branch": false,
+      "policy": {
+        "op": "LtE",
+        "clock": "right",
+        "effect": "deny",
+        "why": "a new action's deadline must lie in the future"
+      },
+      "verdict": "ok"
+    },
+    {
+      "file": "decision_gate.py",
+      "function": "request_adjudication",
+      "line": 557,
+      "operator": "Gt",
+      "clock_on": "left",
+      "denies": true,
+      "emits_transfer_in_branch": false,
+      "sets_settled_in_branch": false,
+      "policy": {
+        "op": "Gt",
+        "clock": "left",
+        "effect": "deny",
+        "why": "an expired action is not adjudicated"
+      },
+      "verdict": "ok"
+    },
+    {
+      "file": "finality_vault.py",
+      "function": "open_escrow",
+      "line": 281,
+      "operator": "LtE",
+      "clock_on": "right",
+      "denies": true,
+      "emits_transfer_in_branch": false,
+      "sets_settled_in_branch": false,
+      "policy": {
+        "op": "LtE",
+        "clock": "right",
+        "effect": "deny",
+        "why": "an escrow's deadline must lie in the future"
+      },
+      "verdict": "ok"
+    },
+    {
+      "file": "finality_vault.py",
+      "function": "authorize_release",
+      "line": 386,
+      "operator": "Gt",
+      "clock_on": "left",
+      "denies": true,
+      "emits_transfer_in_branch": false,
+      "sets_settled_in_branch": false,
+      "policy": {
+        "op": "Gt",
+        "clock": "left",
+        "effect": "deny-and-route-to-refund",
+        "why": "a release delivered after the deadline does not release; it routes the escrow to a refund"
+      },
+      "verdict": "ok"
+    },
+    {
+      "file": "finality_vault.py",
+      "function": "reclaim_after_deadline",
+      "line": 518,
+      "operator": "LtE",
+      "clock_on": "left",
+      "denies": true,
+      "emits_transfer_in_branch": false,
+      "sets_settled_in_branch": false,
+      "policy": {
+        "op": "LtE",
+        "clock": "left",
+        "effect": "deny",
+        "why": "the funder may reclaim only after the deadline; the effect is a return to the funder"
+      },
+      "verdict": "ok"
+    }
+  ],
+  "violations": [],
+  "pass": true
+}

@@ -29,6 +29,10 @@ const SOURCES = [
   { name: "FinalityVault", file: path.join("contracts", "finality_vault.py") },
   { name: "DecisionGate", file: path.join("contracts", "decision_gate.py") },
   { name: "UnsafeRelease", file: path.join("contracts", "control", "unsafe_release.py") },
+  // v2: the contracts the milestone deploys. v1 stays in the list as the comparison arm.
+  { name: "ScenarioRegistry v2", file: path.join("contracts", "v2", "scenario_registry.py") },
+  { name: "FinalityVault v2", file: path.join("contracts", "v2", "finality_vault.py") },
+  { name: "DecisionGate v2", file: path.join("contracts", "v2", "decision_gate.py") },
 ];
 
 const AS_JSON = process.argv.includes("--json");
