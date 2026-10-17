@@ -1,0 +1,57 @@
+{
+  "runs": {
+    "1": {
+      "seed": 1,
+      "lifecycles": 1000,
+      "events": 4525,
+      "refusals": 2309,
+      "noops": 1102,
+      "released": 71302612,
+      "returned": 120907519,
+      "terminal": {
+        "EXPIRED_REFUNDABLE": 262,
+        "SETTLED": 153,
+        "OPEN": 247,
+        "REFUNDABLE": 114,
+        "WITHDRAWN": 66,
+        "RECLAIMED": 158
+      }
+    },
+    "2": {
+      "seed": 2,
+      "lifecycles": 1000,
+      "events": 4383,
+      "refusals": 2275,
+      "noops": 1034,
+      "released": 70485847,
+      "returned": 102709869,
+      "terminal": {
+        "EXPIRED_REFUNDABLE": 226,
+        "OPEN": 267,
+        "WITHDRAWN": 72,
+        "RECLAIMED": 147,
+        "SETTLED": 149,
+        "REFUNDABLE": 139
+      }
+    },
+    "3": {
+      "seed": 3,
+      "lifecycles": 1000,
+      "events": 4480,
+      "refusals": 2328,
+      "noops": 1008,
+      "released": 84539901,
+      "returned": 109206872,
+      "terminal": {
+        "REFUNDABLE": 127,
+        "EXPIRED_REFUNDABLE": 262,
+        "WITHDRAWN": 76,
+        "OPEN": 237,
+        "SETTLED": 159,
+        "RECLAIMED": 139
+      }
+    }
+  },
+  "generatedAt": "2033-05-18T11:04:57+00:00",
+  "build": "readable (contracts/v2)"
+}

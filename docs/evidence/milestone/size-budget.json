@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-10-17T16:02:40.899Z",
+  "sizes": {
+    "scenario_registry": {
+      "readableBytes": 3359,
+      "minifiedBytes": 2707
+    },
+    "finality_vault": {
+      "readableBytes": 18380,
+      "minifiedBytes": 14571
+    },
+    "decision_gate": {
+      "readableBytes": 21932,
+      "minifiedBytes": 16938
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "about": "The message the v2 gate emitted in direct mode, with its inputs. Recomputed offline by scripts/verify-offline.mjs.",
+  "inputs": {
+    "agent": "0x3333333333333333333333333333333333333333",
+    "recipient": "0x4444444444444444444444444444444444444444",
+    "amount": 5000,
+    "asset": "GEN",
+    "policy_hash": "0x9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a",
+    "nonce": 7,
+    "deadline_unix": 4000000000,
+    "created_at": "2026-10-17T12:00:00Z",
+    "adjudicated_at": "2026-10-17T12:00:00Z",
+    "evidence_text": "DELIVERY CONFIRMATION RECORD  Consignment NW-742-DEL  Purchase order PO-742  Delivered",
+    "attempt": 1
+  },
+  "emitted": {
+    "stage": "finalized",
+    "target": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "method": "authorize_release",
+    "args": [
+      "0x261b568bcedf9a23226369c09b4782a5d80b3d24ed88604242cdc1b8338bc75b",
+      "0xc7b8622a8fee0be2418ce4f95104fdcd90e9776edfe5f34b0c6468bf8c6b6d5d",
+      "0x5ed0e192ec1474e645f8615c68eccad9da993113c1ebafb51ae57fd7d355faa6",
+      "0x1ac00bb77ec02779ddb95d9bdd7c235284954bee5cf4898030c5a9b5d0f07dd3",
+      "0x9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a",
+      7,
+      "0x4444444444444444444444444444444444444444",
+      5000
+    ]
+  },
+  "recorded_action": {
+    "intent_hash": "0x5ed0e192ec1474e645f8615c68eccad9da993113c1ebafb51ae57fd7d355faa6",
+    "evidence_digest": "0x1ac00bb77ec02779ddb95d9bdd7c235284954bee5cf4898030c5a9b5d0f07dd3",
+    "decision_id": "0xc7b8622a8fee0be2418ce4f95104fdcd90e9776edfe5f34b0c6468bf8c6b6d5d"
+  }
+}

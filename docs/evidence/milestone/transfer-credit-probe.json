@@ -1,0 +1,119 @@
+{
+  "network": "Studio-dev (chain 61997)",
+  "payer": "0x7D0fFb4daF1A77Acb8D0c01C86988917F378a221",
+  "amountWei": "5000000000000000",
+  "before": {
+    "payer": "20000000000000000",
+    "A": "0",
+    "B": "0"
+  },
+  "samples": [
+    {
+      "atS": 0,
+      "payer": "20000000000000000",
+      "finalized_form": "0",
+      "default_form": "0"
+    },
+    {
+      "atS": 15,
+      "payer": "20000000000000000",
+      "finalized_form": "0",
+      "default_form": "0"
+    },
+    {
+      "atS": 30,
+      "payer": "20000000000000000",
+      "finalized_form": "0",
+      "default_form": "0"
+    },
+    {
+      "atS": 45,
+      "payer": "20000000000000000",
+      "finalized_form": "0",
+      "default_form": "0"
+    },
+    {
+      "atS": 60,
+      "payer": "20000000000000000",
+      "finalized_form": "0",
+      "default_form": "0"
+    },
+    {
+      "atS": 75,
+      "payer": "20000000000000000",
+      "finalized_form": "0",
+      "default_form": "0"
+    },
+    {
+      "atS": 90,
+      "payer": "20000000000000000",
+      "finalized_form": "0",
+      "default_form": "0"
+    },
+    {
+      "atS": 105,
+      "payer": "20000000000000000",
+      "finalized_form": "0",
+      "default_form": "0"
+    },
+    {
+      "atS": 120,
+      "payer": "20000000000000000",
+      "finalized_form": "0",
+      "default_form": "0"
+    },
+    {
+      "atS": 135,
+      "payer": "20000000000000000",
+      "finalized_form": "0",
+      "default_form": "0"
+    },
+    {
+      "atS": 150,
+      "payer": "20000000000000000",
+      "finalized_form": "0",
+      "default_form": "0"
+    },
+    {
+      "atS": 165,
+      "payer": "20000000000000000",
+      "finalized_form": "0",
+      "default_form": "0"
+    }
+  ],
+  "txs": {
+    "finalized_form": {
+      "hash": "0xed26232049b292f670b4008c4d44f3214a7a5eb95723c769c3611705b2cd7f49",
+      "status": "FINALIZED",
+      "execution": "FINISHED_WITH_RETURN",
+      "messages": [
+        {
+          "messageType": "0",
+          "recipient": "0xA1A1a1a1A1A1A1A1A1a1a1a1a1a1A1A1a1A1a1a1",
+          "value": 5000000000000000,
+          "data": "Bg==",
+          "onAcceptance": false
+        }
+      ],
+      "triggered_transactions": [],
+      "value_credited": false
+    },
+    "default_form": {
+      "hash": "0x7589ffdce26b90200a875f6fd3f0ca2ba4bca12b81179b528ddf8502facb86ce",
+      "status": "FINALIZED",
+      "execution": "FINISHED_WITH_RETURN",
+      "messages": [
+        {
+          "messageType": "0",
+          "recipient": "0xb2b2b2b2b2B2b2B2B2b2b2B2B2b2B2B2b2b2b2b2",
+          "value": 5000000000000000,
+          "data": "Bg==",
+          "onAcceptance": false
+        }
+      ],
+      "triggered_transactions": [],
+      "value_credited": false
+    }
+  },
+  "valueEverCredited": false
+}

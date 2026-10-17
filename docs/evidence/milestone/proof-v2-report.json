@@ -1,0 +1,119 @@
+{
+  "generatedAt": "2026-10-17T16:05:56.198Z",
+  "source": {
+    "cases": "tests/v2/fixtures/cases-v2.json",
+    "results": "docs/evidence/milestone/corpus-v2-results.json"
+  },
+  "headline": {
+    "cases": 41,
+    "passed": 41,
+    "steps": 82,
+    "refusals": 27,
+    "recordedNoops": 9
+  },
+  "byInvariant": [
+    {
+      "invariant": "I1",
+      "cases": 7,
+      "passed": 7,
+      "attackedBy": "direct-mode corpus"
+    },
+    {
+      "invariant": "I2",
+      "cases": 0,
+      "passed": 0,
+      "attackedBy": "scripts/check_no_clock.py (npm run check:no-clock), re-derived by verify-offline V3"
+    },
+    {
+      "invariant": "I3",
+      "cases": 6,
+      "passed": 6,
+      "attackedBy": "direct-mode corpus"
+    },
+    {
+      "invariant": "I4",
+      "cases": 2,
+      "passed": 2,
+      "attackedBy": "direct-mode corpus"
+    },
+    {
+      "invariant": "I5",
+      "cases": 3,
+      "passed": 3,
+      "attackedBy": "direct-mode corpus"
+    },
+    {
+      "invariant": "I6",
+      "cases": 8,
+      "passed": 8,
+      "attackedBy": "direct-mode corpus"
+    },
+    {
+      "invariant": "I7",
+      "cases": 3,
+      "passed": 3,
+      "attackedBy": "direct-mode corpus"
+    },
+    {
+      "invariant": "I8",
+      "cases": 0,
+      "passed": 0,
+      "attackedBy": "live lifecycle records (v2-run-R*.json) and the spike runs, re-derived by verify-offline V4 and V7"
+    },
+    {
+      "invariant": "I9",
+      "cases": 7,
+      "passed": 7,
+      "attackedBy": "direct-mode corpus"
+    },
+    {
+      "invariant": "I10",
+      "cases": 2,
+      "passed": 2,
+      "attackedBy": "direct-mode corpus"
+    },
+    {
+      "invariant": "I11",
+      "cases": 3,
+      "passed": 3,
+      "attackedBy": "direct-mode corpus"
+    }
+  ],
+  "refusalsByCode": {
+    "BAD_STATE": 4,
+    "COMMITMENT_MISMATCH": 6,
+    "DEADLINE_NOT_PASSED": 2,
+    "NOT_FUNDER": 9,
+    "UNAUTHORIZED_SENDER": 6
+  },
+  "refusalsByInvariant": {
+    "I1": 6,
+    "I2": 0,
+    "I3": 6,
+    "I4": 0,
+    "I5": 0,
+    "I6": 5,
+    "I7": 0,
+    "I8": 0,
+    "I9": 8,
+    "I10": 0,
+    "I11": 2
+  },
+  "outcomeCounts": {
+    "refused:UNAUTHORIZED_SENDER": 6,
+    "accepted": 34,
+    "refused:COMMITMENT_MISMATCH": 6,
+    "recorded-noop": 9,
+    "refused:NOT_FUNDER": 9,
+    "refused:BAD_STATE": 4,
+    "setup": 12,
+    "refused:DEADLINE_NOT_PASSED": 2
+  },
+  "reconciliation": [
+    "cases by invariant sum to the headline: ok",
+    "passed by invariant sum to the headline: ok",
+    "refusals by code sum to the headline: ok",
+    "refusals by invariant sum to the headline: ok",
+    "outcome classes partition every step: ok"
+  ]
+}

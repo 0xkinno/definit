@@ -44,9 +44,21 @@
     "spike:cli": "node scripts/spike.mjs",
     "spike:e6": "node scripts/spike-e6.mjs",
     "probe:network": "node scripts/probe-network.mjs",
-    "check:no-clock": "node scripts/check-no-clock.mjs"
+    "check:no-clock": "node scripts/check-no-clock.mjs",
+    "test:v2:direct": "node scripts/run-python.mjs tests/v2/direct",
+    "test:v2:integration": "node --test --test-concurrency=1 tests/v2/integration/payment-paths.test.mjs",
+    "test:v2": "npm run test:v2:direct && npm run proof:v2 && npm run verify:offline",
+    "proof:v2": "node scripts/proof-v2.mjs",
+    "verify:offline": "node scripts/verify-offline.mjs",
+    "deploy:v2": "node scripts/deploy-v2.mjs",
+    "lifecycle:v2": "node scripts/lifecycle-v2.mjs",
+    "probe:transfer": "node scripts/probe-transfer.mjs",
+    "build:contracts": "node scripts/build-contracts.mjs",
+    "test:v2:property": "node scripts/run-python.mjs tests/v2/direct/test_property_lifecycles.py"
   },
   "dependencies": {
+    "@genlayer/transaction-kit": "0.1.0-rc.2",
+    "@genlayer/transaction-kit-react": "0.1.0-rc.2",
     "framer-motion": "^12.0.0",
     "genlayer-js": "2.0.0-rc.1",
     "next": "^15.5.0",

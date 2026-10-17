@@ -1,0 +1,61 @@
+{
+  "network": "GenLayer Studio Next (Studio-dev)",
+  "chainId": 61997,
+  "rpc": "https://studio-dev.genlayer.com/api",
+  "explorer": "https://explorer-studio-dev.genlayer.com",
+  "deployer": "0x14b959B6DF21F95F7dFc76c980d93aFbDB7a66d6",
+  "runner": "py-genlayer:5jycge4q8k23462jtb0b9fyey1s9qz928sz2nbrd9mg4sxqg2qng",
+  "deployedAt": "2026-10-17T13:13:58.919Z",
+  "version": "v2",
+  "addresses": {
+    "scenarioRegistry": "0x8DC63918F88dcc719397a39730C1b31A1cF895DF",
+    "finalityVault": "0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5",
+    "decisionGate": "0xA03C1884F2dFf591388B85840F264c93EE4bF889"
+  },
+  "transactions": {
+    "scenarioRegistry": "0x8c4aafb81bd79f729d1a48ee067d128352010e23cc01ed6c5fef6948ba202a5e",
+    "finalityVault": "0x742342fe99f70c9941cfe70a9711c5ae874468cdcf11c8264a5242348270c411",
+    "decisionGate": "0xbe32ca2c1ad81c4111072f4e241778eb6fcc3a1b342fb5bbbb1402cfa89fab2b",
+    "setGate": "0xcb64eaa19a0e588cf76c15e70c1654c9fbeaaba4e0f3920532a000c429984c3f",
+    "publishPolicy": "0x5cc4dc3946290ed1a13d4f2fac1b6d142bdc7b6fb1ce6a97c6ac7fe31434e2f0"
+  },
+  "demoPolicy": {
+    "id": "delivery-milestone-v3",
+    "version": "3.0.0",
+    "hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac"
+  },
+  "describe": {
+    "vault": {
+      "clock": "return-to-funder-only",
+      "contract": "FinalityVault",
+      "finality_rule": "protocol-finalized-delivery",
+      "gate": "0xa03c1884f2dff591388b85840f264c93ee4bf889",
+      "noop_count": 0,
+      "owner": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+      "product": "DEFINIT",
+      "release_count": 0,
+      "release_message_stage": "finalized",
+      "version": "v2"
+    },
+    "gate": {
+      "clock": "none",
+      "commitment_domain": "DEFINIT-COMMITMENT-v1",
+      "contract": "DecisionGate",
+      "decision_domain": "DEFINIT-DECISION-v2",
+      "finality_rule": "protocol-finalized-delivery",
+      "owner": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+      "product": "DEFINIT",
+      "registry": "0x8dc63918f88dcc719397a39730c1b31a1cf895df",
+      "settlement_message_stage": "finalized",
+      "total_actions": 0,
+      "vault": "0x61c1cfa242521936214ebf5510b6e3aa6e9eadf5",
+      "version": "v2"
+    }
+  },
+  "links": {
+    "scenarioRegistry": "https://explorer-studio-dev.genlayer.com/address/0x8DC63918F88dcc719397a39730C1b31A1cF895DF",
+    "finalityVault": "https://explorer-studio-dev.genlayer.com/address/0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5",
+    "decisionGate": "https://explorer-studio-dev.genlayer.com/address/0xA03C1884F2dFf591388B85840F264c93EE4bF889"
+  },
+  "tookSeconds": 249
+}

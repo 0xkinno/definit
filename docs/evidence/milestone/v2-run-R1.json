@@ -1,0 +1,257 @@
+{
+  "run": "R1",
+  "kind": "approve",
+  "startedAt": "2026-10-17T14:45:52.684Z",
+  "network": {
+    "chainId": 61997,
+    "rpc": "https://studio-dev.genlayer.com/api"
+  },
+  "contracts": {
+    "registry": "0x8DC63918F88dcc719397a39730C1b31A1cF895DF",
+    "vault": "0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5",
+    "gate": "0xA03C1884F2dFf591388B85840F264c93EE4bF889"
+  },
+  "evidenceUrl": "https://definit-snowy.vercel.app/demo/delivery-742.txt",
+  "steps": [
+    {
+      "name": "create_action",
+      "at": "2026-10-17T14:46:06.932Z",
+      "tx": "0xbbcc412515528511beb4c82b1b63f319b5fe8789b3d0ee1f177fd345e6f2aea8",
+      "explorer": "https://explorer-studio-dev.genlayer.com/tx/0xbbcc412515528511beb4c82b1b63f319b5fe8789b3d0ee1f177fd345e6f2aea8"
+    },
+    {
+      "name": "open_escrow",
+      "at": "2026-10-17T14:46:19.910Z",
+      "tx": "0x1f93f51bbc065598b028c96e9fca58fea1653d8c471a90c38511f7a9d7448759",
+      "explorer": "https://explorer-studio-dev.genlayer.com/tx/0x1f93f51bbc065598b028c96e9fca58fea1653d8c471a90c38511f7a9d7448759",
+      "state": "OPEN"
+    },
+    {
+      "name": "request_adjudication submitted",
+      "at": "2026-10-17T14:46:23.766Z",
+      "tx": "0x97de9274e8b549e5940e44d24eae347971b073c22e033cc7140a79eba42bf3a4",
+      "explorer": "https://explorer-studio-dev.genlayer.com/tx/0x97de9274e8b549e5940e44d24eae347971b073c22e033cc7140a79eba42bf3a4"
+    }
+  ],
+  "action": {
+    "id": "0xb6ab63722090a9bf0a2d478985eb6270eb4e552045c0b89cd59a7f62116f1811",
+    "agent": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+    "recipient": "0x1111111111111111111111111111111111111111",
+    "amount": "10000000000000000",
+    "asset": "GEN",
+    "policyHash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+    "nonce": 1792248351,
+    "deadlineUnix": 1792853151,
+    "createdAt": "2026-10-17T14:45:58.255351Z",
+    "evidenceUrl": "https://definit-snowy.vercel.app/demo/delivery-742.txt"
+  },
+  "vault": {
+    "escrowBefore": {
+      "action_id": "0xb6ab63722090a9bf0a2d478985eb6270eb4e552045c0b89cd59a7f62116f1811",
+      "amount": "10000000000000000",
+      "asset": "GEN",
+      "close_reason": "",
+      "closed_at": "",
+      "deadline_unix": 1792853151,
+      "decision_id": "",
+      "evidence_digest": "",
+      "exists": true,
+      "funder": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+      "intent_hash": "",
+      "nonce": 1792248351,
+      "opened_at": "2026-10-17T14:46:11.733213Z",
+      "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+      "provisional": "",
+      "provisional_count": 0,
+      "reason_code": "",
+      "recipient": "0x1111111111111111111111111111111111111111",
+      "state": "OPEN"
+    },
+    "escrowAfter": {
+      "action_id": "0xb6ab63722090a9bf0a2d478985eb6270eb4e552045c0b89cd59a7f62116f1811",
+      "amount": "10000000000000000",
+      "asset": "GEN",
+      "close_reason": "RELEASED",
+      "closed_at": "2026-10-17T14:47:06.863264Z",
+      "deadline_unix": 1792853151,
+      "decision_id": "0x11199d4fb1cb3bd3aebfaff9b4470171bdbc096fe9cb8739a0c163f171716442",
+      "evidence_digest": "0xb27adf7a6be9c0118c0faad2b83f90f5cfc34d559f5f3fa2685f90e8704041c4",
+      "exists": true,
+      "funder": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+      "intent_hash": "0xd07c87edc83a9e67bdc6fde14bbb71c8e11c1cdf612626168aec07d09d6686e1",
+      "nonce": 1792248351,
+      "opened_at": "2026-10-17T14:46:11.733213Z",
+      "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+      "provisional": "",
+      "provisional_count": 0,
+      "reason_code": "",
+      "recipient": "0x1111111111111111111111111111111111111111",
+      "state": "SETTLED"
+    },
+    "receipt": {
+      "action_id": "0xb6ab63722090a9bf0a2d478985eb6270eb4e552045c0b89cd59a7f62116f1811",
+      "amount": "10000000000000000",
+      "asset": "GEN",
+      "decision_id": "0x11199d4fb1cb3bd3aebfaff9b4470171bdbc096fe9cb8739a0c163f171716442",
+      "delivered_by": "0xa03c1884f2dff591388b85840f264c93ee4bf889",
+      "evidence_digest": "0xb27adf7a6be9c0118c0faad2b83f90f5cfc34d559f5f3fa2685f90e8704041c4",
+      "exists": true,
+      "finality_source": "protocol-delivery",
+      "funder": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+      "intent_hash": "0xd07c87edc83a9e67bdc6fde14bbb71c8e11c1cdf612626168aec07d09d6686e1",
+      "message_stage": "finalized",
+      "nonce": 1792248351,
+      "opened_at": "2026-10-17T14:46:11.733213Z",
+      "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+      "recipient": "0x1111111111111111111111111111111111111111",
+      "settled_at": "2026-10-17T14:47:06.863264Z",
+      "status": "SETTLED"
+    }
+  },
+  "adjudication": {
+    "txHash": "0x97de9274e8b549e5940e44d24eae347971b073c22e033cc7140a79eba42bf3a4",
+    "submittedAtMs": 1792248381821,
+    "lifecycleSamples": [
+      {
+        "atMs": 1792248383770,
+        "storedStatus": "Pending",
+        "projectedStatus": "Pending",
+        "resolutionAction": "NoOp",
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792248385
+      },
+      {
+        "atMs": 1792248394194,
+        "storedStatus": "Accepted",
+        "projectedStatus": "Accepted",
+        "resolutionAction": "NoOp",
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792248396
+      },
+      {
+        "atMs": 1792248406583,
+        "storedStatus": "Accepted",
+        "projectedStatus": "Accepted",
+        "resolutionAction": "NoOp",
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792248408
+      },
+      {
+        "atMs": 1792248417791,
+        "storedStatus": "Accepted",
+        "projectedStatus": "Accepted",
+        "resolutionAction": "NoOp",
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792248419
+      },
+      {
+        "atMs": 1792248430127,
+        "storedStatus": "Finalized",
+        "projectedStatus": "Finalized",
+        "resolutionAction": "NoOp",
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792248431
+      },
+      {
+        "atMs": 1792248441512,
+        "storedStatus": "Finalized",
+        "projectedStatus": "Finalized",
+        "resolutionAction": "NoOp",
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792248443
+      },
+      {
+        "atMs": 1792248453237,
+        "storedStatus": "Finalized",
+        "projectedStatus": "Finalized",
+        "resolutionAction": "NoOp",
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792248455
+      },
+      {
+        "atMs": 1792248464340,
+        "storedStatus": "Finalized",
+        "projectedStatus": "Finalized",
+        "resolutionAction": "NoOp",
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792248466
+      }
+    ],
+    "appeal": null,
+    "status": "FINALIZED",
+    "execution": "FINISHED_WITH_RETURN",
+    "attempt": 1,
+    "verdict": "APPROVE",
+    "reasonCode": "EVIDENCE_SATISFIES_POLICY",
+    "decisionId": "0x11199d4fb1cb3bd3aebfaff9b4470171bdbc096fe9cb8739a0c163f171716442",
+    "adjudicatedAt": "2026-10-17T14:46:24.255803Z",
+    "evidenceDigest": "0xb27adf7a6be9c0118c0faad2b83f90f5cfc34d559f5f3fa2685f90e8704041c4",
+    "intentHash": "0xd07c87edc83a9e67bdc6fde14bbb71c8e11c1cdf612626168aec07d09d6686e1",
+    "finalDecisionId": 1,
+    "finalAppealDeadline": 1792248426,
+    "materializedAt": 1792248396,
+    "finalizedObservedAtMs": 1792248430127,
+    "actionState": "ACCEPTED",
+    "requestsUsed": 33
+  },
+  "vaultSamples": [
+    {
+      "atMs": 1792248394194,
+      "state": "OPEN",
+      "provisional": ""
+    },
+    {
+      "atMs": 1792248417791,
+      "state": "OPEN",
+      "provisional": ""
+    },
+    {
+      "atMs": 1792248441512,
+      "state": "SETTLED",
+      "provisional": ""
+    },
+    {
+      "atMs": 1792248464340,
+      "state": "SETTLED",
+      "provisional": ""
+    }
+  ],
+  "delivery": {
+    "childTxHash": "0x88935bfa38c3b996cadb46b2d20fca517944a8580177319757ff2af95575e494",
+    "explorer": "https://explorer-studio-dev.genlayer.com/tx/0x88935bfa38c3b996cadb46b2d20fca517944a8580177319757ff2af95575e494",
+    "method": "authorize_release",
+    "from": "0xA03C1884F2dFf591388B85840F264c93EE4bF889",
+    "to": "0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5",
+    "triggeredBy": "0x97de9274e8b549e5940e44d24eae347971b073c22e033cc7140a79eba42bf3a4",
+    "createdTimestamp": 1792248426,
+    "status": "FINALIZED",
+    "execution": "FINISHED_WITH_RETURN",
+    "finalizedObservedAtMs": 1792248470391,
+    "emittedMessages": [
+      {
+        "messageType": "0",
+        "recipient": "0x1111111111111111111111111111111111111111",
+        "value": "10000000000000000",
+        "data": "Bg==",
+        "onAcceptance": false
+      }
+    ]
+  },
+  "balances": {
+    "recipientDeltaWei": "0",
+    "funderDeltaWei": "-10420906000003292",
+    "escrowWei": "10000000000000000",
+    "creditObservable": false,
+    "note": "Studio-dev never credits a transfer a contract emits (docs/evidence/milestone/transfer-credit-probe.json), so a balance delta is recorded for completeness and is not evidence. The evidence is the emitted finalized-stage transfer message and the vault's state and receipt."
+  },
+  "finishedAt": "2026-10-17T14:47:53.133Z",
+  "requestsUsed": 40
+}

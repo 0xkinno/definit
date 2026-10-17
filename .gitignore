@@ -77,3 +77,6 @@ video_work/
 .gltest-home/
 
 .vercel
+
+# private working references (milestone instruction, peer analysis). Never committed.
+reference/

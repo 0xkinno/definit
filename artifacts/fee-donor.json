@@ -1,0 +1,6 @@
+{
+  "sink": "0xA8AA4347D93d9EdeB6ea1D0ae59d0c26970CB774",
+  "judge": "0x339C23Bf8A0501dBF2884839A990fE308cCfdf1e",
+  "deployedAt": "2026-10-17T13:15:11.327Z",
+  "note": "Deterministic donor used only to read the network's message-allocation shape. Not part of the product."
+}

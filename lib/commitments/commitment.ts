@@ -14,6 +14,8 @@ import { keccak256, toBytes } from "viem";
 export const COMMITMENT_DOMAIN = "DEFINIT-COMMITMENT-v1";
 export const ACTION_DOMAIN = "DEFINIT-ACTION-v1";
 export const DECISION_DOMAIN = "DEFINIT-DECISION-v1";
+/** v2 decisions use their own domain so a v1 and a v2 decision id can never collide. */
+export const DECISION_DOMAIN_V2 = "DEFINIT-DECISION-v2";
 export const POLICY_DOMAIN = "DEFINIT-POLICY-v1";
 export const EVIDENCE_DOMAIN = "DEFINIT-EVIDENCE-v1";
 
@@ -97,16 +99,21 @@ export interface DecisionIdFields {
   adjudicatedAt: string;
 }
 
-export function decisionIdOf(fields: DecisionIdFields): `0x${string}` {
+export function decisionIdOf(fields: DecisionIdFields, domain: string = DECISION_DOMAIN): `0x${string}` {
   return hashOf(
     [
-      DECISION_DOMAIN,
+      domain,
       `action=${fields.actionId}`,
       `attempt=${fields.attempt}`,
       `intent_hash=${fields.intentHash}`,
       `adjudicated_at=${fields.adjudicatedAt}`,
     ].join("|"),
   );
+}
+
+/** The v2 decision id. The commitment encoding is unchanged; only this domain moved. */
+export function decisionIdOfV2(fields: DecisionIdFields): `0x${string}` {
+  return decisionIdOf(fields, DECISION_DOMAIN_V2);
 }
 
 export function shortHash(value: string, lead = 10, tail = 6): string {

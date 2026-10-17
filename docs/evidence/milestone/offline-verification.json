@@ -1,0 +1,148 @@
+{
+  "generatedAt": "2026-10-17T16:05:59.648Z",
+  "requireLive": false,
+  "counts": {
+    "pass": 7,
+    "fail": 0,
+    "not-evidenced": 1
+  },
+  "checks": [
+    {
+      "id": "V1",
+      "invariants": [
+        "I3"
+      ],
+      "title": "The gate's emitted message equals an independent TypeScript recomputation of every hash",
+      "status": "pass",
+      "uses": [
+        "docs/evidence/milestone/gate-emission-vector.json"
+      ],
+      "problems": [],
+      "notes": []
+    },
+    {
+      "id": "V2",
+      "invariants": [
+        "I1",
+        "I3",
+        "I4",
+        "I5",
+        "I6",
+        "I7",
+        "I9",
+        "I10",
+        "I11"
+      ],
+      "title": "Every corpus case ran and its recorded outcome equals what the case declared",
+      "status": "pass",
+      "uses": [
+        "tests/v2/fixtures/cases-v2.json",
+        "docs/evidence/milestone/corpus-v2-results.json"
+      ],
+      "problems": [],
+      "notes": [
+        "41 cases re-derived"
+      ]
+    },
+    {
+      "id": "V3",
+      "invariants": [
+        "I2"
+      ],
+      "title": "No wall-clock comparison authorizes a release",
+      "status": "pass",
+      "uses": [
+        "docs/evidence/milestone/no-clock-check.json"
+      ],
+      "problems": [],
+      "notes": [
+        "5 clock comparisons, all deny-only or return-to-funder"
+      ]
+    },
+    {
+      "id": "V4",
+      "invariants": [
+        "I1",
+        "I8"
+      ],
+      "title": "A finalized-stage message is a child of the deciding transaction, created at or after its appeal deadline, sent by the emitting contract",
+      "status": "pass",
+      "uses": [
+        "docs/evidence/milestone/spike/repro-1/state.json",
+        "docs/evidence/milestone/spike/repro-1/run-e1d1.json",
+        "docs/evidence/milestone/spike/repro-1/run-e1d2.json",
+        "docs/evidence/milestone/spike/repro-1/run-e1d3.json",
+        "docs/evidence/milestone/spike/repro-2/state.json",
+        "docs/evidence/milestone/spike/repro-2/run-e1d1.json",
+        "docs/evidence/milestone/spike/repro-2/run-e1d2.json",
+        "docs/evidence/milestone/spike/repro-2/run-e1d3.json"
+      ],
+      "problems": [],
+      "notes": [
+        "6 decisions across 2 reproductions re-derived from raw runs"
+      ]
+    },
+    {
+      "id": "V5",
+      "invariants": [
+        "I1"
+      ],
+      "title": "A direct call shows the caller's own address as sender, distinct from a delivered message's",
+      "status": "pass",
+      "uses": [
+        "docs/evidence/milestone/spike/repro-1/e5-direct-e5.json",
+        "docs/evidence/milestone/spike/repro-2/e5-direct-e5.json"
+      ],
+      "problems": [],
+      "notes": []
+    },
+    {
+      "id": "V6",
+      "invariants": [
+        "C2"
+      ],
+      "title": "v1's vault accepted a funder release while the promotion was only Accepted and still appealable",
+      "status": "pass",
+      "uses": [
+        "docs/evidence/milestone/spike/repro-1/e6-h1-v1-run1.json",
+        "docs/evidence/milestone/spike/repro-2/e6-h1-v1-run1.json",
+        "docs/evidence/milestone/spike/e6-h1-v1-run2.json"
+      ],
+      "problems": [],
+      "notes": []
+    },
+    {
+      "id": "V7",
+      "invariants": [
+        "I1",
+        "I3",
+        "I6",
+        "I8"
+      ],
+      "title": "Each live v2 run: hashes recompute, the delivery is the gate's child, and nothing moved before the decision finalized",
+      "status": "pass",
+      "uses": [
+        "docs/evidence/milestone/v2-run-R1.json",
+        "docs/evidence/milestone/v2-run-R2.json",
+        "docs/evidence/milestone/v2-run-R3.json"
+      ],
+      "problems": [],
+      "notes": [
+        "3 live run(s) re-derived"
+      ]
+    },
+    {
+      "id": "V8",
+      "invariants": [
+        "I8"
+      ],
+      "title": "The four-arm counterfactual totals re-derive from the recorded timelines",
+      "status": "not-evidenced",
+      "uses": [],
+      "problems": [],
+      "notes": [
+        "counterfactual.json has not been recorded (Phase 4)"
+      ]
+    }
+  ]
+}

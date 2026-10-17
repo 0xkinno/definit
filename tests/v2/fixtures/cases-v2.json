@@ -1,0 +1,946 @@
+{
+  "about": "The v2 corpus. Each case names the invariant it attacks. Cases run against the real v2 vault in direct mode (tests/v2/direct/test_corpus.py); scripts/proof-v2.mjs turns the recorded results into the report and fails if expected and observed disagree. Counts are generated from this file and the run, never typed.",
+  "cases": [
+    {
+      "id": "i1-release-by-stranger",
+      "invariant": "I1",
+      "title": "The stranger calls authorize_release with a perfectly formed payload",
+      "steps": [
+        {
+          "do": "release",
+          "as": "stranger",
+          "expect": "revert:UNAUTHORIZED_SENDER"
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i1-release-by-funder",
+      "invariant": "I1",
+      "title": "The funder calls authorize_release with a perfectly formed payload",
+      "steps": [
+        {
+          "do": "release",
+          "as": "funder",
+          "expect": "revert:UNAUTHORIZED_SENDER"
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i1-release-by-recipient",
+      "invariant": "I1",
+      "title": "The recipient calls authorize_release with a perfectly formed payload",
+      "steps": [
+        {
+          "do": "release",
+          "as": "recipient",
+          "expect": "revert:UNAUTHORIZED_SENDER"
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i1-release-by-owner",
+      "invariant": "I1",
+      "title": "The owner calls authorize_release with a perfectly formed payload",
+      "steps": [
+        {
+          "do": "release",
+          "as": "owner",
+          "expect": "revert:UNAUTHORIZED_SENDER"
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i1-refuse-by-stranger",
+      "invariant": "I1",
+      "title": "A stranger tries to close an escrow as refused",
+      "steps": [
+        {
+          "do": "refuse",
+          "as": "stranger",
+          "expect": "revert:UNAUTHORIZED_SENDER"
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i1-note-by-funder",
+      "invariant": "I1",
+      "title": "The funder sends a provisional notice",
+      "steps": [
+        {
+          "do": "note",
+          "as": "funder",
+          "expect": "revert:UNAUTHORIZED_SENDER"
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i1-gate-releases",
+      "invariant": "I1",
+      "title": "The bound gate delivers a matching release",
+      "steps": [
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "status:SETTLED"
+        }
+      ],
+      "final": {
+        "state": "SETTLED",
+        "to_recipient": 5000,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i3-altered-recipient",
+      "invariant": "I3",
+      "title": "One field of the delivery, the recipient, is altered",
+      "steps": [
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "revert:COMMITMENT_MISMATCH",
+          "over": {
+            "recipient": "0x6666666666666666666666666666666666666666"
+          }
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i3-altered-amount",
+      "invariant": "I3",
+      "title": "One field of the delivery, the amount, is altered",
+      "steps": [
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "revert:COMMITMENT_MISMATCH",
+          "over": {
+            "amount": 5001
+          }
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i3-altered-policy_hash",
+      "invariant": "I3",
+      "title": "One field of the delivery, the policy_hash, is altered",
+      "steps": [
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "revert:COMMITMENT_MISMATCH",
+          "over": {
+            "policy_hash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i3-altered-nonce",
+      "invariant": "I3",
+      "title": "One field of the delivery, the nonce, is altered",
+      "steps": [
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "revert:COMMITMENT_MISMATCH",
+          "over": {
+            "nonce": 8
+          }
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i3-forged-intent-hash",
+      "invariant": "I3",
+      "title": "The delivered commitment hash was not derived from the escrow",
+      "steps": [
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "revert:COMMITMENT_MISMATCH",
+          "over": {
+            "intent_hash": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+          }
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i3-hash-for-other-evidence",
+      "invariant": "I3",
+      "title": "A valid hash for a different evidence digest is replayed against this escrow",
+      "steps": [
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "revert:COMMITMENT_MISMATCH",
+          "other_digest": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i4-duplicate-delivery",
+      "invariant": "I4",
+      "title": "The same finalized release is delivered twice",
+      "steps": [
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "status:SETTLED"
+        },
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "noop"
+        }
+      ],
+      "final": {
+        "state": "SETTLED",
+        "to_recipient": 5000,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i4-five-duplicates",
+      "invariant": "I4",
+      "title": "The same finalized release is delivered six times in total",
+      "steps": [
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "status:SETTLED"
+        },
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "noop"
+        },
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "noop"
+        },
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "noop"
+        },
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "noop"
+        },
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "noop"
+        }
+      ],
+      "final": {
+        "state": "SETTLED",
+        "to_recipient": 5000,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i5-alternating-notices",
+      "invariant": "I5",
+      "title": "Provisional notices alternate APPROVE and REJECT eight times",
+      "steps": [
+        {
+          "do": "note",
+          "as": "gate",
+          "expect": "status:MARKED",
+          "verdict": "APPROVE"
+        },
+        {
+          "do": "note",
+          "as": "gate",
+          "expect": "status:MARKED",
+          "verdict": "REJECT"
+        },
+        {
+          "do": "note",
+          "as": "gate",
+          "expect": "status:MARKED",
+          "verdict": "APPROVE"
+        },
+        {
+          "do": "note",
+          "as": "gate",
+          "expect": "status:MARKED",
+          "verdict": "REJECT"
+        },
+        {
+          "do": "note",
+          "as": "gate",
+          "expect": "status:MARKED",
+          "verdict": "APPROVE"
+        },
+        {
+          "do": "note",
+          "as": "gate",
+          "expect": "status:MARKED",
+          "verdict": "REJECT"
+        },
+        {
+          "do": "note",
+          "as": "gate",
+          "expect": "status:MARKED",
+          "verdict": "APPROVE"
+        },
+        {
+          "do": "note",
+          "as": "gate",
+          "expect": "status:MARKED",
+          "verdict": "REJECT"
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i5-notice-cannot-release",
+      "invariant": "I5",
+      "title": "An APPROVE notice does not release anything",
+      "steps": [
+        {
+          "do": "note",
+          "as": "gate",
+          "expect": "status:MARKED",
+          "verdict": "APPROVE"
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i5-notice-after-settled",
+      "invariant": "I5",
+      "title": "A notice arriving after the release is a recorded no-op",
+      "steps": [
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "status:SETTLED"
+        },
+        {
+          "do": "note",
+          "as": "gate",
+          "expect": "noop",
+          "verdict": "REJECT"
+        }
+      ],
+      "final": {
+        "state": "SETTLED",
+        "to_recipient": 5000,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i6-refusal-closes",
+      "invariant": "I6",
+      "title": "A finalized REJECT closes the escrow to the funder",
+      "steps": [
+        {
+          "do": "refuse",
+          "as": "gate",
+          "expect": "status:REFUNDABLE"
+        }
+      ],
+      "final": {
+        "state": "REFUNDABLE",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i6-refund-withdrawn",
+      "invariant": "I6",
+      "title": "The funder withdraws after a finalized refusal",
+      "steps": [
+        {
+          "do": "refuse",
+          "as": "gate",
+          "expect": "status:REFUNDABLE"
+        },
+        {
+          "do": "withdraw",
+          "as": "funder",
+          "expect": "status:WITHDRAWN"
+        }
+      ],
+      "final": {
+        "state": "WITHDRAWN",
+        "to_recipient": 0,
+        "to_funder": 5000
+      }
+    },
+    {
+      "id": "i6-withdraw-by-stranger",
+      "invariant": "I6",
+      "title": "The stranger tries to withdraw a refund that belongs to the funder",
+      "steps": [
+        {
+          "do": "refuse",
+          "as": "gate",
+          "expect": "status:REFUNDABLE"
+        },
+        {
+          "do": "withdraw",
+          "as": "stranger",
+          "expect": "revert:NOT_FUNDER"
+        }
+      ],
+      "final": {
+        "state": "REFUNDABLE",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i6-withdraw-by-recipient",
+      "invariant": "I6",
+      "title": "The recipient tries to withdraw a refund that belongs to the funder",
+      "steps": [
+        {
+          "do": "refuse",
+          "as": "gate",
+          "expect": "status:REFUNDABLE"
+        },
+        {
+          "do": "withdraw",
+          "as": "recipient",
+          "expect": "revert:NOT_FUNDER"
+        }
+      ],
+      "final": {
+        "state": "REFUNDABLE",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i6-withdraw-by-gate",
+      "invariant": "I6",
+      "title": "The gate tries to withdraw a refund that belongs to the funder",
+      "steps": [
+        {
+          "do": "refuse",
+          "as": "gate",
+          "expect": "status:REFUNDABLE"
+        },
+        {
+          "do": "withdraw",
+          "as": "gate",
+          "expect": "revert:NOT_FUNDER"
+        }
+      ],
+      "final": {
+        "state": "REFUNDABLE",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i6-double-withdraw",
+      "invariant": "I6",
+      "title": "The funder withdraws the same refund twice",
+      "steps": [
+        {
+          "do": "refuse",
+          "as": "gate",
+          "expect": "status:REFUNDABLE"
+        },
+        {
+          "do": "withdraw",
+          "as": "funder",
+          "expect": "status:WITHDRAWN"
+        },
+        {
+          "do": "withdraw",
+          "as": "funder",
+          "expect": "revert:BAD_STATE"
+        }
+      ],
+      "final": {
+        "state": "WITHDRAWN",
+        "to_recipient": 0,
+        "to_funder": 5000
+      }
+    },
+    {
+      "id": "i6-withdraw-before-refusal",
+      "invariant": "I6",
+      "title": "The funder tries to withdraw before any refusal was delivered",
+      "steps": [
+        {
+          "do": "withdraw",
+          "as": "funder",
+          "expect": "revert:BAD_STATE"
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i6-release-after-refusal",
+      "invariant": "I6",
+      "title": "A release delivery after a refusal is a recorded no-op",
+      "steps": [
+        {
+          "do": "refuse",
+          "as": "gate",
+          "expect": "status:REFUNDABLE"
+        },
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "noop"
+        }
+      ],
+      "final": {
+        "state": "REFUNDABLE",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i7-late-release",
+      "invariant": "I7",
+      "title": "A release delivery arrives after the deadline",
+      "steps": [
+        {
+          "do": "warp",
+          "as": "gate",
+          "expect": "ok",
+          "to": "LATE"
+        },
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "status:EXPIRED"
+        }
+      ],
+      "final": {
+        "state": "EXPIRED_REFUNDABLE",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i7-late-then-withdraw",
+      "invariant": "I7",
+      "title": "The funder recovers an escrow a late delivery closed",
+      "steps": [
+        {
+          "do": "warp",
+          "as": "gate",
+          "expect": "ok",
+          "to": "LATE"
+        },
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "status:EXPIRED"
+        },
+        {
+          "do": "withdraw",
+          "as": "funder",
+          "expect": "status:WITHDRAWN"
+        }
+      ],
+      "final": {
+        "state": "WITHDRAWN",
+        "to_recipient": 0,
+        "to_funder": 5000
+      }
+    },
+    {
+      "id": "i7-at-deadline",
+      "invariant": "I7",
+      "title": "A release delivered exactly at the deadline still releases",
+      "steps": [
+        {
+          "do": "warp",
+          "as": "gate",
+          "expect": "ok",
+          "to": "DEADLINE"
+        },
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "status:SETTLED"
+        }
+      ],
+      "final": {
+        "state": "SETTLED",
+        "to_recipient": 5000,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i9-reclaim-before-deadline",
+      "invariant": "I9",
+      "title": "The funder tries to reclaim before the deadline",
+      "steps": [
+        {
+          "do": "reclaim",
+          "as": "funder",
+          "expect": "revert:DEADLINE_NOT_PASSED"
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i9-reclaim-at-deadline",
+      "invariant": "I9",
+      "title": "The funder tries to reclaim exactly at the deadline",
+      "steps": [
+        {
+          "do": "warp",
+          "as": "gate",
+          "expect": "ok",
+          "to": "DEADLINE"
+        },
+        {
+          "do": "reclaim",
+          "as": "funder",
+          "expect": "revert:DEADLINE_NOT_PASSED"
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i9-no-delivery-reclaim",
+      "invariant": "I9",
+      "title": "No finalized delivery ever arrives; the funder reclaims after the deadline",
+      "steps": [
+        {
+          "do": "warp",
+          "as": "gate",
+          "expect": "ok",
+          "to": "AFTER_DEADLINE"
+        },
+        {
+          "do": "reclaim",
+          "as": "funder",
+          "expect": "status:RECLAIMED"
+        }
+      ],
+      "final": {
+        "state": "RECLAIMED",
+        "to_recipient": 0,
+        "to_funder": 5000
+      }
+    },
+    {
+      "id": "i9-reclaim-by-stranger",
+      "invariant": "I9",
+      "title": "The stranger tries to reclaim after the deadline",
+      "steps": [
+        {
+          "do": "warp",
+          "as": "gate",
+          "expect": "ok",
+          "to": "LATE"
+        },
+        {
+          "do": "reclaim",
+          "as": "stranger",
+          "expect": "revert:NOT_FUNDER"
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i9-reclaim-by-recipient",
+      "invariant": "I9",
+      "title": "The recipient tries to reclaim after the deadline",
+      "steps": [
+        {
+          "do": "warp",
+          "as": "gate",
+          "expect": "ok",
+          "to": "LATE"
+        },
+        {
+          "do": "reclaim",
+          "as": "recipient",
+          "expect": "revert:NOT_FUNDER"
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i9-reclaim-by-gate",
+      "invariant": "I9",
+      "title": "The gate tries to reclaim after the deadline",
+      "steps": [
+        {
+          "do": "warp",
+          "as": "gate",
+          "expect": "ok",
+          "to": "LATE"
+        },
+        {
+          "do": "reclaim",
+          "as": "gate",
+          "expect": "revert:NOT_FUNDER"
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i9-clock-never-pays-recipient",
+      "invariant": "I9",
+      "title": "Everyone tries every clock-gated method after the deadline; the recipient is never paid",
+      "steps": [
+        {
+          "do": "warp",
+          "as": "gate",
+          "expect": "ok",
+          "to": "LATE"
+        },
+        {
+          "do": "reclaim",
+          "as": "stranger",
+          "expect": "revert:NOT_FUNDER"
+        },
+        {
+          "do": "withdraw",
+          "as": "recipient",
+          "expect": "revert:NOT_FUNDER"
+        },
+        {
+          "do": "reclaim",
+          "as": "recipient",
+          "expect": "revert:NOT_FUNDER"
+        }
+      ],
+      "final": {
+        "state": "OPEN",
+        "to_recipient": 0,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i10-valid-approval-released",
+      "invariant": "I10",
+      "title": "A valid finalized approval before the deadline is released",
+      "steps": [
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "status:SETTLED"
+        }
+      ],
+      "final": {
+        "state": "SETTLED",
+        "to_recipient": 5000,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i10-after-contradictory-notice",
+      "invariant": "I10",
+      "title": "A contradictory provisional notice does not block a valid release",
+      "steps": [
+        {
+          "do": "note",
+          "as": "gate",
+          "expect": "status:MARKED",
+          "verdict": "REJECT"
+        },
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "status:SETTLED"
+        }
+      ],
+      "final": {
+        "state": "SETTLED",
+        "to_recipient": 5000,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i11-reclaim-then-release",
+      "invariant": "I11",
+      "title": "The funder reclaims, then the finalized release is delivered",
+      "steps": [
+        {
+          "do": "warp",
+          "as": "gate",
+          "expect": "ok",
+          "to": "LATE"
+        },
+        {
+          "do": "reclaim",
+          "as": "funder",
+          "expect": "status:RECLAIMED"
+        },
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "noop"
+        }
+      ],
+      "final": {
+        "state": "RECLAIMED",
+        "to_recipient": 0,
+        "to_funder": 5000
+      }
+    },
+    {
+      "id": "i11-release-then-reclaim",
+      "invariant": "I11",
+      "title": "The release lands, then the funder tries to reclaim",
+      "steps": [
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "status:SETTLED"
+        },
+        {
+          "do": "warp",
+          "as": "gate",
+          "expect": "ok",
+          "to": "LATE"
+        },
+        {
+          "do": "reclaim",
+          "as": "funder",
+          "expect": "revert:BAD_STATE"
+        }
+      ],
+      "final": {
+        "state": "SETTLED",
+        "to_recipient": 5000,
+        "to_funder": 0
+      }
+    },
+    {
+      "id": "i11-late-release-then-reclaim",
+      "invariant": "I11",
+      "title": "A late release routes to a refund; a reclaim is then refused and the funder withdraws",
+      "steps": [
+        {
+          "do": "warp",
+          "as": "gate",
+          "expect": "ok",
+          "to": "LATE"
+        },
+        {
+          "do": "release",
+          "as": "gate",
+          "expect": "status:EXPIRED"
+        },
+        {
+          "do": "reclaim",
+          "as": "funder",
+          "expect": "revert:BAD_STATE"
+        },
+        {
+          "do": "withdraw",
+          "as": "funder",
+          "expect": "status:WITHDRAWN"
+        }
+      ],
+      "final": {
+        "state": "WITHDRAWN",
+        "to_recipient": 0,
+        "to_funder": 5000
+      }
+    }
+  ]
+}
