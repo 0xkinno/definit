@@ -274,7 +274,17 @@ log.step("Documentation check");
 log.info(`${Object.keys(REQUIRED_DOCS).length} documents required`);
 if (documented) log.info(`production URL: ${documented}`);
 if (problems.length === 0) {
-  log.ok("the documentation set is complete, every link resolves, and the claims agree with the generated report");
+  // A current doc must not present the old appeal-window constant as live behavior.
+for (const file of ["README.md", "docs/milestone/DELTA.md", "docs/INVARIANTS.md", "docs/milestone/VAULT_STATE_MACHINE.md", "docs/milestone/FILM_PLAN.md", "docs/milestone/THREAD.md"]) {
+  const text = existsSync(path.join(REPO_ROOT, file)) ? readFileSync(path.join(REPO_ROOT, file), "utf8") : "";
+  for (const line of text.split(/\r?\n/)) {
+    if (/APPEAL_WINDOW_SECONDS/.test(line) && !/v1|removed|C1|baseline|b903f94/i.test(line)) {
+      log.fail(`${file}: mentions APPEAL_WINDOW_SECONDS as current behavior: ${line.trim().slice(0, 120)}`);
+      process.exit(1);
+    }
+  }
+}
+log.ok("the documentation set is complete, every link resolves, and the claims agree with the generated report");
 } else {
   for (const problem of problems) log.fail(problem);
   process.exit(1);

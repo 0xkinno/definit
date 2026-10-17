@@ -121,3 +121,18 @@ Any one of the following would falsify it.
 
 The attack suite is written so that each of these is a named, executable case
 rather than a paragraph.
+
+<!-- milestone-limits:begin -->
+## Milestone 2: what is not proven
+
+Resolved by v2 and removed from the list above as current behavior: the 120 second timer and the funder release path (see `docs/milestone/DELTA.md`, C1 to C4). New honest limits:
+
+- **One network.** All v2 runs are on Studio-dev, a release-candidate preview that may reset. Bradbury was not funded (its faucet needs a wallet holding mainnet ETH) and Studionet did not execute contracts when probed.
+- **No appeal overturn.** The appeal in run R3 was submitted and recorded; the committee did not change the verdict and the window was not extended. The fixed-timer arm scored 0 of 13 for that reason. Whether a timer fails under an extended window is untested.
+- **Few timelines.** The counterfactual is a count over 13 recorded timelines, not a statistic.
+- **Emitted transfers are not credited on Studio-dev** (`transfer-credit-probe.json`), so no balance is evidence. The evidence is the transfer message and the vault's state and receipt.
+- **Accepted-stage emission fails** under the pinned runner, so the provisional notice (I5) is tested in direct mode only, and repetition across appeal rounds (E3) is unknown.
+- **Not built:** committed fee profile and Transaction Kit integration (C5 is partly resolved), mutation sweep, TypeScript parity suite, books reconciliation, injected-evidence run, `definit-guard`, the agent skill, and a v2 interactive console.
+- **The minified build** compiles on the network but was not deployed or run through the live suite.
+- **Direct mode** cannot run two contracts in one VM, so the gate and the vault are tested separately and joined by a golden message that both suites use.
+<!-- milestone-limits:end -->

@@ -54,7 +54,11 @@
     "lifecycle:v2": "node scripts/lifecycle-v2.mjs",
     "probe:transfer": "node scripts/probe-transfer.mjs",
     "build:contracts": "node scripts/build-contracts.mjs",
-    "test:v2:property": "node scripts/run-python.mjs tests/v2/direct/test_property_lifecycles.py"
+    "test:v2:property": "node scripts/run-python.mjs tests/v2/direct/test_property_lifecycles.py",
+    "counterfactual": "node scripts/counterfactual.mjs",
+    "faults": "node scripts/faults.mjs",
+    "gen:milestone-data": "node scripts/gen-milestone-data.mjs",
+    "gen:docs": "node scripts/gen-docs.mjs"
   },
   "dependencies": {
     "@genlayer/transaction-kit": "0.1.0-rc.2",

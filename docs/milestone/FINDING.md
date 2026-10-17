@@ -35,3 +35,16 @@ unwound by a recomputation (hypothesis H1) is not tested here. The v1 vault's ow
 transfer is emitted on the finalized stage of the settle transaction, which in this
 run finalized after the promotion window closed. The finding is about authority, not
 about a loss.
+
+<!-- finding-v2:begin -->
+## The v2 side
+
+The same attempt against v2 cannot be constructed: the v2 vault has no public method that releases on a caller's request, and every method that can send value to the recipient requires the bound gate as sender. This is asserted by `test_nobody_but_the_funder_can_release`-style tests and by the corpus case `i1-release-by-funder`, and recorded in `docs/evidence/milestone/h1-differential.json`.
+
+## Other measured findings that shaped the build
+
+- **Studio-dev does not credit transfers a contract emits.** A standalone payer contract showed the transfer message finalize with `value_credited: false` and no balance change in either stage form (`docs/evidence/milestone/transfer-credit-probe.json`). v2's evidence is therefore the emitted finalized-stage transfer message plus the vault's state and receipt.
+- **A finalized message is a child transaction created at the appeal deadline** of the deciding decision, with the emitting contract as sender, in every recorded decision (`npm run spike`, twice).
+- **Accepted-stage emission raises an execution error** under the pinned runner, so run R4 (a provisional storm) could not be produced.
+- **A funded child that fails at execution leaves its parent successful and its effect unapplied** (spike E4b), which is why the vault has funder-only return paths.
+<!-- finding-v2:end -->

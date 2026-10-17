@@ -194,3 +194,40 @@ stable machine-readable code. The codes are listed as constants at the top of
 each contract file, and the API layer maps them to human sentences. There is no
 path in either contract that returns a partial success, and no administrative
 override in either contract.
+
+<!-- milestone-arch:begin -->
+## v2 architecture
+
+```mermaid
+sequenceDiagram
+    participant A as Agent (funder)
+    participant V as FinalityVault v2
+    participant G as DecisionGate v2
+    participant P as GenLayer protocol
+    A->>G: create_action
+    A->>V: open_escrow (value, commitment fields)
+    A->>G: request_adjudication
+    G->>G: adjudicate evidence (validators agree)
+    Note over G,P: Accepted. The decision is still appealable.
+    G-->>P: emit on finalized: authorize_release or close_refused
+    P->>P: appeal window passes, transaction Finalized
+    P->>V: child transaction, sender = gate
+    V->>V: recompute commitment, write receipt
+    V-->>A: (refusal) refund on withdraw_refund
+```
+
+```mermaid
+sequenceDiagram
+    participant X as Anyone
+    participant G as DecisionGate v2
+    participant P as GenLayer protocol
+    participant V as FinalityVault v2
+    G-->>P: emit on finalized (release)
+    X->>P: appealTransaction (inside the window)
+    P->>P: window pauses, decision recomputed
+    Note over P,V: no finalized message exists yet, so nothing reaches the vault
+    P->>V: delivers only the decision that finalizes
+```
+
+The vault never reads the gate to decide a release. The gate is read once, at funding, to check the commitment fields match. State machine: `docs/milestone/VAULT_STATE_MACHINE.md`.
+<!-- milestone-arch:end -->

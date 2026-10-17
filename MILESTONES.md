@@ -36,3 +36,17 @@ runs under real consensus rather than a simulator.
 is reached through a cross-contract read, which the direct runner does not
 implement, so it is driven by `npm run lifecycle` instead. The suite says this
 in its own docstring rather than leaving the gap implicit.
+
+<!-- milestone-list:begin -->
+## Milestone 2
+
+| # | Milestone | Evidence |
+| --- | --- | --- |
+| M13 | Baseline record, measured network matrix | `docs/milestone/BASELINE.md`, `docs/evidence/milestone/network-matrix.json` |
+| M14 | Mechanism spike and discovery gate | `docs/milestone/DISCOVERY_V2.md`, `docs/milestone/GATE.md`, `docs/evidence/milestone/spike/` |
+| M15 | v2 contracts | `contracts/v2/`, `docs/milestone/VAULT_STATE_MACHINE.md` |
+| M16 | Invariant suite, corpus, property proof, offline verifier | `docs/INVARIANTS.md`, `docs/evidence/milestone/proof-v2-report.json`, `docs/evidence/milestone/property.json`, `docs/evidence/milestone/offline-verification.json` |
+| M17 | v2 deployed on Studio-dev, three live payments | `artifacts/deployment-v2.json`, `docs/evidence/milestone/v2-run-R1.json`, `v2-run-R2.json`, `v2-run-R3.json` |
+| M18 | Counterfactual, fault matrix, v1 differential | `docs/evidence/milestone/counterfactual.json`, `faults.json`, `h1-differential.json`, `docs/milestone/FINDING.md` |
+| M19 | Milestone page and corrections C7 to C9 | `/milestone`, `/proof`, `tests/e2e/milestone.spec.ts` |
+<!-- milestone-list:end -->
