@@ -1,0 +1,91 @@
+{
+  "generatedAt": "2026-10-17T12:25:24.870Z",
+  "network": {
+    "name": "studio-dev",
+    "rpc": "https://studio-dev.genlayer.com/api",
+    "chainId": 61997
+  },
+  "directory": "docs/evidence/milestone/spike/repro-2",
+  "E1": {
+    "pass": true,
+    "medianAppealWindowSeconds": 30,
+    "runs": [
+      {
+        "run": "e1d1",
+        "parentTx": "0x2e2848699512b4bd06c7dae76faa8de48269d997b9b1126891bccf7289f2c87f",
+        "executionResult": "FINISHED_WITH_RETURN",
+        "materializedAt": 1792239305,
+        "appealDeadline": 1792239335,
+        "appealWindowSeconds": 30,
+        "childTx": "0x3a5323ecb103942da07feeef5090cdf6ab7dcb64567d6a759af62f726957ed27",
+        "childCreatedTimestamp": 1792239335,
+        "childCreatedSecondsAfterAppealDeadline": 0,
+        "childTriggeredByParent": true,
+        "childExecution": "FINISHED_WITH_RETURN",
+        "sinkStage": "finalized",
+        "sinkSender": "0xbf277b934ec9f0b13a91e4aae698bc773bdb4096",
+        "senderIsEmittingContract": true,
+        "firstFinalizedSampleSecondsAfterSubmit": 37.041,
+        "sinkCounterBeforeFinalizedSample": 0
+      },
+      {
+        "run": "e1d2",
+        "parentTx": "0xfc83642bec2dbbdcbf8722745f7ca6e0dd0290388858dc09f005275573904938",
+        "executionResult": "FINISHED_WITH_RETURN",
+        "materializedAt": 1792239415,
+        "appealDeadline": 1792239445,
+        "appealWindowSeconds": 30,
+        "childTx": "0xa367b06790e55179ac3e5e80f72b93913526bb9939de532685505967a23308ee",
+        "childCreatedTimestamp": 1792239445,
+        "childCreatedSecondsAfterAppealDeadline": 0,
+        "childTriggeredByParent": true,
+        "childExecution": "FINISHED_WITH_RETURN",
+        "sinkStage": "finalized",
+        "sinkSender": "0xbf277b934ec9f0b13a91e4aae698bc773bdb4096",
+        "senderIsEmittingContract": true,
+        "firstFinalizedSampleSecondsAfterSubmit": 39.336,
+        "sinkCounterBeforeFinalizedSample": 1
+      },
+      {
+        "run": "e1d3",
+        "parentTx": "0x92dcc30fcdf0433b21f5481e4acbf6d65f244bedb75e3054418a3b3e57af8ecc",
+        "executionResult": "FINISHED_WITH_RETURN",
+        "materializedAt": 1792239527,
+        "appealDeadline": 1792239557,
+        "appealWindowSeconds": 30,
+        "childTx": "0xe015527daa3c79884645ab4e32c4578956910844af73cdd066cad6483507ecb0",
+        "childCreatedTimestamp": 1792239558,
+        "childCreatedSecondsAfterAppealDeadline": 1,
+        "childTriggeredByParent": true,
+        "childExecution": "FINISHED_WITH_RETURN",
+        "sinkStage": "finalized",
+        "sinkSender": "0xbf277b934ec9f0b13a91e4aae698bc773bdb4096",
+        "senderIsEmittingContract": true,
+        "firstFinalizedSampleSecondsAfterSubmit": 47.169,
+        "sinkCounterBeforeFinalizedSample": 2
+      }
+    ]
+  },
+  "E5": {
+    "pass": true,
+    "eoa": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+    "directCallRecordedSender": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+    "directSenderIsEoa": true,
+    "deliveredSendersAllEqualJudge": true,
+    "judge": "0xbf277b934ec9f0b13a91e4aae698bc773bdb4096"
+  },
+  "E6": {
+    "observed": true,
+    "settleExecution": "FINISHED_WITH_RETURN",
+    "settleVaultStatus": "SETTLED",
+    "promotionLifecycleWhenSettleSubmitted": {
+      "projectedStatus": "Accepted",
+      "resolutionAction": "NoOp"
+    },
+    "promotionAppealDeadline": 1792239903,
+    "settleMaterializedAt": 1792239886,
+    "settleDecidedBeforePromotionAppealDeadline": true,
+    "v1ContractsUnchangedAtBaseline": "b903f94"
+  },
+  "note": "pass means the recorded values satisfy the stated predicate; E6 observed means v1 accepted a funder release before the promotion's appeal deadline. Neither is a claim beyond these records."
+}

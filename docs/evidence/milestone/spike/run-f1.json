@@ -1,0 +1,118 @@
+{
+  "experiment": "decide:decide_fin",
+  "tag": "f1",
+  "txHash": "0xe1f1b558089470c72cb8f8f79e73d00e8d330e238c0cfc7b4c3d447da07f9ba9",
+  "submittedAtMs": 1792235914376,
+  "totalMessageFees": "120000000000010352",
+  "feeValue": "220010000000020704",
+  "samples": [
+    {
+      "atMs": 1792235931065,
+      "lifecycle": {
+        "storedStatus": "Committing",
+        "storedStatusCode": 3,
+        "projectedStatus": "Committing",
+        "projectedStatusCode": 3,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "Unspecified",
+        "resolutionSourceCode": 0,
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792235932
+      }
+    },
+    {
+      "atMs": 1792235941523,
+      "lifecycle": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792235943
+      }
+    },
+    {
+      "atMs": 1792235952653,
+      "lifecycle": {
+        "storedStatus": "Finalized",
+        "storedStatusCode": 7,
+        "projectedStatus": "Finalized",
+        "projectedStatusCode": 7,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "Unspecified",
+        "resolutionSourceCode": 0,
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792235984
+      }
+    },
+    {
+      "atMs": 1792235993343,
+      "lifecycle": {
+        "storedStatus": "Finalized",
+        "storedStatusCode": 7,
+        "projectedStatus": "Finalized",
+        "projectedStatusCode": 7,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "Unspecified",
+        "resolutionSourceCode": 0,
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792235995
+      }
+    },
+    {
+      "atMs": 1792236004460,
+      "lifecycle": {
+        "storedStatus": "Finalized",
+        "storedStatusCode": 7,
+        "projectedStatus": "Finalized",
+        "projectedStatusCode": 7,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "Unspecified",
+        "resolutionSourceCode": 0,
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792236006
+      }
+    }
+  ],
+  "appeal": null,
+  "finalTx": {
+    "status": "FINALIZED",
+    "txExecutionResultName": "FINISHED_WITH_ERROR",
+    "triggered_transactions": [],
+    "messages": [],
+    "fees": {
+      "leaderTimeunitsAllocation": "100",
+      "validatorTimeunitsAllocation": "200",
+      "appealRounds": "0",
+      "executionBudgetPerRound": "25002500000000000",
+      "totalMessageFees": "120000000000010352",
+      "rotations": [
+        "3"
+      ],
+      "maxPriceGenPerTimeUnit": "2",
+      "storageFeeMaxGasPrice": "300000000",
+      "receiptFeeMaxGasPrice": "300000000"
+    },
+    "latestDecision": {
+      "status": "ACCEPTED",
+      "decisionId": 1,
+      "appealDeadline": 1792235962,
+      "materializedAt": 1792235932
+    }
+  },
+  "sink": [],
+  "requests": 12
+}

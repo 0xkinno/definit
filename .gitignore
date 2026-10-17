@@ -57,7 +57,8 @@ yarn-error.log*
 # RESEARCH ISOLATION
 # ---------------------------------------------------------------
 # The entire research/ directory is a private working notebook.
-research/
+research/*
+!research/spike/
 
 # film production work -- masters, subtitles, thumbnails and capture scripts.
 # The film lives in research/film/ and is delivered as files, not committed.

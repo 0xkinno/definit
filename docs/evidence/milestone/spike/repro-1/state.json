@@ -1,0 +1,22 @@
+{
+  "network": {
+    "name": "studio-dev",
+    "rpc": "https://studio-dev.genlayer.com/api",
+    "chainId": 61997
+  },
+  "sink": {
+    "address": "0x161bFA9F274Fd3690d1C764E627eE602dB2D79f3",
+    "hash": "0x5c278d9d970ac710bab1a10169190b063083c1d79e97d2b7d5d231138decd89c",
+    "status": "ACCEPTED",
+    "result": "MAJORITY_AGREE",
+    "execution": "FINISHED_WITH_RETURN"
+  },
+  "judge": {
+    "address": "0xc3DFE93aAfcBC9CD1E4a984dbafD4EDBc01fD8eA",
+    "hash": "0xffec0bb35c38ba37df1f8194fb139b0ba6d50b0eb239f68483e18a8f198f8ed4",
+    "status": "ACCEPTED",
+    "result": "MAJORITY_AGREE",
+    "execution": "FINISHED_WITH_RETURN"
+  },
+  "deployedAt": "2026-10-17T12:02:56.425Z"
+}

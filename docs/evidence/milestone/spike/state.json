@@ -1,0 +1,21 @@
+{
+  "network": {
+    "rpc": "https://studio-dev.genlayer.com/api",
+    "chainId": 61997
+  },
+  "sink": {
+    "address": "0xC6b1a3C885a02B35d2dEBF776da1cc5eE2BD2073",
+    "hash": "0xad0dd526681623c876e78683c8da5764fbaf92e1d5f98519c2ccbdff94636a5c",
+    "status": "ACCEPTED",
+    "result": "MAJORITY_AGREE",
+    "execution": "FINISHED_WITH_RETURN"
+  },
+  "judge": {
+    "address": "0x5589A97Dd07F30Dca093215d104Ba6590C642ba1",
+    "hash": "0xd54f0d4067a4defd85b75abb5edeebc9e5de6aff63bfa57553b670a746677d46",
+    "status": "ACCEPTED",
+    "result": "MAJORITY_AGREE",
+    "execution": "FINISHED_WITH_RETURN"
+  },
+  "deployedAt": "2026-10-17T11:38:50.568Z"
+}

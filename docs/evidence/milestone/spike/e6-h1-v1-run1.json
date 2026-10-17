@@ -1,0 +1,332 @@
+{
+  "experiment": "E6-h1-v1",
+  "startedAt": "2026-10-17T11:49:37.843Z",
+  "baseline": "b903f94",
+  "steps": [
+    {
+      "name": "deploy ScenarioRegistry",
+      "at": "2026-10-17T11:49:49.435Z",
+      "atMs": 1792237789435,
+      "address": "0x188bE6E26D277F78247F7D72cE15B0f275AA0728",
+      "hash": "0x270ff806f9d8aa36878ac349c8b7aa5ba607bb60cd843499bf6855503c119f13",
+      "execution": "FINISHED_WITH_RETURN"
+    },
+    {
+      "name": "deploy FinalityVault",
+      "at": "2026-10-17T11:50:00.036Z",
+      "atMs": 1792237800036,
+      "address": "0x3C2d8E171a8eB68f7C670A0faA321e9A853bB881",
+      "hash": "0x6a6db6c9eeb0fc9f54a5d4d7e66cc0625a1ee860c036c09c60bb37446e0a29be",
+      "execution": "FINISHED_WITH_RETURN"
+    },
+    {
+      "name": "deploy DecisionGate",
+      "at": "2026-10-17T11:50:12.232Z",
+      "atMs": 1792237812232,
+      "address": "0xe678463EaFa694aCcb49C1d724656E759E096494",
+      "hash": "0xb3bbb2621b79a90e71a30bdfecc10319f2a040dfa9a6d39f8b0500a5595d2850",
+      "execution": "FINISHED_WITH_RETURN"
+    },
+    {
+      "name": "FinalityVault: set_gate",
+      "at": "2026-10-17T11:50:23.277Z",
+      "atMs": 1792237823277,
+      "hash": "0xd1c27b152e6e60f41ea557cd94ba4f83169327c079049dc31c39b8af523c8278",
+      "submittedAtMs": 1792237814290,
+      "status": "ACCEPTED",
+      "execution": "FINISHED_WITH_RETURN",
+      "decision": {
+        "status": "ACCEPTED",
+        "decisionId": 1,
+        "appealDeadline": 1792237848,
+        "materializedAt": 1792237818
+      },
+      "messages": 0
+    },
+    {
+      "name": "ScenarioRegistry: publish_policy",
+      "at": "2026-10-17T11:50:35.920Z",
+      "atMs": 1792237835920,
+      "hash": "0x9bae9d3c2344600b3639cd9030a0bc6ecbbdd7d1266034b8ef4a162b37083256",
+      "submittedAtMs": 1792237825885,
+      "status": "ACCEPTED",
+      "execution": "FINISHED_WITH_RETURN",
+      "decision": {
+        "status": "ACCEPTED",
+        "decisionId": 1,
+        "appealDeadline": 1792237862,
+        "materializedAt": 1792237832
+      },
+      "messages": 0
+    },
+    {
+      "name": "DecisionGate: create_action",
+      "at": "2026-10-17T11:50:57.367Z",
+      "atMs": 1792237857367,
+      "hash": "0x98b5b891fcf317e3514fa3c4a8496b37c2e9aedeb03dec8dd250ef400dfe3762",
+      "submittedAtMs": 1792237848200,
+      "status": "ACCEPTED",
+      "execution": "FINISHED_WITH_RETURN",
+      "decision": {
+        "status": "ACCEPTED",
+        "decisionId": 1,
+        "appealDeadline": 1792237885,
+        "materializedAt": 1792237855
+      },
+      "messages": 0
+    },
+    {
+      "name": "DecisionGate: request_adjudication",
+      "at": "2026-10-17T11:51:22.467Z",
+      "atMs": 1792237882467,
+      "hash": "0x32dd36358a88104443b05ca20d5db70dae3cd90b7281db228285921e5afc9e66",
+      "submittedAtMs": 1792237865568,
+      "status": "ACCEPTED",
+      "execution": "FINISHED_WITH_RETURN",
+      "decision": {
+        "status": "ACCEPTED",
+        "decisionId": 1,
+        "appealDeadline": 1792237908,
+        "materializedAt": 1792237878
+      },
+      "messages": 0
+    },
+    {
+      "name": "adjudicated",
+      "at": "2026-10-17T11:51:23.344Z",
+      "atMs": 1792237883344,
+      "state": "ACCEPTED",
+      "decisionId": "0xa4c17ccf392727d64d182c17aa526685a3aa39766e67f50793b22d5af8333421",
+      "verdict": "APPROVE"
+    },
+    {
+      "name": "FinalityVault: open_escrow",
+      "at": "2026-10-17T11:51:35.897Z",
+      "atMs": 1792237895897,
+      "hash": "0x94b3610760de1620b8d878a8682446b0fea041ee68b7f62e547fdefb7318e6a8",
+      "submittedAtMs": 1792237885719,
+      "status": "ACCEPTED",
+      "execution": "FINISHED_WITH_RETURN",
+      "decision": {
+        "status": "ACCEPTED",
+        "decisionId": 1,
+        "appealDeadline": 1792237922,
+        "materializedAt": 1792237892
+      },
+      "messages": 0
+    },
+    {
+      "name": "waiting for v1's own 120 s window",
+      "at": "2026-10-17T11:51:36.714Z",
+      "atMs": 1792237896714,
+      "adjudicatedAt": 1792237867,
+      "waitSeconds": 116
+    },
+    {
+      "name": "promotion submitted",
+      "at": "2026-10-17T11:53:41.146Z",
+      "atMs": 1792238021146,
+      "hash": "0x49ca156e3d74fc799dfb06beca6b40121fd57d1ff98438907d2535d0d4bd63e5",
+      "submittedAtMs": 1792238018489
+    },
+    {
+      "name": "promotion Accepted, not yet finalizable",
+      "at": "2026-10-17T11:53:45.012Z",
+      "atMs": 1792238025012,
+      "lifecycle": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792238025
+      }
+    },
+    {
+      "name": "funder settle submitted",
+      "at": "2026-10-17T11:53:48.514Z",
+      "atMs": 1792238028514,
+      "hash": null,
+      "error": "settle could not be simulated: Missing or invalid parameters.\nDouble check you have provided the correct parameters.\n\nDetails: execution failed\nVersion: viem@2.56.5",
+      "promotionLifecycleAtSubmit": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792238027
+      },
+      "submittedAtMs": 1792238028514
+    }
+  ],
+  "result": {
+    "settleExecutedWithReturn": false,
+    "promotionLifecycleWhenSettleSubmitted": {
+      "projectedStatus": "Accepted",
+      "resolutionAction": "NoOp"
+    },
+    "promotionAppealDeadline": 1792238054,
+    "settleMaterializedAt": null,
+    "settleDecidedBeforePromotionAppealDeadline": null
+  },
+  "contracts": {
+    "registry": "0x188bE6E26D277F78247F7D72cE15B0f275AA0728",
+    "vault": "0x3C2d8E171a8eB68f7C670A0faA321e9A853bB881",
+    "gate": "0xe678463EaFa694aCcb49C1d724656E759E096494",
+    "deployer": "0x14b959B6DF21F95F7dFc76c980d93aFbDB7a66d6"
+  },
+  "actionId": "0xbe63d671bda86540d377d20ff404846639ca7778b79550ac2bbf01c0e2809b02",
+  "decisionId": "0xa4c17ccf392727d64d182c17aa526685a3aa39766e67f50793b22d5af8333421",
+  "synthesisedFeeTrees": [
+    {
+      "functionName": "finalize_decision",
+      "reason": "execution failed",
+      "allocations": 1
+    }
+  ],
+  "promotionAtSettleAttempt": {
+    "storedStatus": "Accepted",
+    "storedStatusCode": 5,
+    "projectedStatus": "Accepted",
+    "projectedStatusCode": 5,
+    "resolutionAction": "NoOp",
+    "resolutionActionCode": 0,
+    "resolutionSource": "FullReveal",
+    "resolutionSourceCode": 6,
+    "decisionId": "1",
+    "decisionActive": true,
+    "evaluatedAt": 1792238025
+  },
+  "settleFeeTree": {
+    "error": "Missing or invalid parameters.\nDouble check you have provided the correct parameters.\n\nDetails: execution failed\nVersion: viem@2.56.5"
+  },
+  "samples": [
+    {
+      "atMs": 1792238029002,
+      "promotion": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792238029
+      },
+      "settle": null
+    },
+    {
+      "atMs": 1792238037512,
+      "promotion": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792238037
+      },
+      "settle": null
+    },
+    {
+      "atMs": 1792238045422,
+      "promotion": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792238046
+      },
+      "settle": null
+    },
+    {
+      "atMs": 1792238053312,
+      "promotion": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792238053
+      },
+      "settle": null
+    },
+    {
+      "atMs": 1792238060666,
+      "promotion": {
+        "storedStatus": "Finalized",
+        "storedStatusCode": 7,
+        "projectedStatus": "Finalized",
+        "projectedStatusCode": 7,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "Unspecified",
+        "resolutionSourceCode": 0,
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792238061
+      },
+      "settle": null
+    }
+  ],
+  "promotion": {
+    "hash": "0x49ca156e3d74fc799dfb06beca6b40121fd57d1ff98438907d2535d0d4bd63e5",
+    "status": "FINALIZED",
+    "execution": "FINISHED_WITH_RETURN",
+    "decision": {
+      "status": "ACCEPTED",
+      "decisionId": 1,
+      "appealDeadline": 1792238054,
+      "materializedAt": 1792238024
+    }
+  },
+  "settle": null,
+  "vaultReceipt": {
+    "action_id": "0xbe63d671bda86540d377d20ff404846639ca7778b79550ac2bbf01c0e2809b02",
+    "amount": "10000000000000000",
+    "asset": "GEN",
+    "decision_id": "0xa4c17ccf392727d64d182c17aa526685a3aa39766e67f50793b22d5af8333421",
+    "decision_read_scope": "FINALIZED_CAPABILITY",
+    "evidence_digest": "0xb27adf7a6be9c0118c0faad2b83f90f5cfc34d559f5f3fa2685f90e8704041c4",
+    "exists": true,
+    "finality_proof": "gate promoted the decision after its appeal window closed; this contract re-derived the window and matched the commitment",
+    "funder": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+    "intent_hash": "0x5bc5f589ba0ef1080ee6155367168984397b02e1c32bc9f2130f429e0a4a7673",
+    "message_stage": "finalized",
+    "nonce": 1792237835,
+    "opened_at": "2026-10-17T11:51:28.182843Z",
+    "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+    "recipient": "0x1111111111111111111111111111111111111111",
+    "settled_at": "2026-10-17T11:54:14.888061Z",
+    "status": "SETTLED"
+  },
+  "finishedAt": "2026-10-17T11:54:23.656Z"
+}

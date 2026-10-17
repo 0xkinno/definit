@@ -1,0 +1,35 @@
+{
+  "experiment": "E5-direct",
+  "eoa": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+  "txHash": "0x580f166671dec2ea36d393b4a19feb8c8b5cf1b3fdbfc0d66b11c043bc82e12c",
+  "entries": [
+    {
+      "stage": "finalized",
+      "tag": "e1d1:YES",
+      "sender": "0xc3dfe93aafcbc9cd1e4a984dbafd4edbc01fd8ea",
+      "datetime": "2026-10-17T12:03:38.793305Z",
+      "n": 1
+    },
+    {
+      "stage": "finalized",
+      "tag": "e1d2:YES",
+      "sender": "0xc3dfe93aafcbc9cd1e4a984dbafd4edbc01fd8ea",
+      "datetime": "2026-10-17T12:05:23.586440Z",
+      "n": 2
+    },
+    {
+      "stage": "finalized",
+      "tag": "e1d3:YES",
+      "sender": "0xc3dfe93aafcbc9cd1e4a984dbafd4edbc01fd8ea",
+      "datetime": "2026-10-17T12:07:24.187986Z",
+      "n": 3
+    },
+    {
+      "stage": "direct",
+      "tag": "e5",
+      "sender": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+      "datetime": "2026-10-17T12:08:42.872744Z",
+      "n": 4
+    }
+  ]
+}

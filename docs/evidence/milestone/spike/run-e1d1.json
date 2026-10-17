@@ -1,0 +1,314 @@
+{
+  "experiment": "decide:decide",
+  "tag": "e1d1",
+  "txHash": "0xec5bd785c1ddaa06b1eb964f9e8247f3a934b0dc163c5b79d938e5f9cd7e58d0",
+  "submittedAtMs": 1792236493347,
+  "totalMessageFees": "0",
+  "feeValue": "144630069600022775",
+  "samples": [
+    {
+      "atMs": 1792236495295,
+      "lifecycle": {
+        "storedStatus": "Pending",
+        "storedStatusCode": 1,
+        "projectedStatus": "Pending",
+        "projectedStatusCode": 1,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "Unspecified",
+        "resolutionSourceCode": 0,
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792236496
+      }
+    },
+    {
+      "atMs": 1792236505709,
+      "lifecycle": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792236507
+      }
+    },
+    {
+      "atMs": 1792236517108,
+      "lifecycle": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792236519
+      },
+      "sinkCounter": 0
+    },
+    {
+      "atMs": 1792236528934,
+      "lifecycle": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792236530
+      }
+    },
+    {
+      "atMs": 1792236539759,
+      "lifecycle": {
+        "storedStatus": "Finalized",
+        "storedStatusCode": 7,
+        "projectedStatus": "Finalized",
+        "projectedStatusCode": 7,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "Unspecified",
+        "resolutionSourceCode": 0,
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792236541
+      }
+    },
+    {
+      "atMs": 1792236550976,
+      "lifecycle": {
+        "storedStatus": "Finalized",
+        "storedStatusCode": 7,
+        "projectedStatus": "Finalized",
+        "projectedStatusCode": 7,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "Unspecified",
+        "resolutionSourceCode": 0,
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792236552
+      },
+      "sinkCounter": 1
+    },
+    {
+      "atMs": 1792236562956,
+      "lifecycle": {
+        "storedStatus": "Finalized",
+        "storedStatusCode": 7,
+        "projectedStatus": "Finalized",
+        "projectedStatusCode": 7,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "Unspecified",
+        "resolutionSourceCode": 0,
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792236565
+      }
+    },
+    {
+      "atMs": 1792236574613,
+      "lifecycle": {
+        "storedStatus": "Finalized",
+        "storedStatusCode": 7,
+        "projectedStatus": "Finalized",
+        "projectedStatusCode": 7,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "Unspecified",
+        "resolutionSourceCode": 0,
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792236577
+      }
+    },
+    {
+      "atMs": 1792236587177,
+      "lifecycle": {
+        "storedStatus": "Finalized",
+        "storedStatusCode": 7,
+        "projectedStatus": "Finalized",
+        "projectedStatusCode": 7,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "Unspecified",
+        "resolutionSourceCode": 0,
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792236588
+      },
+      "sinkCounter": 1
+    },
+    {
+      "atMs": 1792236598777,
+      "lifecycle": {
+        "storedStatus": "Finalized",
+        "storedStatusCode": 7,
+        "projectedStatus": "Finalized",
+        "projectedStatusCode": 7,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "Unspecified",
+        "resolutionSourceCode": 0,
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792236600
+      }
+    }
+  ],
+  "appeal": null,
+  "finalTx": {
+    "status": "FINALIZED",
+    "txExecutionResultName": "FINISHED_WITH_RETURN",
+    "triggered_transactions": [
+      "0x6527e75932244d77aef4374a5e7203b92a158f3a618a25e327bcf53534d1a446"
+    ],
+    "messages": [
+      {
+        "messageType": "0",
+        "recipient": "0x10388EcC7c56315F770D4EDE874a88a98598C382",
+        "value": 0,
+        "data": "FgCEAXJlY29yZF9maW5hbGl6ZWQEYXJncw1EZTFkMTpZRVM=",
+        "onAcceptance": false
+      }
+    ],
+    "fees": {
+      "leaderTimeunitsAllocation": "100",
+      "validatorTimeunitsAllocation": "200",
+      "appealRounds": "0",
+      "executionBudgetPerRound": "157517400000000",
+      "totalMessageFees": "144000000000012423",
+      "rotations": [
+        "3"
+      ],
+      "maxPriceGenPerTimeUnit": "2",
+      "storageFeeMaxGasPrice": "300000000",
+      "receiptFeeMaxGasPrice": "300000000"
+    },
+    "latestDecision": {
+      "status": "ACCEPTED",
+      "decisionId": 1,
+      "appealDeadline": 1792236534,
+      "materializedAt": 1792236504
+    }
+  },
+  "children": [
+    {
+      "hash": "0x6527e75932244d77aef4374a5e7203b92a158f3a618a25e327bcf53534d1a446",
+      "status": "FINALIZED",
+      "txExecutionResultName": "FINISHED_WITH_RETURN",
+      "created_at": "2026-10-17T11:28:55.401504+00:00",
+      "created_timestamp": "1792236535",
+      "triggered_by": "0xec5bd785c1ddaa06b1eb964f9e8247f3a934b0dc163c5b79d938e5f9cd7e58d0",
+      "triggered_on": "finalized",
+      "from_address": "0xDf82ffdCC22EF61720d655a39e950E3A71989F30",
+      "to_address": "0x10388EcC7c56315F770D4EDE874a88a98598C382",
+      "timestamp_awaiting_finalization": 1792236537
+    }
+  ],
+  "parentTimes": {
+    "created_at": "2026-10-17T11:28:15.571686+00:00",
+    "created_timestamp": "1792236495",
+    "timestamp_awaiting_finalization": 1792236504,
+    "consensus_monitoring": {
+      "PENDING": 1792236498.3851528,
+      "ACCEPTED": 1792236504.7687232,
+      "PROPOSING": 1792236498.3990865,
+      "REVEALING": 1792236504.6666377,
+      "COMMITTING": 1792236499.8299842,
+      "PROPOSING.LEADER.RUN_END": 1792236499.7911925,
+      "PROPOSING.LEADER.RUN_START": 1792236498.430544,
+      "PROPOSING.LEADER.EXEC_START": 1792236498.4263103,
+      "PROPOSING.VALIDATORS_SELECTED": 1792236498.4187014,
+      "COMMITTING.VALIDATORS_PREPARED": 1792236499.8394759,
+      "COMMITTING.VALIDATOR_1.RUN_END": 1792236501.7896445,
+      "COMMITTING.VALIDATOR_3.RUN_END": 1792236504.5805864,
+      "COMMITTING.VALIDATOR_4.RUN_END": 1792236504.0143385,
+      "PROPOSING.TRANSACTION_EXECUTED": 1792236499.802867,
+      "COMMITTING.VALIDATOR_0.RUN_START": 1792236499.8717825,
+      "COMMITTING.VALIDATOR_1.RUN_START": 1792236499.8991556,
+      "COMMITTING.VALIDATOR_2.RUN_START": 1792236499.9255488,
+      "COMMITTING.VALIDATOR_3.RUN_START": 1792236499.9523916,
+      "COMMITTING.VALIDATOR_4.RUN_START": 1792236499.9777844,
+      "PROPOSING.LEADER.DECODE_COMPLETE": 1792236498.4339232,
+      "PROPOSING.LEADER.RECEIPT_CREATED": 1792236499.7961984,
+      "COMMITTING.VALIDATOR_0.EXEC_START": 1792236499.8679838,
+      "COMMITTING.VALIDATOR_1.EXEC_START": 1792236499.8953335,
+      "COMMITTING.VALIDATOR_2.EXEC_START": 1792236499.9220352,
+      "COMMITTING.VALIDATOR_3.EXEC_START": 1792236499.948728,
+      "COMMITTING.VALIDATOR_4.EXEC_START": 1792236499.9741092,
+      "COMMITTING.VALIDATORS_EXECUTION_END": 1792236504.597496,
+      "PROPOSING.LEADER.EXECUTION_FINISHED": 1792236499.7868655,
+      "COMMITTING.VALIDATOR_1_END.attempt_0": 1792236501.7985299,
+      "COMMITTING.VALIDATOR_3_END.attempt_0": 1792236504.5923975,
+      "COMMITTING.VALIDATOR_4_END.attempt_0": 1792236504.025364,
+      "COMMITTING.VALIDATORS_EXECUTION_START": 1792236499.8439078,
+      "COMMITTING.VALIDATION_RESULTS_GATHERED": 1792236504.602318,
+      "COMMITTING.VALIDATOR_0.DECODE_COMPLETE": 1792236499.8754334,
+      "COMMITTING.VALIDATOR_0_START.attempt_0": 1792236499.8479698,
+      "COMMITTING.VALIDATOR_1.DECODE_COMPLETE": 1792236499.9027467,
+      "COMMITTING.VALIDATOR_1.RECEIPT_CREATED": 1792236501.7931843,
+      "COMMITTING.VALIDATOR_1_START.attempt_0": 1792236499.8519924,
+      "COMMITTING.VALIDATOR_2.DECODE_COMPLETE": 1792236499.928841,
+      "COMMITTING.VALIDATOR_2_START.attempt_0": 1792236499.8561053,
+      "COMMITTING.VALIDATOR_3.DECODE_COMPLETE": 1792236499.9556615,
+      "COMMITTING.VALIDATOR_3.RECEIPT_CREATED": 1792236504.5854282,
+      "COMMITTING.VALIDATOR_3_START.attempt_0": 1792236499.860452,
+      "COMMITTING.VALIDATOR_4.DECODE_COMPLETE": 1792236499.9814239,
+      "COMMITTING.VALIDATOR_4.RECEIPT_CREATED": 1792236504.0187347,
+      "COMMITTING.VALIDATOR_4_START.attempt_0": 1792236499.8640883,
+      "PROPOSING.LEADER.GENVM_EXECUTION_START": 1792236498.4496217,
+      "PROPOSING.LEADER.SNAPSHOT_CREATION_END": 1792236498.4459321,
+      "PROPOSING.LEADER_NODE_CREATED.attempt_0": 1792236498.4226944,
+      "PROPOSING.LEADER.GENVM_PREPARATION_START": 1792236498.4373293,
+      "PROPOSING.LEADER.SNAPSHOT_CREATION_START": 1792236498.441029,
+      "COMMITTING.VALIDATOR_1.EXECUTION_FINISHED": 1792236501.7847645,
+      "COMMITTING.VALIDATOR_3.EXECUTION_FINISHED": 1792236504.575869,
+      "COMMITTING.VALIDATOR_4.EXECUTION_FINISHED": 1792236504.0007997,
+      "COMMITTING.VALIDATOR_0.GENVM_EXECUTION_START": 1792236499.8897803,
+      "COMMITTING.VALIDATOR_0.SNAPSHOT_CREATION_END": 1792236499.885797,
+      "COMMITTING.VALIDATOR_1.GENVM_EXECUTION_START": 1792236499.917017,
+      "COMMITTING.VALIDATOR_1.SNAPSHOT_CREATION_END": 1792236499.913443,
+      "COMMITTING.VALIDATOR_2.GENVM_EXECUTION_START": 1792236499.9429955,
+      "COMMITTING.VALIDATOR_2.SNAPSHOT_CREATION_END": 1792236499.9395745,
+      "COMMITTING.VALIDATOR_3.GENVM_EXECUTION_START": 1792236499.969542,
+      "COMMITTING.VALIDATOR_3.SNAPSHOT_CREATION_END": 1792236499.9663131,
+      "COMMITTING.VALIDATOR_4.GENVM_EXECUTION_START": 1792236499.99552,
+      "COMMITTING.VALIDATOR_4.SNAPSHOT_CREATION_END": 1792236499.9919462,
+      "COMMITTING.VALIDATOR_0.GENVM_PREPARATION_START": 1792236499.8787613,
+      "COMMITTING.VALIDATOR_0.SNAPSHOT_CREATION_START": 1792236499.8823853,
+      "COMMITTING.VALIDATOR_1.GENVM_PREPARATION_START": 1792236499.9059596,
+      "COMMITTING.VALIDATOR_1.SNAPSHOT_CREATION_START": 1792236499.9097884,
+      "COMMITTING.VALIDATOR_2.GENVM_PREPARATION_START": 1792236499.932556,
+      "COMMITTING.VALIDATOR_2.SNAPSHOT_CREATION_START": 1792236499.9360654,
+      "COMMITTING.VALIDATOR_3.GENVM_PREPARATION_START": 1792236499.9590826,
+      "COMMITTING.VALIDATOR_3.SNAPSHOT_CREATION_START": 1792236499.9627504,
+      "COMMITTING.VALIDATOR_4.GENVM_PREPARATION_START": 1792236499.9850814,
+      "COMMITTING.VALIDATOR_4.SNAPSHOT_CREATION_START": 1792236499.9885705
+    }
+  },
+  "sink": [
+    {
+      "stage": "finalized",
+      "tag": "e1d1:YES",
+      "sender": "0xdf82ffdcc22ef61720d655a39e950e3a71989f30",
+      "datetime": "2026-10-17T11:28:55.401504Z",
+      "n": 1
+    }
+  ],
+  "requests": 18
+}

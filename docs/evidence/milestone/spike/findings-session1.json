@@ -1,0 +1,50 @@
+{
+  "about": "Raw record of the first Phase 0 / 0B measurements on Studio-dev (chain 61997). Written by hand from observed output of scripts/spike.mjs and ad hoc probes; every hash below was returned by the network. Nothing in this file is a conclusion about the thesis. The discovery gate is NOT passed.",
+  "recordedAt": "2026-10-17",
+  "network": { "rpc": "https://studio-dev.genlayer.com/api", "chainId": 61997 },
+  "account": "throwaway test account funded with sim_fundAccount; key kept in the gitignored .env.local",
+  "networkProbe": {
+    "studioDev": { "reachable": true, "chainId": "0xf22d", "fundedBy": "sim_fundAccount", "lifecycleMethod": "answers, takes {txId}", "feeCharging": true },
+    "studionet": { "reachable": true, "chainId": "0xf22f", "fundedBy": "sim_fundAccount", "lifecycleMethod": "Method not found" },
+    "bradbury": { "reachable": true, "chainId": "0x107d", "fundedBy": "sim_fundAccount not available, external faucet needed", "lifecycleMethod": "Method not found on rpc-bradbury.genlayer.com" },
+    "asimov": { "reachable": true, "chainId": "0x107d", "note": "same chain id as Bradbury, same host family" }
+  },
+  "observations": [
+    {
+      "id": "O1",
+      "what": "genlayer-js 2.0.0-rc.1 getTransactionLifecycle({hash}) is rejected by Studio-dev with 'txId is required'. The raw RPC with {txId} works.",
+      "evidence": "gen_getTransactionLifecycle returned storedStatus, projectedStatus, resolutionAction, decisionId, decisionActive, evaluatedAt for tx 0xbb4a3f494a2da0ba7703ef97227742c44618eeee125c3238177b8566eef0e79f"
+    },
+    {
+      "id": "O2",
+      "what": "Observed lifecycle of a decision transaction: Proposing, Accepted about 8 s after submit, Finalized about 43 s after submit (single sample, appealDeadline 30 s after materialization).",
+      "evidence": "tx 0x45e1649de4263c735e9d037fa827d450e9fb434fdd30d59b42022a79cbc9eba8, docs/evidence/milestone/spike/e1-run0.json"
+    },
+    {
+      "id": "O3",
+      "what": "A transaction whose execution ended FINISHED_WITH_ERROR still reached Finalized. Status alone does not prove success (v1 defect C6).",
+      "evidence": "tx 0x45e1649de4263c735e9d037fa827d450e9fb434fdd30d59b42022a79cbc9eba8 txExecutionResultName FINISHED_WITH_ERROR, status FINALIZED"
+    },
+    {
+      "id": "O4",
+      "what": "Two message allocations with the same recipient and the wildcard callKey are rejected at submission with AllocationDuplicateKey.",
+      "evidence": "EVM tx 0x9de907782ba42e932f9d5b4555042bfbe0055ce2d2e65fb879ce0fe29be265d5"
+    },
+    {
+      "id": "O5",
+      "what": "Bisect of a judge contract. No emits: execution FINISHED_WITH_RETURN. Both emits: FINISHED_WITH_ERROR. Only emit(on='accepted'), with onAcceptance false or true in the fee allocation: FINISHED_WITH_ERROR. Only emit(on='finalized'): FINISHED_WITH_RETURN, message recorded on the tx.",
+      "evidence": "both-emits 0x8adb9b4ec273d5306a33233f474504d1c641ecc712e5f274cd99204101039ace; accepted-only 0x0925cc727eb9bed0b7ee560affa0f4b74f0910251fd51321143ee5569743a693"
+    },
+    {
+      "id": "O6",
+      "what": "UNEXPLAINED. The finalized-only judge executed fine, showed resolutionAction Finalize at about 20 s, and then ended with status CANCELED at about 45 s with no triggered child transaction. Reproduced twice. Cause not yet isolated (candidates: sink.record failing as a child, fee allocation not covering the child, Studio-dev behaviour).",
+      "evidence": "second run tx 0xc0838d442e58b51f12f32fe403da2774d0eedf28ff9954e63591b90691f4a1ac"
+    },
+    {
+      "id": "O7",
+      "what": "Studio-dev rate limit: 500 requests per hour per account bucket 'standard'. Reached during sampling at 4 s intervals; retry_after 2060 s. Every later experiment must sample sparsely.",
+      "evidence": "RPC error -32029 from eth_sendRawTransaction"
+    }
+  ],
+  "gate": "NOT PASSED. No finalized-stage message has yet been observed arriving at a sink, so E1 and E5 have no result, and E2, E3, E4, E6 have not been run."
+}

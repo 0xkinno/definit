@@ -1,0 +1,447 @@
+{
+  "experiment": "E6-h1-v1",
+  "run": "2",
+  "startedAt": "2026-10-17T11:55:16.841Z",
+  "baseline": "b903f94",
+  "steps": [
+    {
+      "name": "reusing v1 contracts deployed in run 1",
+      "at": "2026-10-17T11:55:17.000Z",
+      "atMs": 1792238117000,
+      "registry": "0x188bE6E26D277F78247F7D72cE15B0f275AA0728",
+      "vault": "0x3C2d8E171a8eB68f7C670A0faA321e9A853bB881",
+      "gate": "0xe678463EaFa694aCcb49C1d724656E759E096494",
+      "deployer": "0x14b959B6DF21F95F7dFc76c980d93aFbDB7a66d6"
+    },
+    {
+      "name": "DecisionGate: create_action",
+      "at": "2026-10-17T11:55:55.393Z",
+      "atMs": 1792238155393,
+      "hash": "0xba246c33ea5c628bf1c86fcc5b91d398ee1d8d8a21b7be320381ac95b3dac9f0",
+      "submittedAtMs": 1792238139800,
+      "status": "ACCEPTED",
+      "execution": "FINISHED_WITH_RETURN",
+      "decision": {
+        "status": "ACCEPTED",
+        "decisionId": 1,
+        "appealDeadline": 1792238177,
+        "materializedAt": 1792238147
+      },
+      "messages": 0
+    },
+    {
+      "name": "DecisionGate: request_adjudication",
+      "at": "2026-10-17T11:56:25.564Z",
+      "atMs": 1792238185564,
+      "hash": "0x0b01db262bbf649548bd33d6eb29847fdfe9be4d740ce713466287be3d68b9ce",
+      "submittedAtMs": 1792238169532,
+      "status": "ACCEPTED",
+      "execution": "FINISHED_WITH_RETURN",
+      "decision": {
+        "status": "ACCEPTED",
+        "decisionId": 1,
+        "appealDeadline": 1792238212,
+        "materializedAt": 1792238182
+      },
+      "messages": 0
+    },
+    {
+      "name": "adjudicated",
+      "at": "2026-10-17T11:56:26.403Z",
+      "atMs": 1792238186403,
+      "state": "ACCEPTED",
+      "decisionId": "0x986ab16f5f1e76eb771b57bc824bbf4a112731bd3ec8fd8fc0265bccabf7c158",
+      "verdict": "APPROVE"
+    },
+    {
+      "name": "FinalityVault: open_escrow",
+      "at": "2026-10-17T11:56:54.309Z",
+      "atMs": 1792238214309,
+      "hash": "0xd5da3fe6f7be1912addfa27e2ab00f09f04635a1f3d3f86c2388f8d99e2c5a6a",
+      "submittedAtMs": 1792238202314,
+      "status": "ACCEPTED",
+      "execution": "FINISHED_WITH_RETURN",
+      "decision": {
+        "status": "ACCEPTED",
+        "decisionId": 1,
+        "appealDeadline": 1792238240,
+        "materializedAt": 1792238210
+      },
+      "messages": 0
+    },
+    {
+      "name": "waiting for v1's own 120 s window",
+      "at": "2026-10-17T11:56:55.186Z",
+      "atMs": 1792238215186,
+      "adjudicatedAt": 1792238171,
+      "waitSeconds": 101
+    },
+    {
+      "name": "promotion submitted",
+      "at": "2026-10-17T11:58:47.276Z",
+      "atMs": 1792238327276,
+      "hash": "0x0af9e28b79ab6b0eba2d41f9d268d09012fd155e892c93b484c1b71a2058bf55",
+      "submittedAtMs": 1792238323860
+    },
+    {
+      "name": "promotion Accepted, not yet finalizable",
+      "at": "2026-10-17T11:58:53.620Z",
+      "atMs": 1792238333620,
+      "lifecycle": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792238334
+      }
+    },
+    {
+      "name": "funder settle submitted",
+      "at": "2026-10-17T11:59:04.398Z",
+      "atMs": 1792238344398,
+      "hash": "0x76bd84866b426fa634fc22468d60a9e890e63329a99b0d74fb60cccdd48baadb",
+      "error": null,
+      "promotionLifecycleAtSubmit": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792238335
+      },
+      "submittedAtMs": 1792238344397
+    }
+  ],
+  "result": {
+    "settleExecutedWithReturn": true,
+    "promotionLifecycleWhenSettleSubmitted": {
+      "projectedStatus": "Accepted",
+      "resolutionAction": "NoOp"
+    },
+    "promotionAppealDeadline": 1792238362,
+    "settleMaterializedAt": 1792238350,
+    "settleDecidedBeforePromotionAppealDeadline": true
+  },
+  "contracts": {
+    "registry": "0x188bE6E26D277F78247F7D72cE15B0f275AA0728",
+    "vault": "0x3C2d8E171a8eB68f7C670A0faA321e9A853bB881",
+    "gate": "0xe678463EaFa694aCcb49C1d724656E759E096494",
+    "deployer": "0x14b959B6DF21F95F7dFc76c980d93aFbDB7a66d6"
+  },
+  "reusedContractsFrom": "e6-h1-v1-run1.json",
+  "actionId": "0xa4360771e2120f20cdbd2c141e837e8f007871f17daae720638e2976c46af6e1",
+  "decisionId": "0x986ab16f5f1e76eb771b57bc824bbf4a112731bd3ec8fd8fc0265bccabf7c158",
+  "synthesisedFeeTrees": [
+    {
+      "functionName": "finalize_decision",
+      "reason": "execution failed",
+      "allocations": 1
+    }
+  ],
+  "promotionAtSettleAttempt": {
+    "storedStatus": "Accepted",
+    "storedStatusCode": 5,
+    "projectedStatus": "Accepted",
+    "projectedStatusCode": 5,
+    "resolutionAction": "NoOp",
+    "resolutionActionCode": 0,
+    "resolutionSource": "FullReveal",
+    "resolutionSourceCode": 6,
+    "decisionId": "1",
+    "decisionActive": true,
+    "evaluatedAt": 1792238334
+  },
+  "settleSimulation": {
+    "simulated": false,
+    "error": "execution failed"
+  },
+  "settleSentWith": "plain quote, no message allocations",
+  "samples": [
+    {
+      "atMs": 1792238345250,
+      "promotion": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792238345
+      },
+      "settle": {
+        "storedStatus": "Pending",
+        "storedStatusCode": 1,
+        "projectedStatus": "Pending",
+        "projectedStatusCode": 1,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "Unspecified",
+        "resolutionSourceCode": 0,
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792238346
+      }
+    },
+    {
+      "atMs": 1792238353212,
+      "promotion": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792238353
+      },
+      "settle": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792238353
+      }
+    },
+    {
+      "atMs": 1792238360854,
+      "promotion": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792238361
+      },
+      "settle": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792238361
+      }
+    },
+    {
+      "atMs": 1792238378070,
+      "promotion": {
+        "storedStatus": "Finalized",
+        "storedStatusCode": 7,
+        "projectedStatus": "Finalized",
+        "projectedStatusCode": 7,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "Unspecified",
+        "resolutionSourceCode": 0,
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792238371
+      },
+      "settle": {
+        "storedStatus": "Accepted",
+        "storedStatusCode": 5,
+        "projectedStatus": "Accepted",
+        "projectedStatusCode": 5,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "FullReveal",
+        "resolutionSourceCode": 6,
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792238378
+      }
+    },
+    {
+      "atMs": 1792238385960,
+      "promotion": {
+        "storedStatus": "Finalized",
+        "storedStatusCode": 7,
+        "projectedStatus": "Finalized",
+        "projectedStatusCode": 7,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "Unspecified",
+        "resolutionSourceCode": 0,
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792238386
+      },
+      "settle": {
+        "storedStatus": "Finalized",
+        "storedStatusCode": 7,
+        "projectedStatus": "Finalized",
+        "projectedStatusCode": 7,
+        "resolutionAction": "NoOp",
+        "resolutionActionCode": 0,
+        "resolutionSource": "Unspecified",
+        "resolutionSourceCode": 0,
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792238386
+      }
+    }
+  ],
+  "promotion": {
+    "hash": "0x0af9e28b79ab6b0eba2d41f9d268d09012fd155e892c93b484c1b71a2058bf55",
+    "status": "FINALIZED",
+    "execution": "FINISHED_WITH_RETURN",
+    "decision": {
+      "status": "ACCEPTED",
+      "decisionId": 1,
+      "appealDeadline": 1792238362,
+      "materializedAt": 1792238332
+    }
+  },
+  "settleExplanation": {
+    "validatorResults": [
+      "?F?action_id??0xa4360771e2120f20cdbd2c141e837e8f007871f17daae720638e2976c46af6e1?amount???????decision_id??0x986ab16f5f1e76eb771b57bc824bbf4a112731bd3ec8fd8fc0265bccabf7c158?decision_read_scope??FINALIZED_CAPABILITY?nonce???5?recipient??0x1111111111111111111111111111111111111111?settled_at??2026-10-17T11:59:04.510983Z?status<SETTLED",
+      "?F?action_id??0xa4360771e2120f20cdbd2c141e837e8f007871f17daae720638e2976c46af6e1?amount???????decision_id??0x986ab16f5f1e76eb771b57bc824bbf4a112731bd3ec8fd8fc0265bccabf7c158?decision_read_scope??FINALIZED_CAPABILITY?nonce???5?recipient??0x1111111111111111111111111111111111111111?settled_at??2026-10-17T11:59:04.510983Z?status<SETTLED",
+      "?F?action_id??0xa4360771e2120f20cdbd2c141e837e8f007871f17daae720638e2976c46af6e1?amount???????decision_id??0x986ab16f5f1e76eb771b57bc824bbf4a112731bd3ec8fd8fc0265bccabf7c158?decision_read_scope??FINALIZED_CAPABILITY?nonce???5?recipient??0x1111111111111111111111111111111111111111?settled_at??2026-10-17T11:59:04.510983Z?status<SETTLED",
+      "?idle"
+    ],
+    "leaderReceipt": "[{\"mode\":\"leader\",\"vote\":null,\"result\":\"AEYJYWN0aW9uX2lklAQweGE0MzYwNzcxZTIxMjBmMjBjZGJkMmMxNDFlODM3ZThmMDA3ODcxZjE3ZGFhZTcyMDYzOGUyOTc2YzQ2YWY2ZTEGYW1vdW50gYCg8LfyjY4BC2RlY2lzaW9uX2lklAQweDk4NmFiMTZmNWYxZTc2ZWI3NzFiNTdiYzgyNGJiZjRhMTEyNzMxYmQzZWM4ZmQ4ZmMwMjY1YmNjYWJmN2MxNTgTZGVjaXNpb25fcmVhZF9zY29wZaQBRklOQUxJWkVEX0NBUEFCSUxJVFkFbm9uY2Wpouy0NQlyZWNpcGllbnTUAjB4MTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMQpzZXR0bGVkX2F03AEyMDI2LTEwLTE3VDExOjU5OjA0LjUxMDk4M1oGc3RhdHVzPFNFVFRMRUQ=\",\"calldata\":\"FgA0c2V0dGxlBGFyZ3NFlAQweGE0MzYwNzcxZTIxMjBmMjBjZGJkMmMxNDFlODM3ZThmMDA3ODcxZjE3ZGFhZTcyMDYzOGUyOTc2YzQ2YWY2ZTGUBDB4OTg2YWIxNmY1ZjFlNzZlYjc3MWI1N2JjODI0YmJmNGExMTI3MzFiZDNlYzhmZDhmYzAyNjViY2NhYmY3YzE1OJQEMHg2MDY1ZjQyNjQ3NTlmNjczNWVhNWM1YThmMzM4M2VjZmE0NGFhNTEyZjhiOWMxZWU1YjUwMWFiY2M4ZDdjNmRjlAQweDc5MDYwMDc3NWNjYzliN2Q3YjAzMjgxODEwNzZlNTRjYjM1NDYxMDM1MGRmMThkNzhlODZlMzBjOWYwMTIwYWOUBDB4YjI3YWRmN2E2YmU5YzAxMThjMGZhYWQyYjgzZjkwZjVjZmMzNGQ1NTlmNWYzZmEyNjg1ZjkwZTg3MDQwNDFjNKmi7LQ11AIweDExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTGBgKDwt/KNjgE=\",\"gas_used\":0,\"eq_outputs\":{},\"node_config\":{\"stake\":100,\"address\":\"0xA793D9dc0ED9edC1f9F732bB68b5D3AFA934F52D\",\"primary_model\":{\"model\":\"policy:dev-grok\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"grok-4.3\"],[\"family_eq\",\"gpt-5.4\"],[\"family_eq\",\"gemini-3-flash-preview\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"grok-4.3\"],[\"lit\",1]]],[\"scale\",10,[\""
+  },
+  "settle": {
+    "hash": "0x76bd84866b426fa634fc22468d60a9e890e63329a99b0d74fb60cccdd48baadb",
+    "status": "FINALIZED",
+    "execution": "FINISHED_WITH_RETURN",
+    "decision": {
+      "status": "ACCEPTED",
+      "decisionId": 1,
+      "appealDeadline": 1792238380,
+      "materializedAt": 1792238350
+    },
+    "consensusMonitoring": {
+      "PENDING": 1792238347.1511292,
+      "ACCEPTED": 1792238350.488823,
+      "PROPOSING": 1792238347.1687176,
+      "REVEALING": 1792238350.291689,
+      "COMMITTING": 1792238348.1498358,
+      "PROPOSING.LEADER.RUN_END": 1792238348.107275,
+      "PROPOSING.LEADER.RUN_START": 1792238347.206197,
+      "PROPOSING.LEADER.EXEC_START": 1792238347.2021523,
+      "PROPOSING.VALIDATORS_SELECTED": 1792238347.1928332,
+      "COMMITTING.VALIDATORS_PREPARED": 1792238348.1604319,
+      "COMMITTING.VALIDATOR_1.RUN_END": 1792238349.2313883,
+      "COMMITTING.VALIDATOR_2.RUN_END": 1792238350.2053852,
+      "COMMITTING.VALIDATOR_3.RUN_END": 1792238349.2585132,
+      "PROPOSING.TRANSACTION_EXECUTED": 1792238348.1227195,
+      "COMMITTING.VALIDATOR_0.RUN_START": 1792238348.1997411,
+      "COMMITTING.VALIDATOR_1.RUN_START": 1792238348.2342606,
+      "COMMITTING.VALIDATOR_2.RUN_START": 1792238348.268603,
+      "COMMITTING.VALIDATOR_3.RUN_START": 1792238348.3098028,
+      "COMMITTING.VALIDATOR_4.RUN_START": 1792238348.3450584,
+      "PROPOSING.LEADER.DECODE_COMPLETE": 1792238347.2103534,
+      "PROPOSING.LEADER.RECEIPT_CREATED": 1792238348.116886,
+      "COMMITTING.VALIDATOR_0.EXEC_START": 1792238348.1952486,
+      "COMMITTING.VALIDATOR_1.EXEC_START": 1792238348.2291176,
+      "COMMITTING.VALIDATOR_2.EXEC_START": 1792238348.263824,
+      "COMMITTING.VALIDATOR_3.EXEC_START": 1792238348.3039322,
+      "COMMITTING.VALIDATOR_4.EXEC_START": 1792238348.3398983,
+      "COMMITTING.VALIDATORS_EXECUTION_END": 1792238350.2238843,
+      "PROPOSING.LEADER.EXECUTION_FINISHED": 1792238348.095208,
+      "COMMITTING.VALIDATOR_1_END.attempt_0": 1792238349.2420118,
+      "COMMITTING.VALIDATOR_2_END.attempt_0": 1792238350.2170014,
+      "COMMITTING.VALIDATOR_3_END.attempt_0": 1792238349.2688198,
+      "COMMITTING.VALIDATORS_EXECUTION_START": 1792238348.165099,
+      "COMMITTING.VALIDATION_RESULTS_GATHERED": 1792238350.229103,
+      "COMMITTING.VALIDATOR_0.DECODE_COMPLETE": 1792238348.204075,
+      "COMMITTING.VALIDATOR_0_START.attempt_0": 1792238348.1703515,
+      "COMMITTING.VALIDATOR_1.DECODE_COMPLETE": 1792238348.239048,
+      "COMMITTING.VALIDATOR_1.RECEIPT_CREATED": 1792238349.236384,
+      "COMMITTING.VALIDATOR_1_START.attempt_0": 1792238348.1752703,
+      "COMMITTING.VALIDATOR_2.DECODE_COMPLETE": 1792238348.2747397,
+      "COMMITTING.VALIDATOR_2.RECEIPT_CREATED": 1792238350.210175,
+      "COMMITTING.VALIDATOR_2_START.attempt_0": 1792238348.1809502,
+      "COMMITTING.VALIDATOR_3.DECODE_COMPLETE": 1792238348.314344,
+      "COMMITTING.VALIDATOR_3.RECEIPT_CREATED": 1792238349.2630248,
+      "COMMITTING.VALIDATOR_3_START.attempt_0": 1792238348.1857507,
+      "COMMITTING.VALIDATOR_4.DECODE_COMPLETE": 1792238348.3491814,
+      "COMMITTING.VALIDATOR_4_START.attempt_0": 1792238348.1907048,
+      "PROPOSING.LEADER.GENVM_EXECUTION_START": 1792238347.2267668,
+      "PROPOSING.LEADER.SNAPSHOT_CREATION_END": 1792238347.2225404,
+      "PROPOSING.LEADER_NODE_CREATED.attempt_0": 1792238347.1977692,
+      "PROPOSING.LEADER.GENVM_PREPARATION_START": 1792238347.2144015,
+      "PROPOSING.LEADER.SNAPSHOT_CREATION_START": 1792238347.2183828,
+      "COMMITTING.VALIDATOR_1.EXECUTION_FINISHED": 1792238349.2259505,
+      "COMMITTING.VALIDATOR_2.EXECUTION_FINISHED": 1792238350.1996973,
+      "COMMITTING.VALIDATOR_3.EXECUTION_FINISHED": 1792238349.2533135,
+      "COMMITTING.VALIDATOR_0.GENVM_EXECUTION_START": 1792238348.2227767,
+      "COMMITTING.VALIDATOR_0.SNAPSHOT_CREATION_END": 1792238348.2178998,
+      "COMMITTING.VALIDATOR_1.GENVM_EXECUTION_START": 1792238348.2572608,
+      "COMMITTING.VALIDATOR_1.SNAPSHOT_CREATION_END": 1792238348.2530146,
+      "COMMITTING.VALIDATOR_2.GENVM_EXECUTION_START": 1792238348.2965689,
+      "COMMITTING.VALIDATOR_2.SNAPSHOT_CREATION_END": 1792238348.291136,
+      "COMMITTING.VALIDATOR_3.GENVM_EXECUTION_START": 1792238348.3339076,
+      "COMMITTING.VALIDATOR_3.SNAPSHOT_CREATION_END": 1792238348.3296194,
+      "COMMITTING.VALIDATOR_4.GENVM_EXECUTION_START": 1792238348.365264,
+      "COMMITTING.VALIDATOR_4.SNAPSHOT_CREATION_END": 1792238348.3610935,
+      "COMMITTING.VALIDATOR_0.GENVM_PREPARATION_START": 1792238348.208535,
+      "COMMITTING.VALIDATOR_0.SNAPSHOT_CREATION_START": 1792238348.2132077,
+      "COMMITTING.VALIDATOR_1.GENVM_PREPARATION_START": 1792238348.2436392,
+      "COMMITTING.VALIDATOR_1.SNAPSHOT_CREATION_START": 1792238348.2480626,
+      "COMMITTING.VALIDATOR_2.GENVM_PREPARATION_START": 1792238348.2803948,
+      "COMMITTING.VALIDATOR_2.SNAPSHOT_CREATION_START": 1792238348.2851884,
+      "COMMITTING.VALIDATOR_3.GENVM_PREPARATION_START": 1792238348.3195312,
+      "COMMITTING.VALIDATOR_3.SNAPSHOT_CREATION_START": 1792238348.3245437,
+      "COMMITTING.VALIDATOR_4.GENVM_PREPARATION_START": 1792238348.3533964,
+      "COMMITTING.VALIDATOR_4.SNAPSHOT_CREATION_START": 1792238348.3573637
+    },
+    "children": [
+      "0x9a658767fa4e33ef7f3ba7615f26c23c63d66b3431d31fd2f0044d0185a2a09d"
+    ]
+  },
+  "vaultReceipt": {
+    "action_id": "0xa4360771e2120f20cdbd2c141e837e8f007871f17daae720638e2976c46af6e1",
+    "amount": "10000000000000000",
+    "asset": "GEN",
+    "decision_id": "0x986ab16f5f1e76eb771b57bc824bbf4a112731bd3ec8fd8fc0265bccabf7c158",
+    "decision_read_scope": "FINALIZED_CAPABILITY",
+    "evidence_digest": "0xb27adf7a6be9c0118c0faad2b83f90f5cfc34d559f5f3fa2685f90e8704041c4",
+    "exists": true,
+    "finality_proof": "gate promoted the decision after its appeal window closed; this contract re-derived the window and matched the commitment",
+    "funder": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+    "intent_hash": "0x6065f4264759f6735ea5c5a8f3383ecfa44aa512f8b9c1ee5b501abcc8d7c6dc",
+    "message_stage": "finalized",
+    "nonce": 1792238117,
+    "opened_at": "2026-10-17T11:56:46.134712Z",
+    "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+    "recipient": "0x1111111111111111111111111111111111111111",
+    "settled_at": "2026-10-17T11:59:04.510983Z",
+    "status": "SETTLED"
+  },
+  "finishedAt": "2026-10-17T11:59:48.343Z"
+}
