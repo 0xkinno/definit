@@ -41,7 +41,7 @@ export function evidenceDigestOf(rawEvidence: string): `0x${string}` {
 export interface CommitmentFields {
   agent: string;
   recipient: string;
-  amount: number;
+  amount: number | bigint | string;
   asset: string;
   policyHash: string;
   evidenceDigest: string;
@@ -70,7 +70,7 @@ export function intentHashOf(fields: CommitmentFields): `0x${string}` {
 export interface ActionIdFields {
   agent: string;
   recipient: string;
-  amount: number;
+  amount: number | bigint | string;
   asset: string;
   policyHash: string;
   nonce: number;

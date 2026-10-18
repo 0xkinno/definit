@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "messageShape": {
+    "messageType": "1",
+    "onAcceptance": false,
+    "parentIndex": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+    "feeParams": "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000006400000000000000000000000000000000000000000000000000000000000000c80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006a94d74f430000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000011e1a3000000000000000000000000000000000000000000000000000000000011e1a30000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000003",
+    "perMessageBudget": "288000000000024846",
+    "source": "sim_estimateTransactionFeesForWrite on a deterministic emitting contract (artifacts/fee-donor.json)",
+    "why": "The Transaction Kit's submit sends fees {distribution, feeValue} and cannot express per-message allocations, so a write that emits messages is sent with explicit allocations built from this shape. A kit-only submit of request_adjudication finished with an error (docs/evidence/milestone/agent-run-kit-submit-finding.json)."
+  },
+  "chainId": 61997,
+  "network": "GenLayer Studio Next (Studio-dev)",
+  "measuredAt": "2026-10-18T06:48:27.719Z",
+  "methods": {
+    "create_action": {
+      "leaderTimeunitsAllocation": "100",
+      "validatorTimeunitsAllocation": "200",
+      "executionBudgetPerRound": "235908000000000",
+      "totalMessageFees": "0"
+    },
+    "open_escrow": {
+      "leaderTimeunitsAllocation": "100",
+      "validatorTimeunitsAllocation": "200",
+      "executionBudgetPerRound": "235894875000000",
+      "totalMessageFees": "0"
+    },
+    "request_adjudication": {
+      "totalMessageFees": "576000000000049692"
+    }
+  },
+  "measurements": {
+    "create_action": {
+      "basis": "simulation",
+      "executionFeeConsumed": "78644000000000",
+      "recommendedExecutionBudgetPerRound": "188726400000000",
+      "headroom": "25%"
+    },
+    "open_escrow": {
+      "basis": "simulation",
+      "executionFeeConsumed": "78635250000000",
+      "recommendedExecutionBudgetPerRound": "188715900000000",
+      "headroom": "25%"
+    },
+    "request_adjudication": {
+      "basis": "network-default",
+      "reason": "Missing or invalid parameters.\nDouble check you have provided the correct parameters.\n\nDetails: execution failed\nVersion: viem@2.56.5",
+      "messageBranches": "approve and reject: two emitted messages, both funded; the undelivered one is refunded",
+      "perMessageBudget": "288000000000024846",
+      "perMessageBasis": "donor-measured recommendedTotalMessageFees with a factor of 2",
+      "note": "the call needs a live model, so the execution budget is the network default"
+    },
+    "withdraw_refund": {
+      "basis": "network-default",
+      "reason": "Missing or invalid parameters.\nDouble check you have provided the correct parameters.\n\nDetails: execution failed\nVersion: viem@2.56.5"
+    },
+    "reclaim_after_deadline": {
+      "basis": "network-default",
+      "reason": "Missing or invalid parameters.\nDouble check you have provided the correct parameters.\n\nDetails: execution failed\nVersion: viem@2.56.5"
+    },
+    "deploy": {
+      "basis": "network-default",
+      "reason": "deployments are not simulated"
+    }
+  }
+}

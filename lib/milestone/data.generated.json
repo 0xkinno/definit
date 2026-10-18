@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T16:10:29.027Z",
+  "generatedAt": "2026-10-18T07:01:57.007Z",
   "network": {
     "name": "GenLayer Studio Next (Studio-dev)",
     "chainId": 61997,
@@ -392,9 +392,9 @@
       "fault": "Stale fee-policy quote",
       "expected": "Transaction Kit blocks signing on mismatch",
       "invariant": "liveness",
-      "where": "not run",
-      "status": "not-run",
-      "note": "The Transaction Kit is pinned but not integrated into the app in this milestone."
+      "where": "direct (guard package)",
+      "status": "pass",
+      "note": "The guard and the v1 console refuse to sign when the quote verification is mismatch; allowUnverified is never set. A stale quote cannot be produced on demand on the live network."
     },
     {
       "id": "F11",
@@ -556,6 +556,280 @@
       "file": "delivery-742-partial.txt",
       "url": "https://definit-snowy.vercel.app/demo/delivery-742-partial.txt",
       "digest": "0x309124fc5566ff2ee8ae6a96d7a3122b66d9eb08d4c42ff0e3b06a26827c3a99"
+    },
+    {
+      "file": "delivery-742-injected.txt",
+      "url": "https://definit-snowy.vercel.app/demo/delivery-742-injected.txt",
+      "digest": "0xbe569a8c07a922f1edc0cfc313e1f59dcf1c907c2e9299702422cf95b72c3544"
     }
-  ]
+  ],
+  "extras": {
+    "parity": {
+      "vectors": 240
+    },
+    "mutation": {
+      "total": 16,
+      "killed": 16,
+      "survived": 0,
+      "target": "contracts/v1/finality_vault.py",
+      "mutants": [
+        {
+          "id": "M01",
+          "invariant": "I1",
+          "mutation": "authorize_release accepts any sender",
+          "status": "KILLED"
+        },
+        {
+          "id": "M02",
+          "invariant": "I1",
+          "mutation": "close_refused accepts any sender",
+          "status": "KILLED"
+        },
+        {
+          "id": "M03",
+          "invariant": "I1",
+          "mutation": "note_provisional accepts any sender",
+          "status": "KILLED"
+        },
+        {
+          "id": "M04",
+          "invariant": "I4",
+          "mutation": "a settled escrow can be released again (replay)",
+          "status": "KILLED"
+        },
+        {
+          "id": "M05",
+          "invariant": "I3",
+          "mutation": "the delivered amount is not compared",
+          "status": "KILLED"
+        },
+        {
+          "id": "M06",
+          "invariant": "I3",
+          "mutation": "the delivered recipient is not compared",
+          "status": "KILLED"
+        },
+        {
+          "id": "M07",
+          "invariant": "I3",
+          "mutation": "the commitment is not recomputed",
+          "status": "KILLED"
+        },
+        {
+          "id": "M08",
+          "invariant": "I3",
+          "mutation": "the policy hash is not compared",
+          "status": "KILLED"
+        },
+        {
+          "id": "M09",
+          "invariant": "I1",
+          "mutation": "anyone can withdraw a refund",
+          "status": "KILLED"
+        },
+        {
+          "id": "M10",
+          "invariant": "I11",
+          "mutation": "anyone can reclaim after the deadline",
+          "status": "KILLED"
+        },
+        {
+          "id": "M11",
+          "invariant": "I9",
+          "mutation": "reclaim is allowed before the deadline",
+          "status": "KILLED"
+        },
+        {
+          "id": "M12",
+          "invariant": "I11",
+          "mutation": "a release is accepted after the deadline",
+          "status": "KILLED"
+        },
+        {
+          "id": "M13",
+          "invariant": "I2",
+          "mutation": "escrow value is not checked against the amount",
+          "status": "KILLED"
+        },
+        {
+          "id": "M14",
+          "invariant": "I2",
+          "mutation": "the escrow is not bound to the proposing agent",
+          "status": "KILLED"
+        },
+        {
+          "id": "M15",
+          "invariant": "I6",
+          "mutation": "a refund can be withdrawn from any state",
+          "status": "KILLED"
+        },
+        {
+          "id": "M16",
+          "invariant": "I5",
+          "mutation": "a provisional notice is accepted on a settled escrow",
+          "status": "KILLED"
+        }
+      ]
+    },
+    "books": {
+      "escrows": 7,
+      "balanced": true,
+      "totals": {
+        "escrows": 7,
+        "in": "70000000000000000",
+        "toRecipient": "30000000000000000",
+        "toFunder": "30000000000000000",
+        "toOthers": "0",
+        "held": "10000000000000000"
+      },
+      "rows": [
+        {
+          "id": "R1",
+          "source": "v1-run-R1.json",
+          "state": "SETTLED",
+          "in": "10000000000000000",
+          "toRecipient": "10000000000000000",
+          "toFunder": "0",
+          "toOthers": "0",
+          "held": "0",
+          "transfers": 1
+        },
+        {
+          "id": "R2",
+          "source": "v1-run-R2.json",
+          "state": "WITHDRAWN",
+          "in": "10000000000000000",
+          "toRecipient": "0",
+          "toFunder": "10000000000000000",
+          "toOthers": "0",
+          "held": "0",
+          "transfers": 1
+        },
+        {
+          "id": "R3",
+          "source": "v1-run-R3.json",
+          "state": "SETTLED",
+          "in": "10000000000000000",
+          "toRecipient": "10000000000000000",
+          "toFunder": "0",
+          "toOthers": "0",
+          "held": "0",
+          "transfers": 1
+        },
+        {
+          "id": "R5",
+          "source": "v1-run-R5.json",
+          "state": "WITHDRAWN",
+          "in": "10000000000000000",
+          "toRecipient": "0",
+          "toFunder": "10000000000000000",
+          "toOthers": "0",
+          "held": "0",
+          "transfers": 1
+        },
+        {
+          "id": "AGENT-approve",
+          "source": "agent-run-approve.json",
+          "state": "SETTLED",
+          "in": "10000000000000000",
+          "toRecipient": "10000000000000000",
+          "toFunder": "0",
+          "toOthers": "0",
+          "held": "0",
+          "transfers": 1
+        },
+        {
+          "id": "AGENT-kit-submit-finding",
+          "source": "agent-run-kit-submit-finding.json",
+          "state": "OPEN",
+          "in": "10000000000000000",
+          "toRecipient": "0",
+          "toFunder": "0",
+          "toOthers": "0",
+          "held": "10000000000000000",
+          "transfers": 0
+        },
+        {
+          "id": "AGENT-reject",
+          "source": "agent-run-reject.json",
+          "state": "WITHDRAWN",
+          "in": "10000000000000000",
+          "toRecipient": "0",
+          "toFunder": "10000000000000000",
+          "toOthers": "0",
+          "held": "0",
+          "transfers": 1
+        }
+      ]
+    },
+    "feeProfile": {
+      "chainId": 61997,
+      "measuredAt": "2026-10-18T06:48:27.719Z",
+      "methods": [
+        {
+          "name": "create_action",
+          "basis": "simulation"
+        },
+        {
+          "name": "open_escrow",
+          "basis": "simulation"
+        },
+        {
+          "name": "request_adjudication",
+          "basis": "network-default"
+        },
+        {
+          "name": "withdraw_refund",
+          "basis": "network-default"
+        },
+        {
+          "name": "reclaim_after_deadline",
+          "basis": "network-default"
+        },
+        {
+          "name": "deploy",
+          "basis": "network-default"
+        }
+      ]
+    },
+    "guard": {
+      "tests": 17,
+      "skill": "skills/definit-finality-guard"
+    },
+    "injected": {
+      "verdict": "REJECT",
+      "reasonCode": "POLICY_VIOLATION",
+      "adjudication": "https://explorer-studio-dev.genlayer.com/tx/0x7c0e572cb56deddcd037f71141ed2069d6794e9baff3ab3f0b5d42637ab9a4c8",
+      "delivery": "https://explorer-studio-dev.genlayer.com/tx/0x4ab94facd4cc4a6fe41b845857608854a43cd748231241924bbe0aca2b795094"
+    },
+    "agentRuns": [
+      {
+        "kind": "approve",
+        "state": "SETTLED",
+        "paid": true,
+        "finalized": true,
+        "adjudication": "https://explorer-studio-dev.genlayer.com/tx/0xaef9b09b635c95b6cea10bf8bebb8d49f88bc55ac8a6bb002043cba1bcb160d0",
+        "delivery": "https://explorer-studio-dev.genlayer.com/tx/0xd0ba30b970a4f0b75c2e052a3490ade4855115c029517a663c0c67c84ecd47e7",
+        "refund": null
+      },
+      {
+        "kind": "kit-submit-finding",
+        "state": "OPEN",
+        "paid": false,
+        "finalized": true,
+        "adjudication": "https://explorer-studio-dev.genlayer.com/tx/0x0504818a8e8bbf79736ac0dc97aa0675a9b0e125f09bd21799b5059a80a3fc1e",
+        "delivery": null,
+        "refund": null
+      },
+      {
+        "kind": "reject",
+        "state": "REFUNDABLE",
+        "paid": false,
+        "finalized": true,
+        "adjudication": "https://explorer-studio-dev.genlayer.com/tx/0x3e5decdc08ed6cdf18664d4d5b99a11371f1aaf698ecb439394f715d1cd386af",
+        "delivery": "https://explorer-studio-dev.genlayer.com/tx/0x4982c35770123945224699a8fa1c4c1cec29db0e44a832e01c4cb3a59d3940a4",
+        "refund": "https://explorer-studio-dev.genlayer.com/tx/0xec39e59866aa783e7bcbdf5ce18891f2a456c9c814d618f975f01d1079553d19"
+      }
+    ]
+  }
 }

@@ -32,3 +32,8 @@ fill its row is out of scope.
 
 - **Developer NFT rewards panel.** It decorates the proof page but strengthens
   neither half.
+| Mutation sweep | safety | Weakens the vault one guard at a time and requires a test to fail, so a guard no test depends on is found | `npm run mutation`; `docs/evidence/milestone/mutation.json` |
+| Parity suite | safety | The TypeScript commitment code and the Python contracts hash the same vectors identically, so the interface cannot sign something the contracts would not hash | `npm run parity`; `tests/v1/direct/test_parity.py` |
+| Books reconciliation | safety and liveness | Every recorded escrow's value in equals out plus held, with at most one transfer each | `npm run books`; `docs/evidence/milestone/books.json` |
+| Injected-evidence run | safety | A record that instructs the model to approve is refused on its facts, and the refusal is delivered at finality | live run R5 |
+| v1 console | safety and liveness | Every step is wallet-signed, fees are quoted and verified through the Transaction Kit, Contest and Withdraw are exposed, and the release has no button | `tests/e2e/console-v1.spec.ts`; agent runs |

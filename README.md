@@ -36,7 +36,10 @@ Everyone assumes finality is a state you can read. On GenLayer, finality is an e
 - **Time can only send money home.** If a finalized delivery never arrives or fails, the funder reclaims after the deadline. A clock never authorizes a release to the recipient (`npm run check:no-clock` fails the build otherwise).
 - **v0's hole, measured.** In v0 the funder could trigger a release while the promotion was only Accepted: 3 of 3 recorded attempts did, against the real network.
 - **Tested hard.** 41 labelled cases (27 refusals: 4 BAD_STATE, 6 COMMITMENT_MISMATCH, 2 DEADLINE_NOT_PASSED, 9 NOT_FUNDER, 6 UNAUTHORIZED_SENDER), 3,000 random lifecycles over 3 seeds checked against a pure model of the vault, a state machine read from its own document, and an offline verifier that recomputes every hash and timing claim from recorded evidence (8 checks pass, 0 fail).
-- **Recorded on the real network.** Three live payments (approve, reject then refund, approve with a real appeal) with every transaction hash, re-verified offline.
+- **Recorded on the real network.** Live payments (approve, reject then refund, approve with a real appeal, and a record carrying an injected instruction) with every transaction hash, re-verified offline.
+- **Attacked from the other side.** A mutation sweep weakens the vault one guard at a time and requires a test to notice (`npm run mutation`, `docs/evidence/milestone/mutation.json`). A parity suite makes the TypeScript commitment code hash 240 vectors identically to the Python contracts (`npm run parity`); it found that amounts above 2^53 were unsafe as numbers. A books reconciliation proves every recorded escrow's value in equals out plus held (`npm run books`). A live run feeds a record that tells the model to approve; it is refused on its facts (run R5).
+- **Adoptable.** `packages/definit-guard` is a typed client (`openGuardedPayment`, `watchFinality`, `settled`, `contest`, `receipt`, `refund`) on the Transaction Kit; `examples/autonomous-agent.mjs` ran through it on the live network (`docs/evidence/milestone/agent-run-*.json`); `skills/definit-finality-guard` teaches coding agents the rule.
+- **A v1 console.** `/console` drives one payment with a wallet: propose, fund, request adjudication with an appeal posture, contest an Accepted verdict, withdraw a refund, with a fee receipt. The v0 console is kept at `/console/v0`.
 - **Smaller contracts.** Minified gate 16,938 bytes (v0 gate: 27,277).
 
 ### Live v1 contracts
@@ -65,7 +68,7 @@ The live page with the finality clock for each run is **https://definit-snowy.ve
 - `estimateTransactionFeesForWrite` to read the network's own message-allocation shape (replacing v0's recorded fee blob)
 - `gen_getContractSchemaForCode` to compile every contract on the network before deploying (`npm run contracts:check`)
 - `genvm-lint`, `gltest` direct mode and `glsim` from the Consensus v0.6 release-candidate family, pinned in `requirements.txt`
-- `@genlayer/transaction-kit` is pinned at `0.1.0-rc.2` but is not wired into the app in this milestone
+- `@genlayer/transaction-kit` (`0.1.0-rc.2`) quotes and submits every write in the v1 console, the `definit-guard` package and the autonomous agent example, from the committed `fee-profile.json`; a quote whose verification is `mismatch` is refused
 
 ### Honest limits of this milestone
 
@@ -73,7 +76,7 @@ The live page with the finality clock for each run is **https://definit-snowy.ve
 - **The appeal did not change a verdict.** The run R3 appeal was submitted and recorded; the committee did not overturn the decision and the window was not extended. The fixed-timer arm therefore also scored 0 of 13 here. No overturn is claimed.
 - **Studio-dev does not credit emitted transfers** (`docs/evidence/milestone/transfer-credit-probe.json`), so the evidence is the emitted finalized-stage transfer message plus the vault's state and receipt, not a balance.
 - **Accepted-stage messages could not be emitted** (an execution error under the pinned runner), so the provisional notice is tested in direct mode only.
-- **Not built:** a committed `fee-profile.json` from `gltest --fee-profile`, the Transaction Kit integration, the mutation sweep, the TypeScript parity suite, the books reconciliation, the injected-evidence run, the `definit-guard` package and the agent skill, and a v1 interactive console (the app's console remains the v0 baseline).
+- **Not done:** the fee profile is measured by simulation on the live network with the Transaction Kit's profile format, not by a `gltest --fee-profile` run; a `Finalize` fallback action (the protocol finalizes on its own in every recorded run); Bradbury runs; the accepted-stage provisional notice on chain; opening a pull request to `genlayerlabs/skills`, which needs your go-ahead.
 <!-- milestone:end -->
 
 ## Live product links
@@ -188,7 +191,7 @@ nothing to protect.
 ## How It Works
 
 <!-- v1note -->
-> **v0 baseline (commit b903f94).** This section describes the accepted v0 release path, which used a promotion step and an application timer. v1 replaces it with a protocol-delivered finalized message; see [Milestone v1](#milestone-2-protocol-delivered-finality).
+> **v0 baseline (commit b903f94).** This section describes the accepted v0 release path, which used a promotion step and an application timer. v1 replaces it with a protocol-delivered finalized message; see [Milestone v1](#milestone-v1-protocol-delivered-finality).
 <!-- /v1note -->
 
 ```mermaid
@@ -284,7 +287,7 @@ docs/                     discovery, architecture, proof, evidence, limitations,
 ## Finality Model
 
 <!-- v1note -->
-> **v0 baseline (commit b903f94).** This section describes the accepted v0 release path, which used a promotion step and an application timer. v1 replaces it with a protocol-delivered finalized message; see [Milestone v1](#milestone-2-protocol-delivered-finality).
+> **v0 baseline (commit b903f94).** This section describes the accepted v0 release path, which used a promotion step and an application timer. v1 replaces it with a protocol-delivered finalized message; see [Milestone v1](#milestone-v1-protocol-delivered-finality).
 <!-- /v1note -->
 
 | GenLayer status | DEFINIT meaning | Money may move |
@@ -303,7 +306,7 @@ as "safe".
 ## The Hard Invariant
 
 <!-- v1note -->
-> **v0 baseline (commit b903f94).** This section describes the accepted v0 release path, which used a promotion step and an application timer. v1 replaces it with a protocol-delivered finalized message; see [Milestone v1](#milestone-2-protocol-delivered-finality).
+> **v0 baseline (commit b903f94).** This section describes the accepted v0 release path, which used a promotion step and an application timer. v1 replaces it with a protocol-delivered finalized message; see [Milestone v1](#milestone-v1-protocol-delivered-finality).
 <!-- /v1note -->
 
 Value leaves `FinalityVault` only when all of the following hold in the same

@@ -18,6 +18,7 @@ export const POLICY_ID = "delivery-milestone-v3";
 export const POLICY_VERSION = "3.0.0";
 export const DEFAULT_EVIDENCE_URL = "https://definit-snowy.vercel.app/demo/delivery-742.txt";
 export const PARTIAL_EVIDENCE_URL = "https://definit-snowy.vercel.app/demo/delivery-742-partial.txt";
+export const INJECTED_EVIDENCE_URL = "https://definit-snowy.vercel.app/demo/delivery-742-injected.txt";
 export const RECIPIENT = "0x1111111111111111111111111111111111111111";
 export const ESCROW_WEI = 10_000_000_000_000_000n; // 0.01 GEN
 
@@ -33,7 +34,7 @@ const callKey = (method) => "0x" + Buffer.from(method).toString("hex").padEnd(64
  * committed, measured fee profile; until then the shape is read from the
  * network at the moment of use rather than from a recorded blob (defect C5).
  */
-async function feeShape(ctx) {
+export async function feeShape(ctx) {
   if (ctx.shape) return ctx.shape;
   const donorFile = path.join(ARTIFACTS, "fee-donor.json");
   let donor = existsSync(donorFile) ? JSON.parse(readFileSync(donorFile, "utf8")) : null;

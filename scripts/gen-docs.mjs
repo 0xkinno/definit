@@ -71,7 +71,10 @@ Everyone assumes finality is a state you can read. On GenLayer, finality is an e
 - **Time can only send money home.** If a finalized delivery never arrives or fails, the funder reclaims after the deadline. A clock never authorizes a release to the recipient (\`npm run check:no-clock\` fails the build otherwise).
 - **v0's hole, measured.** In v0 the funder could trigger a release while the promotion was only Accepted: ${cf.v1FunderPath.unsafe} of ${cf.v1FunderPath.of} recorded attempts did, against the real network.
 - **Tested hard.** ${m.corpus.headline.cases} labelled cases (${m.corpus.headline.refusals} refusals: ${refusals}), ${m.property.lifecycles.toLocaleString("en-US")} random lifecycles over ${m.property.seeds} seeds checked against a pure model of the vault, a state machine read from its own document, and an offline verifier that recomputes every hash and timing claim from recorded evidence (${m.verification.pass} checks pass, ${m.verification.fail} fail).
-- **Recorded on the real network.** Three live payments (approve, reject then refund, approve with a real appeal) with every transaction hash, re-verified offline.
+- **Recorded on the real network.** Live payments (approve, reject then refund, approve with a real appeal, and a record carrying an injected instruction) with every transaction hash, re-verified offline.
+- **Attacked from the other side.** A mutation sweep weakens the vault one guard at a time and requires a test to notice (\`npm run mutation\`, \`docs/evidence/milestone/mutation.json\`). A parity suite makes the TypeScript commitment code hash 240 vectors identically to the Python contracts (\`npm run parity\`); it found that amounts above 2^53 were unsafe as numbers. A books reconciliation proves every recorded escrow's value in equals out plus held (\`npm run books\`). A live run feeds a record that tells the model to approve; it is refused on its facts (run R5).
+- **Adoptable.** \`packages/definit-guard\` is a typed client (\`openGuardedPayment\`, \`watchFinality\`, \`settled\`, \`contest\`, \`receipt\`, \`refund\`) on the Transaction Kit; \`examples/autonomous-agent.mjs\` ran through it on the live network (\`docs/evidence/milestone/agent-run-*.json\`); \`skills/definit-finality-guard\` teaches coding agents the rule.
+- **A v1 console.** \`/console\` drives one payment with a wallet: propose, fund, request adjudication with an appeal posture, contest an Accepted verdict, withdraw a refund, with a fee receipt. The v0 console is kept at \`/console/v0\`.
 - **Smaller contracts.** Minified gate ${m.sizes.decision_gate.minifiedBytes.toLocaleString("en-US")} bytes (v0 gate: ${V1_GATE_BYTES}).
 
 ### Live v1 contracts
@@ -98,7 +101,7 @@ The live page with the finality clock for each run is **https://definit-snowy.ve
 - \`estimateTransactionFeesForWrite\` to read the network's own message-allocation shape (replacing v0's recorded fee blob)
 - \`gen_getContractSchemaForCode\` to compile every contract on the network before deploying (\`npm run contracts:check\`)
 - \`genvm-lint\`, \`gltest\` direct mode and \`glsim\` from the Consensus v0.6 release-candidate family, pinned in \`requirements.txt\`
-- \`@genlayer/transaction-kit\` is pinned at \`0.1.0-rc.2\` but is not wired into the app in this milestone
+- \`@genlayer/transaction-kit\` (\`0.1.0-rc.2\`) quotes and submits every write in the v1 console, the \`definit-guard\` package and the autonomous agent example, from the committed \`fee-profile.json\`; a quote whose verification is \`mismatch\` is refused
 
 ### Honest limits of this milestone
 
@@ -106,14 +109,14 @@ The live page with the finality clock for each run is **https://definit-snowy.ve
 - **The appeal did not change a verdict.** The run R3 appeal was submitted and recorded; the committee did not overturn the decision and the window was not extended. The fixed-timer arm therefore also scored 0 of ${a.control.of} here. No overturn is claimed.
 - **Studio-dev does not credit emitted transfers** (\`docs/evidence/milestone/transfer-credit-probe.json\`), so the evidence is the emitted finalized-stage transfer message plus the vault's state and receipt, not a balance.
 - **Accepted-stage messages could not be emitted** (an execution error under the pinned runner), so the provisional notice is tested in direct mode only.
-- **Not built:** a committed \`fee-profile.json\` from \`gltest --fee-profile\`, the Transaction Kit integration, the mutation sweep, the TypeScript parity suite, the books reconciliation, the injected-evidence run, the \`definit-guard\` package and the agent skill, and a v1 interactive console (the app's console remains the v0 baseline).
+- **Not done:** the fee profile is measured by simulation on the live network with the Transaction Kit's profile format, not by a \`gltest --fee-profile\` run; a \`Finalize\` fallback action (the protocol finalizes on its own in every recorded run); Bradbury runs; the accepted-stage provisional notice on chain; opening a pull request to \`genlayerlabs/skills\`, which needs your go-ahead.
 `, /## Live product links/);
 
 // ------------------------------------------------------------ v0 baseline notes on v0-centric README sections
 for (const heading of ["## How It Works", "## Finality Model", "## The Hard Invariant"]) {
   const p = path.join(REPO_ROOT, "README.md");
   let t = readFileSync(p, "utf8");
-  const note = `<!-- v1note -->\n> **v0 baseline (commit b903f94).** This section describes the accepted v0 release path, which used a promotion step and an application timer. v1 replaces it with a protocol-delivered finalized message; see [Milestone v1](#milestone-2-protocol-delivered-finality).\n<!-- /v1note -->`;
+  const note = `<!-- v1note -->\n> **v0 baseline (commit b903f94).** This section describes the accepted v0 release path, which used a promotion step and an application timer. v1 replaces it with a protocol-delivered finalized message; see [Milestone v1](#milestone-v1-protocol-delivered-finality).\n<!-- /v1note -->`;
   const re = new RegExp(`${heading}\\n\\n<!-- v1note -->[\\s\\S]*?<!-- /v1note -->\\n\\n`);
   if (re.test(t)) t = t.replace(re, `${heading}\n\n${note}\n\n`);
   else t = t.replace(`${heading}\n\n`, `${heading}\n\n${note}\n\n`);
@@ -142,12 +145,12 @@ ${[
   ["Clock", "APPEAL_WINDOW_SECONDS = 120 in both contracts (removed in v1)", `None on any release path (${m.noClock.comparisons} clock comparisons, all deny-only or return-to-funder)`],
   ["Funder path", "The funder could call settle", "No public release method; the funder can only reclaim after the deadline or withdraw a refund"],
   ["Promotion", "A second agent-driven transaction (finalize_decision)", "None. The adjudicating transaction schedules the release"],
-  ["Fee path", "A recorded feeParams blob (artifacts/fee-template.json)", "The network's own allocation shape, read when used; Transaction Kit pinned, not integrated"],
+  ["Fee path", "A recorded feeParams blob (artifacts/fee-template.json)", "A committed, measured fee-profile.json used by the Transaction Kit; stale quotes are refused"],
   ["Success check", "Status in places", "Status plus execution result in every v1 script and run check"],
   ["Network", "Studio-dev only", "Studio-dev only (Bradbury unfunded, Studionet not executing); the matrix is recorded"],
-  ["Appeals", "Not exercised", "A real appeal submitted inside the window (run R3)"],
+  ["Appeals", "Not exercised", "A real appeal submitted inside the window (run R3), and a Contest action in the v1 console"],
   ["Tests", `${V1_CASES} guard cases, v0 attack suite`, `${m.corpus.headline.cases} labelled cases, ${m.property.lifecycles.toLocaleString("en-US")} random lifecycles, a state machine read from its document, an offline verifier`],
-  ["Client package", "None", "Not built in this milestone"],
+  ["Client package", "None", "packages/definit-guard, an autonomous agent example and an agent skill"],
 ].map(([x, y, z]) => `| ${x} | ${y} | ${z} |`).join("\n")}
 
 ## Commits, b903f94..HEAD
@@ -162,7 +165,7 @@ ${commits.map(([h, s]) => `- \`${h}\` ${s.split("\n")[0]}`).join("\n")}
 | C2 | The funder could call settle | resolved | \`test_nobody_but_the_funder_can_release\` family; spike E6 measured the v0 hole |
 | C3 | The decisive guard was a cross-contract read | resolved | the vault recomputes the commitment from calldata; \`contracts/v1/finality_vault.py\` |
 | C4 | Release depended on a second, agent-driven transaction | resolved | no \`finalize_decision\` in v1 |
-| C5 | A recorded fee blob | partly resolved | the shape is read from the network when used; no committed profile, Transaction Kit not integrated |
+| C5 | A recorded fee blob | partly resolved | a committed, measured \`fee-profile.json\` used by the Transaction Kit in the v1 console, the guard package and the agent example (measured by simulation, not \`gltest --fee-profile\`); the per-message fee encoding is still recorded in the profile because the kit cannot express it |
 | C6 | Success judged by status | resolved in v1 scripts and run checks | \`scripts/lib/v1-flow.mjs\`, \`scripts/lib/run-checks.mjs\` |
 | C7 | Evidence hosted on a third-party paste | resolved | evidence served from the DEFINIT domain, digests shown on \`/milestone\`; production env updated |
 | C8 | /proof showed no addresses without a wallet | resolved | \`/proof\` and \`/milestone\` render addresses server-side |
@@ -206,15 +209,22 @@ write("docs/milestone/THREAD.md", `# Thread draft
 // ------------------------------------------------------------ FILM_PLAN.md
 write("docs/milestone/FILM_PLAN.md", `# Film plan (90 seconds)
 
-Evidence packaged as a story: screen recordings of the real app and the real explorer. No architecture diagram before second 60. The film is produced outside the repository.
+Evidence packaged as a story: captures of the real app, with every number read from the generated evidence. The film is produced outside the repository.
 
 | Time | Beat | On screen |
 | --- | --- | --- |
-| 0 to 20 | The 20-second formula | The landing hero, then the generated proof line |
-| 20 to 45 | One payment, R1 | The finality clock on /milestone: Accepted, the window, Finalized, the release delivered, the receipt |
-| 45 to 65 | The appeal, R3 | The appeal transaction in the explorer, and the clock for the appealed run |
-| 65 to 80 | The v0 confession | The v0 differential: our own accepted design could be outrun, with the transaction |
-| 80 to 90 | Close | "Accepted is a draft. DEFINIT pays at Finalized." The repo, the live app, \`npm run verify:offline\` |
+| 0 to 4 | Intro | The GenLayer mark, "Protocol-delivered finality", a 3D stack: Accepted draft, appeal window, Finalized |
+| 4 to 11 | The problem | An agent pays on an Accepted verdict, the appeal overturns it, the money is gone |
+| 11 to 20 | Milestone v1 in one beat | "Removes the clock": gate, protocol window, vault, the finalized message |
+| 20 to 27 | The numbers | Pay on Accepted, a fixed timer and DEFINIT v1 over the same recorded timelines |
+| 27 to 35 | One real payment | The finality clock capture for run R1 beside its timestamps |
+| 35 to 46 | The mechanism | The emit on finalized, the vault's checks, no clock, no release method |
+| 46 to 54 | The v1 console | Wallet-signed steps, a Transaction Kit quote, a blocked stale quote, Contest |
+| 54 to 66 | Attacked | Mutation sweep, parity, books, injected evidence, lifecycles, offline verifier |
+| 66 to 73 | Adopt it, and what broke | The guard package, the agent skill, the kit finding |
+| 73 to 90 | Outro | "Accepted is a draft. DEFINIT pays at Finalized." The criteria, the repo and the live app |
+
+The film, its voiceover and its captures live in the gitignored \`reference/video/\` folder and are never committed. The console capture uses a scripted wallet and says so on screen.
 `);
 
 // ------------------------------------------------------------ H1 differential
@@ -251,7 +261,12 @@ Resolved by v1 and removed from the list above as current behavior: the 120 seco
 - **Few timelines.** The counterfactual is a count over ${cf.timelines} recorded timelines, not a statistic.
 - **Emitted transfers are not credited on Studio-dev** (\`transfer-credit-probe.json\`), so no balance is evidence. The evidence is the transfer message and the vault's state and receipt.
 - **Accepted-stage emission fails** under the pinned runner, so the provisional notice (I5) is tested in direct mode only, and repetition across appeal rounds (E3) is unknown.
-- **Not built:** committed fee profile and Transaction Kit integration (C5 is partly resolved), mutation sweep, TypeScript parity suite, books reconciliation, injected-evidence run, \`definit-guard\`, the agent skill, and a v1 interactive console.
+- **The Transaction Kit cannot fund an emitted message.** Its \`submit\` sends only the fee distribution. A kit-only \`request_adjudication\` finished with an error, no delivery was created, and the vault stayed OPEN with the funder's value intact; the guard reported not done (see \`docs/evidence/milestone/agent-run-kit-submit-finding.json\`). The kit is therefore used to quote and verify, and a write that emits messages is sent with explicit per-message allocations from the profile's \`messageShape\`. That shape is recorded in the profile, so C5 is resolved for deposits and verification and still depends on a recorded encoding for message fees.
+- **Fee profile provenance.** The profile is measured by simulation where a call can be simulated and takes the network default where it cannot (the adjudication needs a live model). It is not a \`gltest --fee-profile\` run. This partly resolves C5 (see \`docs/milestone/DELTA.md\`).
+- **Mutation sweep scope.** It weakens the vault only, and only by removing single guards. A survivor, if any, is listed in \`mutation.json\`.
+- **Books are not balances.** They are reconciled from the vault records and emitted transfers because Studio-dev does not credit transfers.
+- **No Finalize fallback.** The protocol finalized every recorded run on its own, so the console has no Finalize button.
+- **The package was not published** to a registry, and the agent skill was not submitted to \`genlayerlabs/skills\`.
 - **The minified build** compiles on the network but was not deployed or run through the live suite.
 - **Direct mode** cannot run two contracts in one VM, so the gate and the vault are tested separately and joined by a golden message that both suites use.
 `);
@@ -300,7 +315,7 @@ inject("docs/JUDGING_MAP.md", "milestone-judging", `
 | --- | --- |
 | Product usefulness | The finance operations lead at an importer lets a procurement agent pay freight forwarders; the payment moves by itself at protocol finality or returns to the treasury. The live page is \`/milestone\` |
 | Integration quality | A finalized-stage message from the deciding transaction, the lifecycle projection, a real appeal, and the network's own fee allocation shape (README, GenLayer integration used) |
-| Technical execution | Three live payments recorded and re-verified offline; the generated corpus and property reports (\`docs/evidence/milestone/proof-v1-report.json\`, \`docs/evidence/milestone/property.json\`); \`npm run verify:offline\` |
+| Technical execution | Live payments (including an injected-evidence record and agent runs through the guard package) recorded and re-verified offline; the generated corpus and property reports (\`docs/evidence/milestone/proof-v1-report.json\`, \`docs/evidence/milestone/property.json\`); \`npm run verify:offline\` |
 | Evidence of new work | \`docs/milestone/DELTA.md\`: before and after, the commit range, the corrections C1 to C10 |
 | Clarity and future potential | Honest limits are stated next to the claims; Bradbury runs follow once funded |
 `);
@@ -317,6 +332,8 @@ inject("MILESTONES.md", "milestone-list", `
 | M17 | v1 deployed on Studio-dev, three live payments | \`artifacts/deployment-v1.json\`, \`docs/evidence/milestone/v1-run-R1.json\`, \`v1-run-R2.json\`, \`v1-run-R3.json\` |
 | M18 | Counterfactual, fault matrix, v0 differential | \`docs/evidence/milestone/counterfactual.json\`, \`faults.json\`, \`h1-differential.json\`, \`docs/milestone/FINDING.md\` |
 | M19 | Milestone page and corrections C7 to C9 | \`/milestone\`, \`/proof\`, \`tests/e2e/milestone.spec.ts\` |
+| M20 | Mutation sweep, parity suite, books, injected-evidence run | \`docs/evidence/milestone/mutation.json\`, \`tests/unit/parity.test.ts\`, \`docs/evidence/milestone/books.json\`, \`v1-run-R5.json\` |
+| M21 | Fee profile, Transaction Kit, \`definit-guard\`, agent skill, v1 console | \`fee-profile.json\`, \`packages/definit-guard\`, \`skills/definit-finality-guard\`, \`/console\`, \`tests/e2e/console-v1.spec.ts\` |
 `);
 
 log.ok("docs generated: README block, DELTA, SIZE_BUDGET, THREAD, FILM_PLAN, h1-differential, and injected blocks");

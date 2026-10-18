@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T16:10:22.496Z",
+  "generatedAt": "2026-10-18T06:44:35.838Z",
   "rows": [
     {
       "id": "F1",
@@ -175,10 +175,15 @@
       "fault": "Stale fee-policy quote",
       "expected": "Transaction Kit blocks signing on mismatch",
       "invariant": "liveness",
-      "where": "not run",
-      "evidence": [],
-      "note": "The Transaction Kit is pinned but not integrated into the app in this milestone.",
-      "status": "not-run"
+      "where": "direct (guard package)",
+      "evidence": [
+        {
+          "id": "packages/definit-guard/test/guard.test.ts::kitContext fails closed on a fee policy mismatch",
+          "passed": true
+        }
+      ],
+      "note": "The guard and the v1 console refuse to sign when the quote verification is mismatch; allowUnverified is never set. A stale quote cannot be produced on demand on the live network.",
+      "status": "pass"
     },
     {
       "id": "F11",

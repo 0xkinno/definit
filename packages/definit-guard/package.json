@@ -1,0 +1,12 @@
+{
+  "name": "@0xkinno/definit-guard",
+  "version": "0.1.0",
+  "description": "Finality-gated payments on GenLayer: never treat an Accepted verdict as done.",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "files": ["src", "README.md"],
+  "scripts": { "test": "vitest run --root ../.. packages/definit-guard/test" },
+  "peerDependencies": { "genlayer-js": "2.0.0-rc.1", "@genlayer/transaction-kit": "0.1.0-rc.2" }
+}

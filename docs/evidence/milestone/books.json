@@ -1,0 +1,92 @@
+{
+  "generatedAt": "2026-10-18T06:57:30.407Z",
+  "rows": [
+    {
+      "id": "R1",
+      "source": "v1-run-R1.json",
+      "state": "SETTLED",
+      "in": "10000000000000000",
+      "toRecipient": "10000000000000000",
+      "toFunder": "0",
+      "toOthers": "0",
+      "held": "0",
+      "transfers": 1
+    },
+    {
+      "id": "R2",
+      "source": "v1-run-R2.json",
+      "state": "WITHDRAWN",
+      "in": "10000000000000000",
+      "toRecipient": "0",
+      "toFunder": "10000000000000000",
+      "toOthers": "0",
+      "held": "0",
+      "transfers": 1
+    },
+    {
+      "id": "R3",
+      "source": "v1-run-R3.json",
+      "state": "SETTLED",
+      "in": "10000000000000000",
+      "toRecipient": "10000000000000000",
+      "toFunder": "0",
+      "toOthers": "0",
+      "held": "0",
+      "transfers": 1
+    },
+    {
+      "id": "R5",
+      "source": "v1-run-R5.json",
+      "state": "WITHDRAWN",
+      "in": "10000000000000000",
+      "toRecipient": "0",
+      "toFunder": "10000000000000000",
+      "toOthers": "0",
+      "held": "0",
+      "transfers": 1
+    },
+    {
+      "id": "AGENT-approve",
+      "source": "agent-run-approve.json",
+      "state": "SETTLED",
+      "in": "10000000000000000",
+      "toRecipient": "10000000000000000",
+      "toFunder": "0",
+      "toOthers": "0",
+      "held": "0",
+      "transfers": 1
+    },
+    {
+      "id": "AGENT-kit-submit-finding",
+      "source": "agent-run-kit-submit-finding.json",
+      "state": "OPEN",
+      "in": "10000000000000000",
+      "toRecipient": "0",
+      "toFunder": "0",
+      "toOthers": "0",
+      "held": "10000000000000000",
+      "transfers": 0
+    },
+    {
+      "id": "AGENT-reject",
+      "source": "agent-run-reject.json",
+      "state": "WITHDRAWN",
+      "in": "10000000000000000",
+      "toRecipient": "0",
+      "toFunder": "10000000000000000",
+      "toOthers": "0",
+      "held": "0",
+      "transfers": 1
+    }
+  ],
+  "totals": {
+    "escrows": 7,
+    "in": "70000000000000000",
+    "toRecipient": "30000000000000000",
+    "toFunder": "30000000000000000",
+    "toOthers": "0",
+    "held": "10000000000000000"
+  },
+  "balanced": true,
+  "problems": []
+}

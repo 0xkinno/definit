@@ -49,4 +49,6 @@ in its own docstring rather than leaving the gap implicit.
 | M17 | v1 deployed on Studio-dev, three live payments | `artifacts/deployment-v1.json`, `docs/evidence/milestone/v1-run-R1.json`, `v1-run-R2.json`, `v1-run-R3.json` |
 | M18 | Counterfactual, fault matrix, v0 differential | `docs/evidence/milestone/counterfactual.json`, `faults.json`, `h1-differential.json`, `docs/milestone/FINDING.md` |
 | M19 | Milestone page and corrections C7 to C9 | `/milestone`, `/proof`, `tests/e2e/milestone.spec.ts` |
+| M20 | Mutation sweep, parity suite, books, injected-evidence run | `docs/evidence/milestone/mutation.json`, `tests/unit/parity.test.ts`, `docs/evidence/milestone/books.json`, `v1-run-R5.json` |
+| M21 | Fee profile, Transaction Kit, `definit-guard`, agent skill, v1 console | `fee-profile.json`, `packages/definit-guard`, `skills/definit-finality-guard`, `/console`, `tests/e2e/console-v1.spec.ts` |
 <!-- milestone-list:end -->

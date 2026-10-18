@@ -60,11 +60,23 @@ const spike = ["repro-1", "repro-2"].map((d) => rd(path.join(EV, "spike", d, "su
 const e6 = rd(path.join(EV, "spike", "e6-h1-v0-run2.json"));
 const matrixStudio = matrix.networks["studio-dev"];
 
-const demo = ["delivery-742.txt", "delivery-742-partial.txt"].map((f) => ({
+const demo = ["delivery-742.txt", "delivery-742-partial.txt", "delivery-742-injected.txt"].map((f) => ({
   file: f,
   url: `https://definit-snowy.vercel.app/demo/${f}`,
   digest: evidenceDigestOf(readFileSync(path.join(REPO_ROOT, "public", "demo", f), "utf8").replace(/^﻿/, "")),
 }));
+
+const opt = (f) => (existsSync(path.join(EV, f)) ? rd(path.join(EV, f)) : null);
+const mutation = opt("mutation.json");
+const books = opt("books.json");
+const profile = rd(path.join(REPO_ROOT, "fee-profile.json"));
+const parity = rd(path.join(REPO_ROOT, "tests", "v1", "fixtures", "parity-vectors.json"));
+const injectedRun = opt("v1-run-R5.json");
+const guardTests = (readFileSync(path.join(REPO_ROOT, "packages", "definit-guard", "test", "guard.test.ts"), "utf8").match(/^\s+it\(/gm) ?? []).length;
+const agentRuns = readdirSync(EV).filter((f) => /^agent-run-[\w-]+\.json$/.test(f)).map((f) => {
+  const a = rd(path.join(EV, f));
+  return { kind: f.replace(/^agent-run-|\.json$/g, ""), state: a.result.state, paid: a.result.paid, finalized: a.result.finalized, adjudication: tx(a.payment.adjudicationTx), delivery: a.deliveryTx ? tx(a.deliveryTx) : null, refund: a.refundTx ? tx(a.refundTx) : null };
+});
 
 const data = {
   generatedAt: new Date().toISOString(),
@@ -109,6 +121,15 @@ const data = {
     funding: n.fundingMethod,
   })),
   evidenceFiles: demo,
+  extras: {
+    parity: { vectors: parity.vectors.length },
+    mutation: mutation ? { total: mutation.total, killed: mutation.killed, survived: mutation.survived, target: mutation.target, mutants: mutation.mutants.map((m) => ({ id: m.id, invariant: m.invariant, mutation: m.mutation, status: m.status })) } : null,
+    books: books ? { escrows: books.totals.escrows, balanced: books.balanced, totals: books.totals, rows: books.rows } : null,
+    feeProfile: { chainId: Number(profile.chainId), measuredAt: profile.measuredAt, methods: Object.entries(profile.measurements).map(([name, m]) => ({ name, basis: m.basis })) },
+    guard: { tests: guardTests, skill: "skills/definit-finality-guard" },
+    injected: injectedRun ? { verdict: injectedRun.adjudication.verdict, reasonCode: injectedRun.adjudication.reasonCode, adjudication: tx(injectedRun.adjudication.txHash), delivery: injectedRun.delivery ? tx(injectedRun.delivery.childTxHash) : null } : null,
+    agentRuns,
+  },
 };
 
 mkdirSync(path.join(REPO_ROOT, "lib", "milestone"), { recursive: true });

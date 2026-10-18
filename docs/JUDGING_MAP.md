@@ -95,7 +95,7 @@ decision is still appealable.
 | --- | --- |
 | Product usefulness | The finance operations lead at an importer lets a procurement agent pay freight forwarders; the payment moves by itself at protocol finality or returns to the treasury. The live page is `/milestone` |
 | Integration quality | A finalized-stage message from the deciding transaction, the lifecycle projection, a real appeal, and the network's own fee allocation shape (README, GenLayer integration used) |
-| Technical execution | Three live payments recorded and re-verified offline; the generated corpus and property reports (`docs/evidence/milestone/proof-v1-report.json`, `docs/evidence/milestone/property.json`); `npm run verify:offline` |
+| Technical execution | Live payments (including an injected-evidence record and agent runs through the guard package) recorded and re-verified offline; the generated corpus and property reports (`docs/evidence/milestone/proof-v1-report.json`, `docs/evidence/milestone/property.json`); `npm run verify:offline` |
 | Evidence of new work | `docs/milestone/DELTA.md`: before and after, the commit range, the corrections C1 to C10 |
 | Clarity and future potential | Honest limits are stated next to the claims; Bradbury runs follow once funded |
 <!-- milestone-judging:end -->

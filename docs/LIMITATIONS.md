@@ -68,7 +68,8 @@ wrong.
   encoded `feeParams` blob recorded once in `artifacts/fee-template.json` by
   `npm run fee-template`. This works, and the lifecycle proves it works, but it
   depends on a recorded blob rather than on a documented endpoint, and it would
-  need re-recording if the network's fee policy changed.
+  need re-recording if the network's fee policy changed. (v0 baseline. Resolved in v1 by a committed, measured
+  `fee-profile.json` used through the Transaction Kit; see `docs/milestone/DELTA.md`, C5.)
 - **That simulation reflects current chain time.** Related to the previous two:
   the fee simulation appears to execute against the last finalized snapshot, so
   a call guarded by elapsed time can never pass simulation. The tooling works
@@ -132,7 +133,12 @@ Resolved by v1 and removed from the list above as current behavior: the 120 seco
 - **Few timelines.** The counterfactual is a count over 13 recorded timelines, not a statistic.
 - **Emitted transfers are not credited on Studio-dev** (`transfer-credit-probe.json`), so no balance is evidence. The evidence is the transfer message and the vault's state and receipt.
 - **Accepted-stage emission fails** under the pinned runner, so the provisional notice (I5) is tested in direct mode only, and repetition across appeal rounds (E3) is unknown.
-- **Not built:** committed fee profile and Transaction Kit integration (C5 is partly resolved), mutation sweep, TypeScript parity suite, books reconciliation, injected-evidence run, `definit-guard`, the agent skill, and a v1 interactive console.
+- **The Transaction Kit cannot fund an emitted message.** Its `submit` sends only the fee distribution. A kit-only `request_adjudication` finished with an error, no delivery was created, and the vault stayed OPEN with the funder's value intact; the guard reported not done (see `docs/evidence/milestone/agent-run-kit-submit-finding.json`). The kit is therefore used to quote and verify, and a write that emits messages is sent with explicit per-message allocations from the profile's `messageShape`. That shape is recorded in the profile, so C5 is resolved for deposits and verification and still depends on a recorded encoding for message fees.
+- **Fee profile provenance.** The profile is measured by simulation where a call can be simulated and takes the network default where it cannot (the adjudication needs a live model). It is not a `gltest --fee-profile` run. This partly resolves C5 (see `docs/milestone/DELTA.md`).
+- **Mutation sweep scope.** It weakens the vault only, and only by removing single guards. A survivor, if any, is listed in `mutation.json`.
+- **Books are not balances.** They are reconciled from the vault records and emitted transfers because Studio-dev does not credit transfers.
+- **No Finalize fallback.** The protocol finalized every recorded run on its own, so the console has no Finalize button.
+- **The package was not published** to a registry, and the agent skill was not submitted to `genlayerlabs/skills`.
 - **The minified build** compiles on the network but was not deployed or run through the live suite.
 - **Direct mode** cannot run two contracts in one VM, so the gate and the vault are tested separately and joined by a golden message that both suites use.
 <!-- milestone-limits:end -->

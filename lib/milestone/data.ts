@@ -64,6 +64,15 @@ export const milestone = raw as unknown as {
   sizes: Record<string, { readableBytes: number; minifiedBytes: number }>;
   networks: Array<{ network: string; chainId: number; lifecycleMethod: boolean; executesContracts: boolean | string; funding: string }>;
   evidenceFiles: Array<{ file: string; url: string; digest: string }>;
+  extras: {
+    parity: { vectors: number };
+    mutation: { total: number; killed: number; survived: number; target: string; mutants: Array<{ id: string; invariant: string; mutation: string; status: string }> } | null;
+    books: { escrows: number; balanced: boolean; totals: Record<string, string>; rows: Array<Record<string, string | number>> } | null;
+    feeProfile: { chainId: number; measuredAt: string; methods: Array<{ name: string; basis: string }> };
+    guard: { tests: number; skill: string };
+    injected: { verdict: string; reasonCode: string; adjudication: string; delivery: string | null } | null;
+    agentRuns: Array<{ kind: string; state: string; paid: boolean; finalized: boolean; adjudication: string; delivery: string | null; refund: string | null }>;
+  };
 };
 
 /** The proof line, built from the counterfactual and nothing else. */

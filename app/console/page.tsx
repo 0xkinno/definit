@@ -1,81 +1,43 @@
 import Link from "next/link";
 
 import { ModeBadge, Shell } from "@/components/Shell";
-import { ConsoleBoard } from "@/components/console/ConsoleBoard";
+import { V1Console } from "@/components/console/V1Console";
 import { Notice, SectionHeading } from "@/components/ui/primitives";
-import { RUNTIME_MODE, RUNTIME_MODE_DETAIL } from "@/lib/config";
-import { SCENARIO } from "@/lib/demo/scenario";
-import { runtimeCapabilities } from "@/lib/runtime/capabilities";
-
-export const dynamic = "force-dynamic";
+import { V1 } from "@/lib/v1/console";
 
 export const metadata = {
-  title: "Protection console -- DEFINIT",
-  description:
-    "Drive one agent action through the whole lifecycle and watch the effect wait for finality.",
+  title: "Console, milestone v1 -- DEFINIT",
+  description: "Drive one payment through protocol-delivered finality: propose, fund, adjudicate, contest, and watch the vault act only after Finalized.",
 };
 
-export default async function ConsolePage() {
-  const capabilities = await runtimeCapabilities();
-
+export default function ConsolePage() {
   return (
     <Shell>
       <div className="mx-auto max-w-[1240px] px-4 py-10 sm:px-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <SectionHeading
             level={1}
-            eyebrow="Protection console"
-            title="Watch one judgement become safe to act on"
-            lead="The console walks a single agent action from registration to release. Nothing is simulated: every transition is a transaction, and the boundary between provisional and final is read from the chain each time."
+            eyebrow="Console, milestone v1"
+            title="Send one payment through protocol-delivered finality"
+            lead="You sign every step with your wallet. Fees are quoted through the Transaction Kit from a measured profile. The vault releases value only against a delivery the protocol creates after the verdict is final."
           />
           <ModeBadge />
         </div>
-
-        <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
-          <ConsoleBoard operatorSigning={capabilities.operatorSigning} />
-
+        <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
+          <V1Console />
           <aside className="space-y-5">
-            <Notice tone="neutral" title="What you are looking at">
-              <p>{RUNTIME_MODE_DETAIL}</p>
+            <Notice tone="final" title="Live contracts">
+              <p>Studio-dev, milestone v1.</p>
+              <ul className="mt-2 space-y-1 text-[13px]">
+                <li>Gate <span className="hash">{V1.gate.slice(0, 10)}…{V1.gate.slice(-6)}</span></li>
+                <li>Vault <span className="hash">{V1.vault.slice(0, 10)}…{V1.vault.slice(-6)}</span></li>
+              </ul>
             </Notice>
-
-            <Notice tone={RUNTIME_MODE === "live" ? "final" : "warn"} title="Scenario">
-              <p>
-                A delivery agent releases a {SCENARIO.amount} {SCENARIO.asset} milestone payment
-                once the delivery record satisfies policy{" "}
-                <span className="hash">{SCENARIO.policyId}</span>.
-              </p>
+            <Notice tone="neutral" title="No wallet?">
+              <p>Reading works without one. The recorded runs, with their finality clocks, are on <Link className="link" href="/milestone">the milestone page</Link>.</p>
             </Notice>
-
-            {!capabilities.operatorSigning ? (
-              <Notice tone="warn" title="Wallet required for live actions">
-                <p>
-                  This deployment does not hold a signing key, so there is no operator fallback. The
-                  write controls stay disabled until a Studio Next wallet is connected, which raises
-                  the popup for every transaction.
-                </p>
-              </Notice>
-            ) : (
-              <Notice tone="neutral" title="Operator signing is active">
-                <p>
-                  This deployment holds a testnet signing key, so a visitor without a wallet can
-                  still run the lifecycle. Connecting a wallet switches every step to a browser
-                  signature instead.
-                </p>
-              </Notice>
-            )}
-
-            <Notice tone="neutral" title="Only the chain decides">
-              <p>
-                The console can ask for a release. It cannot authorise one. The vault re-reads the
-                decision contract, re-derives the appeal window from the gate's own record, and
-                refuses anything that has not cleared it.
-              </p>
-              <p className="mt-2">
-                <Link className="link" href="/lab">
-                  Attack the invariant in the proof lab
-                </Link>
-              </p>
+            <Notice tone="neutral" title="v0 baseline">
+              <p>The accepted v0 console, which settles through a promotion step, is kept at <Link className="link" href="/console/v0">/console/v0</Link>.</p>
             </Notice>
           </aside>
         </div>

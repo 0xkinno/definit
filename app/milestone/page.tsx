@@ -192,6 +192,56 @@ export default function MilestonePage() {
           </div>
         </section>
 
+        {/* ------------------------------------------------------------ adoption and checks */}
+        <section className="mt-14" aria-labelledby="extras">
+          <SectionHeading id="extras" eyebrow="Beyond the suite" title="Checks that try to break the checks, and a package to adopt the rule" lead="Each number below is read from a generated evidence file." />
+          <div className="mt-6 grid gap-4 md:grid-cols-2" data-testid="extras">
+            {m.extras.mutation ? (
+              <Panel>
+                <p className="label">Mutation sweep</p>
+                <p className="mt-1 text-[15px] font-semibold text-ink-900">{m.extras.mutation.killed} of {m.extras.mutation.total} weakened vaults were caught{m.extras.mutation.survived ? `; ${m.extras.mutation.survived} survived` : ""}</p>
+                <p className="mt-1 text-[13px] text-ink-600">Each mutant removes one guard from {m.extras.mutation.target}. A mutant that survives is a guard no test depends on.</p>
+              </Panel>
+            ) : null}
+            <Panel>
+              <p className="label">Parity with the contracts</p>
+              <p className="mt-1 text-[15px] font-semibold text-ink-900">{m.extras.parity.vectors} vectors, TypeScript equals Python</p>
+              <p className="mt-1 text-[13px] text-ink-600">The commitment encoding exists twice. Both must hash every vector identically. The suite found that amounts above 2^53 were unsafe as numbers, and the TypeScript side now takes a bigint or string.</p>
+            </Panel>
+            {m.extras.books ? (
+              <Panel>
+                <p className="label">Books</p>
+                <p className="mt-1 text-[15px] font-semibold text-ink-900">{m.extras.books.escrows} escrows reconcile: in equals out plus held{m.extras.books.balanced ? "" : " (does not balance)"}</p>
+                <p className="mt-1 text-[13px] text-ink-600">Read from the vault records and the emitted transfers, not from balances, because Studio-dev does not credit emitted transfers.</p>
+              </Panel>
+            ) : null}
+            {m.extras.injected ? (
+              <Panel>
+                <p className="label">Injected evidence</p>
+                <p className="mt-1 text-[15px] font-semibold text-ink-900">A record told the model to approve. Verdict: {m.extras.injected.verdict} ({m.extras.injected.reasonCode})</p>
+                <p className="mt-1 text-[13px] text-ink-600">The refusal was delivered at finality and the funder withdrew. <a className="link" href={m.extras.injected.adjudication} target="_blank" rel="noreferrer">Adjudication</a>{m.extras.injected.delivery ? <> and <a className="link" href={m.extras.injected.delivery} target="_blank" rel="noreferrer">delivery</a></> : null} on the explorer.</p>
+              </Panel>
+            ) : null}
+            <Panel>
+              <p className="label">Fee profile and Transaction Kit</p>
+              <p className="mt-1 text-[15px] font-semibold text-ink-900">Quoted from a measured profile, blocked on a stale quote</p>
+              <p className="mt-1 text-[13px] text-ink-600">{m.extras.feeProfile.methods.filter((x) => x.basis === "simulation").length} methods are measured by simulation; the rest use the network default and say so. The console never sets allowUnverified.</p>
+            </Panel>
+            <Panel>
+              <p className="label">definit-guard and agent skill</p>
+              <p className="mt-1 text-[15px] font-semibold text-ink-900">{m.extras.guard.tests} package tests</p>
+              <p className="mt-1 text-[13px] text-ink-600">An autonomous agent ran through the package on the live network and treated a payment as done only when the vault held a receipt. The skill lives at <span className="hash">{m.extras.guard.skill}</span>.</p>
+              {m.extras.agentRuns.length ? (
+                <ul className="mt-2 space-y-1 text-[13px]">
+                  {m.extras.agentRuns.map((a) => (
+                    <li key={a.kind}>Agent run ({a.kind}): vault {a.state}. <a className="link" href={a.adjudication} target="_blank" rel="noreferrer">Adjudication</a></li>
+                  ))}
+                </ul>
+              ) : null}
+            </Panel>
+          </div>
+        </section>
+
         {/* ------------------------------------------------------------- networks */}
         <section className="mt-14 mb-6" aria-labelledby="net">
           <SectionHeading id="net" eyebrow="Networks" title="Measured, including where it did not work" />

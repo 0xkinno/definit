@@ -124,7 +124,7 @@ test("the lifecycle demo offers no live action without a wallet, and still repla
 
 test("the console refuses to register without a wallet", async ({ page }) => {
   const problems = watch(page);
-  await page.goto("/console", { waitUntil: "domcontentloaded" });
+  await page.goto("/console/v0", { waitUntil: "domcontentloaded" });
 
   await expect(page.locator('[data-signing-state="wallet-required"]')).toBeVisible();
 

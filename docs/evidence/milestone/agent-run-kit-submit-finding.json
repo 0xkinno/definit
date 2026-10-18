@@ -1,0 +1,98 @@
+{
+  "kind": "reject",
+  "evidenceUrl": "https://definit-snowy.vercel.app/demo/delivery-742-partial.txt",
+  "contracts": {
+    "scenarioRegistry": "0x8DC63918F88dcc719397a39730C1b31A1cF895DF",
+    "finalityVault": "0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5",
+    "decisionGate": "0xA03C1884F2dFf591388B85840F264c93EE4bF889"
+  },
+  "payment": {
+    "actionId": "0x9e8bcdd6a59ec8fd2c6680e6d39d4fa73338b9f6e283d26dd11aa160beac7f14",
+    "createTx": "0x56cd580381b7f79193ac3217f7b064f481ae59e87231cc36281aa023a07a55ff",
+    "escrowTx": "0xa7af836c65f861bcedae7f64f3b0aa2f269c5e6ebf550b2794f68d06ffcccb31",
+    "adjudicationTx": "0x0504818a8e8bbf79736ac0dc97aa0675a9b0e125f09bd21799b5059a80a3fc1e"
+  },
+  "result": {
+    "state": "OPEN",
+    "paid": false,
+    "refundable": false,
+    "receipt": null,
+    "escrow": {
+      "action_id": "0x9e8bcdd6a59ec8fd2c6680e6d39d4fa73338b9f6e283d26dd11aa160beac7f14",
+      "amount": "10000000000000000",
+      "asset": "GEN",
+      "close_reason": "",
+      "closed_at": "",
+      "deadline_unix": 1792910329,
+      "decision_id": "",
+      "evidence_digest": "",
+      "exists": true,
+      "funder": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+      "intent_hash": "",
+      "nonce": 1792305529,
+      "opened_at": "2026-10-18T06:39:04.783308Z",
+      "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+      "provisional": "",
+      "provisional_count": 0,
+      "reason_code": "",
+      "recipient": "0x1111111111111111111111111111111111111111",
+      "state": "OPEN"
+    },
+    "finalized": true,
+    "escrowReadAt": "2026-10-18T06:53:34.999Z"
+  },
+  "feeProfile": {
+    "source": "fee-profile.json",
+    "chainId": 61997
+  },
+  "log": [
+    {
+      "at": "2026-10-18T06:39:20.204Z",
+      "what": "proposed, funded, adjudication requested",
+      "actionId": "0x9e8bcdd6a59ec8fd2c6680e6d39d4fa73338b9f6e283d26dd11aa160beac7f14",
+      "createTx": "0x56cd580381b7f79193ac3217f7b064f481ae59e87231cc36281aa023a07a55ff",
+      "escrowTx": "0xa7af836c65f861bcedae7f64f3b0aa2f269c5e6ebf550b2794f68d06ffcccb31",
+      "adjudicationTx": "0x0504818a8e8bbf79736ac0dc97aa0675a9b0e125f09bd21799b5059a80a3fc1e"
+    },
+    {
+      "at": "2026-10-18T06:39:20.603Z",
+      "what": "lifecycle",
+      "status": "Pending",
+      "verdict": "wait"
+    },
+    {
+      "at": "2026-10-18T06:39:29.716Z",
+      "what": "lifecycle",
+      "status": "Accepted",
+      "verdict": "wait"
+    },
+    {
+      "at": "2026-10-18T06:39:38.567Z",
+      "what": "lifecycle",
+      "status": "Accepted",
+      "verdict": "wait"
+    },
+    {
+      "at": "2026-10-18T06:39:47.493Z",
+      "what": "lifecycle",
+      "status": "Accepted",
+      "verdict": "wait"
+    },
+    {
+      "at": "2026-10-18T06:39:56.581Z",
+      "what": "lifecycle",
+      "status": "Finalized",
+      "verdict": "final"
+    },
+    {
+      "at": "2026-10-18T06:46:57.692Z",
+      "what": "NOT DONE",
+      "state": "OPEN",
+      "finalized": true
+    }
+  ],
+  "books": {
+    "messages": []
+  },
+  "finding": "The Transaction Kit's submit sends fees {distribution, feeValue} and cannot fund an emitted message. request_adjudication finished with an error, no delivery was created, and the vault stayed OPEN with the funder's value intact (reclaimable after the deadline). The guard reported NOT DONE and never PAID. Fixed by sending message-emitting writes with explicit per-message allocations; see agent-run-approve.json."
+}

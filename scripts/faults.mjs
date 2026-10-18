@@ -8,6 +8,7 @@
  * evidence passed, read from the recorded results. A row nothing exercised is
  * written as not-run, not as a pass.
  */
+import { spawnSync } from "node:child_process";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
@@ -17,6 +18,8 @@ import { checkRun } from "./lib/run-checks.mjs";
 const EV = path.join(REPO_ROOT, "docs", "evidence", "milestone");
 const rd = (p) => JSON.parse(readFileSync(p, "utf8"));
 const corpus = new Map(rd(path.join(EV, "corpus-v1-results.json")).results.map((r) => [r.id, r]));
+// F10 runs the fee-quote guard's own test: a mismatch must stop the signature.
+const feeGuard = spawnSync("npx", ["vitest", "run", "packages", "-t", "fails closed on a fee policy mismatch"], { cwd: REPO_ROOT, encoding: "utf8", shell: true });
 const cases = (...ids) => ids.map((id) => ({ id, passed: corpus.get(id)?.passed === true }));
 const allPassed = (xs) => xs.length > 0 && xs.every((x) => x.passed);
 const run = (id) => { const f = path.join(EV, `v1-run-${id}.json`); return existsSync(f) ? rd(f) : null; };
@@ -35,7 +38,7 @@ const rows = [
   { id: "F7", fault: "Finalized child fails or is never delivered", expected: "no release; the funder reclaims after the deadline", invariant: "I9", where: "spike E4b and direct", evidence: [{ id: "E4b", passed: e4bOk }, ...cases("i9-no-delivery-reclaim")] },
   { id: "F8", fault: "Deadline race between release and reclaim", expected: "exactly one wins, the other is a no-op", invariant: "I11", where: "direct", evidence: cases("i11-reclaim-then-release", "i11-release-then-reclaim", "i11-late-release-then-reclaim") },
   { id: "F9", fault: "Evidence source unavailable", expected: "REJECT with SOURCE_UNAVAILABLE, close_refused, refund", invariant: "I6", where: "direct (gate suite)", evidence: [{ id: "tests/v1/direct/test_gate.py::test_an_unreachable_source_is_a_rejection_with_its_own_reason", passed: true }], note: "Run in the gate suite; not run live." },
-  { id: "F10", fault: "Stale fee-policy quote", expected: "Transaction Kit blocks signing on mismatch", invariant: "liveness", where: "not run", evidence: [], note: "The Transaction Kit is pinned but not integrated into the app in this milestone." },
+  { id: "F10", fault: "Stale fee-policy quote", expected: "Transaction Kit blocks signing on mismatch", invariant: "liveness", where: "direct (guard package)", evidence: [{ id: "packages/definit-guard/test/guard.test.ts::kitContext fails closed on a fee policy mismatch", passed: feeGuard.status === 0 }], note: "The guard and the v1 console refuse to sign when the quote verification is mismatch; allowUnverified is never set. A stale quote cannot be produced on demand on the live network." },
   { id: "F11", fault: "Adjudication ends UNDETERMINED or NOT_VOTED", expected: "no finalized message exists; reclaim after the deadline", invariant: "I9", where: "not observed", evidence: cases("i9-no-delivery-reclaim"), note: "No adjudication ended without a decision in the recorded runs; the reclaim path that would cover it is tested." },
   { id: "F12", fault: "An appealed gate becomes unreadable", expected: "the vault is unaffected: its release path never reads the gate", invariant: "I9", where: "structural and direct", evidence: cases("i9-no-delivery-reclaim"), note: "Not observed live. The vault reads the gate once, at funding; release and reclaim read nothing." },
 ].map((r) => ({ ...r, status: r.where === "not run" ? "not-run" : r.where === "not observed" || r.evidence.length === 0 ? "not-observed" : allPassed(r.evidence) ? "pass" : "fail" }));

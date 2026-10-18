@@ -36,7 +36,7 @@
     "lifecycle": "node scripts/lifecycle.mjs",
     "seed": "node scripts/seed.mjs",
     "verify": "node scripts/verify.mjs",
-    "fee-template": "node scripts/fee-template.mjs",
+    "fee-profile": "node scripts/fee-profile.mjs",
     "shots": "node scripts/shots.mjs",
     "diagram": "node scripts/diagram.mjs",
     "spike": "node scripts/spike-all.mjs",
@@ -56,6 +56,10 @@
     "build:contracts": "node scripts/build-contracts.mjs",
     "test:v1:property": "node scripts/run-python.mjs tests/v1/direct/test_property_lifecycles.py",
     "counterfactual": "node scripts/counterfactual.mjs",
+    "mutation": "node scripts/mutation.mjs",
+    "books": "node scripts/books.mjs",
+    "agent": "node examples/autonomous-agent.mjs",
+    "parity": "vitest run tests/unit/parity.test.ts",
     "faults": "node scripts/faults.mjs",
     "gen:milestone-data": "node scripts/gen-milestone-data.mjs",
     "gen:docs": "node scripts/gen-docs.mjs"
@@ -81,5 +85,8 @@
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.0",
     "vitest": "^2.1.8"
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

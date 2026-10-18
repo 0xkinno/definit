@@ -1,0 +1,128 @@
+{
+  "generatedAt": "2026-10-18T06:55:03.409Z",
+  "target": "contracts/v1/finality_vault.py",
+  "suites": [
+    "tests/v1/direct/test_vault_funding.py",
+    "tests/v1/direct/test_vault_provisional_refusal.py",
+    "tests/v1/direct/test_vault_liveness.py",
+    "tests/v1/direct/test_vault_release.py"
+  ],
+  "total": 16,
+  "killed": 16,
+  "survived": 0,
+  "invalid": 0,
+  "mutants": [
+    {
+      "id": "M01",
+      "invariant": "I1",
+      "mutation": "authorize_release accepts any sender",
+      "status": "KILLED",
+      "killedBy": "tests/v1/direct/test_vault_release.py::test_nobody_but_the_gate_can_release[stranger]"
+    },
+    {
+      "id": "M02",
+      "invariant": "I1",
+      "mutation": "close_refused accepts any sender",
+      "status": "KILLED",
+      "killedBy": "tests/v1/direct/test_vault_provisional_refusal.py::test_only_the_gate_can_close_an_escrow_as_refused[stranger]"
+    },
+    {
+      "id": "M03",
+      "invariant": "I1",
+      "mutation": "note_provisional accepts any sender",
+      "status": "KILLED",
+      "killedBy": "tests/v1/direct/test_vault_provisional_refusal.py::test_only_the_gate_can_send_a_notice[stranger]"
+    },
+    {
+      "id": "M04",
+      "invariant": "I4",
+      "mutation": "a settled escrow can be released again (replay)",
+      "status": "KILLED",
+      "killedBy": "tests/v1/direct/test_vault_provisional_refusal.py::test_a_release_after_a_refusal_is_a_recorded_noop"
+    },
+    {
+      "id": "M05",
+      "invariant": "I3",
+      "mutation": "the delivered amount is not compared",
+      "status": "KILLED",
+      "killedBy": "tests/v1/direct/test_vault_release.py::test_one_changed_delivered_field_is_refused[amount-5001]"
+    },
+    {
+      "id": "M06",
+      "invariant": "I3",
+      "mutation": "the delivered recipient is not compared",
+      "status": "KILLED",
+      "killedBy": "tests/v1/direct/test_vault_release.py::test_one_changed_delivered_field_is_refused[recipient-0x6666666666666666666666666666666666666666]"
+    },
+    {
+      "id": "M07",
+      "invariant": "I3",
+      "mutation": "the commitment is not recomputed",
+      "status": "KILLED",
+      "killedBy": "tests/v1/direct/test_vault_release.py::test_a_forged_intent_hash_is_refused"
+    },
+    {
+      "id": "M08",
+      "invariant": "I3",
+      "mutation": "the policy hash is not compared",
+      "status": "KILLED",
+      "killedBy": "tests/v1/direct/test_vault_release.py::test_one_changed_delivered_field_is_refused[policy_hash-0x0000000000000000000000000000000000000000000000000000000000000000]"
+    },
+    {
+      "id": "M09",
+      "invariant": "I1",
+      "mutation": "anyone can withdraw a refund",
+      "status": "KILLED",
+      "killedBy": "tests/v1/direct/test_vault_provisional_refusal.py::test_nobody_but_the_funder_can_withdraw_a_refund[stranger]"
+    },
+    {
+      "id": "M10",
+      "invariant": "I11",
+      "mutation": "anyone can reclaim after the deadline",
+      "status": "KILLED",
+      "killedBy": "tests/v1/direct/test_vault_liveness.py::test_only_the_funder_can_reclaim[stranger]"
+    },
+    {
+      "id": "M11",
+      "invariant": "I9",
+      "mutation": "reclaim is allowed before the deadline",
+      "status": "KILLED",
+      "killedBy": "tests/v1/direct/test_vault_liveness.py::test_a_funder_cannot_reclaim_before_the_deadline"
+    },
+    {
+      "id": "M12",
+      "invariant": "I11",
+      "mutation": "a release is accepted after the deadline",
+      "status": "KILLED",
+      "killedBy": "tests/v1/direct/test_vault_liveness.py::test_no_ordering_of_the_two_can_produce_two_transfers[release_first]"
+    },
+    {
+      "id": "M13",
+      "invariant": "I2",
+      "mutation": "escrow value is not checked against the amount",
+      "status": "KILLED",
+      "killedBy": "tests/v1/direct/test_vault_funding.py::test_the_value_sent_must_equal_the_amount"
+    },
+    {
+      "id": "M14",
+      "invariant": "I2",
+      "mutation": "the escrow is not bound to the proposing agent",
+      "status": "KILLED",
+      "killedBy": "tests/v1/direct/test_vault_funding.py::test_only_the_actions_own_agent_can_fund_it"
+    },
+    {
+      "id": "M15",
+      "invariant": "I6",
+      "mutation": "a refund can be withdrawn from any state",
+      "status": "KILLED",
+      "killedBy": "tests/v1/direct/test_vault_provisional_refusal.py::test_a_refund_cannot_be_withdrawn_twice"
+    },
+    {
+      "id": "M16",
+      "invariant": "I5",
+      "mutation": "a provisional notice is accepted on a settled escrow",
+      "status": "KILLED",
+      "killedBy": "tests/v1/direct/test_vault_provisional_refusal.py::test_a_notice_after_the_escrow_closed_is_a_recorded_noop"
+    }
+  ]
+}

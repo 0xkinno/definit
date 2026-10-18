@@ -12,6 +12,7 @@ import { expect, test } from "@playwright/test";
 const ROUTES = [
   { path: "/", name: "landing" },
   { path: "/console", name: "console" },
+  { path: "/console/v0", name: "console-v0" },
   { path: "/lab", name: "proof lab" },
   { path: "/proof", name: "evidence" },
   { path: "/docs", name: "documentation index" },

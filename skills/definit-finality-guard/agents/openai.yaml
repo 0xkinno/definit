@@ -1,0 +1,4 @@
+interface:
+  display_name: "DEFINIT finality guard"
+  short_description: "Never trigger an irreversible effect from an Accepted GenLayer result."
+  default_prompt: "Review this GenLayer contract or agent. Find any irreversible effect that can run before the deciding transaction is Finalized, and fix it using the finalized-stage delivery rule."

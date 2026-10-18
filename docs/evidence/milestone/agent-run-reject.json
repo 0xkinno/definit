@@ -1,0 +1,123 @@
+{
+  "kind": "reject",
+  "evidenceUrl": "https://definit-snowy.vercel.app/demo/delivery-742-partial.txt",
+  "contracts": {
+    "scenarioRegistry": "0x8DC63918F88dcc719397a39730C1b31A1cF895DF",
+    "finalityVault": "0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5",
+    "decisionGate": "0xA03C1884F2dFf591388B85840F264c93EE4bF889"
+  },
+  "payment": {
+    "actionId": "0x8eee379229bd274d76923cc5ab5b1ab89ed28f5929d60483fd9559c25e0c3e5f",
+    "createTx": "0xf1387d25c72b75668657376a6b7a05992361b832baebf535e5d2725b58ad6ced",
+    "escrowTx": "0x203cd5ad38b2b4c8ce4c01991eb13fdefc789d0af4df20fb8f30ebbc5c7d1fce",
+    "adjudicationTx": "0x3e5decdc08ed6cdf18664d4d5b99a11371f1aaf698ecb439394f715d1cd386af"
+  },
+  "result": {
+    "state": "REFUNDABLE",
+    "paid": false,
+    "refundable": true,
+    "receipt": null,
+    "escrow": {
+      "action_id": "0x8eee379229bd274d76923cc5ab5b1ab89ed28f5929d60483fd9559c25e0c3e5f",
+      "amount": "10000000000000000",
+      "asset": "GEN",
+      "close_reason": "POLICY_VIOLATION",
+      "closed_at": "2026-10-18T06:54:24.718022Z",
+      "deadline_unix": 1792911190,
+      "decision_id": "0x0af1ba92bbfe0920e5dea66694b04ce2638d2f3c2acf6629e9efea6896c84d9a",
+      "evidence_digest": "",
+      "exists": true,
+      "funder": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+      "intent_hash": "",
+      "nonce": 1792306390,
+      "opened_at": "2026-10-18T06:53:28.321271Z",
+      "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+      "provisional": "",
+      "provisional_count": 0,
+      "reason_code": "",
+      "recipient": "0x1111111111111111111111111111111111111111",
+      "state": "WITHDRAWN"
+    },
+    "finalized": true
+  },
+  "refundTx": "0xec39e59866aa783e7bcbdf5ce18891f2a456c9c814d618f975f01d1079553d19",
+  "books": {
+    "messages": [
+      {
+        "messageType": "0",
+        "recipient": "0x14b959B6DF21F95F7dFc76c980d93aFbDB7a66d6",
+        "value": "10000000000000000",
+        "data": "Bg==",
+        "onAcceptance": false
+      }
+    ]
+  },
+  "deliveryTx": "0x4982c35770123945224699a8fa1c4c1cec29db0e44a832e01c4cb3a59d3940a4",
+  "feeProfile": {
+    "source": "fee-profile.json",
+    "chainId": 61997
+  },
+  "log": [
+    {
+      "at": "2026-10-18T06:53:37.489Z",
+      "what": "proposed, funded, adjudication requested",
+      "actionId": "0x8eee379229bd274d76923cc5ab5b1ab89ed28f5929d60483fd9559c25e0c3e5f",
+      "createTx": "0xf1387d25c72b75668657376a6b7a05992361b832baebf535e5d2725b58ad6ced",
+      "escrowTx": "0x203cd5ad38b2b4c8ce4c01991eb13fdefc789d0af4df20fb8f30ebbc5c7d1fce",
+      "adjudicationTx": "0x3e5decdc08ed6cdf18664d4d5b99a11371f1aaf698ecb439394f715d1cd386af"
+    },
+    {
+      "at": "2026-10-18T06:53:37.968Z",
+      "what": "lifecycle",
+      "status": "Pending",
+      "verdict": "wait"
+    },
+    {
+      "at": "2026-10-18T06:53:47.151Z",
+      "what": "lifecycle",
+      "status": "Committing",
+      "verdict": "wait"
+    },
+    {
+      "at": "2026-10-18T06:53:55.959Z",
+      "what": "lifecycle",
+      "status": "Accepted",
+      "verdict": "wait"
+    },
+    {
+      "at": "2026-10-18T06:54:04.848Z",
+      "what": "lifecycle",
+      "status": "Accepted",
+      "verdict": "wait"
+    },
+    {
+      "at": "2026-10-18T06:54:13.670Z",
+      "what": "lifecycle",
+      "status": "Accepted",
+      "verdict": "wait"
+    },
+    {
+      "at": "2026-10-18T06:54:22.570Z",
+      "what": "lifecycle",
+      "status": "Accepted",
+      "verdict": "wait"
+    },
+    {
+      "at": "2026-10-18T06:54:31.640Z",
+      "what": "lifecycle",
+      "status": "Finalized",
+      "verdict": "final"
+    },
+    {
+      "at": "2026-10-18T06:54:33.973Z",
+      "what": "NOT PAID: refusal finalized, the funder may withdraw",
+      "state": "REFUNDABLE",
+      "finalized": true
+    },
+    {
+      "at": "2026-10-18T06:54:39.645Z",
+      "what": "refund withdrawn",
+      "status": "0xec39e59866aa783e7bcbdf5ce18891f2a456c9c814d618f975f01d1079553d19"
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "kind": "approve",
+  "evidenceUrl": "https://definit-snowy.vercel.app/demo/delivery-742.txt",
+  "contracts": {
+    "scenarioRegistry": "0x8DC63918F88dcc719397a39730C1b31A1cF895DF",
+    "finalityVault": "0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5",
+    "decisionGate": "0xA03C1884F2dFf591388B85840F264c93EE4bF889"
+  },
+  "payment": {
+    "actionId": "0x4d24a23da52eeb3171ef7d57749f74c2b4236760984369a4e77d731ac1b090c3",
+    "createTx": "0xe1fad8b88320b35fbe1322901300c7b017203a90f1859544932b83a4226c8878",
+    "escrowTx": "0x21ec09431e784cb61d2fb65f5cd282f884c467dc1fcaff662f707661e99f62ab",
+    "adjudicationTx": "0xaef9b09b635c95b6cea10bf8bebb8d49f88bc55ac8a6bb002043cba1bcb160d0"
+  },
+  "result": {
+    "state": "SETTLED",
+    "paid": true,
+    "refundable": false,
+    "receipt": {
+      "action_id": "0x4d24a23da52eeb3171ef7d57749f74c2b4236760984369a4e77d731ac1b090c3",
+      "amount": "10000000000000000",
+      "asset": "GEN",
+      "decision_id": "0xc105eccd271b6487a6843f0d738ec94d224aa4f2c8f11bcdcfacde417f63a025",
+      "delivered_by": "0xa03c1884f2dff591388b85840f264c93ee4bf889",
+      "evidence_digest": "0xb27adf7a6be9c0118c0faad2b83f90f5cfc34d559f5f3fa2685f90e8704041c4",
+      "exists": true,
+      "finality_source": "protocol-delivery",
+      "funder": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+      "intent_hash": "0xf24bca671f1a55e897f3ee83bb646a907f30ae8d9bcecdba0c893ef7c6a4905a",
+      "message_stage": "finalized",
+      "nonce": 1792306152,
+      "opened_at": "2026-10-18T06:49:30.390786Z",
+      "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+      "recipient": "0x1111111111111111111111111111111111111111",
+      "settled_at": "2026-10-18T06:50:32.162442Z",
+      "status": "SETTLED"
+    },
+    "escrow": {
+      "action_id": "0x4d24a23da52eeb3171ef7d57749f74c2b4236760984369a4e77d731ac1b090c3",
+      "amount": "10000000000000000",
+      "asset": "GEN",
+      "close_reason": "RELEASED",
+      "closed_at": "2026-10-18T06:50:32.162442Z",
+      "deadline_unix": 1792910952,
+      "decision_id": "0xc105eccd271b6487a6843f0d738ec94d224aa4f2c8f11bcdcfacde417f63a025",
+      "evidence_digest": "0xb27adf7a6be9c0118c0faad2b83f90f5cfc34d559f5f3fa2685f90e8704041c4",
+      "exists": true,
+      "funder": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+      "intent_hash": "0xf24bca671f1a55e897f3ee83bb646a907f30ae8d9bcecdba0c893ef7c6a4905a",
+      "nonce": 1792306152,
+      "opened_at": "2026-10-18T06:49:30.390786Z",
+      "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+      "provisional": "",
+      "provisional_count": 0,
+      "reason_code": "",
+      "recipient": "0x1111111111111111111111111111111111111111",
+      "state": "SETTLED"
+    },
+    "finalized": true
+  },
+  "refundTx": null,
+  "books": {
+    "messages": [
+      {
+        "messageType": "0",
+        "recipient": "0x1111111111111111111111111111111111111111",
+        "value": "10000000000000000",
+        "data": "Bg==",
+        "onAcceptance": false
+      }
+    ]
+  },
+  "deliveryTx": "0xd0ba30b970a4f0b75c2e052a3490ade4855115c029517a663c0c67c84ecd47e7",
+  "feeProfile": {
+    "source": "fee-profile.json",
+    "chainId": 61997
+  },
+  "log": [
+    {
+      "at": "2026-10-18T06:49:45.013Z",
+      "what": "proposed, funded, adjudication requested",
+      "actionId": "0x4d24a23da52eeb3171ef7d57749f74c2b4236760984369a4e77d731ac1b090c3",
+      "createTx": "0xe1fad8b88320b35fbe1322901300c7b017203a90f1859544932b83a4226c8878",
+      "escrowTx": "0x21ec09431e784cb61d2fb65f5cd282f884c467dc1fcaff662f707661e99f62ab",
+      "adjudicationTx": "0xaef9b09b635c95b6cea10bf8bebb8d49f88bc55ac8a6bb002043cba1bcb160d0"
+    },
+    {
+      "at": "2026-10-18T06:49:45.444Z",
+      "what": "lifecycle",
+      "status": "Pending",
+      "verdict": "wait"
+    },
+    {
+      "at": "2026-10-18T06:49:54.302Z",
+      "what": "lifecycle",
+      "status": "Committing",
+      "verdict": "wait"
+    },
+    {
+      "at": "2026-10-18T06:50:03.107Z",
+      "what": "lifecycle",
+      "status": "Accepted",
+      "verdict": "wait"
+    },
+    {
+      "at": "2026-10-18T06:50:12.079Z",
+      "what": "lifecycle",
+      "status": "Accepted",
+      "verdict": "wait"
+    },
+    {
+      "at": "2026-10-18T06:50:21.197Z",
+      "what": "lifecycle",
+      "status": "Accepted",
+      "verdict": "wait"
+    },
+    {
+      "at": "2026-10-18T06:50:30.057Z",
+      "what": "lifecycle",
+      "status": "Accepted",
+      "verdict": "wait"
+    },
+    {
+      "at": "2026-10-18T06:50:39.473Z",
+      "what": "lifecycle",
+      "status": "Finalized",
+      "verdict": "final"
+    },
+    {
+      "at": "2026-10-18T06:50:41.193Z",
+      "what": "PAID: the vault holds a release receipt",
+      "state": "SETTLED",
+      "finalized": true
+    }
+  ]
+}

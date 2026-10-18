@@ -1,0 +1,283 @@
+{
+  "run": "R5",
+  "kind": "injected",
+  "startedAt": "2026-10-18T06:32:04.205Z",
+  "network": {
+    "chainId": 61997,
+    "rpc": "https://studio-dev.genlayer.com/api"
+  },
+  "contracts": {
+    "registry": "0x8DC63918F88dcc719397a39730C1b31A1cF895DF",
+    "vault": "0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5",
+    "gate": "0xA03C1884F2dFf591388B85840F264c93EE4bF889"
+  },
+  "evidenceUrl": "https://definit-snowy.vercel.app/demo/delivery-742-injected.txt",
+  "steps": [
+    {
+      "name": "create_action",
+      "at": "2026-10-18T06:32:22.744Z",
+      "tx": "0x4065807f8df42a44861eb78dc820b0d55451dbe9eaa2fbc44330087f9bfa0122",
+      "explorer": "https://explorer-studio-dev.genlayer.com/tx/0x4065807f8df42a44861eb78dc820b0d55451dbe9eaa2fbc44330087f9bfa0122"
+    },
+    {
+      "name": "open_escrow",
+      "at": "2026-10-18T06:32:33.222Z",
+      "tx": "0xf132eed06ac1131012fbc3b960108864c2c6581596e384a37be75374e4b7aee5",
+      "explorer": "https://explorer-studio-dev.genlayer.com/tx/0xf132eed06ac1131012fbc3b960108864c2c6581596e384a37be75374e4b7aee5",
+      "state": "OPEN"
+    },
+    {
+      "name": "request_adjudication submitted",
+      "at": "2026-10-18T06:32:36.310Z",
+      "tx": "0x7c0e572cb56deddcd037f71141ed2069d6794e9baff3ab3f0b5d42637ab9a4c8",
+      "explorer": "https://explorer-studio-dev.genlayer.com/tx/0x7c0e572cb56deddcd037f71141ed2069d6794e9baff3ab3f0b5d42637ab9a4c8"
+    },
+    {
+      "name": "withdraw_refund",
+      "at": "2026-10-18T06:34:11.280Z",
+      "tx": "0xb33ce0990c6049f2476be527c67041f7a3fb8a6a3c7e99edfdeaaafa189b9844",
+      "explorer": "https://explorer-studio-dev.genlayer.com/tx/0xb33ce0990c6049f2476be527c67041f7a3fb8a6a3c7e99edfdeaaafa189b9844"
+    }
+  ],
+  "action": {
+    "id": "0x73c85bec2c3b65f9ec886dc6ca876e2b758b2b53f632ac7292e4420107203393",
+    "agent": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+    "recipient": "0x1111111111111111111111111111111111111111",
+    "amount": "10000000000000000",
+    "asset": "GEN",
+    "policyHash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+    "nonce": 1792305123,
+    "deadlineUnix": 1792909923,
+    "createdAt": "2026-10-18T06:32:10.486031Z",
+    "evidenceUrl": "https://definit-snowy.vercel.app/demo/delivery-742-injected.txt"
+  },
+  "vault": {
+    "escrowBefore": {
+      "action_id": "0x73c85bec2c3b65f9ec886dc6ca876e2b758b2b53f632ac7292e4420107203393",
+      "amount": "10000000000000000",
+      "asset": "GEN",
+      "close_reason": "",
+      "closed_at": "",
+      "deadline_unix": 1792909923,
+      "decision_id": "",
+      "evidence_digest": "",
+      "exists": true,
+      "funder": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+      "intent_hash": "",
+      "nonce": 1792305123,
+      "opened_at": "2026-10-18T06:32:27.432185Z",
+      "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+      "provisional": "",
+      "provisional_count": 0,
+      "reason_code": "",
+      "recipient": "0x1111111111111111111111111111111111111111",
+      "state": "OPEN"
+    },
+    "escrowAfter": {
+      "action_id": "0x73c85bec2c3b65f9ec886dc6ca876e2b758b2b53f632ac7292e4420107203393",
+      "amount": "10000000000000000",
+      "asset": "GEN",
+      "close_reason": "POLICY_VIOLATION",
+      "closed_at": "2026-10-18T06:33:21.998663Z",
+      "deadline_unix": 1792909923,
+      "decision_id": "0xd86cbb964e2b2a49c8b1888fb6811055a2592e90d73e4843d0b7b15096ef028e",
+      "evidence_digest": "",
+      "exists": true,
+      "funder": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+      "intent_hash": "",
+      "nonce": 1792305123,
+      "opened_at": "2026-10-18T06:32:27.432185Z",
+      "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+      "provisional": "",
+      "provisional_count": 0,
+      "reason_code": "",
+      "recipient": "0x1111111111111111111111111111111111111111",
+      "state": "REFUNDABLE"
+    },
+    "receipt": {
+      "action_id": "0x73c85bec2c3b65f9ec886dc6ca876e2b758b2b53f632ac7292e4420107203393",
+      "exists": false,
+      "reason_code": "ESCROW_UNKNOWN"
+    },
+    "escrowAfterWithdraw": {
+      "action_id": "0x73c85bec2c3b65f9ec886dc6ca876e2b758b2b53f632ac7292e4420107203393",
+      "amount": "10000000000000000",
+      "asset": "GEN",
+      "close_reason": "POLICY_VIOLATION",
+      "closed_at": "2026-10-18T06:33:21.998663Z",
+      "deadline_unix": 1792909923,
+      "decision_id": "0xd86cbb964e2b2a49c8b1888fb6811055a2592e90d73e4843d0b7b15096ef028e",
+      "evidence_digest": "",
+      "exists": true,
+      "funder": "0x14b959b6df21f95f7dfc76c980d93afbdb7a66d6",
+      "intent_hash": "",
+      "nonce": 1792305123,
+      "opened_at": "2026-10-18T06:32:27.432185Z",
+      "policy_hash": "0x790600775ccc9b7d7b0328181076e54cb354610350df18d78e86e30c9f0120ac",
+      "provisional": "",
+      "provisional_count": 0,
+      "reason_code": "",
+      "recipient": "0x1111111111111111111111111111111111111111",
+      "state": "WITHDRAWN"
+    }
+  },
+  "adjudication": {
+    "txHash": "0x7c0e572cb56deddcd037f71141ed2069d6794e9baff3ab3f0b5d42637ab9a4c8",
+    "submittedAtMs": 1792305154880,
+    "lifecycleSamples": [
+      {
+        "atMs": 1792305156311,
+        "storedStatus": "Pending",
+        "projectedStatus": "Pending",
+        "resolutionAction": "NoOp",
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792305158
+      },
+      {
+        "atMs": 1792305166696,
+        "storedStatus": "Committing",
+        "projectedStatus": "Committing",
+        "resolutionAction": "NoOp",
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792305168
+      },
+      {
+        "atMs": 1792305178831,
+        "storedStatus": "Accepted",
+        "projectedStatus": "Accepted",
+        "resolutionAction": "NoOp",
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792305181
+      },
+      {
+        "atMs": 1792305190187,
+        "storedStatus": "Accepted",
+        "projectedStatus": "Accepted",
+        "resolutionAction": "NoOp",
+        "decisionId": "1",
+        "decisionActive": true,
+        "evaluatedAt": 1792305192
+      },
+      {
+        "atMs": 1792305201461,
+        "storedStatus": "Finalized",
+        "projectedStatus": "Finalized",
+        "resolutionAction": "NoOp",
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792305203
+      },
+      {
+        "atMs": 1792305212321,
+        "storedStatus": "Finalized",
+        "projectedStatus": "Finalized",
+        "resolutionAction": "NoOp",
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792305214
+      },
+      {
+        "atMs": 1792305223669,
+        "storedStatus": "Finalized",
+        "projectedStatus": "Finalized",
+        "resolutionAction": "NoOp",
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792305225
+      },
+      {
+        "atMs": 1792305234334,
+        "storedStatus": "Finalized",
+        "projectedStatus": "Finalized",
+        "resolutionAction": "NoOp",
+        "decisionId": null,
+        "decisionActive": false,
+        "evaluatedAt": 1792305236
+      }
+    ],
+    "appeal": null,
+    "status": "FINALIZED",
+    "execution": "FINISHED_WITH_RETURN",
+    "attempt": 1,
+    "verdict": "REJECT",
+    "reasonCode": "POLICY_VIOLATION",
+    "decisionId": "0xd86cbb964e2b2a49c8b1888fb6811055a2592e90d73e4843d0b7b15096ef028e",
+    "adjudicatedAt": "2026-10-18T06:32:37.449034Z",
+    "evidenceDigest": "0xbe569a8c07a922f1edc0cfc313e1f59dcf1c907c2e9299702422cf95b72c3544",
+    "intentHash": "0xabb5e334e015b71cfa8aa162983cb49705ce6844f174378c6f3abbf674817789",
+    "finalDecisionId": 1,
+    "finalAppealDeadline": 1792305199,
+    "materializedAt": 1792305169,
+    "finalizedObservedAtMs": 1792305201461,
+    "actionState": "REJECTED",
+    "requestsUsed": 33
+  },
+  "vaultSamples": [
+    {
+      "atMs": 1792305166696,
+      "state": "OPEN",
+      "provisional": "",
+      "chainLower": 1792305168,
+      "chainUpper": 1792305181
+    },
+    {
+      "atMs": 1792305190187,
+      "state": "OPEN",
+      "provisional": "",
+      "chainLower": 1792305192,
+      "chainUpper": 1792305203
+    },
+    {
+      "atMs": 1792305212321,
+      "state": "REFUNDABLE",
+      "provisional": "",
+      "chainLower": 1792305214,
+      "chainUpper": 1792305225
+    },
+    {
+      "atMs": 1792305234334,
+      "state": "REFUNDABLE",
+      "provisional": "",
+      "chainLower": 1792305236,
+      "chainUpper": null
+    }
+  ],
+  "delivery": {
+    "childTxHash": "0x4ab94facd4cc4a6fe41b845857608854a43cd748231241924bbe0aca2b795094",
+    "explorer": "https://explorer-studio-dev.genlayer.com/tx/0x4ab94facd4cc4a6fe41b845857608854a43cd748231241924bbe0aca2b795094",
+    "method": "close_refused",
+    "from": "0xA03C1884F2dFf591388B85840F264c93EE4bF889",
+    "to": "0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5",
+    "triggeredBy": "0x7c0e572cb56deddcd037f71141ed2069d6794e9baff3ab3f0b5d42637ab9a4c8",
+    "createdTimestamp": 1792305201,
+    "status": "FINALIZED",
+    "execution": "FINISHED_WITH_RETURN",
+    "finalizedObservedAtMs": 1792305238290,
+    "emittedMessages": []
+  },
+  "withdraw": {
+    "txHash": "0xb33ce0990c6049f2476be527c67041f7a3fb8a6a3c7e99edfdeaaafa189b9844",
+    "execution": "FINISHED_WITH_RETURN",
+    "emittedMessages": [
+      {
+        "messageType": "0",
+        "recipient": "0x14b959B6DF21F95F7dFc76c980d93aFbDB7a66d6",
+        "value": "10000000000000000",
+        "data": "Bg==",
+        "onAcceptance": false
+      }
+    ]
+  },
+  "balances": {
+    "recipientDeltaWei": "0",
+    "funderDeltaWei": "-10498469500004115",
+    "escrowWei": "10000000000000000",
+    "creditObservable": false,
+    "note": "Studio-dev never credits a transfer a contract emits (docs/evidence/milestone/transfer-credit-probe.json), so a balance delta is recorded for completeness and is not evidence. The evidence is the emitted finalized-stage transfer message and the vault's state and receipt."
+  },
+  "finishedAt": "2026-10-18T06:35:04.662Z",
+  "requestsUsed": 49
+}

@@ -9,7 +9,7 @@
 
 import { expect, test } from "@playwright/test";
 
-const ROUTES = ["/", "/console", "/lab", "/proof", "/docs"];
+const ROUTES = ["/", "/console", "/console/v0", "/lab", "/proof", "/docs"];
 
 for (const path of ROUTES) {
   test(`${path} exposes exactly one top-level heading`, async ({ page }) => {

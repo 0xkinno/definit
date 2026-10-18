@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-18T06:23:52.260Z",
+  "generatedAt": "2026-10-18T07:02:01.139Z",
   "requireLive": false,
   "counts": {
     "pass": 8,
@@ -124,11 +124,12 @@
       "uses": [
         "docs/evidence/milestone/v1-run-R1.json",
         "docs/evidence/milestone/v1-run-R2.json",
-        "docs/evidence/milestone/v1-run-R3.json"
+        "docs/evidence/milestone/v1-run-R3.json",
+        "docs/evidence/milestone/v1-run-R5.json"
       ],
       "problems": [],
       "notes": [
-        "3 live run(s) re-derived"
+        "4 live run(s) re-derived"
       ]
     },
     {
