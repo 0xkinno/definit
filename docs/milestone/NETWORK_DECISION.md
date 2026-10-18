@@ -40,9 +40,9 @@ Observed on Studio-dev: appeal window 30 seconds; the finalized child transactio
 
 ## Risk carried
 
-Studio-dev is a release-candidate preview. It may reset. The v1 contracts from
+Studio-dev is a release-candidate preview. It may reset. The v0 contracts from
 the accepted baseline were probed on 2026-10-17T12:02:51.764Z: all three still answer
-(`docs/evidence/milestone/v1-liveness.json`). Studio-dev also rate-limits at 500 requests
+(`docs/evidence/milestone/v0-liveness.json`). Studio-dev also rate-limits at 500 requests
 per hour for a funded account, which shapes how experiments are paced.
 
 If the operator funds an account on Bradbury and the lifecycle method becomes

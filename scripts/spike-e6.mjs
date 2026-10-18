@@ -1,18 +1,18 @@
 /**
  * E6 H1 differential.  EXPERIMENT CODE.
  *
- * Question: can the v1 release be triggered while the state it depends on is
+ * Question: can the v0 release be triggered while the state it depends on is
  * still appealable at protocol level?
  *
- * v1 (commit b903f94, contracts/ untouched) lets the escrow funder call
+ * v0 (commit b903f94, contracts/ untouched) lets the escrow funder call
  * `settle`. The vault then reads the decision contract at plain scope. This
- * script deploys v1 unchanged to the target network, drives one action through
+ * script deploys v0 unchanged to the target network, drives one action through
  * adjudication and promotion, and calls `settle` as the funder while the
  * promotion transaction's own lifecycle still reads Accepted and its
  * resolutionAction is not Finalize.
  *
  * It records what the network did. It does not arrange an outcome.
- * v1 files, v1 evidence and artifacts/deployment.json are never written.
+ * v0 files, v0 evidence and artifacts/deployment.json are never written.
  *
  * Usage: node scripts/spike-e6.mjs
  */
@@ -26,7 +26,7 @@ import { makeSpikeClient, pace, lifecycle, getTx } from "./spike.mjs";
 const OUT = process.env.SPIKE_OUT_DIR ? path.resolve(process.env.SPIKE_OUT_DIR) : path.join(REPO_ROOT, "docs", "evidence", "milestone", "spike");
 const RUN = process.argv.includes("--run") ? process.argv[process.argv.indexOf("--run") + 1] : "1";
 const REUSE = process.argv.includes("--reuse");
-const FILE = path.join(OUT, `e6-h1-v1-run${RUN}.json`);
+const FILE = path.join(OUT, `e6-h1-v0-run${RUN}.json`);
 const EVIDENCE_URL = "https://definit-snowy.vercel.app/demo/delivery-742.txt";
 const POLICY_ID = "delivery-milestone-v3";
 const j = (v) => JSON.stringify(v, (_k, x) => (typeof x === "bigint" ? x.toString() : x), 2);
@@ -34,8 +34,8 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const ESCROW_WEI = 10_000_000_000_000_000n;
 const RECIPIENT = "0x1111111111111111111111111111111111111111";
 
-const reuseFrom = REUSE ? JSON.parse(readFileSync(path.join(OUT, "e6-h1-v1-run1.json"), "utf8")).contracts : null;
-const record = { experiment: "E6-h1-v1", run: RUN, startedAt: new Date().toISOString(), baseline: "b903f94", steps: [], result: null, ...(reuseFrom ? { contracts: reuseFrom, reusedContractsFrom: "e6-h1-v1-run1.json" } : {}) };
+const reuseFrom = REUSE ? JSON.parse(readFileSync(path.join(OUT, "e6-h1-v0-run1.json"), "utf8")).contracts : null;
+const record = { experiment: "E6-h1-v0", run: RUN, startedAt: new Date().toISOString(), baseline: "b903f94", steps: [], result: null, ...(reuseFrom ? { contracts: reuseFrom, reusedContractsFrom: "e6-h1-v0-run1.json" } : {}) };
 const save = () => writeFileSync(FILE, j(record));
 const step = (name, detail = {}) => {
   record.steps.push({ name, at: new Date().toISOString(), atMs: Date.now(), ...detail });
@@ -121,7 +121,7 @@ async function main() {
   {
     if (reuseFrom) {
       ({ registry, vault, gate } = reuseFrom);
-      step("reusing v1 contracts deployed in run 1", reuseFrom);
+      step("reusing v0 contracts deployed in run 1", reuseFrom);
     } else {
       registry = await deploy(client, "ScenarioRegistry", "scenario_registry.py", []);
       vault = await deploy(client, "FinalityVault", "finality_vault.py", [account.address]);
@@ -150,11 +150,11 @@ async function main() {
     await write(client, "FinalityVault", vault, "open_escrow", [actionId], ESCROW_WEI);
   }
 
-  // v1 refuses promotion until its own 120 s window has passed (APPEAL_WINDOW_SECONDS).
+  // v0 refuses promotion until its own 120 s window has passed (APPEAL_WINDOW_SECONDS).
   const cap = await read(client, gate, "get_capability", [decisionId]);
   const adjudicatedAt = unix(cap.adjudicated_at);
   const wait = Math.max(0, adjudicatedAt + 120 + 25 - Math.floor(Date.now() / 1000));
-  step("waiting for v1's own 120 s window", { adjudicatedAt, waitSeconds: wait });
+  step("waiting for v0's own 120 s window", { adjudicatedAt, waitSeconds: wait });
   await sleep(wait * 1000);
 
   // Promote. Do not wait for it to be decided: the point is what happens while it is still appealable.

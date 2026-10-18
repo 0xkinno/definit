@@ -1,5 +1,5 @@
 {
-  "experiment": "E6-h1-v1",
+  "experiment": "E6-h1-v0",
   "run": "1",
   "startedAt": "2026-10-17T12:08:53.179Z",
   "baseline": "b903f94",
@@ -117,7 +117,7 @@
       "messages": 0
     },
     {
-      "name": "waiting for v1's own 120 s window",
+      "name": "waiting for v0's own 120 s window",
       "at": "2026-10-17T12:10:56.730Z",
       "atMs": 1792239056730,
       "adjudicatedAt": 1792239020,

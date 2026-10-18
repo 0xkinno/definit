@@ -4,7 +4,7 @@ One vault is deployed. Each lifecycle is its own escrow with its own amount and
 deadline, driven through a random sequence of events: releases (matching,
 altered, forged, from the wrong sender), refusals, provisional notices (repeated
 and alternating), withdrawals and reclaims (before, at and after the deadline).
-Every event is also given to the pure model in contracts/v2/core/vault_model.py,
+Every event is also given to the pure model in contracts/v1/core/vault_model.py,
 and the two must agree on the refusal code or the recorded no-op, the resulting
 state and the value that moved.
 
@@ -18,7 +18,7 @@ produces two transfers.
 Seeds are recorded. A failure prints the seed, the lifecycle index and the full
 event trace, so it reproduces exactly:
 
-    PROPERTY_SEEDS=7 PROPERTY_LIFECYCLES=1000 npm run test:v2:property
+    PROPERTY_SEEDS=7 PROPERTY_LIFECYCLES=1000 npm run test:v1:property
 """
 
 import json
@@ -30,15 +30,15 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(ROOT / "contracts" / "v2" / "core"))
+sys.path.insert(0, str(ROOT / "contracts" / "v1" / "core"))
 
 import vault_model as model  # noqa: E402
 
-from v2.harness import (  # noqa: E402
+from v1.harness import (  # noqa: E402
     ACTOR, EVIDENCE_DIGEST, FUNDER, GATE, POLICY_HASH, RECIPIENT, RevertedWith, Scenario, contract_path, intent_hash, iso,
 )
 
-VAULT = "contracts/v2/finality_vault.py"
+VAULT = "contracts/v1/finality_vault.py"
 SEEDS = [int(x) for x in os.environ.get("PROPERTY_SEEDS", "1,2,3").split(",") if x.strip()]
 LIFECYCLES = int(os.environ.get("PROPERTY_LIFECYCLES", "1000"))
 BASE = 2_000_000_000  # a unix time safely before every deadline below
@@ -171,5 +171,5 @@ def test_random_lifecycles_agree_with_the_model_and_conserve_value(seed, direct_
     recorded = json.loads(RESULTS.read_text(encoding="utf-8")) if RESULTS.exists() else {"runs": {}}
     recorded["runs"][str(seed)] = stats
     recorded["generatedAt"] = __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat()
-    recorded["build"] = os.environ.get("DEFINIT_CONTRACT_DIR", "readable (contracts/v2)")
+    recorded["build"] = os.environ.get("DEFINIT_CONTRACT_DIR", "readable (contracts/v1)")
     RESULTS.write_text(json.dumps(recorded, indent=2), encoding="utf-8")

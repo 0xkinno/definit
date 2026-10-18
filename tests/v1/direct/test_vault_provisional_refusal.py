@@ -9,9 +9,9 @@ back, and only after it.
 
 import pytest
 
-from v2.harness import contract_path, AMOUNT, FUNDER, RECIPIENT, RevertedWith, Scenario
+from v1.harness import contract_path, AMOUNT, FUNDER, RECIPIENT, RevertedWith, Scenario
 
-VAULT = "contracts/v2/finality_vault.py"
+VAULT = "contracts/v1/finality_vault.py"
 
 
 @pytest.fixture

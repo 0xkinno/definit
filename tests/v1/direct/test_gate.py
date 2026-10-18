@@ -1,4 +1,4 @@
-"""The v2 decision gate.
+"""The v1 decision gate.
 
 What matters here is what the gate emits and what it refuses to do. Release
 authority is a message the adjudicating transaction emits on the finalized
@@ -11,14 +11,14 @@ from pathlib import Path
 
 import pytest
 
-from v2.harness import (
+from v1.harness import (
     contract_path,
     AGENT, AMOUNT, APPROVE_JSON, DEADLINE, EVIDENCE_TEXT, EVIDENCE_URL, FUNDER, GateScenario, LATE, NOW,
     POLICY_HASH, POLICY_ID, RECIPIENT, REJECT_JSON, RevertedWith, VAULT_ADDR, evidence_digest_of, intent_hash,
     keccak_hex, iso, golden,
 )
 
-GATE = "contracts/v2/decision_gate.py"
+GATE = "contracts/v1/decision_gate.py"
 VECTOR = Path(__file__).resolve().parents[3] / "docs" / "evidence" / "milestone" / "gate-emission-vector.json"
 
 
@@ -32,7 +32,7 @@ def record_vector(g, message):
     VECTOR.write_text(
         json.dumps(
             {
-                "about": "The message the v2 gate emitted in direct mode, with its inputs. Recomputed offline by scripts/verify-offline.mjs.",
+                "about": "The message the v1 gate emitted in direct mode, with its inputs. Recomputed offline by scripts/verify-offline.mjs.",
                 "inputs": {
                     "agent": AGENT, "recipient": RECIPIENT, "amount": AMOUNT, "asset": "GEN", "policy_hash": POLICY_HASH,
                     "nonce": 7, "deadline_unix": DEADLINE, "created_at": NOW, "adjudicated_at": NOW,
@@ -194,9 +194,9 @@ def test_the_gates_message_is_exactly_the_golden_message(ready):
     record_vector(ready, message)
 
 
-def test_the_commitment_encoding_is_byte_identical_to_v1(ready):
-    """The v1 encoding is restated here and in the TypeScript mirror. The gate's
-    hash must equal an independent computation, so v1 receipts still verify."""
+def test_the_commitment_encoding_is_byte_identical_to_v0(ready):
+    """The v0 encoding is restated here and in the TypeScript mirror. The gate's
+    hash must equal an independent computation, so v0 receipts still verify."""
     ready.adjudicate()
     digest = evidence_digest_of(EVIDENCE_TEXT)
     payload = "|".join(
@@ -215,17 +215,17 @@ def test_the_commitment_encoding_is_byte_identical_to_v1(ready):
     assert ready.gate.get_action(ready.action_id)["intent_hash"] == keccak_hex(payload)
 
 
-def test_the_decision_id_uses_the_v2_domain(ready):
-    """A v1 and a v2 decision id can never collide."""
+def test_the_decision_id_uses_the_v1_domain(ready):
+    """A v0 and a v1 decision id can never collide."""
     out = ready.adjudicate()
     expected = keccak_hex(
         "|".join(("DEFINIT-DECISION-v2", "action=" + ready.action_id, "attempt=1", "intent_hash=" + out["intent_hash"], "adjudicated_at=" + NOW))
     )
     assert out["decision_id"] == expected
-    v1 = keccak_hex(
+    v0 = keccak_hex(
         "|".join(("DEFINIT-DECISION-v1", "action=" + ready.action_id, "attempt=1", "intent_hash=" + out["intent_hash"], "adjudicated_at=" + NOW))
     )
-    assert out["decision_id"] != v1
+    assert out["decision_id"] != v0
 
 
 def test_the_decision_is_recorded(ready):
@@ -304,8 +304,8 @@ def test_an_unrecognised_model_answer_defaults_to_a_rejection(g):
 
 
 def test_there_is_no_promotion_step(g):
-    """C4. v1 needed a second, agent-driven transaction to promote a decision.
-    In v2 the adjudicating transaction schedules the release itself."""
+    """C4. v0 needed a second, agent-driven transaction to promote a decision.
+    In v1 the adjudicating transaction schedules the release itself."""
     names = [n for n in dir(g.gate) if not n.startswith("_")]
     for removed in ("finalize_decision", "get_capability", "mark_settled"):
         assert removed not in names

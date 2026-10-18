@@ -85,7 +85,7 @@
     },
     {
       "id": "R1",
-      "source": "docs/evidence/milestone/v2-run-R1.json",
+      "source": "docs/evidence/milestone/v1-run-R1.json",
       "acceptedAt": 1792248396,
       "finalAt": 1792248426,
       "deliveryAt": 1792248426,
@@ -93,7 +93,7 @@
     },
     {
       "id": "R3",
-      "source": "docs/evidence/milestone/v2-run-R3.json",
+      "source": "docs/evidence/milestone/v1-run-R3.json",
       "acceptedAt": 1792248716,
       "finalAt": 1792248744,
       "deliveryAt": 1792248745,
@@ -101,7 +101,7 @@
     },
     {
       "id": "T1",
-      "source": "docs/evidence/milestone/v2-run-T1.json",
+      "source": "docs/evidence/milestone/v1-run-T1.json",
       "acceptedAt": 1792251971,
       "finalAt": 1792252001,
       "deliveryAt": 1792252001,
@@ -121,13 +121,13 @@
       "refusedLegitimate": 0,
       "medianSecondsFromFinalToPayment": 0
     },
-    "v1": {
+    "v0": {
       "unsafe": 0,
       "of": 13,
       "refusedLegitimate": 0,
       "medianSecondsFromFinalToPayment": 90
     },
-    "v2": {
+    "v1": {
       "unsafe": 0,
       "of": 13,
       "refusedLegitimate": 0,
@@ -139,26 +139,26 @@
     "of": 3,
     "timelines": [
       {
-        "source": "docs/evidence/milestone/spike/e6-h1-v1-run2.json",
+        "source": "docs/evidence/milestone/spike/e6-h1-v0-run2.json",
         "settleDecidedAt": 1792238350,
         "promotionFinalAt": 1792238362
       },
       {
-        "source": "docs/evidence/milestone/spike/repro-1/e6-h1-v1-run1.json",
+        "source": "docs/evidence/milestone/spike/repro-1/e6-h1-v0-run1.json",
         "settleDecidedAt": 1792239188,
         "promotionFinalAt": 1792239205
       },
       {
-        "source": "docs/evidence/milestone/spike/repro-2/e6-h1-v1-run1.json",
+        "source": "docs/evidence/milestone/spike/repro-2/e6-h1-v0-run1.json",
         "settleDecidedAt": 1792239886,
         "promotionFinalAt": 1792239903
       }
     ],
-    "note": "v1's vault lets the funder trigger settle once the promotion is Accepted (spike E6)."
+    "note": "v0's vault lets the funder trigger settle once the promotion is Accepted (spike E6)."
   },
   "caveats": [
     "The timelines are real but few; this is a count over them, not a statistic over all timelines.",
     "An appeal's outcome is whatever the committee returned. No overturn was engineered or observed, and none is claimed.",
-    "v1's 120 second constant exceeds the measured window here, so its timer arm is safe on these timelines; its funder path is the measured gap."
+    "v0's 120 second constant exceeds the measured window here, so its timer arm is safe on these timelines; its funder path is the measured gap."
   ]
 }

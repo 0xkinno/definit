@@ -28,7 +28,7 @@
         "product": "DEFINIT",
         "release_count": 0,
         "release_message_stage": "finalized",
-        "version": "v2"
+        "version": "v1"
       },
       "gate": {
         "clock": "none",
@@ -42,7 +42,7 @@
         "settlement_message_stage": "finalized",
         "total_actions": 0,
         "vault": "0x61c1cfa242521936214ebf5510b6e3aa6e9eadf5",
-        "version": "v2"
+        "version": "v1"
       }
     },
     "policy": {
@@ -194,7 +194,7 @@
         "invariant": "I8",
         "cases": 0,
         "passed": 0,
-        "attackedBy": "live lifecycle records (v2-run-R*.json) and the spike runs, re-derived by verify-offline V4 and V7"
+        "attackedBy": "live lifecycle records (v1-run-R*.json) and the spike runs, re-derived by verify-offline V4 and V7"
       },
       {
         "invariant": "I9",
@@ -264,13 +264,13 @@
         "refusedLegitimate": 0,
         "medianSecondsFromFinalToPayment": 0
       },
-      "v1": {
+      "v0": {
         "unsafe": 0,
         "of": 13,
         "refusedLegitimate": 0,
         "medianSecondsFromFinalToPayment": 90
       },
-      "v2": {
+      "v1": {
         "unsafe": 0,
         "of": 13,
         "refusedLegitimate": 0,
@@ -285,7 +285,7 @@
     "caveats": [
       "The timelines are real but few; this is a count over them, not a statistic over all timelines.",
       "An appeal's outcome is whatever the committee returned. No overturn was engineered or observed, and none is claimed.",
-      "v1's 120 second constant exceeds the measured window here, so its timer arm is safe on these timelines; its funder path is the measured gap."
+      "v0's 120 second constant exceeds the measured window here, so its timer arm is safe on these timelines; its funder path is the measured gap."
     ]
   },
   "differential": {
@@ -471,7 +471,7 @@
       },
       {
         "id": "V6",
-        "title": "v1's vault accepted a funder release while the promotion was only Accepted and still appealable",
+        "title": "v0's vault accepted a funder release while the promotion was only Accepted and still appealable",
         "status": "pass",
         "invariants": [
           "C2"
@@ -479,7 +479,7 @@
       },
       {
         "id": "V7",
-        "title": "Each live v2 run: hashes recompute, the delivery is the gate's child, and nothing moved before the decision finalized",
+        "title": "Each live v1 run: hashes recompute, the delivery is the gate's child, and nothing moved before the decision finalized",
         "status": "pass",
         "invariants": [
           "I1",

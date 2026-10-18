@@ -22,7 +22,7 @@
     },
     {
       "id": "O3",
-      "what": "A transaction whose execution ended FINISHED_WITH_ERROR still reached Finalized. Status alone does not prove success (v1 defect C6).",
+      "what": "A transaction whose execution ended FINISHED_WITH_ERROR still reached Finalized. Status alone does not prove success (v0 defect C6).",
       "evidence": "tx 0x45e1649de4263c735e9d037fa827d450e9fb434fdd30d59b42022a79cbc9eba8 txExecutionResultName FINISHED_WITH_ERROR, status FINALIZED"
     },
     {

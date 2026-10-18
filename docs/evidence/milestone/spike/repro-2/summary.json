@@ -87,5 +87,5 @@
     "settleDecidedBeforePromotionAppealDeadline": true,
     "v1ContractsUnchangedAtBaseline": "b903f94"
   },
-  "note": "pass means the recorded values satisfy the stated predicate; E6 observed means v1 accepted a funder release before the promotion's appeal deadline. Neither is a claim beyond these records."
+  "note": "pass means the recorded values satisfy the stated predicate; E6 observed means v0 accepted a funder release before the promotion's appeal deadline. Neither is a claim beyond these records."
 }

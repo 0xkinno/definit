@@ -1,14 +1,14 @@
 import { expect, test, type Page } from "@playwright/test";
 
 /**
- * Milestone 2 surfaces: the pages render their generated numbers, nothing
+ * Milestone v1 surfaces: the pages render their generated numbers, nothing
  * overflows, the finality clocks are laid out in time order inside their
  * container, there are no console errors, and the wallet path issues a signing
  * request to the gate when the injected wallet approves.
  *
  * The injected provider is a test double, not a wallet. It proves the application
  * builds the request and addresses it to the deployed gate. The live signing on
- * chain was done by the lifecycle runner (docs/evidence/milestone/v2-run-*.json).
+ * chain was done by the lifecycle runner (docs/evidence/milestone/v1-run-*.json).
  */
 
 function watch(page: Page) {
@@ -25,7 +25,7 @@ test("the milestone page renders the proof line, three clocks and the live contr
   await expect(page.getByRole("heading", { level: 1 })).toContainText("finality");
   const line = await page.getByTestId("proof-line").innerText();
   expect(line).toMatch(/pay-on-Accepted agent executed \d+\/\d+/);
-  expect(line).toMatch(/DEFINIT v2 0\/\d+/);
+  expect(line).toMatch(/DEFINIT v1 0\/\d+/);
 
   await expect(page.getByRole("figure")).toHaveCount(3);
   const addresses = await page.locator('a.hash[href*="explorer-studio-dev.genlayer.com/address/"]').allInnerTexts();
@@ -72,7 +72,7 @@ test("the landing hero states the pain and carries the generated proof line", as
   const problems = watch(page);
   await page.goto("/", { waitUntil: "networkidle" });
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Your agent paid on an AI verdict");
-  await expect(page.getByTestId("hero-proof")).toContainText("DEFINIT v2");
+  await expect(page.getByTestId("hero-proof")).toContainText("DEFINIT v1");
   await page.getByRole("link", { name: "See the finality clock and the proof" }).first().click();
   await expect(page).toHaveURL(/\/milestone$/);
   expect(problems).toEqual([]);

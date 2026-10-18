@@ -1,4 +1,4 @@
-"""Offline harness for the v2 contracts.
+"""Offline harness for the v1 contracts.
 
 The direct VM runs one contract at a time and answers a cross-contract call
 with nothing. This harness installs the VM's own cross-contract hook so that:
@@ -9,7 +9,7 @@ with nothing. This harness installs the VM's own cross-contract hook so that:
   arguments, so a test can assert what the gate emitted and then deliver that
   exact message to a real vault with the gate as sender.
 
-That second part is the point. Release authority in v2 is a delivery, so the
+That second part is the point. Release authority in v1 is a delivery, so the
 guards that matter take their input as calldata plus a sender, and both can be
 supplied here without a network.
 
@@ -173,7 +173,7 @@ def keccak_hex(payload: str) -> str:
 
 
 def intent_hash(agent: str, recipient: str, amount: int, asset: str, policy_hash: str, evidence_digest: str, nonce: int, deadline: int) -> str:
-    """The v1 commitment encoding, restated independently of the contract."""
+    """The v0 commitment encoding, restated independently of the contract."""
     return keccak_hex(
         "|".join(
             (
@@ -325,7 +325,7 @@ REJECT_JSON = '{"verdict": "REJECT", "reason_code": "EVIDENCE_MISSING", "confide
 
 
 def evidence_digest_of(text: str) -> str:
-    """The digest the gate derives from the snapshot it saw (whitespace-normalised, v1 domain)."""
+    """The digest the gate derives from the snapshot it saw (whitespace-normalised, v0 domain)."""
     return keccak_hex("DEFINIT-EVIDENCE-v1|" + " ".join(text.split())[:20000])
 
 

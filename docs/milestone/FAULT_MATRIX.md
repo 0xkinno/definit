@@ -1,6 +1,6 @@
 # Fault matrix
 
-Written before any v2 product code, so the system is attacked by a plan that
+Written before any v1 product code, so the system is attacked by a plan that
 could not have been shaped to fit it. Each row is run by `scripts/faults.mjs`
 (Phase 4) on the target network, or in direct mode where a fault cannot be
 produced on chain. The harness records which, per row, in
@@ -12,7 +12,7 @@ give, then the evidence that shows it, then the invariant it attacks.
 | # | Agent action | Fault | Required response | Evidence | Invariant |
 | --- | --- | --- | --- | --- | --- |
 | F1 | Agent submits a payment | An EOA calls `authorize_release` with a perfectly formed payload | Refused with `UNAUTHORIZED_SENDER`. No value moves | direct-mode test plus an on-chain attempt recorded with its refusal | I1 |
-| F2 | Funder wants its payment released early | The funder looks for any public method that releases on its own request | No such method exists. The only release entry point is gate-only. The v1 funder path is gone | ABI listing plus a direct-mode test that calls every public method as the funder | I1, C2 |
+| F2 | Funder wants its payment released early | The funder looks for any public method that releases on its own request | No such method exists. The only release entry point is gate-only. The v0 funder path is gone | ABI listing plus a direct-mode test that calls every public method as the funder | I1, C2 |
 | F3 | A finalized release delivery is processed | The same delivery is processed a second time | Second delivery is a recorded no-op. One transfer exists | direct-mode replay test, receipt count | I4 |
 | F4 | A finalized release delivery is processed | One byte of one commitment field is altered in the payload | Refused with `COMMITMENT_MISMATCH`, for each field in turn | direct-mode test, one case per field | I3 |
 | F5 | The gate reports provisional outcomes | Repeated `note_provisional` with alternating verdicts | Display marker changes. Balance and escrow state are identical before and after | direct-mode test. On chain: only if the network can emit the accepted stage (see O5, may be UNKNOWN) | I5 |

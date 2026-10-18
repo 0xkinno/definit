@@ -196,13 +196,13 @@ path in either contract that returns a partial success, and no administrative
 override in either contract.
 
 <!-- milestone-arch:begin -->
-## v2 architecture
+## v1 architecture
 
 ```mermaid
 sequenceDiagram
     participant A as Agent (funder)
-    participant V as FinalityVault v2
-    participant G as DecisionGate v2
+    participant V as FinalityVault v1
+    participant G as DecisionGate v1
     participant P as GenLayer protocol
     A->>G: create_action
     A->>V: open_escrow (value, commitment fields)
@@ -219,9 +219,9 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     participant X as Anyone
-    participant G as DecisionGate v2
+    participant G as DecisionGate v1
     participant P as GenLayer protocol
-    participant V as FinalityVault v2
+    participant V as FinalityVault v1
     G-->>P: emit on finalized (release)
     X->>P: appealTransaction (inside the window)
     P->>P: window pauses, decision recomputed

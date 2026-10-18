@@ -1,5 +1,5 @@
 /**
- * Invariant I2 gate: neither v2 contract may use the clock to authorize a
+ * Invariant I2 gate: neither v1 contract may use the clock to authorize a
  * release. The analysis is a Python AST walk (scripts/check_no_clock.py); this
  * wrapper finds the interpreter and runs it.
  *

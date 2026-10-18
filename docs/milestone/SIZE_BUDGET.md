@@ -10,4 +10,4 @@ A peer project reported a practical deployment ceiling of about 20 KB on Bradbur
 | finality_vault | 18,380 | 14,571 |
 | decision_gate | 21,932 | 16,938 |
 
-The v1 `decision_gate.py` is 27,277 bytes. Every v2 contract is under the budget in its minified form. `npm run build:contracts` writes both forms to `contracts/v2/build/`. The deployed contracts on Studio-dev are the readable sources; the minified form compiles on the network (`npm run contracts:check`) but was not deployed or run through the live suite.
+The v0 `decision_gate.py` is 27,277 bytes. Every v1 contract is under the budget in its minified form. `npm run build:contracts` writes both forms to `contracts/v1/build/`. The deployed contracts on Studio-dev are the readable sources; the minified form compiles on the network (`npm run contracts:check`) but was not deployed or run through the live suite.

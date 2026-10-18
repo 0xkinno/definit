@@ -1,9 +1,9 @@
-"""The release path of the v2 vault.
+"""The release path of the v1 vault.
 
 Release authority is a delivery: the only way value can leave toward the
 recipient is `authorize_release`, called with the bound gate as sender. These
 tests drive that method directly, so every guard on it is reachable offline.
-(In v1 the decisive guard was a cross-contract read, which this runner cannot
+(In v0 the decisive guard was a cross-contract read, which this runner cannot
 execute; that is the point of moving authority onto calldata.)
 
 Each test changes exactly one thing, so a failure names the guard that stopped
@@ -12,13 +12,13 @@ holding.
 
 import pytest
 
-from v2.harness import (
+from v1.harness import (
     contract_path,
     AMOUNT, DEADLINE, EVIDENCE_DIGEST, FUNDER, GATE, LATE, NOW, OWNER, POLICY_HASH, RECIPIENT, STRANGER,
     RevertedWith, Scenario, golden, intent_hash, iso,
 )
 
-VAULT = "contracts/v2/finality_vault.py"
+VAULT = "contracts/v1/finality_vault.py"
 
 
 @pytest.fixture
@@ -39,7 +39,7 @@ def test_the_gate_can_release(s):
 @pytest.mark.parametrize("who", ["stranger", "funder", "recipient", "owner"])
 def test_nobody_but_the_gate_can_release(s, who):
     """I1. An EOA with a perfectly formed payload is refused. This includes the
-    funder, which is the v1 defect C2: the funder could trigger a release."""
+    funder, which is the v0 defect C2: the funder could trigger a release."""
     with pytest.raises(RevertedWith) as refused:
         s.deliver_release(who)
     assert refused.value.code == "UNAUTHORIZED_SENDER"

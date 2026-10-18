@@ -1,5 +1,5 @@
 {
-  "about": "The v2 corpus. Each case names the invariant it attacks. Cases run against the real v2 vault in direct mode (tests/v2/direct/test_corpus.py); scripts/proof-v2.mjs turns the recorded results into the report and fails if expected and observed disagree. Counts are generated from this file and the run, never typed.",
+  "about": "The v1 corpus. Each case names the invariant it attacks. Cases run against the real v1 vault in direct mode (tests/v1/direct/test_corpus.py); scripts/proof-v1.mjs turns the recorded results into the report and fails if expected and observed disagree. Counts are generated from this file and the run, never typed.",
   "cases": [
     {
       "id": "i1-release-by-stranger",

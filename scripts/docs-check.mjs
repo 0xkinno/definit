@@ -278,7 +278,7 @@ if (problems.length === 0) {
 for (const file of ["README.md", "docs/milestone/DELTA.md", "docs/INVARIANTS.md", "docs/milestone/VAULT_STATE_MACHINE.md", "docs/milestone/FILM_PLAN.md", "docs/milestone/THREAD.md"]) {
   const text = existsSync(path.join(REPO_ROOT, file)) ? readFileSync(path.join(REPO_ROOT, file), "utf8") : "";
   for (const line of text.split(/\r?\n/)) {
-    if (/APPEAL_WINDOW_SECONDS/.test(line) && !/v1|removed|C1|baseline|b903f94/i.test(line)) {
+    if (/APPEAL_WINDOW_SECONDS/.test(line) && !/v0|removed|C1|baseline|b903f94/i.test(line)) {
       log.fail(`${file}: mentions APPEAL_WINDOW_SECONDS as current behavior: ${line.trim().slice(0, 120)}`);
       process.exit(1);
     }

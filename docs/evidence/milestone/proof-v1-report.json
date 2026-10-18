@@ -1,8 +1,8 @@
 {
   "generatedAt": "2026-10-17T16:05:56.198Z",
   "source": {
-    "cases": "tests/v2/fixtures/cases-v2.json",
-    "results": "docs/evidence/milestone/corpus-v2-results.json"
+    "cases": "tests/v1/fixtures/cases-v1.json",
+    "results": "docs/evidence/milestone/corpus-v1-results.json"
   },
   "headline": {
     "cases": 41,
@@ -58,7 +58,7 @@
       "invariant": "I8",
       "cases": 0,
       "passed": 0,
-      "attackedBy": "live lifecycle records (v2-run-R*.json) and the spike runs, re-derived by verify-offline V4 and V7"
+      "attackedBy": "live lifecycle records (v1-run-R*.json) and the spike runs, re-derived by verify-offline V4 and V7"
     },
     {
       "invariant": "I9",

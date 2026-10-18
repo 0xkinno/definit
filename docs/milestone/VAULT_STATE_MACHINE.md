@@ -1,7 +1,7 @@
-# Vault state machine (v2)
+# Vault state machine (v1)
 
-Source of truth: `contracts/v2/finality_vault.py`. The direct-mode suite
-`tests/v2/direct/test_state_machine.py` enumerates every edge and every forbidden
+Source of truth: `contracts/v1/finality_vault.py`. The direct-mode suite
+`tests/v1/direct/test_state_machine.py` enumerates every edge and every forbidden
 edge below, so this document and the code cannot drift without a test failing.
 
 ## States

@@ -1,7 +1,7 @@
 /**
- * Build the deployable v2 contracts.
+ * Build the deployable v1 contracts.
  *
- *   npm run build:contracts            write contracts/v2/build/*.py and *.min.py
+ *   npm run build:contracts            write contracts/v1/build/*.py and *.min.py
  *   npm run build:contracts -- --check fail if the committed build differs from a fresh one
  *
  * Two outputs per contract:
@@ -20,7 +20,7 @@ import path from "node:path";
 
 import { REPO_ROOT, log } from "./_shared.mjs";
 
-const SRC = path.join(REPO_ROOT, "contracts", "v2");
+const SRC = path.join(REPO_ROOT, "contracts", "v1");
 const OUT = path.join(SRC, "build");
 const NAMES = ["scenario_registry", "finality_vault", "decision_gate"];
 const CHECK = process.argv.includes("--check");

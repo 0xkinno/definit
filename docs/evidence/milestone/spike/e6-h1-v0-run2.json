@@ -1,11 +1,11 @@
 {
-  "experiment": "E6-h1-v1",
+  "experiment": "E6-h1-v0",
   "run": "2",
   "startedAt": "2026-10-17T11:55:16.841Z",
   "baseline": "b903f94",
   "steps": [
     {
-      "name": "reusing v1 contracts deployed in run 1",
+      "name": "reusing v0 contracts deployed in run 1",
       "at": "2026-10-17T11:55:17.000Z",
       "atMs": 1792238117000,
       "registry": "0x188bE6E26D277F78247F7D72cE15B0f275AA0728",
@@ -70,7 +70,7 @@
       "messages": 0
     },
     {
-      "name": "waiting for v1's own 120 s window",
+      "name": "waiting for v0's own 120 s window",
       "at": "2026-10-17T11:56:55.186Z",
       "atMs": 1792238215186,
       "adjudicatedAt": 1792238171,
@@ -139,7 +139,7 @@
     "gate": "0xe678463EaFa694aCcb49C1d724656E759E096494",
     "deployer": "0x14b959B6DF21F95F7dFc76c980d93aFbDB7a66d6"
   },
-  "reusedContractsFrom": "e6-h1-v1-run1.json",
+  "reusedContractsFrom": "e6-h1-v0-run1.json",
   "actionId": "0xa4360771e2120f20cdbd2c141e837e8f007871f17daae720638e2976c46af6e1",
   "decisionId": "0x986ab16f5f1e76eb771b57bc824bbf4a112731bd3ec8fd8fc0265bccabf7c158",
   "synthesisedFeeTrees": [

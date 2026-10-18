@@ -20,7 +20,7 @@ import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 import { REPO_ROOT } from "./_shared.mjs";
-import { actionIdOf, decisionIdOfV2, evidenceDigestOf, intentHashOf } from "../lib/commitments/commitment.ts";
+import { actionIdOf, decisionIdOfV1, evidenceDigestOf, intentHashOf } from "../lib/commitments/commitment.ts";
 import { checkRun } from "./lib/run-checks.mjs";
 import { replay, replayFunderPath } from "./counterfactual.mjs";
 
@@ -51,7 +51,7 @@ function check(id, invariants, title, evaluate) {
 // ------------------------------------------------------------------ V1: the gate's emission, recomputed in TypeScript
 check("V1", ["I3"], "The gate's emitted message equals an independent TypeScript recomputation of every hash", (c) => {
   const file = path.join(EV, "gate-emission-vector.json");
-  if (!existsSync(file)) return c.notEvidenced("gate-emission-vector.json has not been recorded; run npm run test:v2:direct");
+  if (!existsSync(file)) return c.notEvidenced("gate-emission-vector.json has not been recorded; run npm run test:v1:direct");
   c.use(file);
   const v = rd(file);
   const i = v.inputs;
@@ -59,12 +59,12 @@ check("V1", ["I3"], "The gate's emitted message equals an independent TypeScript
   const expectedAction = actionIdOf({ agent: i.agent, recipient: i.recipient, amount: i.amount, asset: i.asset, policyHash: i.policy_hash, nonce: i.nonce, createdAt: i.created_at });
   const expectedDigest = evidenceDigestOf(i.evidence_text);
   const expectedIntent = intentHashOf({ agent: i.agent, recipient: i.recipient, amount: i.amount, asset: i.asset, policyHash: i.policy_hash, evidenceDigest: expectedDigest, nonce: i.nonce, deadlineUnix: i.deadline_unix });
-  const expectedDecision = decisionIdOfV2({ actionId: expectedAction, attempt: i.attempt, intentHash: expectedIntent, adjudicatedAt: i.adjudicated_at });
+  const expectedDecision = decisionIdOfV1({ actionId: expectedAction, attempt: i.attempt, intentHash: expectedIntent, adjudicatedAt: i.adjudicated_at });
   const same = (label, got, want) => { if (lc(got) !== lc(want)) c.fail(`${label}: emitted ${got}, recomputed ${want}`); };
   same("action id", actionId, expectedAction);
   same("evidence digest", digest, expectedDigest);
   same("intent hash", intentHash, expectedIntent);
-  same("decision id (v2 domain)", decisionId, expectedDecision);
+  same("decision id (v1 domain)", decisionId, expectedDecision);
   same("policy hash", policyHash, i.policy_hash);
   same("recipient", recipient, i.recipient);
   if (Number(nonce) !== i.nonce) c.fail("nonce differs");
@@ -77,9 +77,9 @@ check("V1", ["I3"], "The gate's emitted message equals an independent TypeScript
 
 // ------------------------------------------------------------------ V2: the corpus, re-derived from its results
 check("V2", ["I1", "I3", "I4", "I5", "I6", "I7", "I9", "I10", "I11"], "Every corpus case ran and its recorded outcome equals what the case declared", (c) => {
-  const fixture = path.join(REPO_ROOT, "tests", "v2", "fixtures", "cases-v2.json");
-  const results = path.join(EV, "corpus-v2-results.json");
-  if (!existsSync(results)) return c.notEvidenced("corpus-v2-results.json has not been recorded; run npm run test:v2:direct");
+  const fixture = path.join(REPO_ROOT, "tests", "v1", "fixtures", "cases-v1.json");
+  const results = path.join(EV, "corpus-v1-results.json");
+  if (!existsSync(results)) return c.notEvidenced("corpus-v1-results.json has not been recorded; run npm run test:v1:direct");
   c.use(fixture); c.use(results);
   const cases = rd(fixture).cases;
   const ran = rd(results).results;
@@ -179,9 +179,9 @@ check("V5", ["I1"], "A direct call shows the caller's own address as sender, dis
   }
 });
 
-// ------------------------------------------------------------------ V6: the v1 differential, from raw records
-check("V6", ["C2"], "v1's vault accepted a funder release while the promotion was only Accepted and still appealable", (c) => {
-  const files = [...repros.map((d) => path.join(d, "e6-h1-v1-run1.json")), path.join(SPIKE, "e6-h1-v1-run2.json")].filter(existsSync);
+// ------------------------------------------------------------------ V6: the v0 differential, from raw records
+check("V6", ["C2"], "v0's vault accepted a funder release while the promotion was only Accepted and still appealable", (c) => {
+  const files = [...repros.map((d) => path.join(d, "e6-h1-v0-run1.json")), path.join(SPIKE, "e6-h1-v0-run2.json")].filter(existsSync);
   if (!files.length) return c.notEvidenced("no E6 record exists");
   for (const file of files) {
     c.use(file);
@@ -197,10 +197,10 @@ check("V6", ["C2"], "v1's vault accepted a funder release while the promotion wa
   }
 });
 
-// ------------------------------------------------------------------ V7: live v2 runs (R1 to R4)
-const liveRuns = existsSync(EV) ? readdirSync(EV).filter((f) => /^v2-run-R\d+\.json$/.test(f)).map((f) => path.join(EV, f)) : [];
-check("V7", ["I1", "I3", "I6", "I8"], "Each live v2 run: hashes recompute, the delivery is the gate's child, and nothing moved before the decision finalized", (c) => {
-  if (!liveRuns.length) return c.notEvidenced("no live v2 run is recorded yet (v2-run-R*.json)");
+// ------------------------------------------------------------------ V7: live v1 runs (R1 to R4)
+const liveRuns = existsSync(EV) ? readdirSync(EV).filter((f) => /^v1-run-R\d+\.json$/.test(f)).map((f) => path.join(EV, f)) : [];
+check("V7", ["I1", "I3", "I6", "I8"], "Each live v1 run: hashes recompute, the delivery is the gate's child, and nothing moved before the decision finalized", (c) => {
+  if (!liveRuns.length) return c.notEvidenced("no live v1 run is recorded yet (v1-run-R*.json)");
   for (const file of liveRuns) {
     c.use(file);
     for (const problem of checkRun(rd(file))) c.fail(problem);
@@ -219,9 +219,9 @@ check("V8", ["I8"], "The counterfactual totals re-derive from the recorded timel
     for (const k of ["unsafe", "of", "refusedLegitimate"]) if (cf.arms[arm]?.[k] !== v[k]) c.fail(`${arm}.${k}: recorded ${cf.arms[arm]?.[k]}, re-derived ${v[k]}`);
   }
   const f = replayFunderPath(cf.v1FunderPath.timelines);
-  if (f.unsafe !== cf.v1FunderPath.unsafe || f.of !== cf.v1FunderPath.of) c.fail("v1 funder path totals differ from the re-derivation");
-  if (cf.arms.v2.unsafe !== 0) c.fail(`v2 executed ${cf.arms.v2.unsafe} payment(s) before the decision was final`);
-  c.note(`${cf.timelines.length} timelines re-derived; v2 unsafe ${again.v2.unsafe}/${again.v2.of}`);
+  if (f.unsafe !== cf.v1FunderPath.unsafe || f.of !== cf.v1FunderPath.of) c.fail("v0 funder path totals differ from the re-derivation");
+  if (cf.arms.v1.unsafe !== 0) c.fail(`v1 executed ${cf.arms.v1.unsafe} payment(s) before the decision was final`);
+  c.note(`${cf.timelines.length} timelines re-derived; v1 unsafe ${again.v1.unsafe}/${again.v1.of}`);
 });
 
 // ------------------------------------------------------------------ report

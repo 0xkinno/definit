@@ -6,7 +6,7 @@
   "deployer": "0x14b959B6DF21F95F7dFc76c980d93aFbDB7a66d6",
   "runner": "py-genlayer:5jycge4q8k23462jtb0b9fyey1s9qz928sz2nbrd9mg4sxqg2qng",
   "deployedAt": "2026-10-17T13:13:58.919Z",
-  "version": "v2",
+  "version": "v1",
   "addresses": {
     "scenarioRegistry": "0x8DC63918F88dcc719397a39730C1b31A1cF895DF",
     "finalityVault": "0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5",
@@ -35,7 +35,7 @@
       "product": "DEFINIT",
       "release_count": 0,
       "release_message_stage": "finalized",
-      "version": "v2"
+      "version": "v1"
     },
     "gate": {
       "clock": "none",
@@ -49,7 +49,7 @@
       "settlement_message_stage": "finalized",
       "total_actions": 0,
       "vault": "0x61c1cfa242521936214ebf5510b6e3aa6e9eadf5",
-      "version": "v2"
+      "version": "v1"
     }
   },
   "links": {

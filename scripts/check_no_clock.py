@@ -1,7 +1,7 @@
-"""Invariant I2: neither v2 contract contains a wall-clock comparison that
+"""Invariant I2: neither v1 contract contains a wall-clock comparison that
 authorizes a release.
 
-This parses contracts/v2/*.py with the Python AST and lists every comparison
+This parses contracts/v1/*.py with the Python AST and lists every comparison
 that involves the chain clock. Each one must be on an allowlist of exactly where
 and how it may appear, and each must have the semantics the allowlist claims:
 
@@ -25,7 +25,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-V2 = ROOT / "contracts" / "v2"
+V2 = ROOT / "contracts" / "v1"
 OUT = ROOT / "docs" / "evidence" / "milestone" / "no-clock-check.json"
 
 CLOCK_CALLS = {"_now_unix", "_unix_from_iso"}
@@ -99,7 +99,7 @@ def analyse(path: Path) -> tuple[list[dict], list[str]]:
     for node in tree.body:
         if isinstance(node, ast.Assign):
             for target in node.targets:
-                # A clock policy is a number of seconds (v1: APPEAL_WINDOW_SECONDS = 120). A string
+                # A clock policy is a number of seconds (v0: APPEAL_WINDOW_SECONDS = 120). A string
                 # reason code that happens to contain the word WINDOW is not one.
                 numeric = isinstance(node.value, ast.Constant) and isinstance(node.value.value, (int, float)) and not isinstance(node.value.value, bool)
                 if isinstance(target, ast.Name) and FORBIDDEN_NAME.search(target.id) and numeric:

@@ -1,5 +1,5 @@
 {
-  "source": "tests/v2/fixtures/cases-v2.json",
+  "source": "tests/v1/fixtures/cases-v1.json",
   "ran": 41,
   "results": [
     {

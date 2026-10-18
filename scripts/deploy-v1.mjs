@@ -1,20 +1,20 @@
 /**
- * Deploy the v2 contracts to the target network and record them.
+ * Deploy the v1 contracts to the target network and record them.
  *
- *   npm run deploy:v2
+ *   npm run deploy:v1
  *
- * Writes artifacts/deployment-v2.json. v1's artifacts/deployment.json is never
- * touched: v1 stays deployed and stays the comparison arm.
+ * Writes artifacts/deployment-v1.json. v0's artifacts/deployment.json is never
+ * touched: v0 stays deployed and stays the comparison arm.
  */
 import { log } from "./_shared.mjs";
 import { counter, ensureFunded, makeClient } from "./lib/chain.mjs";
-import { deployV2 } from "./lib/v2-flow.mjs";
+import { deployV1 } from "./lib/v1-flow.mjs";
 
 const { client, account } = makeClient();
 await ensureFunded(account);
 const ctx = { client, account };
-log.step("Deploying DEFINIT v2");
-const d = await deployV2(ctx);
+log.step("Deploying DEFINIT v1");
+const d = await deployV1(ctx);
 log.ok(`registry ${d.addresses.scenarioRegistry}`);
 log.ok(`vault    ${d.addresses.finalityVault}`);
 log.ok(`gate     ${d.addresses.decisionGate}`);

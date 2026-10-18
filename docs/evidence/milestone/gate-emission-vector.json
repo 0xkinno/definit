@@ -1,5 +1,5 @@
 {
-  "about": "The message the v2 gate emitted in direct mode, with its inputs. Recomputed offline by scripts/verify-offline.mjs.",
+  "about": "The message the v1 gate emitted in direct mode, with its inputs. Recomputed offline by scripts/verify-offline.mjs.",
   "inputs": {
     "agent": "0x3333333333333333333333333333333333333333",
     "recipient": "0x4444444444444444444444444444444444444444",

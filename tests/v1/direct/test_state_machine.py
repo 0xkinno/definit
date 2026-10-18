@@ -10,9 +10,9 @@ from pathlib import Path
 
 import pytest
 
-from v2.harness import contract_path, AMOUNT, GATE, LATE, NOW, RevertedWith, Scenario, golden
+from v1.harness import contract_path, AMOUNT, GATE, LATE, NOW, RevertedWith, Scenario, golden
 
-VAULT = "contracts/v2/finality_vault.py"
+VAULT = "contracts/v1/finality_vault.py"
 DOC = Path(__file__).resolve().parents[3] / "docs" / "milestone" / "VAULT_STATE_MACHINE.md"
 STATES = ["OPEN", "SETTLED", "REFUNDABLE", "EXPIRED_REFUNDABLE", "RECLAIMED", "WITHDRAWN"]
 

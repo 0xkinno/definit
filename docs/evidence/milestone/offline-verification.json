@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T16:10:27.100Z",
+  "generatedAt": "2026-10-18T06:23:52.260Z",
   "requireLive": false,
   "counts": {
     "pass": 8,
@@ -36,8 +36,8 @@
       "title": "Every corpus case ran and its recorded outcome equals what the case declared",
       "status": "pass",
       "uses": [
-        "tests/v2/fixtures/cases-v2.json",
-        "docs/evidence/milestone/corpus-v2-results.json"
+        "tests/v1/fixtures/cases-v1.json",
+        "docs/evidence/milestone/corpus-v1-results.json"
       ],
       "problems": [],
       "notes": [
@@ -101,12 +101,12 @@
       "invariants": [
         "C2"
       ],
-      "title": "v1's vault accepted a funder release while the promotion was only Accepted and still appealable",
+      "title": "v0's vault accepted a funder release while the promotion was only Accepted and still appealable",
       "status": "pass",
       "uses": [
-        "docs/evidence/milestone/spike/repro-1/e6-h1-v1-run1.json",
-        "docs/evidence/milestone/spike/repro-2/e6-h1-v1-run1.json",
-        "docs/evidence/milestone/spike/e6-h1-v1-run2.json"
+        "docs/evidence/milestone/spike/repro-1/e6-h1-v0-run1.json",
+        "docs/evidence/milestone/spike/repro-2/e6-h1-v0-run1.json",
+        "docs/evidence/milestone/spike/e6-h1-v0-run2.json"
       ],
       "problems": [],
       "notes": []
@@ -119,12 +119,12 @@
         "I6",
         "I8"
       ],
-      "title": "Each live v2 run: hashes recompute, the delivery is the gate's child, and nothing moved before the decision finalized",
+      "title": "Each live v1 run: hashes recompute, the delivery is the gate's child, and nothing moved before the decision finalized",
       "status": "pass",
       "uses": [
-        "docs/evidence/milestone/v2-run-R1.json",
-        "docs/evidence/milestone/v2-run-R2.json",
-        "docs/evidence/milestone/v2-run-R3.json"
+        "docs/evidence/milestone/v1-run-R1.json",
+        "docs/evidence/milestone/v1-run-R2.json",
+        "docs/evidence/milestone/v1-run-R3.json"
       ],
       "problems": [],
       "notes": [
@@ -143,7 +143,7 @@
       ],
       "problems": [],
       "notes": [
-        "13 timelines re-derived; v2 unsafe 0/13"
+        "13 timelines re-derived; v1 unsafe 0/13"
       ]
     }
   ]

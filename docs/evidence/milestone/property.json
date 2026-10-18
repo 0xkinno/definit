@@ -53,5 +53,5 @@
     }
   },
   "generatedAt": "2033-05-18T11:04:57+00:00",
-  "build": "readable (contracts/v2)"
+  "build": "readable (contracts/v1)"
 }

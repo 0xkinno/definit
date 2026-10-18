@@ -7,7 +7,7 @@
  *
  *   E1  three decisions, each emitting one finalized-stage message
  *   E5  an EOA calling the sink directly, against the delivered senders
- *   E6  v1 unchanged, funder calls settle while the promotion is only Accepted
+ *   E6  v0 unchanged, funder calls settle while the promotion is only Accepted
  *
  * Usage: npm run spike -- [--out <dir>]
  *   Default output: docs/evidence/milestone/spike/repro-<timestamp>/
@@ -40,7 +40,7 @@ for (const n of [1, 2, 3]) {
   run(`E1 decision ${n}`, "spike.mjs", ["decide", "decide", `e1d${n}`, "--msgs", "record_finalized:finalized", "--interval", "10", "--tail", "50"]);
 }
 run("E5 direct call", "spike.mjs", ["direct", "e5"]);
-run("E6 v1 differential", "spike-e6.mjs", ["--run", "1"]);
+run("E6 v0 differential", "spike-e6.mjs", ["--run", "1"]);
 
 // ------------------------------------------------------------------ summary
 const state = read("state.json");
@@ -85,7 +85,7 @@ const e5 = {
 };
 const e5Pass = e5.directSenderIsEoa && e5.deliveredSendersAllEqualJudge && e5.directCallRecordedSender !== judge;
 
-const h = read("e6-h1-v1-run1.json");
+const h = read("e6-h1-v0-run1.json");
 const e6 = {
   settleExecution: h.settle?.execution ?? "no settle",
   settleVaultStatus: h.vaultReceipt?.status ?? "no receipt",
@@ -104,7 +104,7 @@ const summary = {
   E1: { pass: e1Pass, medianAppealWindowSeconds: median(e1.map((x) => x.appealWindowSeconds)), runs: e1 },
   E5: { pass: e5Pass, ...e5 },
   E6: { observed: e6Observed, ...e6 },
-  note: "pass means the recorded values satisfy the stated predicate; E6 observed means v1 accepted a funder release before the promotion's appeal deadline. Neither is a claim beyond these records.",
+  note: "pass means the recorded values satisfy the stated predicate; E6 observed means v0 accepted a funder release before the promotion's appeal deadline. Neither is a claim beyond these records.",
 };
 writeFileSync(path.join(OUT, "summary.json"), j(summary));
 log.ok(`summary written: ${path.relative(REPO_ROOT, path.join(OUT, "summary.json"))}`);

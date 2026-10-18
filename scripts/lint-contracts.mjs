@@ -1,5 +1,5 @@
 /**
- * Lint the v2 contracts with genvm-lint (the fast AST pass).
+ * Lint the v1 contracts with genvm-lint (the fast AST pass).
  *
  * `genvm-lint check` also tries a semantic validation that downloads a GenVM
  * runner. The network's own `gen_getContractSchemaForCode` is the authority for
@@ -14,12 +14,12 @@ import path from "node:path";
 import { REPO_ROOT, log } from "./_shared.mjs";
 
 const bin = existsSync("C:/glvenv/Scripts/genvm-lint.exe") ? "C:/glvenv/Scripts/genvm-lint.exe" : "genvm-lint";
-const dir = path.join(REPO_ROOT, "contracts", "v2");
+const dir = path.join(REPO_ROOT, "contracts", "v1");
 const files = readdirSync(dir).filter((f) => f.endsWith(".py"));
 let failed = 0;
 
 for (const file of files) {
-  const r = spawnSync(bin, ["lint", path.join("contracts", "v2", file)], { cwd: REPO_ROOT, encoding: "utf8", env: { ...process.env, PYTHONIOENCODING: "utf-8" } });
+  const r = spawnSync(bin, ["lint", path.join("contracts", "v1", file)], { cwd: REPO_ROOT, encoding: "utf8", env: { ...process.env, PYTHONIOENCODING: "utf-8" } });
   const out = `${r.stdout ?? ""}${r.stderr ?? ""}`.trim();
   if (r.status === 0) log.ok(`${file}: ${out.split("\n").pop()}`);
   else {
@@ -28,4 +28,4 @@ for (const file of files) {
   }
 }
 if (failed) process.exit(1);
-log.ok(`${files.length} v2 contracts lint clean`);
+log.ok(`${files.length} v1 contracts lint clean`);

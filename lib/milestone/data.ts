@@ -44,7 +44,7 @@ export const milestone = raw as unknown as {
   property: { seeds: number; lifecycles: number; events: number; perSeed: Array<{ seed: string; lifecycles: number }> };
   counterfactual: {
     medianWindowSeconds: number;
-    arms: { baseline: Arm; control: Arm; v1: Arm; v2: Arm };
+    arms: { baseline: Arm; control: Arm; v0: Arm; v1: Arm };
     v1FunderPath: { unsafe: number; of: number };
     timelines: number;
     caveats: string[];
@@ -72,8 +72,8 @@ export function proofLine(): string {
   const f = milestone.counterfactual.v1FunderPath;
   return (
     `Across ${milestone.counterfactual.timelines} recorded protocol timelines, a pay-on-Accepted agent executed ${a.baseline.unsafe}/${a.baseline.of} payments before the decision was final, ` +
-    `a fixed-timer agent ${a.control.unsafe}/${a.control.of}, DEFINIT v1's funder path ${f.unsafe}/${f.of} (measured separately), and DEFINIT v2 ${a.v2.unsafe}/${a.v2.of}, ` +
-    `with ${a.v2.refusedLegitimate} legitimate releases refused.`
+    `a fixed-timer agent ${a.control.unsafe}/${a.control.of}, DEFINIT v0's funder path ${f.unsafe}/${f.of} (measured separately), and DEFINIT v1 ${a.v1.unsafe}/${a.v1.of}, ` +
+    `with ${a.v1.refusedLegitimate} legitimate releases refused.`
   );
 }
 

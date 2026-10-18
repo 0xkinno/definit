@@ -5,14 +5,14 @@ evidence exists and satisfies its predicate. No Phase 1 code is written until ev
 box is ticked.
 
 - [x] We discovered something non-obvious (E1 plus E6)
-  - evidence: `docs/evidence/milestone/spike/repro-1/summary.json`, `docs/evidence/milestone/spike/repro-2/summary.json`, `docs/evidence/milestone/spike/e6-h1-v1-run2.json`
+  - evidence: `docs/evidence/milestone/spike/repro-1/summary.json`, `docs/evidence/milestone/spike/repro-2/summary.json`, `docs/evidence/milestone/spike/e6-h1-v0-run2.json`
 - [x] We reproduced it ourselves (`npm run spike` run twice, both recorded; 2 of 2 runs pass E1 and E5)
   - evidence: `docs/evidence/milestone/spike/repro-1/summary.json`, `docs/evidence/milestone/spike/repro-2/summary.json`
-- [x] v2 exists because of that discovery (the thesis sentence traces to E1)
+- [x] v1 exists because of that discovery (the thesis sentence traces to E1)
   - evidence: E1 passes in every recorded reproduction: `docs/evidence/milestone/spike/repro-1`, `docs/evidence/milestone/spike/repro-2`
 - [x] We know exactly how we will break it (the fault matrix is written)
   - evidence: `docs/milestone/FAULT_MATRIX.md`
 - [x] We know exactly how we will prove it survived (the counterfactual design is written)
-  - evidence: `docs/milestone/PROOF_V2.md`
+  - evidence: `docs/milestone/PROOF_V1.md`
 
 **Gate: PASSED.**

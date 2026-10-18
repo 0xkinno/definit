@@ -1,5 +1,5 @@
 /**
- * Network plumbing shared by the v2 live scripts.
+ * Network plumbing shared by the v1 live scripts.
  *
  * Studio-dev rate-limits at 500 requests per hour per account, so every call
  * goes through `pace`, which waits out a stated retry window instead of

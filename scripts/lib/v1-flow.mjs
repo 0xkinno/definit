@@ -1,9 +1,9 @@
 /**
- * The v2 live flow: deploy, then drive one payment from proposal to receipt and
+ * The v1 live flow: deploy, then drive one payment from proposal to receipt and
  * write down what the network did, in the shape scripts/verify-offline.mjs reads.
  *
  * Nothing here decides an outcome. A refusal or a failure is recorded as what it
- * was. v1 files, v1 evidence and artifacts/deployment.json are never touched.
+ * was. v0 files, v0 evidence and artifacts/deployment.json are never touched.
  */
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -21,7 +21,7 @@ export const PARTIAL_EVIDENCE_URL = "https://definit-snowy.vercel.app/demo/deliv
 export const RECIPIENT = "0x1111111111111111111111111111111111111111";
 export const ESCROW_WEI = 10_000_000_000_000_000n; // 0.01 GEN
 
-const contractSource = (file) => readFileSync(path.join(REPO_ROOT, "contracts", "v2", file), "utf8").replace(/^﻿/, "");
+const contractSource = (file) => readFileSync(path.join(REPO_ROOT, "contracts", "v1", file), "utf8").replace(/^﻿/, "");
 const policyText = () => readFileSync(path.join(REPO_ROOT, "public", "demo", "policy-delivery-milestone-v3.txt"), "utf8").replace(/^﻿/, "").trimEnd();
 const callKey = (method) => "0x" + Buffer.from(method).toString("hex").padEnd(64, "0");
 
@@ -126,7 +126,7 @@ export const read = (ctx, address, functionName, args = []) => pace(() => ctx.cl
 
 // ------------------------------------------------------------------ deployment
 
-export async function deployV2(ctx) {
+export async function deployV1(ctx) {
   const t0 = Date.now();
   const registry = await deployRaw(ctx, contractSource("scenario_registry.py"), []);
   const registryTx = ctx.lastDeployHash;
@@ -149,7 +149,7 @@ export async function deployV2(ctx) {
     deployer: ctx.account.address,
     runner: "py-genlayer:5jycge4q8k23462jtb0b9fyey1s9qz928sz2nbrd9mg4sxqg2qng",
     deployedAt: new Date().toISOString(),
-    version: "v2",
+    version: "v1",
     addresses: { scenarioRegistry: registry, finalityVault: vault, decisionGate: gate },
     transactions: { scenarioRegistry: registryTx, finalityVault: vaultTx, decisionGate: gateTx, setGate: bind.hash, publishPolicy: publish.hash },
     demoPolicy: { id: POLICY_ID, version: POLICY_VERSION, hash: policy.policy_hash },
@@ -162,13 +162,13 @@ export async function deployV2(ctx) {
     tookSeconds: Math.round((Date.now() - t0) / 1000),
   };
   mkdirSync(ARTIFACTS, { recursive: true });
-  writeFileSync(path.join(ARTIFACTS, "deployment-v2.json"), json(deployment));
+  writeFileSync(path.join(ARTIFACTS, "deployment-v1.json"), json(deployment));
   return deployment;
 }
 
 export function loadDeployment() {
-  const file = path.join(ARTIFACTS, "deployment-v2.json");
-  if (!existsSync(file)) throw new Error("artifacts/deployment-v2.json is missing; run npm run deploy:v2");
+  const file = path.join(ARTIFACTS, "deployment-v1.json");
+  if (!existsSync(file)) throw new Error("artifacts/deployment-v1.json is missing; run npm run deploy:v1");
   return JSON.parse(readFileSync(file, "utf8"));
 }
 
@@ -205,7 +205,7 @@ export async function runPayment(ctx, deployment, options) {
     evidenceUrl, steps: [],
   };
   const step = (name, detail) => record.steps.push({ name, at: new Date().toISOString(), ...detail });
-  const file = path.join(EV, `v2-run-${run}.json`);
+  const file = path.join(EV, `v1-run-${run}.json`);
   const save = () => writeFileSync(file, json(record));
 
   const recipientBefore = await balanceOf(RECIPIENT);

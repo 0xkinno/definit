@@ -1,8 +1,8 @@
 /**
- * Phase 0: do the v1 contracts from the accepted baseline still answer?
+ * Phase 0: do the v0 contracts from the accepted baseline still answer?
  *
  * Reads artifacts/deployment.json (never writes it) and calls `describe()` (the
- * registry: `count()`) on each v1 contract. Output: docs/evidence/milestone/v1-liveness.json
+ * registry: `count()`) on each v0 contract. Output: docs/evidence/milestone/v0-liveness.json
  *
  * Studio-dev may reset. This records, from the network, whether it has.
  */
@@ -28,6 +28,6 @@ for (const [name, address] of Object.entries(deployment.addresses)) {
 }
 out.allAnswer = Object.values(out.results).every((r) => r.answers);
 mkdirSync(path.join(REPO_ROOT, "docs", "evidence", "milestone"), { recursive: true });
-writeFileSync(path.join(REPO_ROOT, "docs", "evidence", "milestone", "v1-liveness.json"), JSON.stringify(out, null, 2));
+writeFileSync(path.join(REPO_ROOT, "docs", "evidence", "milestone", "v0-liveness.json"), JSON.stringify(out, null, 2));
 console.log(JSON.stringify({ allAnswer: out.allAnswer, results: Object.fromEntries(Object.entries(out.results).map(([k, v]) => [k, v.answers ? "answers" : v.error])) }, null, 1));
 process.exit(0);

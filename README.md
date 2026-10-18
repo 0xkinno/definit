@@ -16,38 +16,38 @@ because `ACCEPTED` is still appealable. Only `FINALIZED` creates the authority t
 an irreversible transfer requires.
 
 <!-- milestone:begin -->
-## Milestone 2: protocol-delivered finality
+## Milestone v1: protocol-delivered finality
 
-> **DEFINIT v2 removes its own clock: an autonomous agent's payment moves only on a message the GenLayer protocol itself delivers after the adjudicating transaction is Finalized, so an appeal can no longer be outrun.**
+> **DEFINIT v1 removes its own clock: an autonomous agent's payment moves only on a message the GenLayer protocol itself delivers after the adjudicating transaction is Finalized, so an appeal can no longer be outrun.**
 
 **Problem.** An autonomous agent pays a supplier the moment an AI verdict says "delivered". If that verdict is appealed and overturned later, the money is already gone.
 
 **Discovery.** Builders treat finality as something you check: a status, a read, a timer. On GenLayer it is something the protocol delivers: a finalized-stage message does not exist until the deciding transaction has survived its appeal window.
 
-**Thesis.** If the verdict itself schedules the payment on the finalized stage, no reader, timer, caller or agent can move money ahead of an appeal. DEFINIT v2 holds no clock.
+**Thesis.** If the verdict itself schedules the payment on the finalized stage, no reader, timer, caller or agent can move money ahead of an appeal. DEFINIT v1 holds no clock.
 
-**Proof (generated).** Across 13 recorded protocol timelines, a pay-on-Accepted agent executed 13/13 payments before the decision was final, a fixed-timer agent 0/13, DEFINIT v1's funder path 3/3 (measured separately), and DEFINIT v2 0/13, with 0 legitimate releases refused.
+**Proof (generated).** Across 13 recorded protocol timelines, a pay-on-Accepted agent executed 13/13 payments before the decision was final, a fixed-timer agent 0/13, DEFINIT v0's funder path 3/3 (measured separately), and DEFINIT v1 0/13, with 0 legitimate releases refused.
 
-Everyone assumes finality is a state you can read. On GenLayer, finality is an event the protocol delivers, and DEFINIT v2 is built on the delivery, not the read.
+Everyone assumes finality is a state you can read. On GenLayer, finality is an event the protocol delivers, and DEFINIT v1 is built on the delivery, not the read.
 
-### What is new in v2
+### What is new in v1
 
-- **Release authority is a delivery.** `DecisionGate v2` emits `authorize_release` or `close_refused` on the finalized stage from the adjudicating transaction itself. `FinalityVault v2` accepts it only from the bound gate and recomputes the commitment itself. There is no promotion step, no appeal-window constant and no public method that releases on a caller's request.
+- **Release authority is a delivery.** `DecisionGate v1` emits `authorize_release` or `close_refused` on the finalized stage from the adjudicating transaction itself. `FinalityVault v1` accepts it only from the bound gate and recomputes the commitment itself. There is no promotion step, no appeal-window constant and no public method that releases on a caller's request.
 - **Time can only send money home.** If a finalized delivery never arrives or fails, the funder reclaims after the deadline. A clock never authorizes a release to the recipient (`npm run check:no-clock` fails the build otherwise).
-- **v1's hole, measured.** In v1 the funder could trigger a release while the promotion was only Accepted: 3 of 3 recorded attempts did, against the real network.
+- **v0's hole, measured.** In v0 the funder could trigger a release while the promotion was only Accepted: 3 of 3 recorded attempts did, against the real network.
 - **Tested hard.** 41 labelled cases (27 refusals: 4 BAD_STATE, 6 COMMITMENT_MISMATCH, 2 DEADLINE_NOT_PASSED, 9 NOT_FUNDER, 6 UNAUTHORIZED_SENDER), 3,000 random lifecycles over 3 seeds checked against a pure model of the vault, a state machine read from its own document, and an offline verifier that recomputes every hash and timing claim from recorded evidence (8 checks pass, 0 fail).
 - **Recorded on the real network.** Three live payments (approve, reject then refund, approve with a real appeal) with every transaction hash, re-verified offline.
-- **Smaller contracts.** Minified gate 16,938 bytes (v1 gate: 27,277).
+- **Smaller contracts.** Minified gate 16,938 bytes (v0 gate: 27,277).
 
-### Live v2 contracts
+### Live v1 contracts
 
 | Contract | Address |
 | --- | --- |
-| `DecisionGate v2` | [`0xA03C1884F2dFf591388B85840F264c93EE4bF889`](https://explorer-studio-dev.genlayer.com/address/0xA03C1884F2dFf591388B85840F264c93EE4bF889) |
-| `FinalityVault v2` | [`0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5`](https://explorer-studio-dev.genlayer.com/address/0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5) |
-| `ScenarioRegistry v2` | [`0x8DC63918F88dcc719397a39730C1b31A1cF895DF`](https://explorer-studio-dev.genlayer.com/address/0x8DC63918F88dcc719397a39730C1b31A1cF895DF) |
+| `DecisionGate v1` | [`0xA03C1884F2dFf591388B85840F264c93EE4bF889`](https://explorer-studio-dev.genlayer.com/address/0xA03C1884F2dFf591388B85840F264c93EE4bF889) |
+| `FinalityVault v1` | [`0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5`](https://explorer-studio-dev.genlayer.com/address/0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5) |
+| `ScenarioRegistry v1` | [`0x8DC63918F88dcc719397a39730C1b31A1cF895DF`](https://explorer-studio-dev.genlayer.com/address/0x8DC63918F88dcc719397a39730C1b31A1cF895DF) |
 
-Network: GenLayer Studio Next (Studio-dev), chain 61997. Record: `artifacts/deployment-v2.json`. The v1 contracts above remain deployed as the comparison arm.
+Network: GenLayer Studio Next (Studio-dev), chain 61997. Record: `artifacts/deployment-v1.json`. The v0 contracts above remain deployed as the comparison arm.
 
 | Run | Kind | Verdict | Vault | Adjudication | Delivery |
 | --- | --- | --- | --- | --- | --- |
@@ -62,7 +62,7 @@ The live page with the finality clock for each run is **https://definit-snowy.ve
 - `emit(on='finalized')` messages from the deciding transaction, and the rule that a finalized-stage message is a child transaction created after the appeal window (measured, spike E1)
 - `gen_getTransactionLifecycle` for the finality clock and the timing evidence
 - `getAppealCharge` and `appealTransaction` for a real appeal inside the window (run R3)
-- `estimateTransactionFeesForWrite` to read the network's own message-allocation shape (replacing v1's recorded fee blob)
+- `estimateTransactionFeesForWrite` to read the network's own message-allocation shape (replacing v0's recorded fee blob)
 - `gen_getContractSchemaForCode` to compile every contract on the network before deploying (`npm run contracts:check`)
 - `genvm-lint`, `gltest` direct mode and `glsim` from the Consensus v0.6 release-candidate family, pinned in `requirements.txt`
 - `@genlayer/transaction-kit` is pinned at `0.1.0-rc.2` but is not wired into the app in this milestone
@@ -73,7 +73,7 @@ The live page with the finality clock for each run is **https://definit-snowy.ve
 - **The appeal did not change a verdict.** The run R3 appeal was submitted and recorded; the committee did not overturn the decision and the window was not extended. The fixed-timer arm therefore also scored 0 of 13 here. No overturn is claimed.
 - **Studio-dev does not credit emitted transfers** (`docs/evidence/milestone/transfer-credit-probe.json`), so the evidence is the emitted finalized-stage transfer message plus the vault's state and receipt, not a balance.
 - **Accepted-stage messages could not be emitted** (an execution error under the pinned runner), so the provisional notice is tested in direct mode only.
-- **Not built:** a committed `fee-profile.json` from `gltest --fee-profile`, the Transaction Kit integration, the mutation sweep, the TypeScript parity suite, the books reconciliation, the injected-evidence run, the `definit-guard` package and the agent skill, and a v2 interactive console (the app's console remains the v1 baseline).
+- **Not built:** a committed `fee-profile.json` from `gltest --fee-profile`, the Transaction Kit integration, the mutation sweep, the TypeScript parity suite, the books reconciliation, the injected-evidence run, the `definit-guard` package and the agent skill, and a v1 interactive console (the app's console remains the v0 baseline).
 <!-- milestone:end -->
 
 ## Live product links
@@ -188,7 +188,7 @@ nothing to protect.
 ## How It Works
 
 <!-- v1note -->
-> **v1 baseline (commit b903f94).** This section describes the accepted v1 release path, which used a promotion step and an application timer. v2 replaces it with a protocol-delivered finalized message; see [Milestone 2](#milestone-2-protocol-delivered-finality).
+> **v0 baseline (commit b903f94).** This section describes the accepted v0 release path, which used a promotion step and an application timer. v1 replaces it with a protocol-delivered finalized message; see [Milestone v1](#milestone-2-protocol-delivered-finality).
 <!-- /v1note -->
 
 ```mermaid
@@ -284,7 +284,7 @@ docs/                     discovery, architecture, proof, evidence, limitations,
 ## Finality Model
 
 <!-- v1note -->
-> **v1 baseline (commit b903f94).** This section describes the accepted v1 release path, which used a promotion step and an application timer. v2 replaces it with a protocol-delivered finalized message; see [Milestone 2](#milestone-2-protocol-delivered-finality).
+> **v0 baseline (commit b903f94).** This section describes the accepted v0 release path, which used a promotion step and an application timer. v1 replaces it with a protocol-delivered finalized message; see [Milestone v1](#milestone-2-protocol-delivered-finality).
 <!-- /v1note -->
 
 | GenLayer status | DEFINIT meaning | Money may move |
@@ -303,7 +303,7 @@ as "safe".
 ## The Hard Invariant
 
 <!-- v1note -->
-> **v1 baseline (commit b903f94).** This section describes the accepted v1 release path, which used a promotion step and an application timer. v2 replaces it with a protocol-delivered finalized message; see [Milestone 2](#milestone-2-protocol-delivered-finality).
+> **v0 baseline (commit b903f94).** This section describes the accepted v0 release path, which used a promotion step and an application timer. v1 replaces it with a protocol-delivered finalized message; see [Milestone v1](#milestone-2-protocol-delivered-finality).
 <!-- /v1note -->
 
 Value leaves `FinalityVault` only when all of the following hold in the same

@@ -1,13 +1,13 @@
 /**
- * The invariant checks for one recorded v2 payment run.
+ * The invariant checks for one recorded v1 payment run.
  *
  * Pure: no network, no model, no filesystem. It takes a run record (the shape
- * scripts/lib/v2-flow.mjs writes) and returns the problems it finds. Both
+ * scripts/lib/v1-flow.mjs writes) and returns the problems it finds. Both
  * scripts/verify-offline.mjs and the live integration tests call it, so a run is
  * judged by one definition whether it is checked now or years later.
  */
 
-import { actionIdOf, decisionIdOfV2, intentHashOf } from "../../lib/commitments/commitment.ts";
+import { actionIdOf, decisionIdOfV1, intentHashOf } from "../../lib/commitments/commitment.ts";
 
 const lc = (s) => String(s ?? "").toLowerCase();
 
@@ -26,7 +26,7 @@ export function checkRun(r) {
   if (r.vault?.receipt?.exists && lc(r.vault.receipt.intent_hash) !== lc(intent)) bad("the vault receipt's intent hash differs from the recomputed one");
   const actionId = actionIdOf({ agent: a.agent, recipient: a.recipient, amount: Number(a.amount), asset: a.asset, policyHash: a.policyHash, nonce: Number(a.nonce), createdAt: a.createdAt });
   if (lc(actionId) !== lc(a.id)) bad(`action id differs from the recomputed ${actionId}`);
-  const decisionId = decisionIdOfV2({ actionId: a.id, attempt: adj.attempt, intentHash: intent, adjudicatedAt: adj.adjudicatedAt });
+  const decisionId = decisionIdOfV1({ actionId: a.id, attempt: adj.attempt, intentHash: intent, adjudicatedAt: adj.adjudicatedAt });
   if (lc(decisionId) !== lc(adj.decisionId)) bad(`decision id differs from the recomputed ${decisionId}`);
 
   // The deciding transaction must have executed successfully and be final.

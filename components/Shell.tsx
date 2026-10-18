@@ -6,7 +6,7 @@ import { classNames } from "@/lib/format";
 
 const NAV = [
   { href: "/", label: "Overview" },
-  { href: "/milestone", label: "Milestone 2" },
+  { href: "/milestone", label: "Milestone v1" },
   { href: "/console", label: "Console" },
   { href: "/demo", label: "Lifecycle demo" },
   { href: "/actions", label: "Actions" },

@@ -4,7 +4,7 @@ import { Notice, Panel, SectionHeading } from "@/components/ui/primitives";
 import { milestone as m, proofLine } from "@/lib/milestone/data";
 
 export const dynamic = "force-static";
-export const metadata = { title: "Milestone 2: protocol-delivered finality -- DEFINIT" };
+export const metadata = { title: "Milestone v1: protocol-delivered finality -- DEFINIT" };
 
 const FORMULA = [
   { beat: "Pain", copy: "Your agent paid on an AI verdict. The verdict was appealed. The money is gone." },
@@ -43,8 +43,8 @@ export default function MilestonePage() {
   const arms = [
     ["Pay on Accepted", cf.arms.baseline],
     [`Fixed timer (${cf.medianWindowSeconds} s, the measured window)`, cf.arms.control],
-    ["DEFINIT v1 timer rule (120 s)", cf.arms.v1],
-    ["DEFINIT v2", cf.arms.v2],
+    ["DEFINIT v0 timer rule (120 s)", cf.arms.v0],
+    ["DEFINIT v1", cf.arms.v1],
   ] as const;
 
   return (
@@ -52,7 +52,7 @@ export default function MilestonePage() {
       <div className="mx-auto max-w-[1240px] px-4 py-10 sm:px-6">
         <SectionHeading
           level={1}
-          eyebrow="Milestone 2"
+          eyebrow="Milestone v1"
           title="Payments now wait for GenLayer's own finality, not a timer"
           lead="Release authority is a protocol delivery. The vault releases value only when it receives an on='finalized' message from the bound gate, and that message does not exist until the deciding transaction has survived its appeal window."
         />
@@ -105,14 +105,14 @@ export default function MilestonePage() {
 
         {/* ------------------------------------------------- live contracts */}
         <section className="mt-14" aria-labelledby="contracts">
-          <SectionHeading id="contracts" eyebrow="Live contracts" title="v2 on Studio-dev, readable without a wallet" lead={`Deployed ${d.deployedAt.slice(0, 10)} to ${m.network.name} (chain ${m.network.chainId}). The vault is bound to the gate; it reports clock: ${String(d.describe.vault.clock)}.`} />
+          <SectionHeading id="contracts" eyebrow="Live contracts" title="v1 on Studio-dev, readable without a wallet" lead={`Deployed ${d.deployedAt.slice(0, 10)} to ${m.network.name} (chain ${m.network.chainId}). The vault is bound to the gate; it reports clock: ${String(d.describe.vault.clock)}.`} />
           <div className="mt-6">
             <Table
               head={["Contract", "Address", "Rule it reports"]}
               rows={[
-                ["DecisionGate v2", <a key="g" className="link hash" href={d.links.decisionGate} target="_blank" rel="noreferrer">{d.addresses.decisionGate}</a>, `${String(d.describe.gate.finality_rule)}; clock ${String(d.describe.gate.clock)}`],
-                ["FinalityVault v2", <a key="v" className="link hash" href={d.links.finalityVault} target="_blank" rel="noreferrer">{d.addresses.finalityVault}</a>, `${String(d.describe.vault.finality_rule)}; clock ${String(d.describe.vault.clock)}`],
-                ["ScenarioRegistry v2", <a key="r" className="link hash" href={d.links.scenarioRegistry} target="_blank" rel="noreferrer">{d.addresses.scenarioRegistry}</a>, `policy ${d.policy.id} ${d.policy.version}`],
+                ["DecisionGate v1", <a key="g" className="link hash" href={d.links.decisionGate} target="_blank" rel="noreferrer">{d.addresses.decisionGate}</a>, `${String(d.describe.gate.finality_rule)}; clock ${String(d.describe.gate.clock)}`],
+                ["FinalityVault v1", <a key="v" className="link hash" href={d.links.finalityVault} target="_blank" rel="noreferrer">{d.addresses.finalityVault}</a>, `${String(d.describe.vault.finality_rule)}; clock ${String(d.describe.vault.clock)}`],
+                ["ScenarioRegistry v1", <a key="r" className="link hash" href={d.links.scenarioRegistry} target="_blank" rel="noreferrer">{d.addresses.scenarioRegistry}</a>, `policy ${d.policy.id} ${d.policy.version}`],
               ]}
             />
           </div>
@@ -137,8 +137,8 @@ export default function MilestonePage() {
             />
           </div>
           <div className="mt-4 grid gap-4 md:grid-cols-2">
-            <Notice tone="danger" title={`The v1 hole, measured: ${cf.v1FunderPath.unsafe} of ${cf.v1FunderPath.of} funder releases ran early`}>
-              In v1 the funder could call settle while the promotion transaction was only {m.differential.promotionLifecycle.projectedStatus} (resolutionAction {m.differential.promotionLifecycle.resolutionAction}). The settle was decided at {m.differential.settleDecidedAt}, before the promotion&apos;s appeal deadline {m.differential.promotionAppealDeadline}, and the vault recorded {m.differential.vaultStatus}.{" "}
+            <Notice tone="danger" title={`The v0 hole, measured: ${cf.v1FunderPath.unsafe} of ${cf.v1FunderPath.of} funder releases ran early`}>
+              In v0 the funder could call settle while the promotion transaction was only {m.differential.promotionLifecycle.projectedStatus} (resolutionAction {m.differential.promotionLifecycle.resolutionAction}). The settle was decided at {m.differential.settleDecidedAt}, before the promotion&apos;s appeal deadline {m.differential.promotionAppealDeadline}, and the vault recorded {m.differential.vaultStatus}.{" "}
               <a className="link" href={m.differential.link} target="_blank" rel="noreferrer">The transaction</a>.
             </Notice>
             <Notice tone="warn" title="What this does not show">

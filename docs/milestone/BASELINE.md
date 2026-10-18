@@ -11,7 +11,7 @@ Every claim in the milestone is a delta from this commit.
 - Runner: `py-genlayer:5jycge4q8k23462jtb0b9fyey1s9qz928sz2nbrd9mg4sxqg2qng`
 - Deployed at: 2026-09-17T08:04:02.577Z
 
-## v1 contract addresses
+## v0 contract addresses
 
 | Contract | Address | Deploy transaction |
 | --- | --- | --- |
@@ -19,10 +19,10 @@ Every claim in the milestone is a delta from this commit.
 | finalityVault | `0xf53291532749A568ecb5D0fC4F007cE29DFE2422` | `0xd7aa38282dd2ddf8d0393afc4a21259119c56067624b42a6fdc58a2c2ef30cff` |
 | decisionGate | `0xC709FA0b51BDE4A6c2931E7dB7B3171Fa9f6F6B2` | `0x02f0d4b1c0958a687ed10a1533d619dcfc55c9ba0bf94d330ea8a2ca3442fb39` |
 
-Whether these still answer is measured in `docs/evidence/milestone/v1-liveness.json`
+Whether these still answer is measured in `docs/evidence/milestone/v0-liveness.json`
 (Studio-dev may have reset since the baseline).
 
-## v1 contract sources (preserved, never rewritten)
+## v0 contract sources (preserved, never rewritten)
 
 | File | Lines at baseline |
 | --- | --- |
@@ -31,7 +31,7 @@ Whether these still answer is measured in `docs/evidence/milestone/v1-liveness.j
 | `contracts/finality_vault.py` | 504 |
 | `contracts/scenario_registry.py` | 140 |
 
-## v1 evidence (preserved, becomes the comparison arm)
+## v0 evidence (preserved, becomes the comparison arm)
 
 | File | Bytes |
 | --- | --- |

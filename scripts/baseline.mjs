@@ -43,7 +43,7 @@ Every claim in the milestone is a delta from this commit.
 - Runner: \`${deployment.runner}\`
 - Deployed at: ${deployment.deployedAt}
 
-## v1 contract addresses
+## v0 contract addresses
 
 | Contract | Address | Deploy transaction |
 | --- | --- | --- |
@@ -51,16 +51,16 @@ ${Object.entries(deployment.addresses)
   .map(([k, v]) => `| ${k} | \`${v}\` | \`${deployment.transactions[k] ?? ""}\` |`)
   .join("\n")}
 
-Whether these still answer is measured in \`docs/evidence/milestone/v1-liveness.json\`
+Whether these still answer is measured in \`docs/evidence/milestone/v0-liveness.json\`
 (Studio-dev may have reset since the baseline).
 
-## v1 contract sources (preserved, never rewritten)
+## v0 contract sources (preserved, never rewritten)
 
 | File | Lines at baseline |
 | --- | --- |
 ${group("contracts/").map((f) => `| \`${f.path}\` | ${lines(f.path)} |`).join("\n")}
 
-## v1 evidence (preserved, becomes the comparison arm)
+## v0 evidence (preserved, becomes the comparison arm)
 
 | File | Bytes |
 | --- | --- |

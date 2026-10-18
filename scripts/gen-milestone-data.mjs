@@ -5,7 +5,7 @@
  *
  * Pages import this file at build time, so they work on Vercel without reading
  * the evidence directory, and they contain no typed figure: everything here is
- * read from docs/evidence/milestone, artifacts/deployment-v2.json and the
+ * read from docs/evidence/milestone, artifacts/deployment-v1.json and the
  * public demo files. Re-run it after any evidence changes.
  */
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
@@ -18,8 +18,8 @@ const EV = path.join(REPO_ROOT, "docs", "evidence", "milestone");
 const rd = (p) => JSON.parse(readFileSync(p, "utf8"));
 const tx = (h) => `https://explorer-studio-dev.genlayer.com/tx/${h}`;
 
-const deployment = rd(path.join(REPO_ROOT, "artifacts", "deployment-v2.json"));
-const report = rd(path.join(EV, "proof-v2-report.json"));
+const deployment = rd(path.join(REPO_ROOT, "artifacts", "deployment-v1.json"));
+const report = rd(path.join(EV, "proof-v1-report.json"));
 const cf = rd(path.join(EV, "counterfactual.json"));
 const faults = rd(path.join(EV, "faults.json")).rows;
 const matrix = rd(path.join(EV, "network-matrix.json"));
@@ -29,7 +29,7 @@ const verification = rd(path.join(EV, "offline-verification.json"));
 const noClock = rd(path.join(EV, "no-clock-check.json"));
 
 const runs = ["R1", "R2", "R3"].map((id) => {
-  const r = rd(path.join(EV, `v2-run-${id}.json`));
+  const r = rd(path.join(EV, `v1-run-${id}.json`));
   const a = r.adjudication;
   const stepTx = (name) => r.steps.find((s) => s.name === name)?.tx;
   return {
@@ -57,7 +57,7 @@ const runs = ["R1", "R2", "R3"].map((id) => {
 });
 
 const spike = ["repro-1", "repro-2"].map((d) => rd(path.join(EV, "spike", d, "summary.json")));
-const e6 = rd(path.join(EV, "spike", "e6-h1-v1-run2.json"));
+const e6 = rd(path.join(EV, "spike", "e6-h1-v0-run2.json"));
 const matrixStudio = matrix.networks["studio-dev"];
 
 const demo = ["delivery-742.txt", "delivery-742-partial.txt"].map((f) => ({

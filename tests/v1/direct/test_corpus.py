@@ -1,8 +1,8 @@
-"""Run the v2 corpus against the real vault.
+"""Run the v1 corpus against the real vault.
 
-Every case in tests/v2/fixtures/cases-v2.json is executed step by step. The
+Every case in tests/v1/fixtures/cases-v1.json is executed step by step. The
 observed result of each step and of the final state is written to
-docs/evidence/milestone/corpus-v2-results.json, whether the case passed or not,
+docs/evidence/milestone/corpus-v1-results.json, whether the case passed or not,
 so the report is generated from what happened and not from what was expected.
 """
 
@@ -11,12 +11,12 @@ from pathlib import Path
 
 import pytest
 
-from v2.harness import contract_path, DEADLINE, FUNDER, LATE, NOW, RECIPIENT, POLICY_HASH, AMOUNT, RevertedWith, Scenario, intent_hash, iso, EVIDENCE_DIGEST
+from v1.harness import contract_path, DEADLINE, FUNDER, LATE, NOW, RECIPIENT, POLICY_HASH, AMOUNT, RevertedWith, Scenario, intent_hash, iso, EVIDENCE_DIGEST
 
 ROOT = Path(__file__).resolve().parents[3]
-CASES = json.loads((ROOT / "tests" / "v2" / "fixtures" / "cases-v2.json").read_text(encoding="utf-8"))["cases"]
-RESULTS = ROOT / "docs" / "evidence" / "milestone" / "corpus-v2-results.json"
-VAULT = "contracts/v2/finality_vault.py"
+CASES = json.loads((ROOT / "tests" / "v1" / "fixtures" / "cases-v1.json").read_text(encoding="utf-8"))["cases"]
+RESULTS = ROOT / "docs" / "evidence" / "milestone" / "corpus-v1-results.json"
+VAULT = "contracts/v1/finality_vault.py"
 
 TIMES = {"NOW": NOW, "LATE": LATE, "DEADLINE": iso(DEADLINE), "AFTER_DEADLINE": iso(DEADLINE + 1)}
 _recorded: list[dict] = []
@@ -28,7 +28,7 @@ def write_results():
     RESULTS.parent.mkdir(parents=True, exist_ok=True)
     ordered = sorted(_recorded, key=lambda r: [c["id"] for c in CASES].index(r["id"]))
     RESULTS.write_text(
-        json.dumps({"source": "tests/v2/fixtures/cases-v2.json", "ran": len(ordered), "results": ordered}, indent=2),
+        json.dumps({"source": "tests/v1/fixtures/cases-v1.json", "ran": len(ordered), "results": ordered}, indent=2),
         encoding="utf-8",
     )
 

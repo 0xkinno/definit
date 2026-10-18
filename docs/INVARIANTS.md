@@ -5,14 +5,14 @@ enforces it, the tests that attack it, and the check in `npm run verify:offline`
 that confirms it from recorded evidence. A claim with no row here is not a claim
 this project makes.
 
-Test files are under `tests/v2/direct/`. The corpus is
-`tests/v2/fixtures/cases-v2.json`. Corpus counts per invariant are generated into
-`docs/evidence/milestone/proof-v2-report.json`.
+Test files are under `tests/v1/direct/`. The corpus is
+`tests/v1/fixtures/cases-v1.json`. Corpus counts per invariant are generated into
+`docs/evidence/milestone/proof-v1-report.json`.
 
 | ID | Name | Predicate |
 | --- | --- | --- |
 | I1 | Delivery | Value leaves the vault toward the recipient only inside a transaction whose `sender_address` is the bound gate and which was created by an `on='finalized'` emission |
-| I2 | No clock | Neither v2 contract contains a wall-clock comparison that authorizes a release |
+| I2 | No clock | Neither v1 contract contains a wall-clock comparison that authorizes a release |
 | I3 | Commitment | The vault recomputes `intent_hash` from its own escrow record plus the delivered `evidence_digest`; it must equal the delivered `intent_hash` |
 | I4 | Once | An escrow releases at most once. A duplicate delivery is a recorded no-op, never a second transfer |
 | I5 | Provisional is inert | A provisional notice can change only a display marker. It can never move value or close an escrow, and it is idempotent under repetition |
@@ -32,15 +32,15 @@ Test files are under `tests/v2/direct/`. The corpus is
 
 ## I2 No clock
 
-- **Guard.** Five clock comparisons exist in the v2 contracts, each deny-only or return-to-funder: `create_action` and `open_escrow` (a deadline must lie in the future), `request_adjudication` (an expired action is not adjudicated), `authorize_release` (a late delivery routes to a refund), `reclaim_after_deadline` (the funder may reclaim only after the deadline).
-- **Test.** `npm run check:no-clock` parses `contracts/v2/*.py` and fails on any other clock use, any arithmetic on the clock and any numeric appeal-window-style constant. It is part of `npm test`.
+- **Guard.** Five clock comparisons exist in the v1 contracts, each deny-only or return-to-funder: `create_action` and `open_escrow` (a deadline must lie in the future), `request_adjudication` (an expired action is not adjudicated), `authorize_release` (a late delivery routes to a refund), `reclaim_after_deadline` (the funder may reclaim only after the deadline).
+- **Test.** `npm run check:no-clock` parses `contracts/v1/*.py` and fails on any other clock use, any arithmetic on the clock and any numeric appeal-window-style constant. It is part of `npm test`.
 - **Offline.** V3 re-reads `docs/evidence/milestone/no-clock-check.json` and re-checks every comparison's verdict.
 
 ## I3 Commitment
 
-- **Guard.** `authorize_release` compares each delivered field with the escrow's own record (`COMMITMENT_MISMATCH`), then recomputes the v1 commitment encoding from the escrow plus the delivered evidence digest and compares it with the delivered hash.
-- **Tests.** `test_one_changed_delivered_field_is_refused` (recipient, amount, policy hash, nonce), `test_a_forged_intent_hash_is_refused`, `test_a_different_evidence_digest_cannot_reuse_the_hash`, `test_the_recomputed_commitment_and_the_receipt_agree`. `test_gate.py`: `test_the_commitment_encoding_is_byte_identical_to_v1`, `test_the_gates_message_is_exactly_the_golden_message`. Corpus: six `i3-*` cases.
-- **Offline.** V1 recomputes the gate's action id, evidence digest, intent hash and v2 decision id with the TypeScript module and compares them with the Python gate's emission. V7 repeats it for live runs.
+- **Guard.** `authorize_release` compares each delivered field with the escrow's own record (`COMMITMENT_MISMATCH`), then recomputes the v0 commitment encoding from the escrow plus the delivered evidence digest and compares it with the delivered hash.
+- **Tests.** `test_one_changed_delivered_field_is_refused` (recipient, amount, policy hash, nonce), `test_a_forged_intent_hash_is_refused`, `test_a_different_evidence_digest_cannot_reuse_the_hash`, `test_the_recomputed_commitment_and_the_receipt_agree`. `test_gate.py`: `test_the_commitment_encoding_is_byte_identical_to_v0`, `test_the_gates_message_is_exactly_the_golden_message`. Corpus: six `i3-*` cases.
+- **Offline.** V1 recomputes the gate's action id, evidence digest, intent hash and v1 decision id with the TypeScript module and compares them with the Python gate's emission. V7 repeats it for live runs.
 
 ## I4 Once
 
@@ -71,7 +71,7 @@ Test files are under `tests/v2/direct/`. The corpus is
 
 - **Guard.** Structural: the gate emits only on the finalized stage, and a finalized-stage message is a child transaction the protocol creates after the deciding transaction survives its appeal window. Nothing in the contracts can make it earlier.
 - **Tests.** Not decidable in direct mode, which has no protocol. It is decided by the live records.
-- **Offline.** V4 over every recorded spike decision (the child's creation time is at or after the decision's appeal deadline, the sink never shows the delivery before that deadline, the child is triggered by the deciding transaction). V7 repeats the check for each live v2 run, and also fails if the vault shows a moved state before the delivery was created.
+- **Offline.** V4 over every recorded spike decision (the child's creation time is at or after the decision's appeal deadline, the sink never shows the delivery before that deadline, the child is triggered by the deciding transaction). V7 repeats the check for each live v1 run, and also fails if the vault shows a moved state before the delivery was created.
 - **Measured basis.** Spike E1: the finalized child was created at the appeal deadline in every recorded decision.
 
 ## I9 Liveness
@@ -95,8 +95,12 @@ Test files are under `tests/v2/direct/`. The corpus is
 
 ## Why I9 to I11 are here
 
-Moving authority onto protocol delivery creates a failure v1 never had: if the
+Moving authority onto protocol delivery creates a failure v0 never had: if the
 finalized-stage child is never delivered or fails at execution, the money has no
 path out. A finality firewall that can strand funds has swapped a safety bug for a
-liveness bug. v2 closes both, and the asymmetry is the design: time can only send
+liveness bug. v1 closes both, and the asymmetry is the design: time can only send
 money home, never forward.
+
+## Naming note
+
+The original build is **v0**; the milestone is **v1**. The deployed contracts are frozen, so two protocol constants keep the labels they were deployed with: the domain tag `DEFINIT-DECISION-v2` and the `version` string `v2` returned by `describe()`. They label the wire format, not the milestone.

@@ -1,7 +1,7 @@
 /**
- * Live runs of one v2 payment, recorded for the offline verifier.
+ * Live runs of one v1 payment, recorded for the offline verifier.
  *
- *   npm run lifecycle:v2 -- R1 R2 R3
+ *   npm run lifecycle:v1 -- R1 R2 R3
  *
  *   R1  APPROVE, unappealed. The release child must appear only after the
  *       adjudicating transaction is Finalized (I8).
@@ -17,13 +17,13 @@
  * (spike observation O5). That is recorded in docs/milestone/FINDING.md, not
  * faked here.
  *
- * Each run writes docs/evidence/milestone/v2-run-<id>.json and is judged by
+ * Each run writes docs/evidence/milestone/v1-run-<id>.json and is judged by
  * scripts/lib/run-checks.mjs, the same checks verify:offline applies.
  */
 import { log } from "./_shared.mjs";
 import { counter, ensureFunded, makeClient } from "./lib/chain.mjs";
 import { checkRun } from "./lib/run-checks.mjs";
-import { DEFAULT_EVIDENCE_URL, PARTIAL_EVIDENCE_URL, loadDeployment, runPayment } from "./lib/v2-flow.mjs";
+import { DEFAULT_EVIDENCE_URL, PARTIAL_EVIDENCE_URL, loadDeployment, runPayment } from "./lib/v1-flow.mjs";
 
 const PLAN = {
   R1: { kind: "approve", evidenceUrl: DEFAULT_EVIDENCE_URL, appeal: false },
@@ -33,7 +33,7 @@ const PLAN = {
 
 const wanted = process.argv.slice(2).filter((a) => PLAN[a]);
 if (!wanted.length) {
-  console.error("usage: npm run lifecycle:v2 -- R1 [R2] [R3]");
+  console.error("usage: npm run lifecycle:v1 -- R1 [R2] [R3]");
   process.exit(2);
 }
 

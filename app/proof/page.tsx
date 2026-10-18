@@ -49,16 +49,16 @@ export default async function ProofPage() {
         />
 
         <Panel className="mt-8">
-          <p className="eyebrow">Milestone 2, live contracts</p>
+          <p className="eyebrow">Milestone v1, live contracts</p>
           <h2 className="mt-1 text-[18px] font-semibold">Addresses and explorer links, with no wallet needed</h2>
           <ul className="mt-3 grid gap-2 text-[13px]" data-testid="live-contracts">
             <li><span className="label">Network</span> {ms.network.name}, chain {ms.network.chainId}</li>
-            <li><span className="label">DecisionGate v2</span> <a className="link hash break-all" href={ms.deployment.links.decisionGate} target="_blank" rel="noreferrer">{ms.deployment.addresses.decisionGate}</a></li>
-            <li><span className="label">FinalityVault v2</span> <a className="link hash break-all" href={ms.deployment.links.finalityVault} target="_blank" rel="noreferrer">{ms.deployment.addresses.finalityVault}</a></li>
-            <li><span className="label">ScenarioRegistry v2</span> <a className="link hash break-all" href={ms.deployment.links.scenarioRegistry} target="_blank" rel="noreferrer">{ms.deployment.addresses.scenarioRegistry}</a></li>
+            <li><span className="label">DecisionGate v1</span> <a className="link hash break-all" href={ms.deployment.links.decisionGate} target="_blank" rel="noreferrer">{ms.deployment.addresses.decisionGate}</a></li>
+            <li><span className="label">FinalityVault v1</span> <a className="link hash break-all" href={ms.deployment.links.finalityVault} target="_blank" rel="noreferrer">{ms.deployment.addresses.finalityVault}</a></li>
+            <li><span className="label">ScenarioRegistry v1</span> <a className="link hash break-all" href={ms.deployment.links.scenarioRegistry} target="_blank" rel="noreferrer">{ms.deployment.addresses.scenarioRegistry}</a></li>
           </ul>
           <p className="mt-4 text-[13px]" data-testid="refusal-breakdown">
-            The v2 corpus refused {ms.corpus.headline.refusals} attempts: {Object.entries(ms.corpus.refusalsByCode).map(([k, v]) => `${v} ${k}`).join(", ")}. The breakdown sums to the total, and the full v2 evidence is on the <Link className="link" href="/milestone">Milestone 2 page</Link>. The numbers below are the v1 baseline report.
+            The v1 corpus refused {ms.corpus.headline.refusals} attempts: {Object.entries(ms.corpus.refusalsByCode).map(([k, v]) => `${v} ${k}`).join(", ")}. The breakdown sums to the total, and the full v1 evidence is on the <Link className="link" href="/milestone">Milestone v1 page</Link>. The numbers below are the v0 baseline report.
           </p>
         </Panel>
 

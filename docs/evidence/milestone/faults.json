@@ -163,7 +163,7 @@
       "where": "direct (gate suite)",
       "evidence": [
         {
-          "id": "tests/v2/direct/test_gate.py::test_an_unreachable_source_is_a_rejection_with_its_own_reason",
+          "id": "tests/v1/direct/test_gate.py::test_an_unreachable_source_is_a_rejection_with_its_own_reason",
           "passed": true
         }
       ],

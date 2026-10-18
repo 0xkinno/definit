@@ -1,6 +1,6 @@
 """Liveness (I9) and the release-versus-reclaim race (I11).
 
-Moving release authority onto a protocol delivery creates a failure v1 did not
+Moving release authority onto a protocol delivery creates a failure v0 did not
 have: if the finalized child never arrives, or arrives and fails at execution
 (spike E4b), the escrow has no way out. These tests show the way out, and that a
 clock can only ever authorize a return to the funder.
@@ -8,9 +8,9 @@ clock can only ever authorize a return to the funder.
 
 import pytest
 
-from v2.harness import contract_path, AMOUNT, DEADLINE, LATE, NOW, RevertedWith, Scenario, iso
+from v1.harness import contract_path, AMOUNT, DEADLINE, LATE, NOW, RevertedWith, Scenario, iso
 
-VAULT = "contracts/v2/finality_vault.py"
+VAULT = "contracts/v1/finality_vault.py"
 AT_DEADLINE = iso(DEADLINE)
 AFTER_DEADLINE = iso(DEADLINE + 1)
 

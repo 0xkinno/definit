@@ -29,13 +29,13 @@ const V1_GATE_BYTES = Buffer.byteLength(execFileSync("git", ["show", "b903f94:co
 const V1_CASES = rd("tests/fixtures/cases.json").cases.length;
 const short = (x) => `${x.slice(0, 10)}...${x.slice(-6)}`;
 
-const PROOF = `Across ${cf.timelines} recorded protocol timelines, a pay-on-Accepted agent executed ${a.baseline.unsafe}/${a.baseline.of} payments before the decision was final, a fixed-timer agent ${a.control.unsafe}/${a.control.of}, DEFINIT v1's funder path ${cf.v1FunderPath.unsafe}/${cf.v1FunderPath.of} (measured separately), and DEFINIT v2 ${a.v2.unsafe}/${a.v2.of}, with ${a.v2.refusedLegitimate} legitimate releases refused.`;
+const PROOF = `Across ${cf.timelines} recorded protocol timelines, a pay-on-Accepted agent executed ${a.baseline.unsafe}/${a.baseline.of} payments before the decision was final, a fixed-timer agent ${a.control.unsafe}/${a.control.of}, DEFINIT v0's funder path ${cf.v1FunderPath.unsafe}/${cf.v1FunderPath.of} (measured separately), and DEFINIT v1 ${a.v1.unsafe}/${a.v1.of}, with ${a.v1.refusedLegitimate} legitimate releases refused.`;
 
 const PITCH = `**Problem.** An autonomous agent pays a supplier the moment an AI verdict says "delivered". If that verdict is appealed and overturned later, the money is already gone.
 
 **Discovery.** Builders treat finality as something you check: a status, a read, a timer. On GenLayer it is something the protocol delivers: a finalized-stage message does not exist until the deciding transaction has survived its appeal window.
 
-**Thesis.** If the verdict itself schedules the payment on the finalized stage, no reader, timer, caller or agent can move money ahead of an appeal. DEFINIT v2 holds no clock.
+**Thesis.** If the verdict itself schedules the payment on the finalized stage, no reader, timer, caller or agent can move money ahead of an appeal. DEFINIT v1 holds no clock.
 
 **Proof (generated).** ${PROOF}`;
 
@@ -57,32 +57,32 @@ const runsTable = m.runs.map((r) => `| ${r.id} | ${r.kind} | ${r.verdict} | ${r.
 const refusals = Object.entries(m.corpus.refusalsByCode).map(([k, v]) => `${v} ${k}`).join(", ");
 
 inject("README.md", "milestone", `
-## Milestone 2: protocol-delivered finality
+## Milestone v1: protocol-delivered finality
 
-> **DEFINIT v2 removes its own clock: an autonomous agent's payment moves only on a message the GenLayer protocol itself delivers after the adjudicating transaction is Finalized, so an appeal can no longer be outrun.**
+> **DEFINIT v1 removes its own clock: an autonomous agent's payment moves only on a message the GenLayer protocol itself delivers after the adjudicating transaction is Finalized, so an appeal can no longer be outrun.**
 
 ${PITCH}
 
-Everyone assumes finality is a state you can read. On GenLayer, finality is an event the protocol delivers, and DEFINIT v2 is built on the delivery, not the read.
+Everyone assumes finality is a state you can read. On GenLayer, finality is an event the protocol delivers, and DEFINIT v1 is built on the delivery, not the read.
 
-### What is new in v2
+### What is new in v1
 
-- **Release authority is a delivery.** \`DecisionGate v2\` emits \`authorize_release\` or \`close_refused\` on the finalized stage from the adjudicating transaction itself. \`FinalityVault v2\` accepts it only from the bound gate and recomputes the commitment itself. There is no promotion step, no appeal-window constant and no public method that releases on a caller's request.
+- **Release authority is a delivery.** \`DecisionGate v1\` emits \`authorize_release\` or \`close_refused\` on the finalized stage from the adjudicating transaction itself. \`FinalityVault v1\` accepts it only from the bound gate and recomputes the commitment itself. There is no promotion step, no appeal-window constant and no public method that releases on a caller's request.
 - **Time can only send money home.** If a finalized delivery never arrives or fails, the funder reclaims after the deadline. A clock never authorizes a release to the recipient (\`npm run check:no-clock\` fails the build otherwise).
-- **v1's hole, measured.** In v1 the funder could trigger a release while the promotion was only Accepted: ${cf.v1FunderPath.unsafe} of ${cf.v1FunderPath.of} recorded attempts did, against the real network.
+- **v0's hole, measured.** In v0 the funder could trigger a release while the promotion was only Accepted: ${cf.v1FunderPath.unsafe} of ${cf.v1FunderPath.of} recorded attempts did, against the real network.
 - **Tested hard.** ${m.corpus.headline.cases} labelled cases (${m.corpus.headline.refusals} refusals: ${refusals}), ${m.property.lifecycles.toLocaleString("en-US")} random lifecycles over ${m.property.seeds} seeds checked against a pure model of the vault, a state machine read from its own document, and an offline verifier that recomputes every hash and timing claim from recorded evidence (${m.verification.pass} checks pass, ${m.verification.fail} fail).
 - **Recorded on the real network.** Three live payments (approve, reject then refund, approve with a real appeal) with every transaction hash, re-verified offline.
-- **Smaller contracts.** Minified gate ${m.sizes.decision_gate.minifiedBytes.toLocaleString("en-US")} bytes (v1 gate: ${V1_GATE_BYTES}).
+- **Smaller contracts.** Minified gate ${m.sizes.decision_gate.minifiedBytes.toLocaleString("en-US")} bytes (v0 gate: ${V1_GATE_BYTES}).
 
-### Live v2 contracts
+### Live v1 contracts
 
 | Contract | Address |
 | --- | --- |
-| \`DecisionGate v2\` | [\`${m.deployment.addresses.decisionGate}\`](${m.deployment.links.decisionGate}) |
-| \`FinalityVault v2\` | [\`${m.deployment.addresses.finalityVault}\`](${m.deployment.links.finalityVault}) |
-| \`ScenarioRegistry v2\` | [\`${m.deployment.addresses.scenarioRegistry}\`](${m.deployment.links.scenarioRegistry}) |
+| \`DecisionGate v1\` | [\`${m.deployment.addresses.decisionGate}\`](${m.deployment.links.decisionGate}) |
+| \`FinalityVault v1\` | [\`${m.deployment.addresses.finalityVault}\`](${m.deployment.links.finalityVault}) |
+| \`ScenarioRegistry v1\` | [\`${m.deployment.addresses.scenarioRegistry}\`](${m.deployment.links.scenarioRegistry}) |
 
-Network: ${m.network.name}, chain ${m.network.chainId}. Record: \`artifacts/deployment-v2.json\`. The v1 contracts above remain deployed as the comparison arm.
+Network: ${m.network.name}, chain ${m.network.chainId}. Record: \`artifacts/deployment-v1.json\`. The v0 contracts above remain deployed as the comparison arm.
 
 | Run | Kind | Verdict | Vault | Adjudication | Delivery |
 | --- | --- | --- | --- | --- | --- |
@@ -95,7 +95,7 @@ The live page with the finality clock for each run is **https://definit-snowy.ve
 - \`emit(on='finalized')\` messages from the deciding transaction, and the rule that a finalized-stage message is a child transaction created after the appeal window (measured, spike E1)
 - \`gen_getTransactionLifecycle\` for the finality clock and the timing evidence
 - \`getAppealCharge\` and \`appealTransaction\` for a real appeal inside the window (run R3)
-- \`estimateTransactionFeesForWrite\` to read the network's own message-allocation shape (replacing v1's recorded fee blob)
+- \`estimateTransactionFeesForWrite\` to read the network's own message-allocation shape (replacing v0's recorded fee blob)
 - \`gen_getContractSchemaForCode\` to compile every contract on the network before deploying (\`npm run contracts:check\`)
 - \`genvm-lint\`, \`gltest\` direct mode and \`glsim\` from the Consensus v0.6 release-candidate family, pinned in \`requirements.txt\`
 - \`@genlayer/transaction-kit\` is pinned at \`0.1.0-rc.2\` but is not wired into the app in this milestone
@@ -106,14 +106,14 @@ The live page with the finality clock for each run is **https://definit-snowy.ve
 - **The appeal did not change a verdict.** The run R3 appeal was submitted and recorded; the committee did not overturn the decision and the window was not extended. The fixed-timer arm therefore also scored 0 of ${a.control.of} here. No overturn is claimed.
 - **Studio-dev does not credit emitted transfers** (\`docs/evidence/milestone/transfer-credit-probe.json\`), so the evidence is the emitted finalized-stage transfer message plus the vault's state and receipt, not a balance.
 - **Accepted-stage messages could not be emitted** (an execution error under the pinned runner), so the provisional notice is tested in direct mode only.
-- **Not built:** a committed \`fee-profile.json\` from \`gltest --fee-profile\`, the Transaction Kit integration, the mutation sweep, the TypeScript parity suite, the books reconciliation, the injected-evidence run, the \`definit-guard\` package and the agent skill, and a v2 interactive console (the app's console remains the v1 baseline).
+- **Not built:** a committed \`fee-profile.json\` from \`gltest --fee-profile\`, the Transaction Kit integration, the mutation sweep, the TypeScript parity suite, the books reconciliation, the injected-evidence run, the \`definit-guard\` package and the agent skill, and a v1 interactive console (the app's console remains the v0 baseline).
 `, /## Live product links/);
 
-// ------------------------------------------------------------ v1 baseline notes on v1-centric README sections
+// ------------------------------------------------------------ v0 baseline notes on v0-centric README sections
 for (const heading of ["## How It Works", "## Finality Model", "## The Hard Invariant"]) {
   const p = path.join(REPO_ROOT, "README.md");
   let t = readFileSync(p, "utf8");
-  const note = `<!-- v1note -->\n> **v1 baseline (commit b903f94).** This section describes the accepted v1 release path, which used a promotion step and an application timer. v2 replaces it with a protocol-delivered finalized message; see [Milestone 2](#milestone-2-protocol-delivered-finality).\n<!-- /v1note -->`;
+  const note = `<!-- v1note -->\n> **v0 baseline (commit b903f94).** This section describes the accepted v0 release path, which used a promotion step and an application timer. v1 replaces it with a protocol-delivered finalized message; see [Milestone v1](#milestone-2-protocol-delivered-finality).\n<!-- /v1note -->`;
   const re = new RegExp(`${heading}\\n\\n<!-- v1note -->[\\s\\S]*?<!-- /v1note -->\\n\\n`);
   if (re.test(t)) t = t.replace(re, `${heading}\n\n${note}\n\n`);
   else t = t.replace(`${heading}\n\n`, `${heading}\n\n${note}\n\n`);
@@ -123,30 +123,30 @@ for (const heading of ["## How It Works", "## Finality Model", "## The Hard Inva
 // ------------------------------------------------------------ DELTA.md
 const commits = git("log", "--reverse", "--format=%h|%s", "b903f94..HEAD").split("\n").filter(Boolean).map((l) => l.split("|"));
 const before = (x, y) => `| ${x} | ${y[0]} | ${y[1]} |`;
-write("docs/milestone/DELTA.md", `# Delta: v1 (b903f94) to v2
+write("docs/milestone/DELTA.md", `# Delta: v0 (b903f94) to v1
 
 Generated by \`npm run gen:docs\`. Do not edit by hand.
 
 ## The claim
 
-**DEFINIT v2 removes its own clock: an autonomous agent's payment moves only on a message the GenLayer protocol itself delivers after the adjudicating transaction is Finalized, so an appeal can no longer be outrun.**
+**DEFINIT v1 removes its own clock: an autonomous agent's payment moves only on a message the GenLayer protocol itself delivers after the adjudicating transaction is Finalized, so an appeal can no longer be outrun.**
 
 ${PITCH}
 
 ## Before and after
 
-| | v1 at b903f94 | v2 |
+| | v0 at b903f94 | v1 |
 | --- | --- | --- |
 ${[
   ["Release authority", "A cross-contract read of the gate plus a 120 second app timer", "An on='finalized' message from the deciding transaction; the vault accepts it only from the bound gate"],
-  ["Clock", "APPEAL_WINDOW_SECONDS = 120 in both contracts (removed in v2)", `None on any release path (${m.noClock.comparisons} clock comparisons, all deny-only or return-to-funder)`],
+  ["Clock", "APPEAL_WINDOW_SECONDS = 120 in both contracts (removed in v1)", `None on any release path (${m.noClock.comparisons} clock comparisons, all deny-only or return-to-funder)`],
   ["Funder path", "The funder could call settle", "No public release method; the funder can only reclaim after the deadline or withdraw a refund"],
   ["Promotion", "A second agent-driven transaction (finalize_decision)", "None. The adjudicating transaction schedules the release"],
   ["Fee path", "A recorded feeParams blob (artifacts/fee-template.json)", "The network's own allocation shape, read when used; Transaction Kit pinned, not integrated"],
-  ["Success check", "Status in places", "Status plus execution result in every v2 script and run check"],
+  ["Success check", "Status in places", "Status plus execution result in every v1 script and run check"],
   ["Network", "Studio-dev only", "Studio-dev only (Bradbury unfunded, Studionet not executing); the matrix is recorded"],
   ["Appeals", "Not exercised", "A real appeal submitted inside the window (run R3)"],
-  ["Tests", `${V1_CASES} guard cases, v1 attack suite`, `${m.corpus.headline.cases} labelled cases, ${m.property.lifecycles.toLocaleString("en-US")} random lifecycles, a state machine read from its document, an offline verifier`],
+  ["Tests", `${V1_CASES} guard cases, v0 attack suite`, `${m.corpus.headline.cases} labelled cases, ${m.property.lifecycles.toLocaleString("en-US")} random lifecycles, a state machine read from its document, an offline verifier`],
   ["Client package", "None", "Not built in this milestone"],
 ].map(([x, y, z]) => `| ${x} | ${y} | ${z} |`).join("\n")}
 
@@ -154,19 +154,19 @@ ${[
 
 ${commits.map(([h, s]) => `- \`${h}\` ${s.split("\n")[0]}`).join("\n")}
 
-## Corrections to v1
+## Corrections to v0
 
-| # | v1 defect | Status | Where |
+| # | v0 defect | Status | Where |
 | --- | --- | --- | --- |
-| C1 | APPEAL_WINDOW_SECONDS hard-coded in both contracts | resolved | no numeric clock constant in \`contracts/v2\`; \`npm run check:no-clock\` |
-| C2 | The funder could call settle | resolved | \`test_nobody_but_the_funder_can_release\` family; spike E6 measured the v1 hole |
-| C3 | The decisive guard was a cross-contract read | resolved | the vault recomputes the commitment from calldata; \`contracts/v2/finality_vault.py\` |
-| C4 | Release depended on a second, agent-driven transaction | resolved | no \`finalize_decision\` in v2 |
+| C1 | APPEAL_WINDOW_SECONDS hard-coded in both contracts | resolved | no numeric clock constant in \`contracts/v1\`; \`npm run check:no-clock\` |
+| C2 | The funder could call settle | resolved | \`test_nobody_but_the_funder_can_release\` family; spike E6 measured the v0 hole |
+| C3 | The decisive guard was a cross-contract read | resolved | the vault recomputes the commitment from calldata; \`contracts/v1/finality_vault.py\` |
+| C4 | Release depended on a second, agent-driven transaction | resolved | no \`finalize_decision\` in v1 |
 | C5 | A recorded fee blob | partly resolved | the shape is read from the network when used; no committed profile, Transaction Kit not integrated |
-| C6 | Success judged by status | resolved in v2 scripts and run checks | \`scripts/lib/v2-flow.mjs\`, \`scripts/lib/run-checks.mjs\` |
+| C6 | Success judged by status | resolved in v1 scripts and run checks | \`scripts/lib/v1-flow.mjs\`, \`scripts/lib/run-checks.mjs\` |
 | C7 | Evidence hosted on a third-party paste | resolved | evidence served from the DEFINIT domain, digests shown on \`/milestone\`; production env updated |
 | C8 | /proof showed no addresses without a wallet | resolved | \`/proof\` and \`/milestone\` render addresses server-side |
-| C9 | A refusal headline that named fewer than it counted | resolved for v2 | generated breakdown that sums to the total (\`scripts/proof-v2.mjs\`) |
+| C9 | A refusal headline that named fewer than it counted | resolved for v1 | generated breakdown that sums to the total (\`scripts/proof-v1.mjs\`) |
 | C10 | Studio-dev only, runner pin | partly resolved | the pinned runner is the one the network accepts (the docs' newer runner was rejected as malformed); Bradbury pending funding |
 
 ## Why it matters
@@ -185,22 +185,22 @@ A peer project reported a practical deployment ceiling of about 20 KB on Bradbur
 | --- | --- | --- |
 ${Object.entries(m.sizes).map(([k, s]) => `| ${k} | ${s.readableBytes.toLocaleString("en-US")} | ${s.minifiedBytes.toLocaleString("en-US")} |`).join("\n")}
 
-The v1 \`decision_gate.py\` is ${V1_GATE_BYTES} bytes. Every v2 contract is under the budget in its minified form. \`npm run build:contracts\` writes both forms to \`contracts/v2/build/\`. The deployed contracts on Studio-dev are the readable sources; the minified form compiles on the network (\`npm run contracts:check\`) but was not deployed or run through the live suite.
+The v0 \`decision_gate.py\` is ${V1_GATE_BYTES} bytes. Every v1 contract is under the budget in its minified form. \`npm run build:contracts\` writes both forms to \`contracts/v1/build/\`. The deployed contracts on Studio-dev are the readable sources; the minified form compiles on the network (\`npm run contracts:check\`) but was not deployed or run through the live suite.
 `);
 
 // ------------------------------------------------------------ THREAD.md
 write("docs/milestone/THREAD.md", `# Thread draft
 
 1/ Your agent paid on an AI verdict. The verdict was appealed. The money is gone.
-@GenLayer DEFINIT v2: the verdict itself releases the payment, and only after GenLayer finalizes it.
+@GenLayer DEFINIT v1: the verdict itself releases the payment, and only after GenLayer finalizes it.
 
 2/ Builders treat finality as something you check: a status, a read, a timer. On GenLayer it is something the protocol delivers. A finalized-stage message does not exist until the deciding transaction has survived its appeal window.
 
-3/ So DEFINIT v2 holds no clock. The vault accepts release only from a finalized message sent by the bound gate. No reader, timer, caller or agent can move money ahead of an appeal.
+3/ So DEFINIT v1 holds no clock. The vault accepts release only from a finalized message sent by the bound gate. No reader, timer, caller or agent can move money ahead of an appeal.
 
 4/ ${PROOF}
 
-5/ The honest part: the appeal I ran did not change a verdict, and everything is on Studio-dev. v1's funder hole is measured, not guessed. https://definit-snowy.vercel.app/milestone  https://github.com/0xkinno/definit
+5/ The honest part: the appeal I ran did not change a verdict, and everything is on Studio-dev. v0's funder hole is measured, not guessed. https://definit-snowy.vercel.app/milestone  https://github.com/0xkinno/definit
 `);
 
 // ------------------------------------------------------------ FILM_PLAN.md
@@ -213,28 +213,28 @@ Evidence packaged as a story: screen recordings of the real app and the real exp
 | 0 to 20 | The 20-second formula | The landing hero, then the generated proof line |
 | 20 to 45 | One payment, R1 | The finality clock on /milestone: Accepted, the window, Finalized, the release delivered, the receipt |
 | 45 to 65 | The appeal, R3 | The appeal transaction in the explorer, and the clock for the appealed run |
-| 65 to 80 | The v1 confession | The v1 differential: our own accepted design could be outrun, with the transaction |
+| 65 to 80 | The v0 confession | The v0 differential: our own accepted design could be outrun, with the transaction |
 | 80 to 90 | Close | "Accepted is a draft. DEFINIT pays at Finalized." The repo, the live app, \`npm run verify:offline\` |
 `);
 
 // ------------------------------------------------------------ H1 differential
-const e6 = rd("docs/evidence/milestone/spike/e6-h1-v1-run2.json");
+const e6 = rd("docs/evidence/milestone/spike/e6-h1-v0-run2.json");
 write("docs/evidence/milestone/h1-differential.json", JSON.stringify({
-  about: "v1 against v2 under the same attempt: a funder triggering a release while the deciding transaction is not yet final.",
-  v1: { source: "docs/evidence/milestone/spike/e6-h1-v1-run2.json", ...m.differential, outcome: "the vault accepted the funder's settle and recorded SETTLED before the promotion's appeal deadline" },
-  v2: { outcome: "not constructible: the v2 vault has no public method that releases on a caller's request", tests: ["tests/v2/direct/test_vault_release.py::test_nobody_but_the_gate_can_release", "tests/v2/direct/test_vault_release.py::test_there_is_no_public_method_that_releases_on_a_callers_request"], corpus: ["i1-release-by-funder"] },
+  about: "v0 against v1 under the same attempt: a funder triggering a release while the deciding transaction is not yet final.",
+  v0: { source: "docs/evidence/milestone/spike/e6-h1-v0-run2.json", ...m.differential, outcome: "the vault accepted the funder's settle and recorded SETTLED before the promotion's appeal deadline" },
+  v1: { outcome: "not constructible: the v1 vault has no public method that releases on a caller's request", tests: ["tests/v1/direct/test_vault_release.py::test_nobody_but_the_gate_can_release", "tests/v1/direct/test_vault_release.py::test_there_is_no_public_method_that_releases_on_a_callers_request"], corpus: ["i1-release-by-funder"] },
   doesNotShow: "An appeal overturning a decision. None was engineered or observed.",
 }, null, 2));
 
-// ------------------------------------------------------------ FINDING.md: the v2 side
-inject("docs/milestone/FINDING.md", "finding-v2", `
-## The v2 side
+// ------------------------------------------------------------ FINDING.md: the v1 side
+inject("docs/milestone/FINDING.md", "finding-v1", `
+## The v1 side
 
-The same attempt against v2 cannot be constructed: the v2 vault has no public method that releases on a caller's request, and every method that can send value to the recipient requires the bound gate as sender. This is asserted by \`test_nobody_but_the_funder_can_release\`-style tests and by the corpus case \`i1-release-by-funder\`, and recorded in \`docs/evidence/milestone/h1-differential.json\`.
+The same attempt against v1 cannot be constructed: the v1 vault has no public method that releases on a caller's request, and every method that can send value to the recipient requires the bound gate as sender. This is asserted by \`test_nobody_but_the_funder_can_release\`-style tests and by the corpus case \`i1-release-by-funder\`, and recorded in \`docs/evidence/milestone/h1-differential.json\`.
 
 ## Other measured findings that shaped the build
 
-- **Studio-dev does not credit transfers a contract emits.** A standalone payer contract showed the transfer message finalize with \`value_credited: false\` and no balance change in either stage form (\`docs/evidence/milestone/transfer-credit-probe.json\`). v2's evidence is therefore the emitted finalized-stage transfer message plus the vault's state and receipt.
+- **Studio-dev does not credit transfers a contract emits.** A standalone payer contract showed the transfer message finalize with \`value_credited: false\` and no balance change in either stage form (\`docs/evidence/milestone/transfer-credit-probe.json\`). v1's evidence is therefore the emitted finalized-stage transfer message plus the vault's state and receipt.
 - **A finalized message is a child transaction created at the appeal deadline** of the deciding decision, with the emitting contract as sender, in every recorded decision (\`npm run spike\`, twice).
 - **Accepted-stage emission raises an execution error** under the pinned runner, so run R4 (a provisional storm) could not be produced.
 - **A funded child that fails at execution leaves its parent successful and its effect unapplied** (spike E4b), which is why the vault has funder-only return paths.
@@ -242,28 +242,28 @@ The same attempt against v2 cannot be constructed: the v2 vault has no public me
 
 // ------------------------------------------------------------ other docs: injected blocks
 inject("docs/LIMITATIONS.md", "milestone-limits", `
-## Milestone 2: what is not proven
+## Milestone v1: what is not proven
 
-Resolved by v2 and removed from the list above as current behavior: the 120 second timer and the funder release path (see \`docs/milestone/DELTA.md\`, C1 to C4). New honest limits:
+Resolved by v1 and removed from the list above as current behavior: the 120 second timer and the funder release path (see \`docs/milestone/DELTA.md\`, C1 to C4). New honest limits:
 
-- **One network.** All v2 runs are on Studio-dev, a release-candidate preview that may reset. Bradbury was not funded (its faucet needs a wallet holding mainnet ETH) and Studionet did not execute contracts when probed.
+- **One network.** All v1 runs are on Studio-dev, a release-candidate preview that may reset. Bradbury was not funded (its faucet needs a wallet holding mainnet ETH) and Studionet did not execute contracts when probed.
 - **No appeal overturn.** The appeal in run R3 was submitted and recorded; the committee did not change the verdict and the window was not extended. The fixed-timer arm scored 0 of ${a.control.of} for that reason. Whether a timer fails under an extended window is untested.
 - **Few timelines.** The counterfactual is a count over ${cf.timelines} recorded timelines, not a statistic.
 - **Emitted transfers are not credited on Studio-dev** (\`transfer-credit-probe.json\`), so no balance is evidence. The evidence is the transfer message and the vault's state and receipt.
 - **Accepted-stage emission fails** under the pinned runner, so the provisional notice (I5) is tested in direct mode only, and repetition across appeal rounds (E3) is unknown.
-- **Not built:** committed fee profile and Transaction Kit integration (C5 is partly resolved), mutation sweep, TypeScript parity suite, books reconciliation, injected-evidence run, \`definit-guard\`, the agent skill, and a v2 interactive console.
+- **Not built:** committed fee profile and Transaction Kit integration (C5 is partly resolved), mutation sweep, TypeScript parity suite, books reconciliation, injected-evidence run, \`definit-guard\`, the agent skill, and a v1 interactive console.
 - **The minified build** compiles on the network but was not deployed or run through the live suite.
 - **Direct mode** cannot run two contracts in one VM, so the gate and the vault are tested separately and joined by a golden message that both suites use.
 `);
 
 inject("docs/ARCHITECTURE.md", "milestone-arch", `
-## v2 architecture
+## v1 architecture
 
 \`\`\`mermaid
 sequenceDiagram
     participant A as Agent (funder)
-    participant V as FinalityVault v2
-    participant G as DecisionGate v2
+    participant V as FinalityVault v1
+    participant G as DecisionGate v1
     participant P as GenLayer protocol
     A->>G: create_action
     A->>V: open_escrow (value, commitment fields)
@@ -280,9 +280,9 @@ sequenceDiagram
 \`\`\`mermaid
 sequenceDiagram
     participant X as Anyone
-    participant G as DecisionGate v2
+    participant G as DecisionGate v1
     participant P as GenLayer protocol
-    participant V as FinalityVault v2
+    participant V as FinalityVault v1
     G-->>P: emit on finalized (release)
     X->>P: appealTransaction (inside the window)
     P->>P: window pauses, decision recomputed
@@ -294,28 +294,28 @@ The vault never reads the gate to decide a release. The gate is read once, at fu
 `);
 
 inject("docs/JUDGING_MAP.md", "milestone-judging", `
-## Milestone 2
+## Milestone v1
 
-| Criterion | Where v2 answers it |
+| Criterion | Where v1 answers it |
 | --- | --- |
 | Product usefulness | The finance operations lead at an importer lets a procurement agent pay freight forwarders; the payment moves by itself at protocol finality or returns to the treasury. The live page is \`/milestone\` |
 | Integration quality | A finalized-stage message from the deciding transaction, the lifecycle projection, a real appeal, and the network's own fee allocation shape (README, GenLayer integration used) |
-| Technical execution | Three live payments recorded and re-verified offline; the generated corpus and property reports (\`docs/evidence/milestone/proof-v2-report.json\`, \`docs/evidence/milestone/property.json\`); \`npm run verify:offline\` |
+| Technical execution | Three live payments recorded and re-verified offline; the generated corpus and property reports (\`docs/evidence/milestone/proof-v1-report.json\`, \`docs/evidence/milestone/property.json\`); \`npm run verify:offline\` |
 | Evidence of new work | \`docs/milestone/DELTA.md\`: before and after, the commit range, the corrections C1 to C10 |
 | Clarity and future potential | Honest limits are stated next to the claims; Bradbury runs follow once funded |
 `);
 
 inject("MILESTONES.md", "milestone-list", `
-## Milestone 2
+## Milestone v1
 
 | # | Milestone | Evidence |
 | --- | --- | --- |
 | M13 | Baseline record, measured network matrix | \`docs/milestone/BASELINE.md\`, \`docs/evidence/milestone/network-matrix.json\` |
-| M14 | Mechanism spike and discovery gate | \`docs/milestone/DISCOVERY_V2.md\`, \`docs/milestone/GATE.md\`, \`docs/evidence/milestone/spike/\` |
-| M15 | v2 contracts | \`contracts/v2/\`, \`docs/milestone/VAULT_STATE_MACHINE.md\` |
-| M16 | Invariant suite, corpus, property proof, offline verifier | \`docs/INVARIANTS.md\`, \`docs/evidence/milestone/proof-v2-report.json\`, \`docs/evidence/milestone/property.json\`, \`docs/evidence/milestone/offline-verification.json\` |
-| M17 | v2 deployed on Studio-dev, three live payments | \`artifacts/deployment-v2.json\`, \`docs/evidence/milestone/v2-run-R1.json\`, \`v2-run-R2.json\`, \`v2-run-R3.json\` |
-| M18 | Counterfactual, fault matrix, v1 differential | \`docs/evidence/milestone/counterfactual.json\`, \`faults.json\`, \`h1-differential.json\`, \`docs/milestone/FINDING.md\` |
+| M14 | Mechanism spike and discovery gate | \`docs/milestone/DISCOVERY_V1.md\`, \`docs/milestone/GATE.md\`, \`docs/evidence/milestone/spike/\` |
+| M15 | v1 contracts | \`contracts/v1/\`, \`docs/milestone/VAULT_STATE_MACHINE.md\` |
+| M16 | Invariant suite, corpus, property proof, offline verifier | \`docs/INVARIANTS.md\`, \`docs/evidence/milestone/proof-v1-report.json\`, \`docs/evidence/milestone/property.json\`, \`docs/evidence/milestone/offline-verification.json\` |
+| M17 | v1 deployed on Studio-dev, three live payments | \`artifacts/deployment-v1.json\`, \`docs/evidence/milestone/v1-run-R1.json\`, \`v1-run-R2.json\`, \`v1-run-R3.json\` |
+| M18 | Counterfactual, fault matrix, v0 differential | \`docs/evidence/milestone/counterfactual.json\`, \`faults.json\`, \`h1-differential.json\`, \`docs/milestone/FINDING.md\` |
 | M19 | Milestone page and corrections C7 to C9 | \`/milestone\`, \`/proof\`, \`tests/e2e/milestone.spec.ts\` |
 `);
 

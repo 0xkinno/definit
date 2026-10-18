@@ -6,7 +6,7 @@
  * Each timeline is a real recorded decision with chain timestamps. Each rule
  * decides when it would have paid. A payment is unsafe if it executes before the
  * deciding decision was final (its appeal deadline). The replay rules are the
- * functions below, in full, and docs/milestone/PROOF_V2.md reproduces them.
+ * functions below, in full, and docs/milestone/PROOF_V1.md reproduces them.
  *
  * Only approvals are timelines: a refused payment is paid by no rule.
  */
@@ -24,8 +24,8 @@ const median = (xs) => [...xs].sort((a, b) => a - b)[Math.floor(xs.length / 2)];
 export const RULES = {
   baseline: (t) => t.acceptedAt, // pays when the deciding transaction is Accepted
   control: (t, ctx) => t.acceptedAt + ctx.medianWindowSeconds, // a fixed delay equal to the measured window
-  v1: (t) => t.acceptedAt + 120, // v1's rule: its own 120 second constant, then promotion
-  v2: (t) => t.deliveryAt, // pays only on the finalized delivery
+  v0: (t) => t.acceptedAt + 120, // v0's rule: its own 120 second constant, then promotion
+  v1: (t) => t.deliveryAt, // pays only on the finalized delivery
 };
 export const unsafe = (executeAt, t) => executeAt < t.finalAt;
 
@@ -37,7 +37,7 @@ export function replay(timelines, medianWindowSeconds) {
     arms[name] = {
       unsafe: timelines.filter((t, i) => unsafe(exec[i], t)).length,
       of: timelines.length,
-      refusedLegitimate: timelines.filter((t) => t.deliveryAt == null && name === "v2").length,
+      refusedLegitimate: timelines.filter((t) => t.deliveryAt == null && name === "v1").length,
       medianSecondsFromFinalToPayment: median(timelines.map((t, i) => exec[i] - t.finalAt)),
     };
   }
@@ -71,7 +71,7 @@ function collect() {
     const appealed = id === "e2a";
     add(id, path.relative(REPO_ROOT, f).replace(/\\/g, "/"), appealed ? firstAccepted(r.samples) : d.materializedAt, d.appealDeadline, Number(child.created_timestamp), appealed);
   }
-  for (const f of readdirSync(EV).filter((x) => /^v2-run-(R\d+|T\d+)\.json$/.test(x))) {
+  for (const f of readdirSync(EV).filter((x) => /^v1-run-(R\d+|T\d+)\.json$/.test(x))) {
     const r = rd(path.join(EV, f));
     if (r.adjudication?.verdict !== "APPROVE" || !r.delivery) continue;
     const appealed = Boolean(r.adjudication.appeal && !r.adjudication.appeal.error);
@@ -83,8 +83,8 @@ function collect() {
 
 function collectE6() {
   const out = [];
-  const files = [path.join(SPIKE, "e6-h1-v1-run2.json")];
-  for (const d of readdirSync(SPIKE, { withFileTypes: true })) if (d.isDirectory() && d.name.startsWith("repro-")) files.push(path.join(SPIKE, d.name, "e6-h1-v1-run1.json"));
+  const files = [path.join(SPIKE, "e6-h1-v0-run2.json")];
+  for (const d of readdirSync(SPIKE, { withFileTypes: true })) if (d.isDirectory() && d.name.startsWith("repro-")) files.push(path.join(SPIKE, d.name, "e6-h1-v0-run1.json"));
   for (const f of files) {
     if (!existsSync(f)) continue;
     const r = rd(f);
@@ -105,15 +105,15 @@ if (process.argv[1] && import.meta.url.endsWith(path.basename(process.argv[1])))
     medianWindowSeconds,
     timelines,
     arms: replay(timelines, medianWindowSeconds),
-    v1FunderPath: { ...replayFunderPath(e6), timelines: e6, note: "v1's vault lets the funder trigger settle once the promotion is Accepted (spike E6)." },
+    v1FunderPath: { ...replayFunderPath(e6), timelines: e6, note: "v0's vault lets the funder trigger settle once the promotion is Accepted (spike E6)." },
     caveats: [
       "The timelines are real but few; this is a count over them, not a statistic over all timelines.",
       "An appeal's outcome is whatever the committee returned. No overturn was engineered or observed, and none is claimed.",
-      "v1's 120 second constant exceeds the measured window here, so its timer arm is safe on these timelines; its funder path is the measured gap.",
+      "v0's 120 second constant exceeds the measured window here, so its timer arm is safe on these timelines; its funder path is the measured gap.",
     ],
   };
   writeFileSync(path.join(EV, "counterfactual.json"), JSON.stringify(result, null, 2));
   log.ok(`counterfactual.json: ${timelines.length} timelines, median window ${medianWindowSeconds}s`);
   for (const [k, v] of Object.entries(result.arms)) log.info(`${k}: ${v.unsafe}/${v.of} unsafe, ${v.refusedLegitimate} legitimate refused`);
-  log.info(`v1 funder path: ${result.v1FunderPath.unsafe}/${result.v1FunderPath.of} unsafe`);
+  log.info(`v0 funder path: ${result.v1FunderPath.unsafe}/${result.v1FunderPath.of} unsafe`);
 }

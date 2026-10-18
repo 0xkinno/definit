@@ -1,7 +1,7 @@
 /**
  * Phase 0B mechanism spike.  EXPERIMENT CODE.
  *
- * Reproduces, from nothing, the measurements the v2 thesis stands on. Every
+ * Reproduces, from nothing, the measurements the v1 thesis stands on. Every
  * number written to docs/evidence/milestone/spike/ comes from the network.
  * Nothing here decides anything; it samples and records.
  *
@@ -104,7 +104,7 @@ async function deploy(client, file, args) {
   const receipt = await pace(() => client.waitForTransactionReceipt({ hash, waitUntil: "decided", interval: 6000, retries: 60 }));
   const address = receipt?.data?.contract_address ?? receipt?.contract_address;
   if (!address) throw new Error(`${file}: no address (${receipt?.status_name})`);
-  // Status alone is not success (v1 defect C6): a deploy can be ACCEPTED and still have executed with an error.
+  // Status alone is not success (v0 defect C6): a deploy can be ACCEPTED and still have executed with an error.
   const tx = await getTx(hash);
   if (tx.txExecutionResultName !== "FINISHED_WITH_RETURN") {
     throw new Error(`${file}: deploy did not execute successfully: ${tx.status} / ${tx.txExecutionResultName}`);
