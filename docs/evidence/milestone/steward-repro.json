@@ -1,0 +1,27 @@
+{
+  "head": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+  "platform": "Windows 10",
+  "node": "v24.14.1",
+  "steps": [
+    {
+      "command": "npm ci",
+      "lastLine": "added 370 packages in 3m",
+      "needs": "network"
+    },
+    {
+      "command": "npm run verify:offline",
+      "lastLine": "8 pass, 0 fail, 0 not evidenced",
+      "needs": "nothing (reads recorded evidence)"
+    },
+    {
+      "command": "npm run test:v1:direct",
+      "lastLine": "216 passed in 709.64s (0:11:49)",
+      "needs": "the pinned Python toolchain in requirements.txt (a venv, or DEFINIT_PYTHON), and any value in GENLAYER_PRIVATE_KEY: gltest refuses to start without the variable, and direct mode never signs. The first run without it stopped with a gltest configuration error"
+    },
+    {
+      "command": "python3 scripts/check_no_clock.py",
+      "lastLine": "clock comparisons found: 5 across 3 files; PASS",
+      "needs": "Python 3, standard library only"
+    }
+  ]
+}

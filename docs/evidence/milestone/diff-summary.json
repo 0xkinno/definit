@@ -1,0 +1,790 @@
+{
+  "generatedAt": "2026-10-19T22:35:25.788Z",
+  "base": "b903f9423b46dfa45e87ac8db7d8d48edc167119",
+  "head": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+  "compare": "https://github.com/0xkinno/definit/compare/b903f9423b46dfa45e87ac8db7d8d48edc167119...2b45ea5e34d17aa6e89045bff94df9405a139a79",
+  "rewardedContracts": {
+    "paths": [
+      "contracts/decision_gate.py",
+      "contracts/finality_vault.py",
+      "contracts/scenario_registry.py",
+      "contracts/control/"
+    ],
+    "diffStat": "",
+    "identical": true
+  },
+  "total": {
+    "files": 170,
+    "added": 149,
+    "modified": 21,
+    "deleted": 0,
+    "rawLines": {
+      "added": 39168,
+      "removed": 8031
+    },
+    "linesIgnoringEol": {
+      "added": 31226,
+      "removed": 89
+    },
+    "handWrittenLinesIgnoringEol": {
+      "added": 10945,
+      "removed": 88
+    },
+    "generatedLinesIgnoringEol": {
+      "added": 20281,
+      "removed": 1
+    }
+  },
+  "areas": [
+    {
+      "area": "contracts/v1/",
+      "files": 10,
+      "handWritten": {
+        "files": 4,
+        "added": 4,
+        "modified": 0,
+        "lines": {
+          "added": 1448,
+          "removed": 0
+        },
+        "linesRaw": {
+          "added": 1448,
+          "removed": 0
+        }
+      },
+      "generated": {
+        "files": 6,
+        "added": 6,
+        "modified": 0,
+        "lines": {
+          "added": 1894,
+          "removed": 0
+        }
+      }
+    },
+    {
+      "area": "lib/",
+      "files": 5,
+      "handWritten": {
+        "files": 3,
+        "added": 2,
+        "modified": 1,
+        "lines": {
+          "added": 187,
+          "removed": 4
+        },
+        "linesRaw": {
+          "added": 188,
+          "removed": 5
+        }
+      },
+      "generated": {
+        "files": 2,
+        "added": 2,
+        "modified": 0,
+        "lines": {
+          "added": 901,
+          "removed": 0
+        }
+      }
+    },
+    {
+      "area": "app/",
+      "files": 5,
+      "handWritten": {
+        "files": 5,
+        "added": 2,
+        "modified": 3,
+        "lines": {
+          "added": 400,
+          "removed": 70
+        },
+        "linesRaw": {
+          "added": 796,
+          "removed": 466
+        }
+      },
+      "generated": {
+        "files": 0,
+        "added": 0,
+        "modified": 0,
+        "lines": {
+          "added": 0,
+          "removed": 0
+        }
+      }
+    },
+    {
+      "area": "components/",
+      "files": 3,
+      "handWritten": {
+        "files": 3,
+        "added": 2,
+        "modified": 1,
+        "lines": {
+          "added": 278,
+          "removed": 1
+        },
+        "linesRaw": {
+          "added": 278,
+          "removed": 1
+        }
+      },
+      "generated": {
+        "files": 0,
+        "added": 0,
+        "modified": 0,
+        "lines": {
+          "added": 0,
+          "removed": 0
+        }
+      }
+    },
+    {
+      "area": "packages/definit-guard/",
+      "files": 8,
+      "handWritten": {
+        "files": 8,
+        "added": 8,
+        "modified": 0,
+        "lines": {
+          "added": 499,
+          "removed": 0
+        },
+        "linesRaw": {
+          "added": 499,
+          "removed": 0
+        }
+      },
+      "generated": {
+        "files": 0,
+        "added": 0,
+        "modified": 0,
+        "lines": {
+          "added": 0,
+          "removed": 0
+        }
+      }
+    },
+    {
+      "area": "skills/",
+      "files": 2,
+      "handWritten": {
+        "files": 2,
+        "added": 2,
+        "modified": 0,
+        "lines": {
+          "added": 39,
+          "removed": 0
+        },
+        "linesRaw": {
+          "added": 39,
+          "removed": 0
+        }
+      },
+      "generated": {
+        "files": 0,
+        "added": 0,
+        "modified": 0,
+        "lines": {
+          "added": 0,
+          "removed": 0
+        }
+      }
+    },
+    {
+      "area": "examples/",
+      "files": 1,
+      "handWritten": {
+        "files": 1,
+        "added": 1,
+        "modified": 0,
+        "lines": {
+          "added": 74,
+          "removed": 0
+        },
+        "linesRaw": {
+          "added": 74,
+          "removed": 0
+        }
+      },
+      "generated": {
+        "files": 0,
+        "added": 0,
+        "modified": 0,
+        "lines": {
+          "added": 0,
+          "removed": 0
+        }
+      }
+    },
+    {
+      "area": "scripts/",
+      "files": 31,
+      "handWritten": {
+        "files": 31,
+        "added": 27,
+        "modified": 4,
+        "lines": {
+          "added": 3548,
+          "removed": 2
+        },
+        "linesRaw": {
+          "added": 4121,
+          "removed": 575
+        }
+      },
+      "generated": {
+        "files": 0,
+        "added": 0,
+        "modified": 0,
+        "lines": {
+          "added": 0,
+          "removed": 0
+        }
+      }
+    },
+    {
+      "area": "tests/",
+      "files": 20,
+      "handWritten": {
+        "files": 19,
+        "added": 16,
+        "modified": 3,
+        "lines": {
+          "added": 3375,
+          "removed": 2
+        },
+        "linesRaw": {
+          "added": 3375,
+          "removed": 2
+        }
+      },
+      "generated": {
+        "files": 1,
+        "added": 1,
+        "modified": 0,
+        "lines": {
+          "added": 4085,
+          "removed": 0
+        }
+      }
+    },
+    {
+      "area": "docs/",
+      "files": 70,
+      "handWritten": {
+        "files": 17,
+        "added": 14,
+        "modified": 3,
+        "lines": {
+          "added": 765,
+          "removed": 1
+        },
+        "linesRaw": {
+          "added": 886,
+          "removed": 122
+        }
+      },
+      "generated": {
+        "files": 53,
+        "added": 53,
+        "modified": 0,
+        "lines": {
+          "added": 13147,
+          "removed": 0
+        }
+      }
+    }
+  ],
+  "other": {
+    "area": "other (root files, artifacts, research/spike, requirements)",
+    "files": 15,
+    "list": [
+      ".gitignore",
+      "MILESTONES.md",
+      "README.md",
+      "artifacts/deployment-v1.json",
+      "artifacts/fee-donor.json",
+      "fee-profile.json",
+      "package-lock.json",
+      "package.json",
+      "public/demo/delivery-742-injected.txt",
+      "requirements.txt",
+      "research/spike/payer.py",
+      "research/spike/probe.py",
+      "research/spike/spike_judge.py",
+      "research/spike/spike_sink.py",
+      "vitest.config.ts"
+    ]
+  },
+  "modified": [
+    {
+      "path": ".gitignore",
+      "reason": "ignores the private reference/ folder and tracks research/spike; the rest is a line-ending rewrite",
+      "rawLines": {
+        "added": 81,
+        "removed": 77
+      },
+      "linesIgnoringEol": {
+        "added": 5,
+        "removed": 1
+      }
+    },
+    {
+      "path": "MILESTONES.md",
+      "reason": "adds the Milestone v1 rows (generated block)",
+      "rawLines": {
+        "added": 16,
+        "removed": 0
+      },
+      "linesIgnoringEol": {
+        "added": 16,
+        "removed": 0
+      }
+    },
+    {
+      "path": "README.md",
+      "reason": "adds the Milestone v1 section (generated block) and v0 baseline notes",
+      "rawLines": {
+        "added": 76,
+        "removed": 0
+      },
+      "linesIgnoringEol": {
+        "added": 76,
+        "removed": 0
+      }
+    },
+    {
+      "path": "app/console/page.tsx",
+      "reason": "now renders the v1 console; the accepted console moved to app/console/v0/page.tsx with its title and eyebrow relabelled as v0",
+      "rawLines": {
+        "added": 20,
+        "removed": 58
+      },
+      "linesIgnoringEol": {
+        "added": 20,
+        "removed": 58
+      }
+    },
+    {
+      "path": "app/page.tsx",
+      "reason": "landing hero rewritten to state the problem and show the generated proof line",
+      "rawLines": {
+        "added": 413,
+        "removed": 408
+      },
+      "linesIgnoringEol": {
+        "added": 17,
+        "removed": 12
+      }
+    },
+    {
+      "path": "app/proof/page.tsx",
+      "reason": "adds the live v1 contract addresses and the refusal breakdown, both read from generated data",
+      "rawLines": {
+        "added": 15,
+        "removed": 0
+      },
+      "linesIgnoringEol": {
+        "added": 15,
+        "removed": 0
+      }
+    },
+    {
+      "path": "components/Shell.tsx",
+      "reason": "adds the Milestone v1 navigation item and a 44px brand-link touch target",
+      "rawLines": {
+        "added": 2,
+        "removed": 1
+      },
+      "linesIgnoringEol": {
+        "added": 2,
+        "removed": 1
+      }
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "reason": "adds the v1 architecture section (generated block)",
+      "rawLines": {
+        "added": 38,
+        "removed": 1
+      },
+      "linesIgnoringEol": {
+        "added": 37,
+        "removed": 0
+      }
+    },
+    {
+      "path": "docs/JUDGING_MAP.md",
+      "reason": "adds the Milestone v1 criteria table (generated block)",
+      "rawLines": {
+        "added": 12,
+        "removed": 0
+      },
+      "linesIgnoringEol": {
+        "added": 12,
+        "removed": 0
+      }
+    },
+    {
+      "path": "docs/LIMITATIONS.md",
+      "reason": "adds the Milestone v1 limits (generated block) and a v0 note on the fee blob; line endings also normalized",
+      "rawLines": {
+        "added": 142,
+        "removed": 121
+      },
+      "linesIgnoringEol": {
+        "added": 22,
+        "removed": 1
+      }
+    },
+    {
+      "path": "lib/commitments/commitment.ts",
+      "reason": "adds the v1 decision-id domain, lets amount be a bigint or string (found by the parity suite), and lets decisionIdOf take a domain",
+      "rawLines": {
+        "added": 12,
+        "removed": 5
+      },
+      "linesIgnoringEol": {
+        "added": 11,
+        "removed": 4
+      }
+    },
+    {
+      "path": "package-lock.json",
+      "reason": "lockfile for the new workspace and pinned toolchain dependencies; line endings normalized",
+      "rawLines": {
+        "added": 6839,
+        "removed": 6719
+      },
+      "linesIgnoringEol": {
+        "added": 121,
+        "removed": 1
+      }
+    },
+    {
+      "path": "package.json",
+      "reason": "adds the v1 scripts, the packages/* workspace and the pinned Transaction Kit packages",
+      "rawLines": {
+        "added": 92,
+        "removed": 63
+      },
+      "linesIgnoringEol": {
+        "added": 35,
+        "removed": 6
+      }
+    },
+    {
+      "path": "scripts/audit-isolation.mjs",
+      "reason": "excludes the private reference/ folder from the shipped-tree audit",
+      "rawLines": {
+        "added": 1,
+        "removed": 0
+      },
+      "linesIgnoringEol": {
+        "added": 1,
+        "removed": 0
+      }
+    },
+    {
+      "path": "scripts/docs-check.mjs",
+      "reason": "adds a check that no current document presents the v0 appeal-window constant as live behaviour",
+      "rawLines": {
+        "added": 291,
+        "removed": 281
+      },
+      "linesIgnoringEol": {
+        "added": 11,
+        "removed": 1
+      }
+    },
+    {
+      "path": "scripts/run-python.mjs",
+      "reason": "adds a default local runner hash and a pinned interpreter for the direct-mode suites",
+      "rawLines": {
+        "added": 171,
+        "removed": 159
+      },
+      "linesIgnoringEol": {
+        "added": 13,
+        "removed": 1
+      }
+    },
+    {
+      "path": "scripts/validate-contracts.mjs",
+      "reason": "also compiles the three v1 contracts on the network before deployment",
+      "rawLines": {
+        "added": 139,
+        "removed": 135
+      },
+      "linesIgnoringEol": {
+        "added": 4,
+        "removed": 0
+      }
+    },
+    {
+      "path": "tests/e2e/a11y.spec.ts",
+      "reason": "adds the /console/v0 route",
+      "rawLines": {
+        "added": 1,
+        "removed": 1
+      },
+      "linesIgnoringEol": {
+        "added": 1,
+        "removed": 1
+      }
+    },
+    {
+      "path": "tests/e2e/production.spec.ts",
+      "reason": "points the accepted-console test at /console/v0",
+      "rawLines": {
+        "added": 1,
+        "removed": 1
+      },
+      "linesIgnoringEol": {
+        "added": 1,
+        "removed": 1
+      }
+    },
+    {
+      "path": "tests/e2e/responsive.spec.ts",
+      "reason": "adds the /console/v0 route and exempts the visually hidden skip link from the touch-target check",
+      "rawLines": {
+        "added": 3,
+        "removed": 0
+      },
+      "linesIgnoringEol": {
+        "added": 3,
+        "removed": 0
+      }
+    },
+    {
+      "path": "vitest.config.ts",
+      "reason": "includes the definit-guard package tests",
+      "rawLines": {
+        "added": 1,
+        "removed": 1
+      },
+      "linesIgnoringEol": {
+        "added": 1,
+        "removed": 1
+      }
+    }
+  ],
+  "eolRewritten": [
+    {
+      "path": ".gitignore",
+      "raw": {
+        "added": 81,
+        "removed": 77
+      },
+      "ignoringEol": {
+        "added": 5,
+        "removed": 1
+      }
+    },
+    {
+      "path": "app/page.tsx",
+      "raw": {
+        "added": 413,
+        "removed": 408
+      },
+      "ignoringEol": {
+        "added": 17,
+        "removed": 12
+      }
+    },
+    {
+      "path": "docs/LIMITATIONS.md",
+      "raw": {
+        "added": 142,
+        "removed": 121
+      },
+      "ignoringEol": {
+        "added": 22,
+        "removed": 1
+      }
+    },
+    {
+      "path": "package-lock.json",
+      "raw": {
+        "added": 6839,
+        "removed": 6719
+      },
+      "ignoringEol": {
+        "added": 121,
+        "removed": 1
+      }
+    },
+    {
+      "path": "package.json",
+      "raw": {
+        "added": 92,
+        "removed": 63
+      },
+      "ignoringEol": {
+        "added": 35,
+        "removed": 6
+      }
+    },
+    {
+      "path": "scripts/docs-check.mjs",
+      "raw": {
+        "added": 291,
+        "removed": 281
+      },
+      "ignoringEol": {
+        "added": 11,
+        "removed": 1
+      }
+    },
+    {
+      "path": "scripts/run-python.mjs",
+      "raw": {
+        "added": 171,
+        "removed": 159
+      },
+      "ignoringEol": {
+        "added": 13,
+        "removed": 1
+      }
+    },
+    {
+      "path": "scripts/validate-contracts.mjs",
+      "raw": {
+        "added": 139,
+        "removed": 135
+      },
+      "ignoringEol": {
+        "added": 4,
+        "removed": 0
+      }
+    }
+  ],
+  "contracts": [
+    {
+      "path": "contracts/v1/build/decision_gate.min.py",
+      "status": "A",
+      "lines": 263,
+      "generated": true
+    },
+    {
+      "path": "contracts/v1/build/decision_gate.py",
+      "status": "A",
+      "lines": 680,
+      "generated": true
+    },
+    {
+      "path": "contracts/v1/build/finality_vault.min.py",
+      "status": "A",
+      "lines": 240,
+      "generated": true
+    },
+    {
+      "path": "contracts/v1/build/finality_vault.py",
+      "status": "A",
+      "lines": 528,
+      "generated": true
+    },
+    {
+      "path": "contracts/v1/build/scenario_registry.min.py",
+      "status": "A",
+      "lines": 60,
+      "generated": true
+    },
+    {
+      "path": "contracts/v1/build/scenario_registry.py",
+      "status": "A",
+      "lines": 123,
+      "generated": true
+    },
+    {
+      "path": "contracts/v1/core/vault_model.py",
+      "status": "A",
+      "lines": 117,
+      "generated": false
+    },
+    {
+      "path": "contracts/v1/decision_gate.py",
+      "status": "A",
+      "lines": 680,
+      "generated": false
+    },
+    {
+      "path": "contracts/v1/finality_vault.py",
+      "status": "A",
+      "lines": 528,
+      "generated": false
+    },
+    {
+      "path": "contracts/v1/scenario_registry.py",
+      "status": "A",
+      "lines": 123,
+      "generated": false
+    }
+  ],
+  "commits": [
+    {
+      "sha": "18562cf64eebb3b36efabd87b9798668fe8f6e52",
+      "author": "0xkinno <ojilerekingsley@gmail.com>",
+      "date": "2026-10-17T13:26:10+01:00",
+      "subject": "Milestone 2 phase 0: baseline record and measured network matrix"
+    },
+    {
+      "sha": "d919b31fa90ae7c744291c23998416b95add2971",
+      "author": "0xkinno <ojilerekingsley@gmail.com>",
+      "date": "2026-10-17T13:26:11+01:00",
+      "subject": "Milestone 2 phase 0B: mechanism spike, discovery record and passed gate"
+    },
+    {
+      "sha": "c4096a6e9d79b9b3fe8df41100a54af935fad531",
+      "author": "0xkinno <ojilerekingsley@gmail.com>",
+      "date": "2026-10-17T13:35:25+01:00",
+      "subject": "Milestone 2 phase 1: v2 contracts, release authority moved to protocol-delivered finalized messages"
+    },
+    {
+      "sha": "a16ea42451a3dfaaab31fa47c3c490f558aad525",
+      "author": "0xkinno <ojilerekingsley@gmail.com>",
+      "date": "2026-10-17T17:08:39+01:00",
+      "subject": "Milestone 2 phase 2: invariant suite, v2 corpus and offline verifier"
+    },
+    {
+      "sha": "b7d448d2c3f0e2f5a0d2a5ec4f1d4e5fc5599890",
+      "author": "0xkinno <ojilerekingsley@gmail.com>",
+      "date": "2026-10-17T17:46:31+01:00",
+      "subject": "Milestone 2 phase 4: counterfactual, fault matrix and v1 differential"
+    },
+    {
+      "sha": "f16d00cd4af93d4233b91da741bdbcc73b065a93",
+      "author": "0xkinno <ojilerekingsley@gmail.com>",
+      "date": "2026-10-17T17:46:32+01:00",
+      "subject": "Milestone 2 phase 6: milestone page, finality clock and public proof corrections"
+    },
+    {
+      "sha": "833470b36de4d9064b5a4e8fb6712826cad200cc",
+      "author": "0xkinno <ojilerekingsley@gmail.com>",
+      "date": "2026-10-17T17:46:33+01:00",
+      "subject": "Milestone 2 phase 7: delta record, integration map and regenerated docs"
+    },
+    {
+      "sha": "da914934af6ad277ee7404e5ae0d8769b0c804e3",
+      "author": "0xkinno <ojilerekingsley@gmail.com>",
+      "date": "2026-10-17T20:38:09+01:00",
+      "subject": "Milestone 2 phase 8: production deployment verified against the public URL"
+    },
+    {
+      "sha": "24a5887c988de159549fa1ecead8f3fbec87e0f9",
+      "author": "0xkinno <ojilerekingsley@gmail.com>",
+      "date": "2026-10-18T08:18:59+01:00",
+      "subject": "Rename: original build is v0, milestone is v1 (frozen on-chain labels documented)"
+    },
+    {
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "author": "0xkinno <ojilerekingsley@gmail.com>",
+      "date": "2026-10-18T08:19:00+01:00",
+      "subject": "Milestone v1 adoption and verification: fee profile and Transaction Kit, definit-guard and agent skill, v1 console, mutation sweep, parity suite, books, injected-evidence run"
+    }
+  ],
+  "note": "Line counts are given ignoring end-of-line changes. Some files were rewritten with different line endings, which inflates raw counts; both are recorded."
+}

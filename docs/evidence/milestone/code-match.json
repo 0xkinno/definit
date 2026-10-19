@@ -1,0 +1,113 @@
+{
+  "generatedAt": "2026-10-19T22:11:25.697Z",
+  "head": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+  "network": {
+    "name": "GenLayer Studio Next (Studio-dev)",
+    "chainId": 61997,
+    "rpc": "https://studio-dev.genlayer.com/api",
+    "method": "gen_getContractCode"
+  },
+  "deploymentRecord": "artifacts/deployment-v1.json at 2b45ea5e34d17aa6e89045bff94df9405a139a79",
+  "contracts": [
+    {
+      "name": "ScenarioRegistry",
+      "address": "0x8DC63918F88dcc719397a39730C1b31A1cF895DF",
+      "explorer": "https://explorer-studio-dev.genlayer.com/address/0x8DC63918F88dcc719397a39730C1b31A1cF895DF",
+      "deployed": {
+        "sha256": "0x9be6052477f5666e28475d69b3cd6b4eabea0b2755a0a9c25941c1a2335f4cbe",
+        "bytes": 3359
+      },
+      "matches": [
+        "readableBuild",
+        "readableSource"
+      ],
+      "comparisons": {
+        "minifiedBuild": {
+          "path": "contracts/v1/build/scenario_registry.min.py",
+          "sha256": "0x17f70b1735db0d5126b54a96fa21027e5cfedc26fc71a27075f2d2e998a74435",
+          "bytes": 2707,
+          "equalsDeployed": false
+        },
+        "readableBuild": {
+          "path": "contracts/v1/build/scenario_registry.py",
+          "sha256": "0x9be6052477f5666e28475d69b3cd6b4eabea0b2755a0a9c25941c1a2335f4cbe",
+          "bytes": 3359,
+          "equalsDeployed": true
+        },
+        "readableSource": {
+          "path": "contracts/v1/scenario_registry.py",
+          "sha256": "0x9be6052477f5666e28475d69b3cd6b4eabea0b2755a0a9c25941c1a2335f4cbe",
+          "bytes": 3359,
+          "equalsDeployed": true
+        }
+      }
+    },
+    {
+      "name": "FinalityVault",
+      "address": "0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5",
+      "explorer": "https://explorer-studio-dev.genlayer.com/address/0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5",
+      "deployed": {
+        "sha256": "0x4ff9a12fa7ad8fe0e4368bc2624d0ff11f12a9306cda29b0e43b9aa7b803e163",
+        "bytes": 18380
+      },
+      "matches": [
+        "readableBuild",
+        "readableSource"
+      ],
+      "comparisons": {
+        "minifiedBuild": {
+          "path": "contracts/v1/build/finality_vault.min.py",
+          "sha256": "0xfbba2c2603b8b243f0a1614b1a5448707d8bd5671e1f44c63afb0a9c40650b72",
+          "bytes": 14571,
+          "equalsDeployed": false
+        },
+        "readableBuild": {
+          "path": "contracts/v1/build/finality_vault.py",
+          "sha256": "0x4ff9a12fa7ad8fe0e4368bc2624d0ff11f12a9306cda29b0e43b9aa7b803e163",
+          "bytes": 18380,
+          "equalsDeployed": true
+        },
+        "readableSource": {
+          "path": "contracts/v1/finality_vault.py",
+          "sha256": "0x4ff9a12fa7ad8fe0e4368bc2624d0ff11f12a9306cda29b0e43b9aa7b803e163",
+          "bytes": 18380,
+          "equalsDeployed": true
+        }
+      }
+    },
+    {
+      "name": "DecisionGate",
+      "address": "0xA03C1884F2dFf591388B85840F264c93EE4bF889",
+      "explorer": "https://explorer-studio-dev.genlayer.com/address/0xA03C1884F2dFf591388B85840F264c93EE4bF889",
+      "deployed": {
+        "sha256": "0xcd3b7e36070e539e70716721e8177bbdabd98f16dd7adb9738b137217dffb6e7",
+        "bytes": 21932
+      },
+      "matches": [
+        "readableBuild",
+        "readableSource"
+      ],
+      "comparisons": {
+        "minifiedBuild": {
+          "path": "contracts/v1/build/decision_gate.min.py",
+          "sha256": "0x99b2ca5a17df5e933a3a35758c2809ef91571a94629161b6cf5827c9a462138e",
+          "bytes": 16938,
+          "equalsDeployed": false
+        },
+        "readableBuild": {
+          "path": "contracts/v1/build/decision_gate.py",
+          "sha256": "0xcd3b7e36070e539e70716721e8177bbdabd98f16dd7adb9738b137217dffb6e7",
+          "bytes": 21932,
+          "equalsDeployed": true
+        },
+        "readableSource": {
+          "path": "contracts/v1/decision_gate.py",
+          "sha256": "0xcd3b7e36070e539e70716721e8177bbdabd98f16dd7adb9738b137217dffb6e7",
+          "bytes": 21932,
+          "equalsDeployed": true
+        }
+      }
+    }
+  ],
+  "allMatch": true
+}

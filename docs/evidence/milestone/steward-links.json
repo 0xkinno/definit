@@ -1,0 +1,1039 @@
+{
+  "checkedAt": "2026-10-19T22:37:12.645Z",
+  "head": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+  "total": 112,
+  "ok": 112,
+  "failed": [],
+  "anchors": [
+    {
+      "id": "g_adj",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/decision_gate.py",
+      "lines": "538-574",
+      "firstLine": "def request_adjudication(self, action_id: str) -> dict:",
+      "lastLine": "return self._record_outcome(action_id, action, outcome)",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/decision_gate.py#L538-L574"
+    },
+    {
+      "id": "g_emit",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/decision_gate.py",
+      "lines": "647-666",
+      "firstLine": "vault = gl.contract.get_at(self.vault)",
+      "lastLine": ")",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/decision_gate.py#L647-L666"
+    },
+    {
+      "id": "g_rec",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/decision_gate.py",
+      "lines": "597-668",
+      "firstLine": "def _record_outcome(self, action_id: str, action: dict, outcome: dict) -> dict:",
+      "lastLine": "self.actions[action_id] = _dump(action)",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/decision_gate.py#L597-L668"
+    },
+    {
+      "id": "g_describe",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/decision_gate.py",
+      "lines": "435-449",
+      "firstLine": "def describe(self) -> dict:",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/decision_gate.py#L435-L449"
+    },
+    {
+      "id": "g_never",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/decision_gate.py",
+      "lines": "20-27",
+      "firstLine": "What this contract never does",
+      "lastLine": "emits the other message and the protocol never delivers the first.",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/decision_gate.py#L20-L27"
+    },
+    {
+      "id": "g_constraints",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/decision_gate.py",
+      "lines": "29-37",
+      "firstLine": "Measured constraints this file is written around",
+      "lastLine": "docs/evidence/milestone/spike/findings-session1.json (O5).",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/decision_gate.py#L29-L37"
+    },
+    {
+      "id": "v_header",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/finality_vault.py",
+      "lines": "15-41",
+      "firstLine": "Release authority is a delivery",
+      "lastLine": "(I11).",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L15-L41"
+    },
+    {
+      "id": "v_open",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/finality_vault.py",
+      "lines": "257-300",
+      "firstLine": "def open_escrow(",
+      "lastLine": "gl.vm.UserError.immediate(ERR_ACTION_MISMATCH)",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L257-L300"
+    },
+    {
+      "id": "v_auth",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/finality_vault.py",
+      "lines": "351-462",
+      "firstLine": "def authorize_release(",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L351-L462"
+    },
+    {
+      "id": "v_sender",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/finality_vault.py",
+      "lines": "368-370",
+      "firstLine": "# I1 -- only a message whose sender is the bound gate.",
+      "lastLine": "gl.vm.UserError.immediate(ERR_UNAUTHORIZED_SENDER)",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L368-L370"
+    },
+    {
+      "id": "v_dup",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/finality_vault.py",
+      "lines": "376-381",
+      "firstLine": "# I4, I11 -- a delivery that finds the escrow already closed is a",
+      "lastLine": "return {'action_id': action_id, 'status': 'NOOP', 'state': escrow['state']}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L376-L381"
+    },
+    {
+      "id": "v_deadline",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/finality_vault.py",
+      "lines": "383-391",
+      "firstLine": "# I7 -- a release that arrives after the deadline does not release. This",
+      "lastLine": "return {'action_id': action_id, 'status': 'EXPIRED', 'state': STATE_EXPIRED_REFUNDABLE}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L383-L391"
+    },
+    {
+      "id": "v_commit",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/finality_vault.py",
+      "lines": "393-416",
+      "firstLine": "# I3 -- every delivered field must equal the escrow's own record.",
+      "lastLine": "gl.vm.UserError.immediate(ERR_COMMITMENT_MISMATCH)",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L393-L416"
+    },
+    {
+      "id": "v_transfer",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/finality_vault.py",
+      "lines": "451-453",
+      "firstLine": "gl.chain.Account(Address(str(escrow['recipient']))).emit_transfer(",
+      "lastLine": ")",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L451-L453"
+    },
+    {
+      "id": "v_close",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/finality_vault.py",
+      "lines": "465-482",
+      "firstLine": "def close_refused(self, action_id: str, decision_id: str, reason_code: str) -> dict:",
+      "lastLine": "return {'action_id': action_id, 'status': STATE_REFUNDABLE, 'reason_code': reason_code}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L465-L482"
+    },
+    {
+      "id": "v_withdraw",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/finality_vault.py",
+      "lines": "485-500",
+      "firstLine": "def withdraw_refund(self, action_id: str) -> dict:",
+      "lastLine": "return {'action_id': action_id, 'status': STATE_WITHDRAWN, 'amount': int(escrow['amount'])}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L485-L500"
+    },
+    {
+      "id": "v_reclaim",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/finality_vault.py",
+      "lines": "503-528",
+      "firstLine": "def reclaim_after_deadline(self, action_id: str) -> dict:",
+      "lastLine": "return {'action_id': action_id, 'status': STATE_RECLAIMED, 'amount': int(escrow['amount'])}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L503-L528"
+    },
+    {
+      "id": "v_json",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/finality_vault.py",
+      "lines": "137-141",
+      "firstLine": "# Records are JSON strings in a TreeMap[str, str]. Typed storage classes need a",
+      "lastLine": "# neither.",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L137-L141"
+    },
+    {
+      "id": "r_head",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/scenario_registry.py",
+      "lines": "6-14",
+      "firstLine": "The v1 policy registry with identical behaviour and the same content hash, so a",
+      "lastLine": "path and no administrative override.",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/scenario_registry.py#L6-L14"
+    },
+    {
+      "id": "r_publish",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "contracts/v1/scenario_registry.py",
+      "lines": "44-68",
+      "firstLine": "def publish_policy(",
+      "lastLine": "return policy_hash",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/scenario_registry.py#L44-L68"
+    },
+    {
+      "id": "b_final",
+      "sha": "b903f9423b46dfa45e87ac8db7d8d48edc167119",
+      "path": "contracts/decision_gate.py",
+      "lines": "684-740",
+      "firstLine": "def finalize_decision(self, decision_id: str) -> dict:",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/b903f9423b46dfa45e87ac8db7d8d48edc167119/contracts/decision_gate.py#L684-L740"
+    },
+    {
+      "id": "b_window",
+      "sha": "b903f9423b46dfa45e87ac8db7d8d48edc167119",
+      "path": "contracts/decision_gate.py",
+      "lines": "122-122",
+      "firstLine": "APPEAL_WINDOW_SECONDS = 120",
+      "lastLine": "APPEAL_WINDOW_SECONDS = 120",
+      "url": "https://github.com/0xkinno/definit/blob/b903f9423b46dfa45e87ac8db7d8d48edc167119/contracts/decision_gate.py#L122"
+    },
+    {
+      "id": "b_settle",
+      "sha": "b903f9423b46dfa45e87ac8db7d8d48edc167119",
+      "path": "contracts/finality_vault.py",
+      "lines": "342-504",
+      "firstLine": "def settle(",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/b903f9423b46dfa45e87ac8db7d8d48edc167119/contracts/finality_vault.py#L342-L504"
+    },
+    {
+      "id": "b_funder",
+      "sha": "b903f9423b46dfa45e87ac8db7d8d48edc167119",
+      "path": "contracts/finality_vault.py",
+      "lines": "366-373",
+      "firstLine": "# The funder is allowed to *ask*. It is not allowed to decide: every guard",
+      "lastLine": "gl.vm.UserError.immediate(ERR_UNAUTHORIZED_CALLER)",
+      "url": "https://github.com/0xkinno/definit/blob/b903f9423b46dfa45e87ac8db7d8d48edc167119/contracts/finality_vault.py#L366-L373"
+    },
+    {
+      "id": "b_guard6c",
+      "sha": "b903f9423b46dfa45e87ac8db7d8d48edc167119",
+      "path": "contracts/finality_vault.py",
+      "lines": "422-427",
+      "firstLine": "# Guard 6c -- and this contract checks the window for itself, against",
+      "lastLine": "gl.vm.UserError.immediate(ERR_DECISION_NOT_FINAL)",
+      "url": "https://github.com/0xkinno/definit/blob/b903f9423b46dfa45e87ac8db7d8d48edc167119/contracts/finality_vault.py#L422-L427"
+    },
+    {
+      "id": "a_open",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "packages/definit-guard/src/payments.ts",
+      "lines": "12-49",
+      "firstLine": "export async function openGuardedPayment(ctx: GuardContext, input: GuardedPaymentInput): Promise<GuardedPaymen",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/payments.ts#L12-L49"
+    },
+    {
+      "id": "a_receipt",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "packages/definit-guard/src/payments.ts",
+      "lines": "52-64",
+      "firstLine": "export async function receipt(ctx: GuardContext, actionId: string): Promise<PaymentReceipt> {",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/payments.ts#L52-L64"
+    },
+    {
+      "id": "a_settled",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "packages/definit-guard/src/payments.ts",
+      "lines": "70-87",
+      "firstLine": "export async function settled(",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/payments.ts#L70-L87"
+    },
+    {
+      "id": "a_contest",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "packages/definit-guard/src/payments.ts",
+      "lines": "90-96",
+      "firstLine": "export async function contest(ctx: GuardContext, txId: string): Promise<{ charge: bigint; hash: string }> {",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/payments.ts#L90-L96"
+    },
+    {
+      "id": "a_refund",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "packages/definit-guard/src/payments.ts",
+      "lines": "99-108",
+      "firstLine": "export async function refund(ctx: GuardContext, actionId: string): Promise<string> {",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/payments.ts#L99-L108"
+    },
+    {
+      "id": "a_msgalloc",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "packages/definit-guard/src/kit.ts",
+      "lines": "24-41",
+      "firstLine": "export function withMessageAllocations(quote: any, messages: Array<{ recipient: string; method: string }>, sha",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/kit.ts#L24-L41"
+    },
+    {
+      "id": "a_kitctx",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "packages/definit-guard/src/kit.ts",
+      "lines": "43-88",
+      "firstLine": "export function kitContext(params: {",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/kit.ts#L43-L88"
+    },
+    {
+      "id": "a_finality",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "packages/definit-guard/src/finality.ts",
+      "lines": "11-17",
+      "firstLine": "export function finalityOf(lc: Lifecycle): FinalityVerdict {",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/finality.ts#L11-L17"
+    },
+    {
+      "id": "a_watch",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "packages/definit-guard/src/finality.ts",
+      "lines": "28-42",
+      "firstLine": "export async function* watchFinality(",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/finality.ts#L28-L42"
+    },
+    {
+      "id": "f_write",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "scripts/lib/v1-flow.mjs",
+      "lines": "114-124",
+      "firstLine": "export async function write(ctx, label, spec, { allowFailure = false } = {}) {",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L114-L124"
+    },
+    {
+      "id": "f_run",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "scripts/lib/v1-flow.mjs",
+      "lines": "188-354",
+      "firstLine": "export async function runPayment(ctx, deployment, options) {",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L188-L354"
+    },
+    {
+      "id": "f_create",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "scripts/lib/v1-flow.mjs",
+      "lines": "215-225",
+      "firstLine": "// 1. propose",
+      "lastLine": "step(\"create_action\", { tx: create.hash, explorer: explorerTx(create.hash) });",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L215-L225"
+    },
+    {
+      "id": "f_fund",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "scripts/lib/v1-flow.mjs",
+      "lines": "227-231",
+      "firstLine": "// 2. fund. The escrow must exist before adjudication.",
+      "lastLine": "record.vault = { escrowBefore };",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L227-L231"
+    },
+    {
+      "id": "f_adj",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "scripts/lib/v1-flow.mjs",
+      "lines": "234-239",
+      "firstLine": "// 3. adjudicate. Both outcomes are funded: one is delivered, the other's budget is refunded.",
+      "lastLine": "step(\"request_adjudication submitted\", { tx: adjHash, explorer: explorerTx(adjHash) });",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L234-L239"
+    },
+    {
+      "id": "f_appeal",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "scripts/lib/v1-flow.mjs",
+      "lines": "261-271",
+      "firstLine": "if (appeal && !appealed && lc.projectedStatus === \"Accepted\") {",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L261-L271"
+    },
+    {
+      "id": "f_child",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "scripts/lib/v1-flow.mjs",
+      "lines": "273-276",
+      "firstLine": "if (finalizedAtMs && !childHash) {",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L273-L276"
+    },
+    {
+      "id": "f_delivery",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "scripts/lib/v1-flow.mjs",
+      "lines": "298-308",
+      "firstLine": "if (childHash) {",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L298-L308"
+    },
+    {
+      "id": "f_refund",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "scripts/lib/v1-flow.mjs",
+      "lines": "328-340",
+      "firstLine": "// 6. a refusal sends the value home",
+      "lastLine": "record.vault.escrowAfterWithdraw = await read(ctx, vault, \"get_escrow\", [actionId]);",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L328-L340"
+    },
+    {
+      "id": "l_lifecycle",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "scripts/lib/chain.mjs",
+      "lines": "56-56",
+      "firstLine": "export const lifecycle = (txId) => rpc(\"gen_getTransactionLifecycle\", [{ txId }]);",
+      "lastLine": "export const lifecycle = (txId) => rpc(\"gen_getTransactionLifecycle\", [{ txId }]);",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/chain.mjs#L56"
+    },
+    {
+      "id": "c_handlers",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "components/console/V1Console.tsx",
+      "lines": "86-119",
+      "firstLine": "const propose = () => run(\"propose\", async () => {",
+      "lastLine": "const withdraw = () => run(\"withdraw\", async () => { await send(\"withdraw_refund\", { address: V1.vault, method",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/components/console/V1Console.tsx#L86-L119"
+    },
+    {
+      "id": "c_send",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "components/console/V1Console.tsx",
+      "lines": "71-78",
+      "firstLine": "async function send(label: string, w: Write): Promise<string> {",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/components/console/V1Console.tsx#L71-L78"
+    },
+    {
+      "id": "c_poll",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "components/console/V1Console.tsx",
+      "lines": "48-64",
+      "firstLine": "// Poll the protocol's own lifecycle and the vault's own state. Nothing is inferred from elapsed time.",
+      "lastLine": "}, [actionId, adjTx, reader]);",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/components/console/V1Console.tsx#L48-L64"
+    },
+    {
+      "id": "c_quote",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "lib/v1/console.ts",
+      "lines": "43-50",
+      "firstLine": "export async function quoteWrite(kit: ReturnType<typeof makeKit>, preset: FeePreset, w: Write): Promise<Quoted",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/lib/v1/console.ts#L43-L50"
+    },
+    {
+      "id": "c_submit",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "lib/v1/console.ts",
+      "lines": "56-65",
+      "firstLine": "export async function submitQuoted(kit: ReturnType<typeof makeKit>, q: Quoted, w: Write, client?: { writeContr",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/lib/v1/console.ts#L56-L65"
+    },
+    {
+      "id": "c_life",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "lib/v1/console.ts",
+      "lines": "76-85",
+      "firstLine": "export async function readLifecycle(txId: string): Promise<Lifecycle> {",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/lib/v1/console.ts#L76-L85"
+    },
+    {
+      "id": "m_clock",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "components/milestone/FinalityClock.tsx",
+      "lines": "12-69",
+      "firstLine": "export function FinalityClock({ run }: { run: RunRecord }) {",
+      "lastLine": "}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/components/milestone/FinalityClock.tsx#L12-L69"
+    },
+    {
+      "id": "m_page",
+      "sha": "2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "path": "app/milestone/page.tsx",
+      "lines": "81-102",
+      "firstLine": "{m.runs.map((run) => (",
+      "lastLine": "))}",
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/app/milestone/page.tsx#L81-L102"
+    }
+  ],
+  "results": [
+    {
+      "url": "https://github.com/0xkinno/definit",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/commit/b903f9423b46dfa45e87ac8db7d8d48edc167119",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/commit/2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/compare/b903f9423b46dfa45e87ac8db7d8d48edc167119...2b45ea5e34d17aa6e89045bff94df9405a139a79",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/build/decision_gate.min.py",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/build/decision_gate.py",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/build/finality_vault.min.py",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/build/finality_vault.py",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/build/scenario_registry.min.py",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/build/scenario_registry.py",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/core/vault_model.py",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/decision_gate.py",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/scenario_registry.py",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/commit/18562cf64eebb3b36efabd87b9798668fe8f6e52",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/commit/d919b31fa90ae7c744291c23998416b95add2971",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/commit/c4096a6e9d79b9b3fe8df41100a54af935fad531",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/commit/a16ea42451a3dfaaab31fa47c3c490f558aad525",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/commit/b7d448d2c3f0e2f5a0d2a5ec4f1d4e5fc5599890",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/commit/f16d00cd4af93d4233b91da741bdbcc73b065a93",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/commit/833470b36de4d9064b5a4e8fb6712826cad200cc",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/commit/da914934af6ad277ee7404e5ae0d8769b0c804e3",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/commit/24a5887c988de159549fa1ecead8f3fbec87e0f9",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/scenario_registry.py#L6-L14",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/decision_gate.py#L538-L574",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/decision_gate.py#L597-L668",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/decision_gate.py#L647-L666",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/decision_gate.py#L20-L27",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/b903f9423b46dfa45e87ac8db7d8d48edc167119/contracts/decision_gate.py#L122",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/b903f9423b46dfa45e87ac8db7d8d48edc167119/contracts/decision_gate.py#L684-L740",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/decision_gate.py#L435-L449",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/decision_gate.py#L29-L37",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/evidence/milestone/spike/findings-session1.json",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L15-L41",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L257-L300",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L351-L462",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L368-L370",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L376-L381",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L383-L391",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L393-L416",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L451-L453",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L465-L482",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L485-L500",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L503-L528",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/evidence/milestone/no-clock-check.json",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/b903f9423b46dfa45e87ac8db7d8d48edc167119/contracts/finality_vault.py#L342-L504",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/b903f9423b46dfa45e87ac8db7d8d48edc167119/contracts/finality_vault.py#L366-L373",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/b903f9423b46dfa45e87ac8db7d8d48edc167119/contracts/finality_vault.py#L422-L427",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/finality_vault.py#L137-L141",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/contracts/v1/scenario_registry.py#L44-L68",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://explorer-studio-dev.genlayer.com/address/0x8DC63918F88dcc719397a39730C1b31A1cF895DF",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://explorer-studio-dev.genlayer.com/address/0x61c1CfA242521936214ebf5510b6E3AA6E9EAdf5",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://explorer-studio-dev.genlayer.com/address/0xA03C1884F2dFf591388B85840F264c93EE4bF889",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/build-contracts.mjs",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/artifacts/deployment-v1.json",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/payments.ts#L12-L49",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/payments.ts#L70-L87",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/payments.ts#L52-L64",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/payments.ts#L90-L96",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/payments.ts#L99-L108",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/kit.ts#L43-L88",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/kit.ts#L24-L41",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/finality.ts#L11-L17",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/packages/definit-guard/src/finality.ts#L28-L42",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L188-L354",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L215-L225",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L227-L231",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L234-L239",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L261-L271",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L273-L276",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L298-L308",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L328-L340",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/scripts/lib/v1-flow.mjs#L114-L124",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/components/console/V1Console.tsx#L86-L119",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/components/console/V1Console.tsx#L71-L78",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/lib/v1/console.ts#L43-L50",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/lib/v1/console.ts#L56-L65",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/components/console/V1Console.tsx#L48-L64",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/lib/v1/console.ts#L76-L85",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/app/milestone/page.tsx#L81-L102",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/components/milestone/FinalityClock.tsx#L12-L69",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/evidence/milestone/v1-run-R1.json",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/evidence/milestone/v1-run-R2.json",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://explorer-studio-dev.genlayer.com/tx/0xbbcc412515528511beb4c82b1b63f319b5fe8789b3d0ee1f177fd345e6f2aea8",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://explorer-studio-dev.genlayer.com/tx/0x1f93f51bbc065598b028c96e9fca58fea1653d8c471a90c38511f7a9d7448759",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://explorer-studio-dev.genlayer.com/tx/0x97de9274e8b549e5940e44d24eae347971b073c22e033cc7140a79eba42bf3a4",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://explorer-studio-dev.genlayer.com/tx/0x88935bfa38c3b996cadb46b2d20fca517944a8580177319757ff2af95575e494",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/evidence/milestone/offline-verification.json",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://explorer-studio-dev.genlayer.com/tx/0xf72af78f95010e94b0f2fd49024798ec7acbac60a4d6daa09970d9be021cce03",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://explorer-studio-dev.genlayer.com/tx/0xdea9126568dd417f7c8a2a6dd5507de12868afaac94259c68c5c0395f77ff284",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://explorer-studio-dev.genlayer.com/tx/0x5fb1e07e04667263d949af3c445440e38fb9f29bd0c7ac311546a4b2d800f21d",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://explorer-studio-dev.genlayer.com/tx/0x3f9c9bc70f78d8b665616f1ddd33528909d82b91447aa4e9ba9032b34e1300ec",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://explorer-studio-dev.genlayer.com/tx/0xb06865ae6ff48a1eaaa899625353483eb986c0adaebd4f09b3051c56c37d8e50",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/evidence/milestone/transfer-credit-probe.json",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/milestone/DELTA.md",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/milestone/PROOF_V1.md",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/evidence/milestone/h1-differential.json",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/milestone/FINDING.md",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/milestone/VAULT_STATE_MACHINE.md",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/evidence/milestone/property.json",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/evidence/milestone/proof-v1-report.json",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/evidence/milestone/mutation.json",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/tests/unit/parity.test.ts",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/evidence/milestone/books.json",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/evidence/milestone/counterfactual.json",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://explorer-studio-dev.genlayer.com/tx/0xaef9b09b635c95b6cea10bf8bebb8d49f88bc55ac8a6bb002043cba1bcb160d0",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/evidence/milestone/agent-run-approve.json",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/evidence/milestone/agent-run-kit-submit-finding.json",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/evidence/milestone/network-matrix.json",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/milestone/NETWORK_DECISION.md",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://explorer-studio-dev.genlayer.com/tx/0x49d5869ee469a175836b0f59408d8173aae22e4bd1ed711ed2afb199d074dbd8",
+      "status": 200,
+      "note": ""
+    },
+    {
+      "url": "https://github.com/0xkinno/definit/blob/2b45ea5e34d17aa6e89045bff94df9405a139a79/docs/evidence/milestone/v1-run-R3.json",
+      "status": 200,
+      "note": ""
+    }
+  ]
+}

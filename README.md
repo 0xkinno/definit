@@ -18,6 +18,8 @@ an irreversible transfer requires.
 <!-- milestone:begin -->
 ## Milestone v1: protocol-delivered finality
 
+> **For stewards:** [`docs/milestone/STEWARD_EVIDENCE.md`](docs/milestone/STEWARD_EVIDENCE.md) holds the exact base...head comparison, pinned source links for the gate, vault, registry and application calls, and the deployed-bytes check.
+
 > **DEFINIT v1 removes its own clock: an autonomous agent's payment moves only on a message the GenLayer protocol itself delivers after the adjudicating transaction is Finalized, so an appeal can no longer be outrun.**
 
 **Problem.** An autonomous agent pays a supplier the moment an AI verdict says "delivered". If that verdict is appealed and overturned later, the money is already gone.
